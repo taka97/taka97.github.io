@@ -1,15 +1,15 @@
 ---
-title: Home
+title: Trang chủ
 nav_order: 1
-lang: en
+lang: vi
 permalink: /
 title_override: "Game Guides"
 ---
 
 # Game Guides
 
-Strategy guides and tips for the games I play.
+Hướng dẫn và mẹo chơi cho các game tôi chơi.
 
-## Games
+## Trò chơi
 
 - [Lands of Jail](/lands-of-jail/)
