@@ -1,5 +1,20 @@
+# Jekyll build output
 _site/
 .jekyll-cache/
 .jekyll-metadata
+
+# Ruby / Bundler
 vendor/
 .bundle/
+
+# Claude local settings (keep CLAUDE.md tracked)
+.claude/settings.local.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.idea/
+.vscode/
+*.swp
