@@ -99,10 +99,32 @@ exclude_from_localization: ["CNAME", "assets", ".nojekyll"]
 
 ## Theme Config
 
-- `title: "taka97 Game Guides"`, a `description`.
+- `title: "Game Guides"` (site name in sidebar header), a `description`.
 - `remote_theme: just-the-docs/just-the-docs`.
 - Enable: search, light/dark color scheme, back-to-top, footer.
 - No plugins beyond `jekyll-polyglot` (+ what Just the Docs needs).
+
+### Custom HTML `<title>`
+
+Override the theme's default `PageTitle - SiteTitle` with a custom title include
+(`_includes/head_custom.html` or an overridden title include) using Liquid logic
+derived from the existing nav hierarchy:
+
+| Page type | Identified by | `<title>` |
+|-----------|---------------|-----------|
+| Home | root index, `title_override` set | `Game Guides` |
+| Game landing | top-level, `has_children`, no `parent` | `<Game> - <Guides-suffix>` |
+| Season / Guide | has `parent`; game = `grandparent` else `parent` | `<Game> - <page title>` |
+
+- Game name = `page.grandparent` if present, else `page.parent`.
+- Only the home page needs extra front matter: `title_override: "Game Guides"`
+  (and its VI equivalent).
+- **Guides-suffix is localized:** EN `"Guides"`, VI `"Hướng dẫn"`.
+- jekyll-seo-tag title is set to match (or disabled) so the computed title is not
+  overridden.
+
+Examples: `Lands of Jail - Guides`, `Lands of Jail - Season 1`,
+`Lands of Jail - Satellite`.
 
 ## Content Migration
 
