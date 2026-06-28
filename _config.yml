@@ -1,0 +1,35 @@
+title: "Game Guides"
+description: "Game guides and strategy wiki"
+url: "https://games.taka97it.com"
+baseurl: ""
+
+theme: just-the-docs
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-include-cache
+  - jekyll-polyglot
+
+# --- Polyglot (i18n) ---
+languages: ["en", "vi"]
+default_lang: "en"
+exclude_from_localization: ["CNAME", "assets", "sitemap.xml"]
+parallel_localization: false
+
+# --- Just the Docs ---
+search_enabled: true
+color_scheme: light
+back_to_top: true
+back_to_top_text: "Back to top"
+
+# --- Jekyll 4 + Polyglot ---
+sass:
+  sourcemap: never
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - docs/
+  - plans/
+  - README.md
