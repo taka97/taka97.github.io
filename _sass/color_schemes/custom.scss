@@ -1,0 +1,29 @@
+// Custom color scheme for Game Guides.
+// Just the Docs loads this when `color_scheme: custom` is set in _config.yml.
+// It builds on the default (light) base; only overridden variables change.
+
+// --- Brand palette ---
+$indigo-700: #3b41c5;
+$indigo-500: #4c6ef5;
+$teal-500:   #0ca678;
+$amber-500:  #f59f00;
+
+// --- Links & primary actions ---
+$link-color:        $indigo-500;
+$btn-primary-color: $indigo-500;
+
+// --- Headings & body text ---
+$body-heading-color: #14142b;
+$body-text-color:    #353748;
+
+// --- Sidebar / navigation ---
+$sidebar-color:         #f7f8fc;
+$nav-child-link-color:  #5c6275;
+$border-color:          #e6e8f0;
+
+// --- Search ---
+$search-result-preview-color: #6b7280;
+
+// --- Code ---
+$code-background-color:   #f5f6fa;
+$code-linenumber-color:   #adb5bd;
