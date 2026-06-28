@@ -1,0 +1,31 @@
+# Local Jekyll preview for the Game Guides site.
+# Ruby isn't installed locally, so the site builds inside this container.
+#
+# Usage (Docker Desktop must be running):
+#   docker compose up          # build + serve at http://localhost:4000 with live reload
+#   docker compose up -d       # same, detached
+#   docker compose restart     # fast restart (needed after _config.yml changes)
+#   docker compose down        # stop and remove the container
+#
+# The gem bundle is cached in a named volume, so restarts skip reinstalling gems.
+
+services:
+  jekyll:
+    image: ruby:3.3
+    working_dir: /site
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/site
+      - gh_pages_bundle:/usr/local/bundle
+    # Install gems if the cache volume is empty, then serve with polling
+    # (polling is required for file-watch to work across the Windows bind mount).
+    command: >
+      bash -lc "bundle check || bundle install &&
+                bundle exec jekyll serve --host 0.0.0.0 --watch --force_polling"
+
+volumes:
+  gh_pages_bundle:
+    # Reuse the existing bundle cache volume so gems don't reinstall.
+    name: gh_pages_bundle
+    external: true
