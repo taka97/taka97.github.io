@@ -1,0 +1,19 @@
+{%- comment -%}
+  Language switcher in the sidebar footer.
+  static_href stops Polyglot from rewriting these hrefs to the active language,
+  so each link points at its own language explicitly.
+{%- endcomment -%}
+<div class="lang-switcher" role="navigation" aria-label="Language">
+  {%- for lang in site.languages -%}
+    {%- if lang == site.active_lang -%}
+      <span class="lang-switcher__active" aria-current="true">{{ lang | upcase }}</span>
+    {%- else -%}
+      <a {% static_href %}href="{{ site.baseurl }}{% if lang != site.default_lang %}/{{ lang }}{% endif %}{{ page.url }}"{% endstatic_href %}>{{ lang | upcase }}</a>
+    {%- endif -%}
+    {%- unless forloop.last %} · {% endunless -%}
+  {%- endfor -%}
+</div>
+
+<footer class="site-footer">
+  &copy; {{ "now" | date: "%Y" }} {{ site.title }}
+</footer>
