@@ -14,11 +14,15 @@ organized by season.
 
 ## Tech & Hosting
 
-- **Generator:** Jekyll + **Just the Docs** theme via `remote_theme`
-  (`just-the-docs/just-the-docs`). No theme files vendored.
+- **Generator:** Jekyll 4 + **Just the Docs** theme via the **pinned gem**
+  (`just-the-docs` `0.10.1`, `theme: just-the-docs`) managed by Bundler. Building
+  with our own Bundler (not GitHub's classic build) lets us pin the version and
+  reliably override theme `_includes`.
 - **i18n:** `jekyll-polyglot` plugin. Because Polyglot is not on the GitHub Pages
   plugin whitelist, the site is built with a **GitHub Actions** workflow rather
   than the classic branch build.
+- **Required plugins:** `jekyll-seo-tag`, `jekyll-include-cache` (both required by
+  Just the Docs), `jekyll-polyglot`.
 - **Build/deploy:** `.github/workflows/deploy.yml` runs `bundle exec jekyll build`
   (so Polyglot executes) and deploys to GitHub Pages. Pages source = "GitHub
   Actions".
@@ -55,7 +59,9 @@ Home                       (portal: links/cards to each game)
 ├── CNAME                       # games.taka97it.com
 ├── Gemfile                     # local preview only
 ├── .github/workflows/deploy.yml
-├── _includes/                  # language switcher include (custom)
+├── _includes/
+│   ├── head.html               # overrides theme: custom <title> + hreflang
+│   └── nav_footer_custom.html  # language switcher (sidebar footer)
 ├── index.md / index.vi.md      # Home portal
 └── lands-of-jail/
     ├── index.md / index.vi.md          # game landing
@@ -80,9 +86,13 @@ Resulting URLs (EN at root, VI under `/vi/`):
 `_config.yml` additions:
 
 ```yaml
+url: "https://games.taka97it.com"
 languages: ["en", "vi"]
 default_lang: "en"
-exclude_from_localization: ["CNAME", "assets", ".nojekyll"]
+exclude_from_localization: ["CNAME", "assets", "sitemap.xml"]
+parallel_localization: false   # required for Windows local builds
+sass:
+  sourcemap: never             # avoids Jekyll 4 + Polyglot sourcemap issue
 ```
 
 - Each page is **two files sharing one `permalink`**, distinguished by `lang`
@@ -92,17 +102,23 @@ exclude_from_localization: ["CNAME", "assets", ".nojekyll"]
 - **Nav front matter** (`parent`/`grandparent` referenced by title) must be
   internally consistent **within each language**: EN files reference EN titles,
   VI files reference VI titles.
-- **Language switcher:** Just the Docs has no built-in switcher. Add a small
-  custom include (header snippet) that links the current page to its
-  other-language URL using Polyglot helpers. This is the primary implementation
-  risk; everything else is standard.
+- **Language switcher:** Just the Docs has no built-in switcher. Add it via the
+  theme's supported `_includes/nav_footer_custom.html` override (sidebar footer).
+  It links the current page to its other-language URL. Because Polyglot rewrites
+  hrefs to the active language, switcher and hreflang links must be wrapped in
+  Polyglot's `{% static_href %}...{% endstatic_href %}` block and built from
+  `page.url` + a `/<lang>` prefix (`site.active_lang` / `site.default_lang`). This
+  is the primary implementation risk; everything else is standard.
+- **Title override:** Override `_includes/head.html` (copied from the pinned theme
+  version) — replace `{% seo %}` with `{% seo title=false %}` and emit a custom
+  `<title>` plus the hreflang `<link rel="alternate">` tags.
 
 ## Theme Config
 
 - `title: "Game Guides"` (site name in sidebar header), a `description`.
-- `remote_theme: just-the-docs/just-the-docs`.
+- `theme: just-the-docs` (pinned `0.10.1` via Gemfile).
+- `plugins: [jekyll-seo-tag, jekyll-include-cache, jekyll-polyglot]`.
 - Enable: search, light/dark color scheme, back-to-top, footer.
-- No plugins beyond `jekyll-polyglot` (+ what Just the Docs needs).
 
 ### Custom HTML `<title>`
 
