@@ -11,29 +11,25 @@ permalink: /lands-of-jail/season-1/satellite/
 
 ## Overview
 
-### 1️⃣ TOP PRIORITY: LASER SATELLITE 🔵
+### TOP PRIORITY: LASER SATELLITE 🔵
 
-The engine of your progression.
+**Role:** The engine of your progression — the only satellite that passively generates the resources needed to upgrade the others.
 
-**Why:** It's the only satellite that passively generates the resources needed to upgrade the other satellites.
-
-**Rewards:** 5 chests/day containing Space Parts and EXP Disks.
+**Effect:** 6 chests/day (one per 1-hour resource gathering), containing Space Parts and EXP Disks.
 
 **Verdict:** Max this one first to create a "snowball effect" on your space economy.
 
 ### PvE OPTIMIZATION: RADIANCE SATELLITE 🔵
 
-The field specialist.
+**Role:** The field specialist for PvE arrests.
 
 **Effect:** +11% Attack & Defense during prisoner arrests.
 
-**Usefulness:** Essential for clearing difficult PvE stages and completing your daily mission objectives.
+**Verdict:** Essential for clearing difficult PvE stages and daily missions; useless in PvP. Focus on it once your Laser Satellite is stable.
 
-**Note:** Useless in PvP; focus on it once your Laser Satellite is stable.
+### SECONDARY SUPPORT: WATCHER SATELLITE 🔵
 
-### SECONDARY SUPPORT: OBSERVATION SATELLITE 🔵
-
-The comfort bonus.
+**Role:** The comfort bonus.
 
 **Effect:** Reduced HP for deflectors + daily resource chest.
 
@@ -41,10 +37,12 @@ The comfort bonus.
 
 ## Priority Order
 
+🔵 Season 1 (available now) · 🟣 🟡 releasing in later seasons
+
 1. **LASER 🔵 (Economy):** Satellite resources
-2. **SENTINEL 🟣 (Reinforcement):** Instant troop training
-3. **ARGUS 🟡 (Growth):** Increases expedition capacity
-4. **ARBITER 🟣 (Combat):** Extra damage during the Cage event
-5. **POLARIS 🟡 (Target):** Gorilla attack bonus
+2. **SENTINEL 🟣 (Reinforcement):** Instant troop training _(unreleased)_
+3. **ARGUS 🟡 (Growth):** Increases expedition capacity _(unreleased)_
+4. **ARBITER 🟣 (Combat):** Extra damage during the Cage event _(unreleased)_
+5. **POLARIS 🟡 (Target):** Gorilla attack bonus _(unreleased)_
 6. **RADIANCE 🔵 (PvE Strength):** Attack bonus for PvE arrests
-7. **OBSERVATION 🔵 (Support):** Daily resource chest and support bonus
+7. **WATCHER 🔵 (Support):** Daily resource chest and support bonus
