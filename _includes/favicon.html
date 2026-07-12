@@ -1,0 +1,11 @@
+{%- comment -%}
+  Overrides just-the-docs v0.10.1 _includes/favicon.html.
+  Per-game favicon: default is game-console; a game section can use its own icon.
+  To add a game: add an `elsif page.url contains "/<slug>"` branch below and drop
+  matching icons into /public/icons/ (<slug>.ico and <slug>-180.png).
+  static_href stops polyglot from prefixing asset URLs with the language code.
+{%- endcomment -%}
+{%- assign fav = "game-console" -%}
+{%- if page.url contains "/lands-of-jail" -%}{%- assign fav = "lands-of-jail" -%}{%- endif -%}
+<link rel="icon" {% static_href %}href="{{ '/public/icons/' | append: fav | append: '.ico' | relative_url }}"{% endstatic_href %} sizes="any">
+<link rel="apple-touch-icon" {% static_href %}href="{{ '/public/icons/' | append: fav | append: '-180.png' | relative_url }}"{% endstatic_href %}>
