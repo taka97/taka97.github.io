@@ -1,9 +1,9 @@
 ---
 title: Trang chủ
-nav_order: 1
 lang: vi
-permalink: /
-title_override: "Game Guides"
+permalink: /vi/
+ref: home
+layout: page
 ---
 
 # Game Guides
@@ -12,4 +12,4 @@ Hướng dẫn và mẹo chơi cho các game tôi chơi.
 
 ## Trò chơi
 
-- [Lands of Jail](/lands-of-jail/)
+- [Lands of Jail](/vi/lands-of-jail/)

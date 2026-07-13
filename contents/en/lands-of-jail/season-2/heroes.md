@@ -1,10 +1,12 @@
 ---
 title: Heroes
-parent: Season 2
-grandparent: Lands of Jail
-nav_order: 1
 lang: en
-permalink: /lands-of-jail/season-2/heroes/
+permalink: /en/lands-of-jail/season-2/heroes/
+ref: loj-s2-heroes
+sidebar:
+  nav: loj-en
+aside:
+  toc: true
 ---
 
 # Lands of Jail - Heroes

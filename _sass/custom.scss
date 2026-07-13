@@ -1,0 +1,43 @@
+/* start custom scss snippet */
+
+/* Overrides the TeXt theme's empty _sass/custom.scss (imported last by
+   assets/css/main.scss, so these rules win). Only theme-agnostic readability
+   tweaks carried over from the old Just-the-Docs styling. */
+
+/* Softer body line-height for long guide pages. */
+.js-article-content {
+  p,
+  li {
+    line-height: 1.6;
+  }
+
+  /* Header tint for the stat/loot tables common in game guides. */
+  table th {
+    background-color: #f0f1f8;
+  }
+}
+
+/* Language switcher, injected into the header title bar by _includes/header.html. */
+.lang-switcher {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 1rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+
+  a {
+    padding: 0 0.35rem;
+  }
+
+  .lang-switcher__active {
+    padding: 0 0.35rem;
+    font-weight: 600;
+  }
+
+  .lang-switcher__sep {
+    opacity: 0.5;
+  }
+}
+
+/* end custom scss snippet */

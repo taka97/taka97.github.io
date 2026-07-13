@@ -1,9 +1,12 @@
 ---
 title: Lands of Jail
-nav_order: 2
-has_children: true
 lang: en
-permalink: /lands-of-jail/
+permalink: /en/lands-of-jail/
+ref: loj-home
+sidebar:
+  nav: loj-en
+aside:
+  toc: true
 ---
 
 # Lands of Jail
@@ -24,12 +27,12 @@ permalink: /lands-of-jail/
 
 ### Season 1
 
-- [Satellite](/lands-of-jail/season-1/satellite/)
+- [Satellite](/en/lands-of-jail/season-1/satellite/)
 
 ### Season 2
 
-- [Heroes](/lands-of-jail/season-2/heroes/)
-- [Robots](/lands-of-jail/season-2/robots/)
+- [Heroes](/en/lands-of-jail/season-2/heroes/)
+- [Robots](/en/lands-of-jail/season-2/robots/)
 
 ## Characters / Builds / Loadouts
 

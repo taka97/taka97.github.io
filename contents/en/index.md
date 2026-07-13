@@ -1,9 +1,9 @@
 ---
 title: Home
-nav_order: 1
 lang: en
-permalink: /
-title_override: "Game Guides"
+permalink: /en/
+ref: home
+layout: page
 ---
 
 # Game Guides
@@ -12,4 +12,4 @@ Strategy guides and tips for the games I play.
 
 ## Games
 
-- [Lands of Jail](/lands-of-jail/)
+- [Lands of Jail](/en/lands-of-jail/)

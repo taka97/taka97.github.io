@@ -1,0 +1,10 @@
+{%- comment -%}
+  Overrides TeXt's footer with a simple copyright line for the guides wiki.
+{%- endcomment -%}
+<footer class="footer py-4 js-page-footer">
+  <div class="main">
+    <div class="site-info">
+      &copy; {{ 'now' | date: '%Y' }} {{ site.title }}
+    </div>
+  </div>
+</footer>

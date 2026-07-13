@@ -1,0 +1,16 @@
+<!-- start custom head snippets -->
+{%- comment -%}
+  hreflang alternates linking each page to its EN/VI counterpart. Counterparts
+  share a `ref` slug; x-default points at the English version.
+{%- endcomment -%}
+{%- if page.ref -%}
+  {%- for _p in site.pages -%}
+    {%- if _p.ref == page.ref and _p.lang -%}
+      <link rel="alternate" hreflang="{{ _p.lang }}" href="{{ site.url }}{{ site.baseurl }}{{ _p.url }}">
+      {%- if _p.lang == 'en' -%}
+        <link rel="alternate" hreflang="x-default" href="{{ site.url }}{{ site.baseurl }}{{ _p.url }}">
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+<!-- end custom head snippets -->

@@ -1,10 +1,12 @@
 ---
 title: Robots
-parent: Season 2
-grandparent: Lands of Jail
-nav_order: 2
 lang: vi
-permalink: /lands-of-jail/season-2/robots/
+permalink: /vi/lands-of-jail/season-2/robots/
+ref: loj-s2-robots
+sidebar:
+  nav: loj-vi
+aside:
+  toc: true
 ---
 
 # Lands of Jail - Robots

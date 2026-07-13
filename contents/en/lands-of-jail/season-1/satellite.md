@@ -1,10 +1,12 @@
 ---
 title: Satellite
-parent: Season 1
-grandparent: Lands of Jail
-nav_order: 1
 lang: en
-permalink: /lands-of-jail/season-1/satellite/
+permalink: /en/lands-of-jail/season-1/satellite/
+ref: loj-s1-satellite
+sidebar:
+  nav: loj-en
+aside:
+  toc: true
 ---
 
 # Lands of Jail - Satellite

@@ -1,0 +1,54 @@
+# TeXt navigation. `header` is the top nav (shared across languages, bilingual
+# labels via `titles`). Sidebar groups `loj-en` / `loj-vi` drive the per-language
+# game -> season -> guide tree; pages opt in with `sidebar: { nav: loj-<lang> }`.
+#
+# NOTE: TeXt's sidebar navigator (_includes/sidebar/toc.html) renders only two
+# levels — a non-link group title (toc-h1) and its link children (toc-h2). The
+# 3-level game/season/guide hierarchy is therefore flattened: each season is its
+# own top-level group so guide pages remain reachable.
+
+header:
+  - titles:
+      en: Home
+      vi: Trang chủ
+    url: /
+
+loj-en:
+  - title: Lands of Jail
+    children:
+      - title: Overview
+        url: /en/lands-of-jail/
+  - title: Season 1
+    children:
+      - title: Overview
+        url: /en/lands-of-jail/season-1/
+      - title: Satellite
+        url: /en/lands-of-jail/season-1/satellite/
+  - title: Season 2
+    children:
+      - title: Overview
+        url: /en/lands-of-jail/season-2/
+      - title: Heroes
+        url: /en/lands-of-jail/season-2/heroes/
+      - title: Robots
+        url: /en/lands-of-jail/season-2/robots/
+
+loj-vi:
+  - title: Lands of Jail
+    children:
+      - title: Tổng quan
+        url: /vi/lands-of-jail/
+  - title: Season 1
+    children:
+      - title: Tổng quan
+        url: /vi/lands-of-jail/season-1/
+      - title: Satellite
+        url: /vi/lands-of-jail/season-1/satellite/
+  - title: Season 2
+    children:
+      - title: Tổng quan
+        url: /vi/lands-of-jail/season-2/
+      - title: Heroes
+        url: /vi/lands-of-jail/season-2/heroes/
+      - title: Robots
+        url: /vi/lands-of-jail/season-2/robots/

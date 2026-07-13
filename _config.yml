@@ -3,35 +3,35 @@ description: "Game guides and strategy wiki"
 url: "https://games.taka97it.com"
 baseurl: ""
 
-theme: just-the-docs
+theme: jekyll-text-theme
 
+# --- TeXt theme ---
+text_skin: default
+highlight_theme: tomorrow-night-eighties
+lang: en
+
+search:
+  provider: default
+
+# --- Plugins (jekyll-feed/paginate/jemoji pulled in by the theme gem) ---
 plugins:
-  - jekyll-seo-tag
-  - jekyll-include-cache
-  - jekyll-polyglot
+  - jekyll-feed
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jemoji
 
-# --- Polyglot (i18n) ---
-languages: ["en", "vi"]
-default_lang: "en"
-exclude_from_localization: ["CNAME", "assets", "sitemap.xml"]
-parallel_localization: false
-
-# --- Just the Docs ---
-search_enabled: true
-color_scheme: custom
-back_to_top: true
-back_to_top_text: "Back to top"
-
-# --- Apply the theme layout to all pages ---
+# --- Wiki defaults for all pages (home pages override layout to `page`) ---
+# Titles come from each page's own body H1, so TeXt's article <h1> is suppressed.
+# No blog chrome (dates/comments/sharing/pageview) on a static guides wiki.
 defaults:
   - scope:
       path: ""
     values:
-      layout: default
-
-# --- Jekyll 4 + Polyglot ---
-sass:
-  sourcemap: never
+      layout: article
+      show_title: false
+      comment: false
+      sharing: false
+      pageview: false
 
 exclude:
   - Gemfile
@@ -40,3 +40,4 @@ exclude:
   - docs/
   - plans/
   - README.md
+  - .text-gem-inspect/

@@ -1,0 +1,45 @@
+# UI-string locales for the TeXt theme. Overrides the gem's _data/locale.yml.
+# get-locale-string.html looks up site.data.locale[page.lang] and falls back to
+# `en` for any missing key. Only the two languages this site ships are defined.
+
+## => English
+en:
+  SUBSCRIBE               : "Subscribe"
+  READMORE                : "Read more"
+  SEARCH                  : "Search"
+  CANCEL                  : "Cancel"
+  VIEWS                   : "views"
+  LAST_UPDATED            : "Last updated"
+  PREVIOUS                : "PREVIOUS"
+  NEXT                    : "NEXT"
+  ARTICLE_DATE_FORMAT     : "%b %d, %Y"
+  ARTICLE_LIST_DATE_FORMAT: "%b %d"
+  STATISTICS              : "[POST_COUNT] post articles, [PAGE_COUNT] pages."
+  LICENSE_ANNOUNCE        : "This work is licensed under a [LICENSE] license."
+  POST_ON_GITHUB          : "Edit on Github"
+  FOLLOW_ME               : "Follow me on [NAME]."
+  FOLLOW_US               : "Follow us on [NAME]."
+  EMAIL_ME                : "Send me an Email."
+  EMAIL_US                : "Send us an Email."
+  COPYRIGHT_DATES         : "2026"
+
+## => Vietnamese (not shipped by TeXt; added here)
+vi:
+  SUBSCRIBE               : "Đăng ký"
+  READMORE                : "Đọc thêm"
+  SEARCH                  : "Tìm kiếm"
+  CANCEL                  : "Hủy"
+  VIEWS                   : "lượt xem"
+  LAST_UPDATED            : "Cập nhật lần cuối"
+  PREVIOUS                : "TRƯỚC"
+  NEXT                    : "TIẾP"
+  ARTICLE_DATE_FORMAT     : "%d %b, %Y"
+  ARTICLE_LIST_DATE_FORMAT: "%d %b"
+  STATISTICS              : "[POST_COUNT] bài viết, [PAGE_COUNT] trang."
+  LICENSE_ANNOUNCE        : "Tác phẩm này được cấp phép theo giấy phép [LICENSE]."
+  POST_ON_GITHUB          : "Chỉnh sửa trên Github"
+  FOLLOW_ME               : "Theo dõi tôi trên [NAME]."
+  FOLLOW_US               : "Theo dõi chúng tôi trên [NAME]."
+  EMAIL_ME                : "Gửi email cho tôi."
+  EMAIL_US                : "Gửi email cho chúng tôi."
+  COPYRIGHT_DATES         : "2026"

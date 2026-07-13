@@ -1,0 +1,74 @@
+{%- comment -%}
+  Overrides the TeXt theme header to add an EN <-> VI language switcher.
+  The switcher finds each page's counterpart by matching a shared `ref` slug in
+  the opposite `lang`, falling back to the language home when no counterpart
+  exists. Everything else mirrors the stock TeXt header.
+{%- endcomment -%}
+{%- if include.theme == 'dark' -%}
+  <header class="header header--dark" {%- if include.background -%} style="background: {{ include.background }};" {%- endif -%}>
+{%- elsif include.theme == 'light' -%}
+  <header class="header header--light" {%- if include.background -%} style="background: {{ include.background }};" {%- endif -%}>
+{%- else -%}
+  <header class="header" {%- if include.background -%} style="background: {{ include.background }};" {%- endif -%}>
+{%- endif -%}
+    <div class="main">
+      <div class="header__title">
+        <div class="header__brand">
+          {%- include svg/logo.svg -%}
+          {%- assign _paths_root = site.paths.root | default: site.data.variables.default.paths.root  -%}
+          {%- include snippets/get-nav-url.html path=_paths_root -%}
+          {%- if site.title -%}
+            <a title="{%- if site.description -%}{{ site.description }}{%- endif -%}" href="{{ __return }}">{{ site.title }}</a>
+          {%- endif -%}
+        </div>
+
+        {%- comment -%} Language switcher {%- endcomment -%}
+        {%- assign _cur_lang = page.lang | default: site.lang -%}
+        <div class="lang-switcher" role="navigation" aria-label="Language">
+          {%- assign _langs = "en,vi" | split: "," -%}
+          {%- for _l in _langs -%}
+            {%- if _l == _cur_lang -%}
+              <span class="lang-switcher__active" aria-current="true">{{ _l | upcase }}</span>
+            {%- else -%}
+              {%- assign _target_url = nil -%}
+              {%- for _p in site.pages -%}
+                {%- if _p.ref == page.ref and _p.lang == _l -%}{%- assign _target_url = _p.url -%}{%- endif -%}
+              {%- endfor -%}
+              {%- unless _target_url -%}{%- assign _target_url = '/' | append: _l | append: '/' -%}{%- endunless -%}
+              {%- include snippets/get-nav-url.html path=_target_url -%}
+              <a href="{{ __return }}">{{ _l | upcase }}</a>
+            {%- endif -%}
+            {%- unless forloop.last %}<span class="lang-switcher__sep">·</span>{% endunless -%}
+          {%- endfor -%}
+        </div>
+
+        {%- if site.search.provider -%}
+          <button class="button button--secondary button--circle search-button js-search-toggle"><i class="fas fa-search"></i></button>
+        {%- endif -%}
+      </div>
+      {%- if site.data.navigation.header -%}
+      <nav class="navigation">
+        <ul>
+          {%- for _item in site.data.navigation.header -%}
+            {%- comment -%} Route the shared "/" home entry to the current language home. {%- endcomment -%}
+            {%- assign _nav_target = _item.url -%}
+            {%- if _item.url == '/' -%}{%- assign _nav_target = '/' | append: _cur_lang | append: '/' -%}{%- endif -%}
+            {%- include snippets/get-nav-url.html path=_nav_target -%}
+            {%- assign _nav_url = __return -%}
+            {%- include snippets/get-nav-url.html path=page.url -%}
+            {%- assign _page_url = __return -%}
+            {%- include snippets/get-string-from-locale-config.html locale=_item.titles -%}
+            {%- if _nav_url == _page_url or page.nav_key and _item.key and page.nav_key == _item.key -%}
+              <li class="navigation__item navigation__item--active"><a href="{{ _nav_url }}">{%- if _item.title -%}{{ _item.title }}{%- else -%}{{ __return }}{%- endif -%}</a></li>
+            {%- else -%}
+              <li class="navigation__item"><a href="{{ _nav_url }}">{%- if _item.title -%}{{ _item.title }}{%- else -%}{{ __return }}{%- endif -%}</a></li>
+            {%- endif -%}
+          {%- endfor -%}
+          {%- if site.search.provider -%}
+            <li><button class="button button--secondary button--circle search-button js-search-toggle"><i class="fas fa-search"></i></button></li>
+          {%- endif -%}
+        </ul>
+      </nav>
+      {%- endif -%}
+    </div>
+  </header>

@@ -4,9 +4,10 @@ Guidance for working in this repository.
 
 ## What this is
 
-A bilingual game-guides wiki served at `games.taka97it.com` (EN at root, VI under `/vi/`).
-Stack: **Jekyll 4 + Just the Docs (gem 0.10.1) + jekyll-polyglot**, deployed to GitHub
-Pages via GitHub Actions on push to `main`.
+A bilingual game-guides wiki served at `games.taka97it.com` (EN under `/en/`, VI
+under `/vi/`, with `/` redirecting to `/en/`).
+Stack: **Jekyll 4 + jekyll-TeXt-theme (gem 2.2.x)** with **TeXt-native i18n** for the
+EN/VI bilingual site, deployed to GitHub Pages via GitHub Actions on push to `main`.
 
 ## Building / previewing
 
@@ -22,39 +23,54 @@ MSYS_NO_PATHCONV=1 docker run --rm \
 ```
 
 `_site/` is written to disk for inspection. Add `-p 4000:4000` and
-`jekyll serve --host 0.0.0.0` to preview.
+`jekyll serve --host 0.0.0.0` to preview. After changing the `Gemfile`, run
+`rm -f Gemfile.lock && bundle install` inside the same container first.
 
 ## Content conventions
 
-- Hierarchy is **game → season → guide** using Just the Docs nav front matter
-  (`parent`, `grandparent`, `has_children`, `nav_order`).
-- Every page is two files sharing one `permalink`, distinguished by `lang`:
-  `foo.md` (`lang: en`) and `foo.vi.md` (`lang: vi`).
-- `parent`/`grandparent` reference page **titles in the same language** as the file.
-- The site layout applies via `defaults` in `_config.yml` (`layout: default`) — do not
-  remove it, or pages render without the theme.
+- Hierarchy is **game → season → guide**, expressed through the URL/directory tree
+  and the TeXt sidebar nav groups in `_data/navigation.yml` — not front-matter parents.
+- Every page is two files, one per language directory, sharing a `ref` slug:
+  `en/<path>.md` (`lang: en`) and `vi/<path>.md` (`lang: vi`). The `ref` links the two
+  as language counterparts (used by the switcher and hreflang).
+- Each page sets an explicit `permalink` under `/en/…` or `/vi/…`, a `lang`, a `ref`,
+  and (for guide pages) `sidebar: { nav: loj-en }` / `loj-vi` plus `aside: { toc: true }`.
+- Page titles come from each page's body `# H1`; TeXt's own article `<h1>` is suppressed
+  globally via `show_title: false` in `_config.yml` `defaults`.
 
 ## Theme customizations (do not break)
 
-- `_includes/head.html` — overrides the theme's head: custom `<title>` scheme
-  (Home → `Game Guides`; game landing → `<Game> - Guides` / VI `Hướng dẫn`;
-  season/guide → `<Game> - <page title>`), plus hreflang tags. Uses `{% seo title=false %}`.
-- `_includes/nav_footer_custom.html` — sidebar language switcher.
-- Switcher and hreflang URLs are wrapped in Polyglot's `{% static_href %}` to bypass
-  its automatic href rewriting.
+- `_config.yml` `defaults` — applies `layout: article` + wiki settings
+  (`show_title: false`, no comments/sharing/pageview) to all pages; home pages
+  override `layout: page`.
+- `_data/locale.yml` — UI-string locales. TeXt does **not** ship Vietnamese, so a `vi`
+  block is defined here; `get-locale-string` falls back to `en` for any missing key.
+- `_data/navigation.yml` — header nav + `loj-en` / `loj-vi` sidebar groups. TeXt's
+  sidebar navigator renders **only two levels** (a non-link group title + its link
+  children), so the game/season/guide tree is flattened: each season is its own group.
+- `_includes/header.html` — overrides the TeXt header to add the EN↔VI language switcher
+  (matches the counterpart by shared `ref` + opposite `lang`).
+- `_includes/head/favicon.html` — per-game favicon (default `game-console`, switches to
+  `lands-of-jail` when the URL contains `/lands-of-jail`). Assets in `public/icons/`.
+- `_includes/head/custom.html` — hreflang alternates (EN/VI/x-default) via the `ref` pair.
+- `_includes/footer.html` — simple `© <year> <site.title>` copyright.
+- `_sass/custom.scss` — overrides TeXt's empty custom-style hook (imported last by
+  `assets/css/main.scss`): body line-height, stat/loot table header tint, switcher styling.
 
-## Polyglot gotchas
+## Tab-title format
 
-- `parallel_localization: false` is required (Windows; uses `fork` otherwise).
-- `sass.sourcemap: never` avoids a Jekyll 4 + Polyglot issue.
+Titles use **TeXt's default** scheme: `<page title> - Game Guides` (home is just
+`Game Guides`). The old Just-the-Docs bespoke `<title>` logic was dropped in the TeXt
+migration.
 
 ## Deploy
 
-Push to `main` → Actions builds and deploys. Pages source must be **GitHub Actions**
-(Settings → Pages). `CNAME` binds the custom domain. Site is live with HTTPS enforced.
+Push to `main` → Actions builds (`bundle exec jekyll build`) and deploys. Pages source
+must be **GitHub Actions** (Settings → Pages). `CNAME` binds the custom domain. Site is
+live with HTTPS enforced. `/` redirects to `/en/`.
 
 ## Conventions
 
 - Conventional Commits, no AI references in messages.
 - Commit/push only when asked; branch first if on `main`.
-- Plans live in `docs/superpowers/plans/`, specs in `docs/superpowers/specs/`.
+- Plans live in `plans/`, project docs in `docs/`.

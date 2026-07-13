@@ -1,0 +1,16 @@
+{%- comment -%}
+  Overrides TeXt's _includes/head/favicon.html with per-game favicons.
+  Default is game-console; a game section switches to its own icon when the URL
+  is under that game's path. To add a game: add an `elsif` branch below and drop
+  <slug>.ico and <slug>-180.png into /public/icons/.
+{%- endcomment -%}
+{%- assign _fav = "game-console" -%}
+{%- if page.url contains "/lands-of-jail" -%}{%- assign _fav = "lands-of-jail" -%}{%- endif -%}
+
+{%- capture _fav_ico -%}/public/icons/{{ _fav }}.ico{%- endcapture -%}
+{%- include snippets/prepend-baseurl.html path=_fav_ico -%}
+<link rel="icon" href="{{ __return }}" sizes="any">
+
+{%- capture _fav_png -%}/public/icons/{{ _fav }}-180.png{%- endcapture -%}
+{%- include snippets/prepend-baseurl.html path=_fav_png -%}
+<link rel="apple-touch-icon" href="{{ __return }}">
