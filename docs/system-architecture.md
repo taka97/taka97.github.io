@@ -1,17 +1,16 @@
 # System Architecture — Game Guides
 
-Static-site architecture: Markdown + Jekyll theme + Polyglot → static HTML on GitHub
-Pages. No runtime server, database, or API.
+Static-site architecture: Markdown + Jekyll theme → static HTML on GitHub Pages. No
+runtime server, database, or API.
 
 ## Stack
 
 | Layer | Choice |
 | --- | --- |
 | Generator | Jekyll 4 (`~> 4.3`) |
-| Theme | Just the Docs (gem `0.10.1`) |
-| i18n | jekyll-polyglot (`~> 1.8`) |
-| SEO / meta | jekyll-seo-tag |
-| Include cache | jekyll-include-cache |
+| Theme | jekyll-text-theme (gem `~> 2.2`) |
+| i18n | TeXt-native (no polyglot); UI strings in `_data/locale.yml` |
+| Plugins | jekyll-feed, jekyll-paginate, jekyll-sitemap, jemoji |
 | Host | GitHub Pages (custom domain via `CNAME`) |
 | CI/CD | GitHub Actions |
 | Local build | Docker `ruby:3.3` (no local Ruby) |
@@ -26,7 +25,7 @@ GitHub Actions (.github/workflows/deploy.yml)
    ├─ actions/checkout
    ├─ ruby/setup-ruby (3.3, bundler-cache)
    ├─ bundle exec jekyll build   (JEKYLL_ENV=production)
-   │     └─ Polyglot renders EN (root) + VI (/vi/) from one source tree
+   │     └─ Renders EN (/en/) + VI (/vi/) + root redirect to /en/
    ├─ upload-pages-artifact  (_site)
    └─ deploy-pages  → GitHub Pages (HTTPS, custom domain)
 ```
@@ -37,45 +36,53 @@ GitHub Actions (.github/workflows/deploy.yml)
 
 ## Rendering pipeline (per build)
 
-1. Jekyll reads `_config.yml`; `defaults` apply `layout: default` to every page.
-2. Polyglot iterates `languages: [en, vi]`, building each language pass. `default_lang`
-   (en) publishes at root; others under `/<lang>/`. `parallel_localization: false`
-   (no `fork` on Windows).
-3. Just the Docs builds the sidebar from `parent`/`grandparent`/`nav_order` front
-   matter and generates the Lunr search index.
-4. `_includes` overrides inject custom `<title>`, hreflang, favicon, and the language
-   switcher. `static_href` blocks stop Polyglot rewriting those specific URLs.
-5. Sass compiles `custom` color scheme + `custom/custom.scss` (`sourcemap: never`).
+1. Jekyll reads `_config.yml`; `defaults` apply `layout: article` + `show_title: false`
+   to every page (home pages override `layout: page`).
+2. Content in `contents/en/` and `contents/vi/` directories; each page has a `lang` and `ref` (slug)
+   linking its language counterpart. TeXt navigates by `ref`, not by file path.
+3. TeXt theme renders navigation from `_data/navigation.yml` (header nav + per-language
+   sidebar groups `loj-en` / `loj-vi`). Sidebar navigator renders two levels only (group
+   title + children); game→season→guide hierarchy is flattened (each season is a group).
+4. `_includes` hooks (`header.html`, `head/favicon.html`, `head/custom.html`, `footer.html`)
+   inject the language switcher, per-game favicons, hreflang tags, and copyright.
+5. Sass compiles `_sass/custom.scss` (typography + component tweaks); theme skin
+   (`text_skin: default`) and highlight theme applied from `_config.yml`.
 
 ## Component map
 
 ```
-                 ┌─────────────────────────┐
-  Content .md ──▶│  Jekyll + Polyglot core │──▶ _site/  (EN at /, VI at /vi/)
-  (game/season/  └───────────┬─────────────┘
-   guide, x2 lang)           │
-             ┌───────────────┼────────────────┐
-             ▼               ▼                ▼
-      Just the Docs    _includes/*      _sass/*
-      (nav, search,    (title, hreflang, (colors, layout
-       layout)          favicon, switcher) tweaks)
+                 ┌──────────────────────────┐
+  Content .md ──▶│  Jekyll + TeXt-theme     │──▶ _site/
+  (en/, vi/      └────────────┬─────────────┘
+   dirs, ref-linked)          │
+             ┌────────────────┼──────────────────┐
+             ▼                ▼                  ▼
+      _data/navigation   _includes/*         _sass/custom.scss
+      (sidebar groups,    (switcher,          (typography,
+       header nav)        favicon, hreflang)  tables, layout)
 ```
 
 ## Key architectural decisions
 
-- **One source tree, two languages.** Shared `permalink` is the join key; VI missing ⇒
-  EN fallback. Avoids duplicated trees and broken cross-links.
-- **Theme by override, not fork.** Custom behavior lives in a few `_includes` + two
-  Sass files layered on the pinned gem — upgrades stay tractable (re-verify overrides
-  against the new theme version on bump).
+- **Two content directories, native language routing.** `contents/en/<path>.md` and
+  `contents/vi/<path>.md` with shared `ref` slug. TeXt's i18n handles language detection; no
+  polyglot needed. Cleaner than one source tree + plugin overhead.
+- **Navigation as data.** `_data/navigation.yml` defines sidebar groups and header nav;
+  no front matter hierarchy keys needed. Easier to reorganize, no broken references.
+- **Theme hooks for branding.** Custom behavior lives in a few `_includes` + one Sass
+  file layered on the gem — upgrades stay tractable (re-verify hooks on theme bump).
+- **Two-level sidebar, flattened hierarchy.** TeXt's navigator renders only two levels.
+  The game→season→guide tree is expressed as: season-level groups, each with guide
+  children. Game title is a non-link section header.
 - **Zero-ops publishing.** Push-to-deploy; no build step for the author beyond writing
   Markdown.
 - **Local builds in Docker** because Ruby isn't installed on the dev machine.
 
 ## Data flow at request time
 
-None — every URL is a pre-rendered static file served by GitHub Pages CDN. Search runs
-client-side (Lunr index shipped with the site).
+None — every URL is a pre-rendered static file served by GitHub Pages CDN. Root `/`
+redirects to `/en/` via a meta-refresh `index.html`. Search runs client-side (Lunr-like
+index shipped with the theme).
 
 ## Related
 

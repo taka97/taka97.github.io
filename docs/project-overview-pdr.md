@@ -4,8 +4,7 @@
 
 A bilingual (English / Vietnamese) game-guides wiki published at
 **[games.taka97it.com](https://games.taka97it.com)**. Static site built with Jekyll 4
-and the Just the Docs theme, made bilingual with jekyll-polyglot, auto-deployed to
-GitHub Pages.
+and jekyll-text-theme (gem ~> 2.2), with native i18n, auto-deployed to GitHub Pages.
 
 ## Problem & goal
 
@@ -22,36 +21,40 @@ tree, with zero-ops publishing (push to `main`).
 ## Scope
 
 **In scope**
-- Content hierarchy: **game → season → guide** via Just the Docs nav front matter.
-- Two languages per page (`foo.md` / `foo.vi.md`) sharing one `permalink`; EN at root,
-  VI under `/vi/`. Missing VI page falls back to EN.
-- Full-text search, sidebar navigation, in-header language switcher, per-game favicons.
-- Custom color scheme / typography (see [DESIGN.md](DESIGN.md)).
+- Content hierarchy: **game → season → guide** (expressed as two-level sidebar groups
+  per [DESIGN.md](DESIGN.md)).
+- Two languages per page (`contents/en/<path>.md` / `contents/vi/<path>.md`) linked by shared `ref` slug;
+  EN under `/en/`, VI under `/vi/`, root redirects to `/en/`.
+- Full-text search, sidebar navigation (per-language), in-header language switcher,
+  per-game favicons.
+- Custom typography and component styling (see [DESIGN.md](DESIGN.md)).
 
 **Out of scope (current)**
 - Dark mode (documented as deferred in [DESIGN.md](DESIGN.md)).
 - User accounts, comments, dynamic backend — the site is fully static.
-- Localized search placeholder for VI (known gap).
+- Localized search UI strings for VI (theme limitation; noted in DESIGN.md).
 
 ## Key requirements
 
 | # | Requirement | Status |
 | --- | --- | --- |
-| R1 | Bilingual pages from one source tree, shared permalink | Done |
-| R2 | game → season → guide hierarchy in sidebar + search | Done |
-| R3 | Language switcher preserving current page URL | Done |
-| R4 | Custom, accessible (WCAG AA) color scheme | Done |
-| R5 | Per-game favicon with a default fallback | Done |
-| R6 | Push-to-deploy via GitHub Actions to Pages + custom domain | Done |
-| R7 | Correct `<title>` and hreflang per page/language | Done |
+| R1 | Bilingual pages (EN + VI) with language pair linking via ref slug | Done |
+| R2 | game → season → guide hierarchy in per-language sidebars | Done |
+| R3 | Language switcher finding correct counterpart page | Done |
+| R4 | Custom, accessible (WCAG AA) typography and components | Done |
+| R5 | Per-game favicon with `game-console` default fallback | Done |
+| R6 | Push-to-deploy via GitHub Actions to Pages + custom domain + HTTPS | Done |
+| R7 | Correct hreflang alternates per page/language | Done |
+| R8 | Root `/` redirects to `/en/` (initial language choice) | Done |
 
 ## Constraints
 
 - **No local Ruby** (Windows/WSL): all local builds run in Docker `ruby:3.3`.
-- **Polyglot on Windows:** `parallel_localization: false` (avoids `fork`).
-- **Jekyll 4 + Polyglot:** `sass.sourcemap: never` to avoid a build issue.
-- Theme is pinned: `just-the-docs 0.10.1`. Head/favicon includes override that exact
-  version — re-verify overrides on any theme bump.
+- **Theme pinned:** `jekyll-text-theme ~> 2.2`. Custom `_includes` hooks (`head/`,
+  `header`, `footer`) target that version — re-verify on theme bump.
+- **Two-level sidebar limitation:** TeXt's navigator renders only groups + children
+  (not nested groups). Three-level game→season→guide is flattened: seasons are
+  top-level groups.
 
 ## Success criteria
 

@@ -52,20 +52,22 @@ MSYS_NO_PATHCONV=1 docker run --rm \
 
 ## Environment invariants (do not change casually)
 
-- `parallel_localization: false` — Polyglot uses `fork` otherwise; breaks on Windows.
-- `sass.sourcemap: never` — avoids a Jekyll 4 + Polyglot Sass issue.
-- `layout: default` in `_config.yml` `defaults` — pages render unthemed without it.
-- Pinned `just-the-docs 0.10.1`; `_includes` overrides target that version.
+- `layout: article` + `show_title: false` in `_config.yml` `defaults` — pages render
+  unthemed or with auto-generated `<h1>` without them.
+- `text_skin: default` + `highlight_theme: tomorrow-night-eighties` — theme appearance.
+- Pinned `jekyll-text-theme ~> 2.2`; `_includes` hooks target that version.
 
 ## Troubleshooting
 
 | Symptom | Likely cause |
 | --- | --- |
-| Page renders without theme | Missing `layout: default` / removed `defaults` |
-| Switcher or hreflang points at wrong language | Missing `{% static_href %}` wrap |
-| VI page 404 from switcher | No `.vi.md` for that permalink (EN-only page) |
-| Build fails after theme bump | Overridden `_includes` drifted from new theme version |
-| Local build fails on Windows paths | Forgot `MSYS_NO_PATHCONV=1` / relative path |
+| Page renders without theme or title is auto-generated | Missing `layout: article` / `show_title: false` in defaults |
+| Switcher links to wrong language or hreflang is malformed | Missing `ref:` field in front matter or ref mismatch between EN/VI |
+| VI page 404 from switcher | No `contents/vi/<path>.md` file (both EN + VI files required) |
+| Favicon doesn't match game | Logic in `_includes/head/favicon.html` doesn't detect URL; check path match |
+| Build fails after theme bump | Verify `_includes` hooks (`head/`, `header`, `footer`) match new theme version |
+| Local build fails on Windows paths | Forgot `MSYS_NO_PATHCONV=1` / relative path in Docker command |
+| Sidebar nav missing or wrong structure | `_data/navigation.yml` needs `nav: loj-en` / `loj-vi` in page front matter + correct group keys |
 
 ## Rollback
 
