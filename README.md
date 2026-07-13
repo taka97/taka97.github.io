@@ -10,31 +10,33 @@ Bilingual game-guides wiki hosted at **[games.taka97it.com](https://games.taka97
 
 ## Content structure
 
-Three levels: **game → season → guide**. Content lives under one directory per
-language; the game/season/guide tree is expressed by the URL path and the TeXt
-sidebar nav groups in `_data/navigation.yml`.
+Three levels: **game → season → guide**. Content lives under `contents/`, one directory
+per language; the game/season/guide tree is expressed by each page's `permalink` and the
+TeXt sidebar nav groups in `_data/navigation.yml` (not the source path).
 
 ```
 index.html                              Root redirect -> /en/
-en/
-  index.md                              Home portal (EN)
-  lands-of-jail/
-    index.md                            Game landing
-    season-1/
-      index.md                          Season
-      satellite.md                      Guide
-    season-2/
-      index.md
-      heroes.md
-      robots.md
-vi/                                     Same tree, Vietnamese
-  index.md
-  lands-of-jail/…
+contents/
+  en/
+    index.md                            Home portal (EN)
+    lands-of-jail/
+      index.md                          Game landing
+      season-1/
+        index.md                        Season
+        satellite.md                    Guide
+      season-2/
+        index.md
+        heroes.md
+        robots.md
+  vi/                                   Same tree, Vietnamese
+    index.md
+    lands-of-jail/…
 ```
 
 Every page exists twice — once per language directory — sharing a `ref` slug that links
 the two as language counterparts (used by the switcher and hreflang). Each page sets an
-explicit `permalink`, a `lang`, and a `ref`.
+explicit `permalink`, a `lang`, and a `ref`. Because URLs come from `permalink`, the
+`contents/` source tree can be reorganized without changing any URLs.
 
 ## Building locally
 
@@ -59,8 +61,8 @@ docker run --rm -it -p 4000:4000 \
 
 ## Adding a new game
 
-1. Create `en/<game>/index.md` and `vi/<game>/index.md` with `title`, `lang`,
-   `permalink: /en/<game>/` (resp. `/vi/<game>/`), and a shared `ref`.
+1. Create `contents/en/<game>/index.md` and `contents/vi/<game>/index.md` with `title`,
+   `lang`, `permalink: /en/<game>/` (resp. `/vi/<game>/`), and a shared `ref`.
 2. Add guide pages beneath each, setting `sidebar: { nav: <game>-en }` /
    `<game>-vi` and (for long pages) `aside: { toc: true }`.
 3. Define the `<game>-en` / `<game>-vi` sidebar groups in `_data/navigation.yml`

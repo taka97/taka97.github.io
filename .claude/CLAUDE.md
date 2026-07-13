@@ -30,9 +30,10 @@ MSYS_NO_PATHCONV=1 docker run --rm \
 
 - Hierarchy is **game → season → guide**, expressed through the URL/directory tree
   and the TeXt sidebar nav groups in `_data/navigation.yml` — not front-matter parents.
-- Every page is two files, one per language directory, sharing a `ref` slug:
-  `en/<path>.md` (`lang: en`) and `vi/<path>.md` (`lang: vi`). The `ref` links the two
-  as language counterparts (used by the switcher and hreflang).
+- Content lives under `contents/`, one directory per language, sharing a `ref` slug:
+  `contents/en/<path>.md` (`lang: en`) and `contents/vi/<path>.md` (`lang: vi`). Output
+  URLs come from each page's explicit `permalink`, not the source path, so the `contents/`
+  tree can move freely. The `ref` links the two as counterparts (switcher/hreflang).
 - Each page sets an explicit `permalink` under `/en/…` or `/vi/…`, a `lang`, a `ref`,
   and (for guide pages) `sidebar: { nav: loj-en }` / `loj-vi` plus `aside: { toc: true }`.
 - Page titles come from each page's body `# H1`; TeXt's own article `<h1>` is suppressed
