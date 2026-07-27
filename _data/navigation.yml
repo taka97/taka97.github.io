@@ -18,12 +18,12 @@ loj-en:
     children:
       - title: Overview
         url: /en/lands-of-jail/
+      - title: Satellite
+        url: /en/lands-of-jail/satellite/
   - title: Season 1
     children:
       - title: Overview
         url: /en/lands-of-jail/season-1/
-      - title: Satellite
-        url: /en/lands-of-jail/season-1/satellite/
   - title: Season 2
     children:
       - title: Overview
@@ -38,12 +38,12 @@ loj-vi:
     children:
       - title: Tổng quan
         url: /vi/lands-of-jail/
+      - title: Satellite
+        url: /vi/lands-of-jail/satellite/
   - title: Season 1
     children:
       - title: Tổng quan
         url: /vi/lands-of-jail/season-1/
-      - title: Satellite
-        url: /vi/lands-of-jail/season-1/satellite/
   - title: Season 2
     children:
       - title: Tổng quan

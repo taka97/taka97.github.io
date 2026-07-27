@@ -17,7 +17,7 @@ adding games/seasons/guides, with a few known technical enhancements.
 - Per-game favicons with `game-console` default fallback.
 - hreflang alternates (TeXt-native, no polyglot).
 - GitHub Actions push-to-deploy to Pages, custom domain, HTTPS.
-- First game live: **Lands of Jail** (Season 1: satellite; Season 2: heroes, robots).
+- First game live: **Lands of Jail** (satellite guide; Season 2: heroes, robots).
 
 ## Known gaps / enhancements
 

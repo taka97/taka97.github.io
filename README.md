@@ -10,9 +10,10 @@ Bilingual game-guides wiki hosted at **[games.taka97it.com](https://games.taka97
 
 ## Content structure
 
-Three levels: **game → season → guide**. Content lives under `contents/`, one directory
-per language; the game/season/guide tree is expressed by each page's `permalink` and the
-TeXt sidebar nav groups in `_data/navigation.yml` (not the source path).
+Content is organized as **game-level guides** plus optional **game → season → guide**
+pages. Content lives under `contents/`, one directory per language; the visible tree is
+expressed by each page's `permalink` and the TeXt sidebar nav groups in
+`_data/navigation.yml` (not just the source path).
 
 ```
 index.html                              Root redirect -> /en/
@@ -21,9 +22,9 @@ contents/
     index.md                            Home portal (EN)
     lands-of-jail/
       index.md                          Game landing
+      satellite.md                      Game-level guide
       season-1/
         index.md                        Season
-        satellite.md                    Guide
       season-2/
         index.md
         heroes.md

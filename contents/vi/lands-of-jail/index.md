@@ -25,12 +25,15 @@ aside:
 
 ## Hướng dẫn
 
+- [Satellite](/vi/lands-of-jail/satellite/)
+
 ### Season 1
 
-- [Satellite](/vi/lands-of-jail/season-1/satellite/)
+Nội dung Satellite của Season 1 hiện nằm trong hướng dẫn [Satellite](/vi/lands-of-jail/satellite/) chính.
 
 ### Season 2
 
+- [Cập nhật Satellite](/vi/lands-of-jail/satellite/#cap-nhat-season-2)
 - [Heroes](/vi/lands-of-jail/season-2/heroes/)
 - [Robots](/vi/lands-of-jail/season-2/robots/)
 

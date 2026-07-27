@@ -38,9 +38,9 @@ contents/                    Bilingual content (source path only; URLs come from
     index.md                 Home portal (lang: en, ref: home, layout: page)
     lands-of-jail/
       index.md               Game landing (lang: en, ref: loj-home)
+      satellite.md           Game-level guide (lang: en, ref: loj-satellite)
       season-1/
         index.md             Season (lang: en, ref: loj-s1)
-        satellite.md         Guide (lang: en, ref: loj-s1-satellite)
       season-2/
         index.md, heroes.md, robots.md
   vi/                        Vietnamese content (same structure, lang: vi)
@@ -55,6 +55,7 @@ docs/                        Project documentation (this set + DESIGN.md + super
   (shared pair identifier).
 - **Hierarchy** from `_data/navigation.yml` (not front matter). Sidebar groups are
   defined as `loj-en` / `loj-vi`; pages opt in with `sidebar: { nav: loj-en }`.
+  Guides can live at the game level or under a season depending on where they fit.
 - **Layout** applied globally via `defaults` in `_config.yml` (`layout: article` +
   `show_title: false`); home pages override to `layout: page`.
 - **No language fallback needed** — VI and EN maintain separate nav + content.
