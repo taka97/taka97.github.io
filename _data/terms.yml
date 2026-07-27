@@ -48,3 +48,23 @@ lands_of_jail:
 satellite:
   en: "Satellite"
   vi: "Vệ tinh"
+
+laser:
+  en: "Laser"
+  vi: "Tia Laser"
+
+radiance:
+  en: "Radiance"
+  vi: "Bắn Tỏa"
+
+watcher:
+  en: "Watcher"
+  vi: "Nhà thám hiểm"
+
+sentinel:
+  en: "Sentinel"
+  vi: "Cảnh giới giả"
+
+arbitrator:
+  en: "Arbitrator"
+  vi: "Trọng tài giả"
