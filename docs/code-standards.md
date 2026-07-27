@@ -16,6 +16,15 @@ Conventions for content and the small amount of theme/config code.
   - `comment: false`, `sharing: false`, `pageview: false` (wiki mode).
 - Keep permalinks unique per language and stable — they are the public URL.
 
+### Shared terminology
+
+- Store repeated game/UI terms in `_data/terms.yml` with `en` and `vi` values.
+- Render those terms with `{% include term.html key="<term_key>" %}` so the output follows
+  the current page's `lang`.
+- Keep `_data/locale.yml` for TeXt/theme UI strings only (`SEARCH`, `NEXT`, `PREVIOUS`, etc.).
+- Prefer hard-coded prose for normal sentences; use term keys for repeated labels,
+  table values, and terms that are easy to mistranslate.
+
 ### Adding a new game
 
 1. Create `en/<game>/index.md` + `vi/<game>/index.md` with:

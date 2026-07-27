@@ -1,5 +1,5 @@
 ---
-title: Satellite
+title: Vệ tinh
 lang: vi
 permalink: /vi/lands-of-jail/satellite/
 ref: loj-satellite
@@ -9,7 +9,7 @@ aside:
   toc: true
 ---
 
-# Lands of Jail - Satellite
+# {% include term.html key="lands_of_jail" %} - {% include term.html key="satellite" %}
 
 ## Cập nhật Season 2 {#cap-nhat-season-2}
 

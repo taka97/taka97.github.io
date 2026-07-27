@@ -22,8 +22,8 @@ loj-en:
         url: /en/lands-of-jail/satellite/
   - title: Events
     children:
-      - title: Server Migration
-        url: /en/lands-of-jail/events/server-migration/
+      - title: Migration Operation
+        url: /en/lands-of-jail/events/migration-operation/
   - title: Season 1
     children:
       - title: Overview
@@ -38,16 +38,16 @@ loj-en:
         url: /en/lands-of-jail/season-2/robots/
 
 loj-vi:
-  - title: Lands of Jail
+  - title: Vượt tường thép
     children:
       - title: Tổng quan
         url: /vi/lands-of-jail/
-      - title: Satellite
+      - title: Vệ tinh
         url: /vi/lands-of-jail/satellite/
   - title: Sự kiện
     children:
-      - title: Di cư Server
-        url: /vi/lands-of-jail/events/server-migration/
+      - title: Di cư Giám ngục
+        url: /vi/lands-of-jail/events/migration-operation/
   - title: Season 1
     children:
       - title: Tổng quan

@@ -12,4 +12,4 @@ Hướng dẫn và mẹo chơi cho các game tôi chơi.
 
 ## Trò chơi
 
-- [Lands of Jail](/vi/lands-of-jail/)
+- [{% include term.html key="lands_of_jail" %}](/vi/lands-of-jail/)

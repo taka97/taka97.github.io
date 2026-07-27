@@ -9,7 +9,7 @@ aside:
   toc: true
 ---
 
-# Lands of Jail - Satellite
+# {% include term.html key="lands_of_jail" %} - {% include term.html key="satellite" %}
 
 ## Season 2 Release Update {#season-2-release-update}
 

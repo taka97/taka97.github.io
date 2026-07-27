@@ -1,5 +1,5 @@
 ---
-title: Lands of Jail
+title: Vượt tường thép
 lang: vi
 permalink: /vi/lands-of-jail/
 ref: loj-home
@@ -9,7 +9,7 @@ aside:
   toc: true
 ---
 
-# Lands of Jail
+# {% include term.html key="lands_of_jail" %}
 
 ## Mẹo & Chiến thuật
 
@@ -25,19 +25,19 @@ aside:
 
 ## Hướng dẫn
 
-- [Satellite](/vi/lands-of-jail/satellite/)
+- [{% include term.html key="satellite" %}](/vi/lands-of-jail/satellite/)
 
 ### Sự kiện
 
-- [Di cư Server](/vi/lands-of-jail/events/server-migration/)
+- [Di cư Giám ngục](/vi/lands-of-jail/events/migration-operation/)
 
 ### Season 1
 
-Nội dung Satellite của Season 1 hiện nằm trong hướng dẫn [Satellite](/vi/lands-of-jail/satellite/) chính.
+Nội dung {% include term.html key="satellite" %} của Season 1 hiện nằm trong hướng dẫn [{% include term.html key="satellite" %}](/vi/lands-of-jail/satellite/) chính.
 
 ### Season 2
 
-- [Cập nhật Satellite](/vi/lands-of-jail/satellite/#cap-nhat-season-2)
+- [Cập nhật {% include term.html key="satellite" %}](/vi/lands-of-jail/satellite/#cap-nhat-season-2)
 - [Heroes](/vi/lands-of-jail/season-2/heroes/)
 - [Robots](/vi/lands-of-jail/season-2/robots/)
 
