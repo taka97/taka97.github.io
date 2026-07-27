@@ -23,6 +23,8 @@ contents/
     lands-of-jail/
       index.md                          Game landing
       satellite.md                      Game-level guide
+      events/
+        migration-operation.md          Event guide
       season-1/
         index.md                        Season
       season-2/
@@ -32,11 +34,11 @@ contents/
   vi/                                   Same tree, Vietnamese
     index.md
     lands-of-jail/…
-events/
-  lands-of-jail/
-    server-migration.md                 Event guide (EN)
-    server-migration.vi.md              Event guide (VI)
-    server-migration/                   Event screenshots/assets
+assets/
+  images/
+    lands-of-jail/
+      events/
+        migration-operation/            Event screenshots/assets
 ```
 
 Every page exists twice — once per language directory — sharing a `ref` slug that links

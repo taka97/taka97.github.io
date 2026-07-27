@@ -17,12 +17,14 @@ favicon.ico                  Root favicon
 _data/
   navigation.yml             Header nav + per-language sidebar groups (loj-en, loj-vi)
   locale.yml                 UI strings for en + vi (TeXt native i18n)
+  terms.yml                  Shared game terms rendered by `_includes/term.html`
 
 _includes/
   head/
     favicon.html             Per-game favicon selection (default game-console)
     custom.html              hreflang alternates + language pair linking
   header.html                Language switcher (EN · VI in main header)
+  term.html                  Renders shared terms from `_data/terms.yml`
   footer.html                Copyright + year
 
 _sass/
@@ -39,17 +41,19 @@ contents/                    Bilingual content (source path only; URLs come from
     lands-of-jail/
       index.md               Game landing (lang: en, ref: loj-home)
       satellite.md           Game-level guide (lang: en, ref: loj-satellite)
+      events/
+        migration-operation.md  Event guide (lang: en, ref: loj-event-migration-operation)
       season-1/
         index.md             Season (lang: en, ref: loj-s1)
       season-2/
         index.md, heroes.md, robots.md
   vi/                        Vietnamese content (same structure, lang: vi)
 
-events/                      Event guides and colocated event assets
-  lands-of-jail/
-    server-migration.md      Event guide (lang: en, ref: loj-event-server-migration)
-    server-migration.vi.md   Event guide (lang: vi, ref: loj-event-server-migration)
-    server-migration/        Screenshots used by the event guide
+assets/                      Static assets
+  images/
+    lands-of-jail/
+      events/
+        migration-operation/   Screenshots used by the event guide
 
 docs/                        Project documentation (this set + DESIGN.md + superpowers/)
 ```
@@ -78,6 +82,7 @@ docs/                        Project documentation (this set + DESIGN.md + super
 | hreflang alternates | `_includes/head/custom.html` (fetches pair by ref + lang) |
 | Favicon per game | `_includes/head/favicon.html` + `public/icons/` |
 | UI strings (en/vi) | `_data/locale.yml` (TeXt native) |
+| Shared game terms | `_data/terms.yml` + `_includes/term.html` |
 | Typography + components | `_sass/custom.scss` |
 
 ## Build artifacts (not committed)

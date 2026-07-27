@@ -9,7 +9,7 @@ aside:
   toc: true
 ---
 
-# Lands of Jail - Heroes
+# {% include term.html key="lands_of_jail" %} - Heroes
 
 ## 🔹 CÉSAR — Defensive • Defensive deflector
 

@@ -9,7 +9,7 @@ aside:
   toc: true
 ---
 
-# Lands of Jail - Robots
+# {% include term.html key="lands_of_jail" %} - Robots
 
 ## 🔹 Robot 4 — Ranger ⭐ TOP PRIORITY
 

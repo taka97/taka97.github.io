@@ -12,4 +12,4 @@ Strategy guides and tips for the games I play.
 
 ## Games
 
-- [Lands of Jail](/en/lands-of-jail/)
+- [{% include term.html key="lands_of_jail" %}](/en/lands-of-jail/)

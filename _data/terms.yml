@@ -1,0 +1,70 @@
+# Shared game terminology. Pages render terms through `_includes/term.html`
+# using the current page language, falling back to English.
+
+free_migration:
+  en: "Free Migration"
+  vi: "Di cư Tự do"
+
+basic_invite:
+  en: "Basic Invite"
+  vi: "Di cư Cơ bản"
+
+basic_migration:
+  en: "Basic Migration"
+  vi: "Di cư Cơ bản"
+
+elite_invite:
+  en: "Elite Invite"
+  vi: "Lời mời ưu tú"
+
+elite_invites:
+  en: "Elite Invites"
+  vi: "Lời mời ưu tú"
+
+elite_migration:
+  en: "Elite Migration"
+  vi: "Di cư Tinh anh"
+
+elite_migration_application:
+  en: "Elite Migration Application"
+  vi: "Đơn xin di cư ưu tú"
+
+migration_score:
+  en: "Migration Score"
+  vi: "Điểm di cư"
+
+migration_pass:
+  en: "Migration Pass"
+  vi: "Thẻ thông hành di cư"
+
+migration_operation:
+  en: "Migration Operation"
+  vi: "Di cư Giám ngục"
+
+lands_of_jail:
+  en: "Lands of Jail"
+  vi: "Vượt tường thép"
+
+satellite:
+  en: "Satellite"
+  vi: "Vệ tinh"
+
+laser:
+  en: "Laser"
+  vi: "Tia Laser"
+
+radiance:
+  en: "Radiance"
+  vi: "Bắn Tỏa"
+
+watcher:
+  en: "Watcher"
+  vi: "Nhà thám hiểm"
+
+sentinel:
+  en: "Sentinel"
+  vi: "Cảnh giới giả"
+
+arbitrator:
+  en: "Arbitrator"
+  vi: "Trọng tài giả"

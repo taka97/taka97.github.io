@@ -13,4 +13,4 @@ aside:
 
 Guides for Season 1.
 
-- [Satellite](/en/lands-of-jail/satellite/)
+- [{% include term.html key="satellite" %}](/en/lands-of-jail/satellite/)

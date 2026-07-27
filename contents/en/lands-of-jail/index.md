@@ -9,7 +9,7 @@ aside:
   toc: true
 ---
 
-# Lands of Jail
+# {% include term.html key="lands_of_jail" %}
 
 ## Tips & Tactics
 
@@ -25,19 +25,19 @@ aside:
 
 ## Guides
 
-- [Satellite](/en/lands-of-jail/satellite/)
+- [{% include term.html key="satellite" %}](/en/lands-of-jail/satellite/)
 
 ### Events
 
-- [Server Migration](/en/lands-of-jail/events/server-migration/)
+- [Migration Operation](/en/lands-of-jail/events/migration-operation/)
 
 ### Season 1
 
-Season 1 satellite content is now covered in the main [Satellite](/en/lands-of-jail/satellite/) guide.
+Season 1 satellite content is now covered in the main [{% include term.html key="satellite" %}](/en/lands-of-jail/satellite/) guide.
 
 ### Season 2
 
-- [Satellite release update](/en/lands-of-jail/satellite/#season-2-release-update)
+- [{% include term.html key="satellite" %} release update](/en/lands-of-jail/satellite/#season-2-release-update)
 - [Heroes](/en/lands-of-jail/season-2/heroes/)
 - [Robots](/en/lands-of-jail/season-2/robots/)
 

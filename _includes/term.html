@@ -1,0 +1,8 @@
+{%- assign key = include.key -%}
+{%- assign lang = page.lang | default: site.lang | default: "en" -%}
+{%- assign term = site.data.terms[key] -%}
+{%- if term -%}
+  {{- term[lang] | default: term.en -}}
+{%- else -%}
+  {{- key -}}
+{%- endif -%}
