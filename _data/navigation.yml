@@ -20,6 +20,10 @@ loj-en:
         url: /en/lands-of-jail/
       - title: Satellite
         url: /en/lands-of-jail/satellite/
+  - title: Events
+    children:
+      - title: Server Migration
+        url: /en/lands-of-jail/events/server-migration/
   - title: Season 1
     children:
       - title: Overview
@@ -40,6 +44,10 @@ loj-vi:
         url: /vi/lands-of-jail/
       - title: Satellite
         url: /vi/lands-of-jail/satellite/
+  - title: Sự kiện
+    children:
+      - title: Di cư Server
+        url: /vi/lands-of-jail/events/server-migration/
   - title: Season 1
     children:
       - title: Tổng quan

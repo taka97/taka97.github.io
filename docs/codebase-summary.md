@@ -45,6 +45,12 @@ contents/                    Bilingual content (source path only; URLs come from
         index.md, heroes.md, robots.md
   vi/                        Vietnamese content (same structure, lang: vi)
 
+events/                      Event guides and colocated event assets
+  lands-of-jail/
+    server-migration.md      Event guide (lang: en, ref: loj-event-server-migration)
+    server-migration.vi.md   Event guide (lang: vi, ref: loj-event-server-migration)
+    server-migration/        Screenshots used by the event guide
+
 docs/                        Project documentation (this set + DESIGN.md + superpowers/)
 ```
 

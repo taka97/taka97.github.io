@@ -32,6 +32,11 @@ contents/
   vi/                                   Same tree, Vietnamese
     index.md
     lands-of-jail/…
+events/
+  lands-of-jail/
+    server-migration.md                 Event guide (EN)
+    server-migration.vi.md              Event guide (VI)
+    server-migration/                   Event screenshots/assets
 ```
 
 Every page exists twice — once per language directory — sharing a `ref` slug that links

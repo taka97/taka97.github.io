@@ -27,6 +27,10 @@ aside:
 
 - [Satellite](/vi/lands-of-jail/satellite/)
 
+### Sự kiện
+
+- [Di cư Server](/vi/lands-of-jail/events/server-migration/)
+
 ### Season 1
 
 Nội dung Satellite của Season 1 hiện nằm trong hướng dẫn [Satellite](/vi/lands-of-jail/satellite/) chính.

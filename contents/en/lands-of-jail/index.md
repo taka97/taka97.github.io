@@ -27,6 +27,10 @@ aside:
 
 - [Satellite](/en/lands-of-jail/satellite/)
 
+### Events
+
+- [Server Migration](/en/lands-of-jail/events/server-migration/)
+
 ### Season 1
 
 Season 1 satellite content is now covered in the main [Satellite](/en/lands-of-jail/satellite/) guide.
