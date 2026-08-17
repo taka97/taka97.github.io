@@ -15,13 +15,13 @@ aside:
 
 ### Tỉ lệ cho Gorilla
 
-- Space Gorilla — 0/5/95
-- Wise Gorilla — 5/25/70
-- Primal Gorilla — 5/30/65
-- Cyber Gorilla — 0/0/100
-- Armed Gorilla — 0/30/70
-- Treasure Gorilla — 0/35/65
-- Gorilla Warlord — 0/35/65
+- Space Gorilla — 0/10/90
+- Wise Gorilla — 0/15/85
+- Primal Gorilla — 0/26/74
+- Cyber Gorilla — 0/10/90
+- Armed Gorilla — 0/11/89
+- Treasure Gorilla — 0/30/70
+- Gorilla Warlord — 0/25/75
 
 ## Hướng dẫn
 
