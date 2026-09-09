@@ -1,7 +1,8 @@
 # System Architecture — Game Guides
 
 Static-site architecture: Markdown + Jekyll theme → static HTML on GitHub Pages. No
-runtime server, database, or API.
+runtime server, database, or API; the Forticlad Planner keeps optional browser-local
+profile data in IndexedDB.
 
 ## Stack
 
@@ -83,6 +84,14 @@ GitHub Actions (.github/workflows/deploy.yml)
 None — every URL is a pre-rendered static file served by GitHub Pages CDN. Root `/`
 redirects to `/en/` via a meta-refresh `index.html`. Search runs client-side (Lunr-like
 index shipped with the theme).
+
+## Forticlad Planner client flow
+
+`_data/lands_of_jail/forticlad.yml` is release-controlled FC/AFC data and a declarative
+prerequisite graph. Jekyll embeds it as non-executing JSON on the matched EN/VI planner
+pages. Browser ES modules validate ranges, resolve prerequisites to a fixed point, and
+aggregate FC/AFC costs independently. Settings owns profile creation, selection,
+deletion, and JSON backup/restore; player profile and inventory data stays in IndexedDB.
 
 ## Related
 

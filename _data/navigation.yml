@@ -36,6 +36,12 @@ loj-en:
         url: /en/lands-of-jail/season-2/heroes/
       - title: Robots
         url: /en/lands-of-jail/season-2/robots/
+  - title: Tools
+    children:
+      - title: Forticlad Core Planner
+        url: /en/lands-of-jail/planners/forticlad/
+      - title: Settings
+        url: /en/lands-of-jail/tools/settings/
 
 loj-vi:
   - title: Vượt tường thép
@@ -60,3 +66,9 @@ loj-vi:
         url: /vi/lands-of-jail/season-2/heroes/
       - title: Robots
         url: /vi/lands-of-jail/season-2/robots/
+  - title: Công cụ
+    children:
+      - title: Công cụ tính Lõi trọng giáp
+        url: /vi/lands-of-jail/planners/forticlad/
+      - title: Cài đặt
+        url: /vi/lands-of-jail/tools/settings/

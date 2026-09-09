@@ -40,4 +40,397 @@
   }
 }
 
+/* Forticlad Core planner controls and tables. */
+.forticlad-planner {
+  margin: 1.5rem 0;
+
+  .forticlad-planner__inventory {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    padding: 1rem;
+    border: 1px solid #d9d9df;
+    background: #fafafd;
+  }
+
+  .forticlad-planner__inventory h3 {
+    grid-column: 1 / -1;
+    margin: 0;
+  }
+
+  .forticlad-planner__prerequisites {
+    margin-top: 1.25rem;
+    padding: 1rem;
+    border: 1px solid #d9d9df;
+    background: #fafafd;
+  }
+
+  .forticlad-planner__prerequisites ul {
+    margin-bottom: 0;
+  }
+
+  fieldset {
+    margin: 0;
+    padding: 1rem;
+    border: 1px solid #d9d9df;
+  }
+
+  label {
+    display: grid;
+    gap: 0.35rem;
+    font-weight: 600;
+  }
+
+  input,
+  select,
+  button,
+  .forticlad-planner__import {
+    min-height: 2.5rem;
+    box-sizing: border-box;
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 0.45rem 0.6rem;
+    border: 1px solid #a9a9b2;
+    border-radius: 0.2rem;
+    background: #fff;
+    color: inherit;
+    font: inherit;
+  }
+
+  button,
+  .forticlad-planner__import {
+    padding: 0.45rem 0.75rem;
+    border: 1px solid #5d5d67;
+    border-radius: 0.2rem;
+    background: #f7f7f9;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 600;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  input:focus-visible,
+  select:focus-visible,
+  button:focus-visible,
+  .forticlad-planner__import:focus-visible,
+  .forticlad-planner__table-wrap:focus-visible {
+    outline: 3px solid #4c77c2;
+    outline-offset: 2px;
+  }
+
+  .forticlad-planner__fields,
+  .forticlad-planner__profile-actions,
+  .forticlad-planner__actions {
+    display: grid;
+    gap: 0.75rem;
+    align-items: end;
+  }
+
+  .forticlad-planner__building-ranges {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .forticlad-planner__building-range {
+    display: grid;
+    gap: 0.75rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e3e3e8;
+
+    &:first-child {
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    &.is-invalid {
+      border-color: #a32020;
+    }
+  }
+
+  .forticlad-planner__range-error {
+    margin: 0;
+    color: #a32020;
+    font-weight: 600;
+  }
+
+  .forticlad-planner__profile-actions,
+  .forticlad-planner__results,
+  .forticlad-planner__backup {
+    margin-top: 1.25rem;
+  }
+
+  .forticlad-planner__status {
+    min-height: 1.6em;
+    margin: 1rem 0;
+
+    &.is-error {
+      color: #a32020;
+      font-weight: 600;
+    }
+  }
+
+  .forticlad-planner__summary {
+    margin-top: 1.25rem;
+    padding: 1rem;
+    border: 1px solid #d9d9df;
+    background: #fafafd;
+
+    h2 {
+      margin-top: 0;
+    }
+
+    dl {
+      display: grid;
+      gap: 0.75rem;
+      margin: 0;
+    }
+
+    dl > div {
+      padding: 0.85rem;
+      border: 1px solid #d9d9df;
+      background: #fff;
+    }
+
+    dt {
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    dd {
+      margin: 0.25rem 0 0;
+      font-size: 1.125rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+  }
+
+  .forticlad-planner__summary-value {
+    display: inline-block;
+    padding: 0.1rem 0.3rem;
+    border: 1px solid transparent;
+
+    &.is-complete {
+      border-color: #1d6b3b;
+      background: #e5f2e9;
+    }
+
+    &.is-missing {
+      border-color: #a32020;
+      background: #fbe9e9;
+    }
+
+    &.is-surplus {
+      border-color: #2d6a8f;
+      background: #e8f0f7;
+    }
+
+    &.is-unset {
+      border-color: #5d5d67;
+      background: #efeff2;
+    }
+  }
+
+  .forticlad-planner__table-wrap {
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .forticlad-planner__chart {
+    margin-top: 1.5rem;
+  }
+
+  .forticlad-planner__charts {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .forticlad-planner__total-row {
+    font-weight: 700;
+  }
+
+  .forticlad-planner__total-row .is-complete {
+    color: #1d6b3b;
+  }
+
+  .forticlad-planner__total-row .is-missing {
+    color: #a32020;
+  }
+
+  .forticlad-planner__chart-graphic svg {
+    display: block;
+    width: min(100%, 16rem);
+    margin: 1rem auto;
+  }
+
+  .forticlad-planner__chart-legend {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 0.5rem 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .forticlad-planner__chart-legend li {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .forticlad-planner__chart-swatch {
+    width: 0.85rem;
+    height: 0.85rem;
+    flex: 0 0 auto;
+    border-radius: 50%;
+  }
+
+  table {
+    width: 100%;
+    margin: 0;
+  }
+
+  th:not(:first-child),
+  td:not(:first-child) {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .forticlad-planner__breakdown-table th:last-child,
+  .forticlad-planner__breakdown-table td:last-child {
+    background: #e8eefb;
+    font-weight: 700;
+  }
+
+  @media screen and (min-width: 768px) {
+    .forticlad-planner__summary dl {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .forticlad-planner__fields {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+    }
+
+    .forticlad-planner__profile-actions,
+    .forticlad-planner__actions {
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .forticlad-planner__building-range {
+      grid-template-columns: minmax(12rem, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+      align-items: end;
+    }
+
+    .forticlad-planner__range-error {
+      grid-column: 2 / -1;
+    }
+
+    .forticlad-planner__charts {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+  }
+}
+
+/* Shared Lands of Jail profile settings. */
+.tool-settings {
+  margin: 1.5rem 0;
+
+  fieldset {
+    margin: 0;
+    padding: 1rem;
+    border: 1px solid #d9d9df;
+  }
+
+  label {
+    display: grid;
+    gap: 0.35rem;
+    font-weight: 600;
+  }
+
+  input,
+  select,
+  button {
+    min-height: 2.5rem;
+    box-sizing: border-box;
+    font: inherit;
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 0.45rem 0.6rem;
+    border: 1px solid #a9a9b2;
+    border-radius: 0.2rem;
+    background: #fff;
+    color: inherit;
+  }
+
+  button {
+    padding: 0.45rem 0.75rem;
+    border: 1px solid #5d5d67;
+    border-radius: 0.2rem;
+    background: #f7f7f9;
+    color: inherit;
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  input:focus,
+  select:focus,
+  button:focus {
+    outline: 3px solid #4c77c2;
+    outline-offset: 2px;
+  }
+
+  .tool-settings__fields,
+  .tool-settings__actions {
+    display: grid;
+    gap: 0.75rem;
+    align-items: end;
+  }
+
+  .tool-settings__profile-actions,
+  section {
+    margin-top: 1.25rem;
+  }
+
+  [data-role="status"] {
+    min-height: 1.6em;
+
+    &.is-error {
+      color: #a32020;
+      font-weight: 600;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    .tool-settings__fields {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+    }
+
+    .tool-settings__profile-actions,
+    .tool-settings__actions {
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+  }
+}
+
 /* end custom scss snippet */

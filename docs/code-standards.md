@@ -25,6 +25,17 @@ Conventions for content and the small amount of theme/config code.
 - Prefer hard-coded prose for normal sentences; use term keys for repeated labels,
   table values, and terms that are easy to mistranslate.
 
+### Interactive game tools
+
+- Give each tool matched EN/VI content pages with stable permalinks and a shared `ref`;
+  add both entries to the matching language navigation group.
+- Keep release-controlled game data in `_data/`. Keep player profiles and inventory
+  browser-local; do not add a backend or commit player data.
+- Keep browser behavior in focused modules under `assets/js/` and scope all component
+  styles under the tool's root class in `_sass/custom.scss`.
+- Keep Settings as the shared owner of player profiles and backup/restore. Tool pages
+  own only their namespaced progress and rendered calculator behavior.
+
 ### Adding a new game
 
 1. Create `en/<game>/index.md` + `vi/<game>/index.md` with:

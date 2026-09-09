@@ -7,6 +7,7 @@ Bilingual game-guides wiki hosted at **[games.taka97it.com](https://games.taka97
   [TeXt theme](https://github.com/kitian616/jekyll-TeXt-theme).
 - Bilingual via TeXt's native i18n (`_data/locale.yml` + per-language directories).
 - Auto-deployed to GitHub Pages by GitHub Actions on every push to `main`.
+- Optional game tools run entirely in the browser and keep player profiles on that device.
 
 ## Content structure
 
@@ -25,6 +26,8 @@ contents/
       satellite.md                      Game-level guide
       events/
         migration-operation.md          Event guide
+      planners/forticlad.md             Browser-local Forticlad Core planner
+      tools/settings.md                 Browser-local player profile settings
       season-1/
         index.md                        Season
       season-2/
@@ -45,6 +48,10 @@ Every page exists twice — once per language directory — sharing a `ref` slug
 the two as language counterparts (used by the switcher and hreflang). Each page sets an
 explicit `permalink`, a `lang`, and a `ref`. Because URLs come from `permalink`, the
 `contents/` source tree can be reorganized without changing any URLs.
+
+Interactive tools follow the same paired-page routing. Their release-controlled game
+data lives in `_data/`; player progress remains browser-local and is never sent to a
+server.
 
 ## Building locally
 

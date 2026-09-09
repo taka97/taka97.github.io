@@ -1,7 +1,7 @@
 # Project Roadmap — Game Guides
 
-Status snapshot as of 2026-07-13. This is a content-driven wiki; most "roadmap" is
-adding games/seasons/guides, with a few known technical enhancements.
+This is a content-driven wiki; most of the roadmap is adding games, seasons, and
+guides, with a small browser-local tools track for Lands of Jail.
 
 ## Shipped (migration completed 2026-07-13)
 
@@ -18,6 +18,18 @@ adding games/seasons/guides, with a few known technical enhancements.
 - hreflang alternates (TeXt-native, no polyglot).
 - GitHub Actions push-to-deploy to Pages, custom domain, HTTPS.
 - First game live: **Lands of Jail** (satellite guide; events; Season 2: heroes, robots).
+
+## Lands of Jail tools
+
+- **Ready to release:** Forticlad is the first browser-local calculator module in the
+  broader Lands of Jail tools roadmap. Its target-driven Core calculator is implemented
+  and validated locally; it becomes a shipped roadmap item when the change is committed
+  and deployed.
+- **Verified boundary:** FC/AFC building data through FC10 is transcribed from the
+  cited independent reference; Medical Station stops at FC8 and prerequisites are
+  resolved from the checked-in requirement graph in
+  [`_data/lands_of_jail/forticlad.yml`](../_data/lands_of_jail/forticlad.yml).
+  FC Lab, research, and other resource calculators remain out of scope.
 
 ## Known gaps / enhancements
 
@@ -48,7 +60,7 @@ adding games/seasons/guides, with a few known technical enhancements.
 
 ## Non-goals
 
-- Dynamic backend, accounts, comments — the site stays fully static.
+- Dynamic backend, accounts, comments — the site and its tools stay fully static.
 
 ## References
 

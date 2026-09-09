@@ -1,7 +1,8 @@
 # Codebase Summary — Game Guides
 
-Static Jekyll site. No application code — content is Markdown, behavior is theme +
-config + small Liquid include overrides.
+Static Jekyll site. Most behavior is content, theme configuration, and small Liquid
+include overrides; the Forticlad Planner adds browser-only ES modules and IndexedDB
+profile storage.
 
 ## Layout
 
@@ -18,6 +19,8 @@ _data/
   navigation.yml             Header nav + per-language sidebar groups (loj-en, loj-vi)
   locale.yml                 UI strings for en + vi (TeXt native i18n)
   terms.yml                  Shared game terms rendered by `_includes/term.html`
+  lands_of_jail/
+    forticlad.yml            Verified Base-step/Core costs for the planner
 
 _includes/
   head/
@@ -40,6 +43,8 @@ contents/                    Bilingual content (source path only; URLs come from
     index.md                 Home portal (lang: en, ref: home, layout: page)
     lands-of-jail/
       index.md               Game landing (lang: en, ref: loj-home)
+      planners/forticlad.md  Forticlad Core Planner (matched EN/VI page)
+      tools/settings.md      Shared browser-local profile settings (matched EN/VI page)
       satellite.md           Game-level guide (lang: en, ref: loj-satellite)
       events/
         migration-operation.md  Event guide (lang: en, ref: loj-event-migration-operation)
@@ -50,6 +55,7 @@ contents/                    Bilingual content (source path only; URLs come from
   vi/                        Vietnamese content (same structure, lang: vi)
 
 assets/                      Static assets
+  js/planners/               Browser-only calculation, storage, planner, and settings modules
   images/
     lands-of-jail/
       events/
@@ -84,6 +90,9 @@ docs/                        Project documentation (this set + DESIGN.md + super
 | UI strings (en/vi) | `_data/locale.yml` (TeXt native) |
 | Shared game terms | `_data/terms.yml` + `_includes/term.html` |
 | Typography + components | `_sass/custom.scss` |
+| Forticlad calculation + rendering | `assets/js/planners/planner-core.js`, `forticlad.js` |
+| Shared browser-local profiles | `assets/js/planners/storage.js`, `profile-settings.js` |
+| Forticlad source data | `_data/lands_of_jail/forticlad.yml` |
 
 ## Build artifacts (not committed)
 

@@ -61,7 +61,7 @@ Inherits TeXt defaults (system font stack). Customizations in `_sass/custom.scss
 
 ### Tables (stat / loot tables)
 - Header row gets a subtle background tint for scan-ability of game data tables.
-- Defined in `_sass/custom/custom.scss` under `.main-content table th`.
+- Defined in `_sass/custom.scss` under `.main-content table th`.
 
 ### Code blocks
 - Theme default styling. Used for config snippets, commands.
@@ -76,6 +76,15 @@ Inherits TeXt defaults (system font stack). Customizations in `_sass/custom.scss
 ### Header + Footer
 - Header: TeXt default bar with site title + search + language switcher.
 - Footer: copyright line with year from `_data/locale.yml`.
+
+### Interactive tools
+
+- Tool styles stay scoped to their root component class in `_sass/custom.scss` so guide
+  pages retain TeXt defaults.
+- Use native labelled controls, visible focus states, live status messages, and safe
+  table overflow for calculator-style interfaces.
+- Matched EN/VI tool pages provide static labels; browser modules own only dynamic,
+  localized status text.
 
 ## Bilingual notes
 

@@ -28,6 +28,8 @@ tree, with zero-ops publishing (push to `main`).
 - Full-text search, sidebar navigation (per-language), in-header language switcher,
   per-game favicons.
 - Custom typography and component styling (see [DESIGN.md](DESIGN.md)).
+- Optional browser-local game tools backed by release-controlled data, beginning with
+  the Forticlad Core planner and shared player profiles.
 
 **Out of scope (current)**
 - Dark mode (documented as deferred in [DESIGN.md](DESIGN.md)).
@@ -60,7 +62,9 @@ tree, with zero-ops publishing (push to `main`).
 
 - Every guide reachable in both languages; switcher never 404s a translated page.
 - Build is green on GitHub Actions; site served over HTTPS at the custom domain.
-- Adding a game/guide is pure Markdown + front matter, no code changes.
+- Adding ordinary game-guide content is pure Markdown + front matter, no code changes.
+  Interactive tools may add scoped browser modules and release-controlled data while
+  retaining the static-site and no-backend model.
 
 ## Related docs
 

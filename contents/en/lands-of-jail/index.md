@@ -26,6 +26,7 @@ aside:
 ## Guides
 
 - [{% include term.html key="satellite" %}](/en/lands-of-jail/satellite/)
+- [Forticlad Core Planner](/en/lands-of-jail/planners/forticlad/)
 
 ### Events
 

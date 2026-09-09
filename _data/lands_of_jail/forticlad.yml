@@ -1,0 +1,158 @@
+schema_version: 2
+source:
+  url: https://www.lojcalc.com/index.html
+  retrieved: 2026-09-09
+  note: Unofficial reference calculator transcription; Bomber Barracks is mapped to the local boomer-barrack key.
+buildings:
+  warden-office: { label: Warden Office, max_base: FC10 }
+  shieldbearer-barrack: { label: Shieldbearer Barrack, max_base: FC10 }
+  boomer-barrack: { label: Boomer Barrack, max_base: FC10 }
+  shooter-barrack: { label: Shooter Barrack, max_base: FC10 }
+  communication-center: { label: Communication Center, max_base: FC10 }
+  command-center: { label: Command Center, max_base: FC10 }
+  medical-station: { label: Medical Station, max_base: FC8 }
+requirements:
+  warden-office:
+    - { targetBase: FC2, building: boomer-barrack, minimumBase: FC1 }
+    - { targetBase: FC2, building: communication-center, minimumBase: FC1 }
+    - { targetBase: FC3, building: shieldbearer-barrack, minimumBase: FC2 }
+    - { targetBase: FC3, building: communication-center, minimumBase: FC2 }
+    - { targetBase: FC4, building: shooter-barrack, minimumBase: FC3 }
+    - { targetBase: FC4, building: communication-center, minimumBase: FC3 }
+    - { targetBase: FC5, building: boomer-barrack, minimumBase: FC4 }
+    - { targetBase: FC5, building: communication-center, minimumBase: FC4 }
+    - { targetBase: FC6, building: shieldbearer-barrack, minimumBase: FC5 }
+    - { targetBase: FC6, building: communication-center, minimumBase: FC5 }
+    - { targetBase: FC7, building: shooter-barrack, minimumBase: FC6 }
+    - { targetBase: FC7, building: communication-center, minimumBase: FC6 }
+    - { targetBase: FC8, building: boomer-barrack, minimumBase: FC7 }
+    - { targetBase: FC8, building: communication-center, minimumBase: FC7 }
+    - { targetBase: FC9, building: shieldbearer-barrack, minimumBase: FC8 }
+    - { targetBase: FC10, building: shooter-barrack, minimumBase: FC9 }
+  shieldbearer-barrack:
+    - { targetBase: FC1, building: warden-office, minimumBase: FC1 }
+    - { targetBase: FC2, building: warden-office, minimumBase: FC2 }
+    - { targetBase: FC3, building: warden-office, minimumBase: FC3 }
+    - { targetBase: FC4, building: warden-office, minimumBase: FC4 }
+    - { targetBase: FC5, building: warden-office, minimumBase: FC5 }
+    - { targetBase: FC6, building: warden-office, minimumBase: FC6 }
+    - { targetBase: FC7, building: warden-office, minimumBase: FC7 }
+    - { targetBase: FC8, building: warden-office, minimumBase: FC8 }
+    - { targetBase: FC9, building: warden-office, minimumBase: FC9 }
+    - { targetBase: FC10, building: warden-office, minimumBase: FC10 }
+  boomer-barrack:
+    - { targetBase: FC1, building: warden-office, minimumBase: FC1 }
+    - { targetBase: FC2, building: warden-office, minimumBase: FC2 }
+    - { targetBase: FC3, building: warden-office, minimumBase: FC3 }
+    - { targetBase: FC4, building: warden-office, minimumBase: FC4 }
+    - { targetBase: FC5, building: warden-office, minimumBase: FC5 }
+    - { targetBase: FC6, building: warden-office, minimumBase: FC6 }
+    - { targetBase: FC7, building: warden-office, minimumBase: FC7 }
+    - { targetBase: FC8, building: warden-office, minimumBase: FC8 }
+    - { targetBase: FC9, building: warden-office, minimumBase: FC9 }
+    - { targetBase: FC10, building: warden-office, minimumBase: FC10 }
+  shooter-barrack:
+    - { targetBase: FC1, building: warden-office, minimumBase: FC1 }
+    - { targetBase: FC2, building: warden-office, minimumBase: FC2 }
+    - { targetBase: FC3, building: warden-office, minimumBase: FC3 }
+    - { targetBase: FC4, building: warden-office, minimumBase: FC4 }
+    - { targetBase: FC5, building: warden-office, minimumBase: FC5 }
+    - { targetBase: FC6, building: warden-office, minimumBase: FC6 }
+    - { targetBase: FC7, building: warden-office, minimumBase: FC7 }
+    - { targetBase: FC8, building: warden-office, minimumBase: FC8 }
+    - { targetBase: FC9, building: warden-office, minimumBase: FC9 }
+    - { targetBase: FC10, building: warden-office, minimumBase: FC10 }
+  communication-center:
+    - { targetBase: FC1, building: warden-office, minimumBase: FC1 }
+    - { targetBase: FC2, building: warden-office, minimumBase: FC2 }
+    - { targetBase: FC3, building: warden-office, minimumBase: FC3 }
+    - { targetBase: FC4, building: warden-office, minimumBase: FC4 }
+    - { targetBase: FC5, building: warden-office, minimumBase: FC5 }
+    - { targetBase: FC6, building: warden-office, minimumBase: FC6 }
+    - { targetBase: FC7, building: warden-office, minimumBase: FC7 }
+    - { targetBase: FC8, building: warden-office, minimumBase: FC8 }
+    - { targetBase: FC9, building: warden-office, minimumBase: FC9 }
+    - { targetBase: FC10, building: warden-office, minimumBase: FC10 }
+  command-center:
+    - { targetBase: FC1, building: warden-office, minimumBase: FC1 }
+    - { targetBase: FC2, building: warden-office, minimumBase: FC2 }
+    - { targetBase: FC3, building: warden-office, minimumBase: FC3 }
+    - { targetBase: FC4, building: warden-office, minimumBase: FC4 }
+    - { targetBase: FC5, building: warden-office, minimumBase: FC5 }
+    - { targetBase: FC6, building: warden-office, minimumBase: FC6 }
+    - { targetBase: FC7, building: warden-office, minimumBase: FC7 }
+    - { targetBase: FC8, building: warden-office, minimumBase: FC8 }
+    - { targetBase: FC9, building: warden-office, minimumBase: FC9 }
+    - { targetBase: FC10, building: warden-office, minimumBase: FC10 }
+  medical-station:
+    - { targetBase: FC1, building: warden-office, minimumBase: FC1 }
+    - { targetBase: FC2, building: warden-office, minimumBase: FC2 }
+    - { targetBase: FC3, building: warden-office, minimumBase: FC3 }
+    - { targetBase: FC4, building: warden-office, minimumBase: FC4 }
+    - { targetBase: FC5, building: warden-office, minimumBase: FC5 }
+    - { targetBase: FC6, building: warden-office, minimumBase: FC6 }
+    - { targetBase: FC7, building: warden-office, minimumBase: FC7 }
+    - { targetBase: FC8, building: warden-office, minimumBase: FC8 }
+steps:
+  - base: Level 30 (start)
+    cores: { warden-office: 0, shieldbearer-barrack: 0, boomer-barrack: 0, shooter-barrack: 0, communication-center: 0, command-center: 0, medical-station: 0 }
+  - base: 30-1
+    cores: { warden-office: 250, shieldbearer-barrack: 130, boomer-barrack: 130, shooter-barrack: 130, communication-center: 50, command-center: 50, medical-station: 50 }
+  - base: 30-2
+    cores: { warden-office: 250, shieldbearer-barrack: 130, boomer-barrack: 130, shooter-barrack: 130, communication-center: 50, command-center: 50, medical-station: 50 }
+  - base: 30-3
+    cores: { warden-office: 250, shieldbearer-barrack: 130, boomer-barrack: 130, shooter-barrack: 130, communication-center: 50, command-center: 50, medical-station: 50 }
+  - base: 30-4
+    cores: { warden-office: 250, shieldbearer-barrack: 130, boomer-barrack: 130, shooter-barrack: 130, communication-center: 50, command-center: 50, medical-station: 50 }
+  - base: Forticlad (1)
+    cores: { warden-office: 250, shieldbearer-barrack: 130, boomer-barrack: 130, shooter-barrack: 130, communication-center: 50, command-center: 50, medical-station: 50 }
+  - base: Forticlad (1)-1
+    cores: { warden-office: 320, shieldbearer-barrack: 150, boomer-barrack: 150, shooter-barrack: 150, communication-center: 60, command-center: 60, medical-station: 60 }
+  - base: Forticlad (1)-2
+    cores: { warden-office: 320, shieldbearer-barrack: 150, boomer-barrack: 150, shooter-barrack: 150, communication-center: 60, command-center: 60, medical-station: 60 }
+  - base: Forticlad (1)-3
+    cores: { warden-office: 320, shieldbearer-barrack: 150, boomer-barrack: 150, shooter-barrack: 150, communication-center: 60, command-center: 60, medical-station: 60 }
+  - base: Forticlad (1)-4
+    cores: { warden-office: 320, shieldbearer-barrack: 150, boomer-barrack: 150, shooter-barrack: 150, communication-center: 60, command-center: 60, medical-station: 60 }
+  - base: Forticlad (2)
+    cores: { warden-office: 320, shieldbearer-barrack: 150, boomer-barrack: 150, shooter-barrack: 150, communication-center: 60, command-center: 60, medical-station: 60 }
+  - base: Forticlad (2)-1
+    cores: { warden-office: 490, shieldbearer-barrack: 230, boomer-barrack: 230, shooter-barrack: 230, communication-center: 80, command-center: 80, medical-station: 80 }
+  - base: Forticlad (2)-2
+    cores: { warden-office: 490, shieldbearer-barrack: 230, boomer-barrack: 230, shooter-barrack: 230, communication-center: 80, command-center: 80, medical-station: 80 }
+  - base: Forticlad (2)-3
+    cores: { warden-office: 490, shieldbearer-barrack: 230, boomer-barrack: 230, shooter-barrack: 230, communication-center: 80, command-center: 80, medical-station: 80 }
+  - base: Forticlad (2)-4
+    cores: { warden-office: 490, shieldbearer-barrack: 230, boomer-barrack: 230, shooter-barrack: 230, communication-center: 80, command-center: 80, medical-station: 80 }
+  - base: Forticlad (3)
+    cores: { warden-office: 490, shieldbearer-barrack: 230, boomer-barrack: 230, shooter-barrack: 230, communication-center: 80, command-center: 80, medical-station: 80 }
+  - base: Forticlad (3)-1
+    cores: { warden-office: 600, shieldbearer-barrack: 250, boomer-barrack: 250, shooter-barrack: 250, communication-center: 110, command-center: 110, medical-station: 110 }
+  - base: Forticlad (3)-2
+    cores: { warden-office: 600, shieldbearer-barrack: 250, boomer-barrack: 250, shooter-barrack: 250, communication-center: 110, command-center: 110, medical-station: 110 }
+  - base: Forticlad (3)-3
+    cores: { warden-office: 600, shieldbearer-barrack: 250, boomer-barrack: 250, shooter-barrack: 250, communication-center: 110, command-center: 110, medical-station: 110 }
+  - base: Forticlad (3)-4
+    cores: { warden-office: 600, shieldbearer-barrack: 250, boomer-barrack: 250, shooter-barrack: 250, communication-center: 110, command-center: 110, medical-station: 110 }
+  - base: Forticlad (4)
+    cores: { warden-office: 600, shieldbearer-barrack: 250, boomer-barrack: 250, shooter-barrack: 250, communication-center: 110, command-center: 110, medical-station: 110 }
+  - base: Forticlad (4)-1
+    cores: { warden-office: 720, shieldbearer-barrack: 300, boomer-barrack: 300, shooter-barrack: 300, communication-center: 130, command-center: 130, medical-station: 130 }
+  - base: Forticlad (4)-2
+    cores: { warden-office: 720, shieldbearer-barrack: 300, boomer-barrack: 300, shooter-barrack: 300, communication-center: 130, command-center: 130, medical-station: 130 }
+  - base: Forticlad (4)-3
+    cores: { warden-office: 720, shieldbearer-barrack: 300, boomer-barrack: 300, shooter-barrack: 300, communication-center: 130, command-center: 130, medical-station: 130 }
+  - base: Forticlad (4)-4
+    cores: { warden-office: 720, shieldbearer-barrack: 300, boomer-barrack: 300, shooter-barrack: 300, communication-center: 130, command-center: 130, medical-station: 130 }
+  - base: Forticlad (5)
+    cores: { warden-office: 720, shieldbearer-barrack: 300, boomer-barrack: 300, shooter-barrack: 300, communication-center: 130, command-center: 130, medical-station: 130 }
+  - base: FC6
+    costs: { warden-office: { fc: 360, afc: 24 }, shieldbearer-barrack: { fc: 160, afc: 10 }, boomer-barrack: { fc: 160, afc: 10 }, shooter-barrack: { fc: 160, afc: 10 }, communication-center: { fc: 90, afc: 5 }, command-center: { fc: 70, afc: 5 }, medical-station: { fc: 70, afc: 5 } }
+  - base: FC7
+    costs: { warden-office: { fc: 400, afc: 36 }, shieldbearer-barrack: { fc: 180, afc: 15 }, boomer-barrack: { fc: 180, afc: 15 }, shooter-barrack: { fc: 180, afc: 15 }, communication-center: { fc: 100, afc: 8 }, command-center: { fc: 80, afc: 8 }, medical-station: { fc: 80, afc: 8 } }
+  - base: FC8
+    costs: { warden-office: { fc: 460, afc: 48 }, shieldbearer-barrack: { fc: 210, afc: 22 }, boomer-barrack: { fc: 210, afc: 22 }, shooter-barrack: { fc: 210, afc: 22 }, communication-center: { fc: 110, afc: 12 }, command-center: { fc: 90, afc: 12 }, medical-station: { fc: 90, afc: 12 } }
+  - base: FC9
+    costs: { warden-office: { fc: 510, afc: 72 }, shieldbearer-barrack: { fc: 230, afc: 32 }, boomer-barrack: { fc: 230, afc: 32 }, shooter-barrack: { fc: 230, afc: 32 }, communication-center: { fc: 130, afc: 17 }, command-center: { fc: 100, afc: 14 }, medical-station: { fc: 0, afc: 0 } }
+  - base: FC10
+    costs: { warden-office: { fc: 630, afc: 168 }, shieldbearer-barrack: { fc: 290, afc: 75 }, boomer-barrack: { fc: 290, afc: 75 }, shooter-barrack: { fc: 290, afc: 75 }, communication-center: { fc: 160, afc: 41 }, command-center: { fc: 130, afc: 34 }, medical-station: { fc: 0, afc: 0 } }
