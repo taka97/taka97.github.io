@@ -1,0 +1,73 @@
+schema_version: 1
+source:
+  url: https://www.lojcalc.com/index.html
+  retrieved: 2026-09-09
+  note: T11 Research tree (3 troop lines x 9 tracks each, identical cost curves and requirement pattern across troops per source comments); Hyperalloy-only costs. fc-lab requirements reference the Forticlad building data in forticlad.yml, not this file.
+troops: [shieldbearer, bomber, shooter]
+tracks:
+  expedition:
+    label: Expedition Troops Capacity
+    levels: [30, 50, 80, 130, 220]
+    requires:
+      4: [{ track: fc-lab, level: 2, building: true }]
+  lethality:
+    label: Increases Lethality
+    levels: [80, 100, 140, 180, 240, 300, 380, 480, 600, 800]
+    requires:
+      4: [{ track: fc-lab, level: 2, building: true }]
+      5: [{ track: expedition, level: 4 }]
+      8: [{ track: fc-lab, level: 3, building: true }]
+  atk:
+    label: Increases ATK
+    levels: [80, 100, 140, 180, 240, 300, 380, 480, 600, 800]
+    requires:
+      4: [{ track: fc-lab, level: 2, building: true }]
+      5: [{ track: expedition, level: 4 }]
+      8: [{ track: fc-lab, level: 3, building: true }]
+  def:
+    label: Increases DEF
+    levels: [80, 100, 140, 180, 240, 300, 380, 480, 600, 800]
+    requires:
+      4: [{ track: fc-lab, level: 2, building: true }]
+      5: [{ track: expedition, level: 4 }]
+      8: [{ track: fc-lab, level: 3, building: true }]
+  hp:
+    label: Increases HP
+    levels: [80, 100, 140, 180, 240, 300, 380, 480, 600, 800]
+    requires:
+      4: [{ track: fc-lab, level: 2, building: true }]
+      5: [{ track: expedition, level: 4 }]
+      8: [{ track: fc-lab, level: 3, building: true }]
+  rally:
+    label: Increase Rally Troop Capacity
+    levels: [160, 200, 240, 290, 360, 430, 530, 650, 810, 1010, 1260, 1580]
+    requires:
+      1:
+        - { track: lethality, level: 5 }
+        - { track: atk, level: 5 }
+        - { track: def, level: 5 }
+        - { track: hp, level: 5 }
+        - { track: fc-lab, level: 4, building: true }
+      7:
+        - { track: lethality, level: 10 }
+        - { track: atk, level: 10 }
+        - { track: def, level: 10 }
+        - { track: hp, level: 10 }
+  bastion:
+    label: Unlocks Troop Lv.11
+    levels: [4500]
+    accent: true
+    requires:
+      1:
+        - { track: rally, level: 12 }
+        - { track: fc-lab, level: 5, building: true }
+  heal-lethality:
+    label: Reduce Resource Consumption for Healing and Increase Their Lethality
+    levels: [200, 260, 340, 440, 590, 800, 1120, 1570, 2360, 3530]
+    requires:
+      1: [{ track: bastion, level: 1 }]
+  train-hp:
+    label: Reduce Resource Consumption for Training and Increase Their HP
+    levels: [200, 260, 340, 440, 590, 800, 1120, 1570, 2360, 3530]
+    requires:
+      1: [{ track: bastion, level: 1 }]

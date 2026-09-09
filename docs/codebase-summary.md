@@ -20,7 +20,8 @@ _data/
   locale.yml                 UI strings for en + vi (TeXt native i18n)
   terms.yml                  Shared game terms rendered by `_includes/term.html`
   lands_of_jail/
-    forticlad.yml            Verified Base-step/Core costs for the planner
+    forticlad.yml            Verified Base-step/Core costs for the 8 planner buildings
+    forticlad_research.yml   Verified T11 Research tree (3 troops x 9 tracks, Hyperalloy)
 
 _includes/
   head/
@@ -90,9 +91,11 @@ docs/                        Project documentation (this set + DESIGN.md + super
 | UI strings (en/vi) | `_data/locale.yml` (TeXt native) |
 | Shared game terms | `_data/terms.yml` + `_includes/term.html` |
 | Typography + components | `_sass/custom.scss` |
-| Forticlad calculation + rendering | `assets/js/planners/planner-core.js`, `forticlad.js` |
+| Forticlad building calculation + rendering | `assets/js/planners/planner-core.js`, `forticlad.js` |
+| Forticlad T11 research calculation + rendering | `assets/js/planners/research-core.js`, `research.js` |
+| Shared planner table rendering | `assets/js/planners/table-helpers.js` |
 | Shared browser-local profiles | `assets/js/planners/storage.js`, `profile-settings.js` |
-| Forticlad source data | `_data/lands_of_jail/forticlad.yml` |
+| Forticlad source data | `_data/lands_of_jail/forticlad.yml`, `forticlad_research.yml` |
 
 ## Build artifacts (not committed)
 

@@ -87,11 +87,23 @@ index shipped with the theme).
 
 ## Forticlad Planner client flow
 
-`_data/lands_of_jail/forticlad.yml` is release-controlled FC/AFC data and a declarative
-prerequisite graph. Jekyll embeds it as non-executing JSON on the matched EN/VI planner
-pages. Browser ES modules validate ranges, resolve prerequisites to a fixed point, and
-aggregate FC/AFC costs independently. Settings owns profile creation, selection,
-deletion, and JSON backup/restore; player profile and inventory data stays in IndexedDB.
+`_data/lands_of_jail/forticlad.yml` (8 buildings incl. FC Lab) and
+`_data/lands_of_jail/forticlad_research.yml` (T11 Research: 3 troop lines x 9 tracks,
+Hyperalloy-only) are release-controlled game data with declarative prerequisite graphs.
+Jekyll embeds both as non-executing JSON on the matched EN/VI planner page.
+`assets/js/planners/planner-core.js` (buildings: Base-step ranges, FC/AFC) and
+`research-core.js` (research: per-track numeric levels, Hyperalloy) are independent
+calculation engines with the same shape — validate ranges, resolve cross-entity
+prerequisites to a fixed point, aggregate costs — driven by `forticlad.js` and
+`research.js` respectively; `table-helpers.js` holds the tiny DOM table builder both UI
+controllers share. Both engines read/write the same `forticlad` profile tool-data key
+(buildings and research selections + FC/AFC/Hyperalloy on-hand all live in one blob per
+profile); each save re-fetches the current profile from storage immediately before
+merging its own change in, so the two independently-initializing scripts don't clobber
+each other's fields on write. A `forticlad:building-data-changed` DOM event separately
+lets `research.js` react when a building change (e.g. FC Lab's level) affects research
+prerequisites. Settings owns profile creation, selection, deletion, and JSON
+backup/restore; player profile and inventory data stays in IndexedDB.
 
 ## Related
 

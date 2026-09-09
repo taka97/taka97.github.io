@@ -11,7 +11,7 @@ aside:
 
 # Công cụ tính FC / AFC trọng giáp
 
-Tính FC và AFC cần thiết, bao gồm cả điều kiện tiên quyết được tự động thêm. Đặt Base hiện tại và Base mục tiêu độc lập cho cả bảy công trình.
+Tính FC, AFC và Hyperalloy cho nghiên cứu T11, bao gồm cả điều kiện tiên quyết được tự động thêm. Cấp Văn phòng Giám ngục được mô phỏng từ Cấp 30 đến FC10. Không theo dõi Lương thực, Gỗ, Thép, Xăng và Thẻ Vàng — chỉ theo dõi FC, AFC và Hyperalloy.
 
 <section class="forticlad-planner" data-forticlad-planner data-lang="vi" aria-labelledby="forticlad-planner-heading">
   <h2 id="forticlad-planner-heading">Lập kế hoạch nâng cấp</h2>
@@ -30,54 +30,79 @@ Tính FC và AFC cần thiết, bao gồm cả điều kiện tiên quyết đư
     <label for="forticlad-afc-on-hand">AFC hiện có
       <input id="forticlad-afc-on-hand" data-role="afc-on-hand" type="number" min="0" step="1" inputmode="numeric" autocomplete="off">
     </label>
+    <label for="forticlad-hyperalloy-on-hand">Hyperalloy hiện có
+      <input id="forticlad-hyperalloy-on-hand" data-role="hyperalloy-on-hand" type="number" min="0" step="1" inputmode="numeric" autocomplete="off">
+    </label>
   </section>
 
   <section class="forticlad-planner__summary" aria-labelledby="forticlad-summary-heading">
     <h2 id="forticlad-summary-heading">Bạn còn thiếu gì</h2>
-    <dl>
-      <div><dt>FC / AFC hiện có</dt><dd><output class="forticlad-planner__summary-value" data-role="summary-stock">—</output></dd></div>
-      <div><dt>FC / AFC cần thiết</dt><dd><output class="forticlad-planner__summary-value" data-role="summary-required">—</output></dd></div>
-      <div><dt>Kết quả</dt><dd><output class="forticlad-planner__summary-value" data-role="summary-balance">—</output></dd></div>
-    </dl>
+    <div class="forticlad-planner__missing-grid">
+      <div class="forticlad-planner__missing-card">
+        <div class="forticlad-planner__missing-card-header">
+          <svg class="forticlad-planner__missing-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 2 L20.6 7 L20.6 17 L12 22 L3.4 17 L3.4 7 Z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span>FC</span>
+        </div>
+        <output class="forticlad-planner__missing-card-value" data-role="summary-fc-needed">—</output>
+        <output class="forticlad-planner__missing-card-badge" data-role="summary-fc-missing">—</output>
+      </div>
+      <div class="forticlad-planner__missing-card">
+        <div class="forticlad-planner__missing-card-header">
+          <svg class="forticlad-planner__missing-card-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2 L4 14 h6 l-1 8 9-12h-6z"/></svg>
+          <span>AFC</span>
+        </div>
+        <output class="forticlad-planner__missing-card-value" data-role="summary-afc-needed">—</output>
+        <output class="forticlad-planner__missing-card-badge" data-role="summary-afc-missing">—</output>
+      </div>
+      <div class="forticlad-planner__missing-card">
+        <div class="forticlad-planner__missing-card-header">
+          <svg class="forticlad-planner__missing-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
+          <span>Hyperalloy</span>
+        </div>
+        <output class="forticlad-planner__missing-card-value" data-role="summary-hyperalloy-needed">—</output>
+        <output class="forticlad-planner__missing-card-badge" data-role="summary-hyperalloy-missing">—</output>
+      </div>
+    </div>
+
+    <section class="forticlad-planner__results" data-role="building-results" aria-labelledby="forticlad-totals-heading" hidden>
+      <h3 id="forticlad-totals-heading">Yêu cầu nâng cấp</h3>
+      <div data-role="building-totals" class="forticlad-planner__table-wrap" tabindex="0" role="region" aria-labelledby="forticlad-totals-heading">
+        <p>Tổng sẽ hiện sau khi bạn chọn khoảng Base của các công trình.</p>
+      </div>
+    </section>
   </section>
 
-  <form class="forticlad-planner__form" data-role="range-form">
-    <fieldset>
-      <legend>Khoảng Base của công trình</legend>
-      <div data-role="building-ranges" class="forticlad-planner__building-ranges"></div>
-    </fieldset>
-  </form>
+  <section aria-labelledby="forticlad-buildings-heading">
+    <h2 id="forticlad-buildings-heading">Công trình</h2>
 
-  <p data-role="status" class="forticlad-planner__status" role="status" aria-live="polite"></p>
+    <form class="forticlad-planner__form" data-role="range-form">
+      <fieldset>
+        <legend>Khoảng Base của công trình</legend>
+        <div data-role="building-ranges" class="forticlad-planner__building-ranges"></div>
+      </fieldset>
+    </form>
 
-  <section class="forticlad-planner__results" aria-labelledby="forticlad-breakdown-heading">
-    <h2 id="forticlad-breakdown-heading">Chi tiết nâng cấp</h2>
-    <div data-role="step-breakdown" class="forticlad-planner__table-wrap" tabindex="0" role="region" aria-labelledby="forticlad-breakdown-heading">
-      <p>Chọn khoảng Base hợp lệ cho các công trình để xem các bước nâng cấp.</p>
-    </div>
+    <p data-role="status" class="forticlad-planner__status" role="status" aria-live="polite"></p>
   </section>
 
-  <section class="forticlad-planner__results" aria-labelledby="forticlad-totals-heading">
-    <h2 id="forticlad-totals-heading">Tổng FC / AFC theo công trình</h2>
-    <div data-role="building-totals" class="forticlad-planner__table-wrap" tabindex="0" role="region" aria-labelledby="forticlad-totals-heading">
-      <p>Tổng sẽ hiện sau khi bạn chọn khoảng Base của các công trình.</p>
-    </div>
-    <p class="forticlad-planner__grand-total"><strong>Tổng cộng:</strong> <output data-role="grand-total">—</output></p>
-    <div class="forticlad-planner__charts">
-      <section class="forticlad-planner__chart" aria-labelledby="forticlad-chart-heading">
-        <h3 id="forticlad-chart-heading">Tỷ trọng Lõi trọng giáp theo công trình</h3>
-        <div data-role="core-chart" class="forticlad-planner__chart-graphic"><p>Biểu đồ sẽ xuất hiện cùng phần tổng.</p></div>
-        <ul data-role="chart-legend" class="forticlad-planner__chart-legend"></ul>
-      </section>
-      <section class="forticlad-planner__chart" aria-labelledby="forticlad-coverage-chart-heading">
-        <h3 id="forticlad-coverage-chart-heading">Mức đáp ứng Lõi trọng giáp</h3>
-        <div data-role="coverage-chart" class="forticlad-planner__chart-graphic"><p>Nhập số Lõi trọng giáp hiện có để xem mức đáp ứng.</p></div>
-        <ul data-role="coverage-legend" class="forticlad-planner__chart-legend"></ul>
-      </section>
-    </div>
+  <section data-research-planner data-lang="vi" aria-labelledby="forticlad-research-heading">
+    <h2 id="forticlad-research-heading">Nghiên cứu T11</h2>
+
+    <div data-role="research-tracks" class="forticlad-planner__building-ranges"></div>
+
+    <p data-role="research-status" class="forticlad-planner__status" role="status" aria-live="polite"></p>
+
+    <section class="forticlad-planner__results" data-role="research-results" aria-labelledby="forticlad-research-totals-heading" hidden>
+      <h3 id="forticlad-research-totals-heading">Yêu cầu nghiên cứu</h3>
+      <div data-role="research-totals" class="forticlad-planner__table-wrap" tabindex="0" role="region" aria-labelledby="forticlad-research-totals-heading">
+        <p>Tổng sẽ hiện sau khi bạn chọn Lv. của các nhánh nghiên cứu.</p>
+      </div>
+    </section>
   </section>
 
 </section>
 
 <script id="forticlad-data" type="application/json">{{ site.data.lands_of_jail.forticlad | jsonify }}</script>
+<script id="forticlad-research-data" type="application/json">{{ site.data.lands_of_jail.forticlad_research | jsonify }}</script>
 <script type="module" src="/assets/js/planners/forticlad.js"></script>
+<script type="module" src="/assets/js/planners/research.js"></script>

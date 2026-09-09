@@ -1,17 +1,17 @@
 import { calculateBuildingRequirements, createPlanner, formatNumber } from './planner-core.js';
 import { createProfileStore, getToolData, updateToolData } from './storage.js';
+import { createTable, clearElement, setSummaryValue, setStatus as setStatusElement, renderMissingCard, targetCell, grandTotalFooter } from './table-helpers.js';
 
 const BUILDING_TRANSLATIONS = {
   'warden-office': 'Văn phòng Giám ngục',
   'shieldbearer-barrack': 'Doanh trại Khiên binh',
-  'boomer-barrack': 'Doanh trại Boomer',
+  'bomber-barrack': 'Doanh trại Bomber',
   'shooter-barrack': 'Doanh trại Xạ thủ',
   'communication-center': 'Trung tâm Liên lạc',
   'command-center': 'Trung tâm Chỉ huy',
   'medical-station': 'Trạm Y tế',
+  'fc-lab': 'Phòng Lab FC',
 };
-
-const CHART_COLORS = ['#2d6a8f', '#d97706', '#7c3f8c', '#2f855a', '#c05621', '#556cd6', '#9b2c2c'];
 
 const MESSAGES = {
   en: {
@@ -22,9 +22,10 @@ const MESSAGES = {
     noTarget: 'No target selected',
     noTargets: 'No target selected yet. Choose a target Base for a building to see the Core you need.',
     notSet: 'Not set',
-    covered: 'Target covered',
-    missing: '{amount} missing',
-    surplus: '{amount} surplus',
+    covered: 'Covered',
+    needed: '{amount} needed',
+    missing: 'Missing {amount}',
+    surplus: 'Surplus {amount}',
   },
   vi: {
     noProfile: 'Hãy tạo hoặc chọn hồ sơ đang dùng trong Cài đặt trước khi lập kế hoạch.',
@@ -34,7 +35,8 @@ const MESSAGES = {
     noTarget: 'Chưa chọn Base mục tiêu',
     noTargets: 'Chưa chọn Base mục tiêu. Hãy chọn Base mục tiêu cho một công trình để xem Lõi trọng giáp cần thiết.',
     notSet: 'Chưa nhập',
-    covered: 'Đủ Lõi cho mục tiêu',
+    covered: 'Đã đủ',
+    needed: 'Cần {amount}',
     missing: 'Còn thiếu {amount}',
     surplus: 'Dư {amount}',
   },
@@ -127,23 +129,21 @@ async function initializePlanner(container) {
   }));
 
   async function saveForticladData(changes) {
-    return store.saveProfile(updateToolData(profile, 'forticlad', {
-      ...getToolData(profile, 'forticlad'),
+    const latest = (await store.listProfiles()).find((item) => item.id === profile.id) ?? profile;
+    const saved = await store.saveProfile(updateToolData(latest, 'forticlad', {
+      ...getToolData(latest, 'forticlad'),
       ...changes,
     }));
+    if ('buildingBases' in changes) document.dispatchEvent(new CustomEvent('forticlad:building-data-changed'));
+    return saved;
   }
 
   function renderResult() {
     if (!profile) return;
     if (updateRangeWarnings(elements.buildingRanges, planner, language)) {
       clearSummary(elements);
-      clearElement(elements.stepBreakdown);
       clearElement(elements.buildingTotals);
-      clearElement(elements.coreChart);
-      clearElement(elements.chartLegend);
-      clearElement(elements.coverageChart);
-      clearElement(elements.coverageLegend);
-      elements.grandTotal.textContent = '—';
+      elements.buildingResults.hidden = true;
       setStatus(elements, message.range, true);
       return;
     }
@@ -154,23 +154,17 @@ async function initializePlanner(container) {
       renderSummary(elements, result, inventory, message);
       if (result.selectedBuildingKeys.length === 0) {
         renderEmptyResults(elements, message.noTargets);
+        elements.buildingResults.hidden = true;
         setStatus(elements, '');
         return;
       }
-      renderSteps(elements.stepBreakdown, result, planner, language);
-      renderTotals(elements.buildingTotals, elements.grandTotal, result, planner, language, inventory, message);
-      renderResourceBreakdown(elements.coreChart, elements.chartLegend, result, planner, language, inventory);
-      renderResourceBreakdown(elements.coverageChart, elements.coverageLegend, result, planner, language, inventory, true);
+      renderTotals(elements.buildingTotals, result, planner, language);
+      elements.buildingResults.hidden = false;
       if (profile) setStatus(elements, '');
     } catch (error) {
       clearSummary(elements);
-      clearElement(elements.stepBreakdown);
       clearElement(elements.buildingTotals);
-      clearElement(elements.coreChart);
-      clearElement(elements.chartLegend);
-      clearElement(elements.coverageChart);
-      clearElement(elements.coverageLegend);
-      elements.grandTotal.textContent = '—';
+      elements.buildingResults.hidden = true;
       if (profile) setStatus(elements, error.message || message.range, true);
     }
   }
@@ -180,9 +174,9 @@ function getElements(container) {
   const find = (role) => container.querySelector(`[data-role="${role}"]`);
   return {
     activeProfile: find('active-profile'), fcOnHand: find('fc-on-hand'), afcOnHand: find('afc-on-hand'), buildingRanges: find('building-ranges'), status: find('status'),
-    stepBreakdown: find('step-breakdown'), buildingTotals: find('building-totals'), grandTotal: find('grand-total'),
-    summaryStock: find('summary-stock'), summaryRequired: find('summary-required'), summaryBalance: find('summary-balance'),
-    coreChart: find('core-chart'), chartLegend: find('chart-legend'), coverageChart: find('coverage-chart'), coverageLegend: find('coverage-legend'),
+    buildingTotals: find('building-totals'), buildingResults: find('building-results'),
+    summaryFcNeeded: find('summary-fc-needed'), summaryFcMissing: find('summary-fc-missing'),
+    summaryAfcNeeded: find('summary-afc-needed'), summaryAfcMissing: find('summary-afc-missing'),
   };
 }
 
@@ -297,202 +291,33 @@ function updateRangeWarnings(container, planner, language) {
   return hasInvalidRange;
 }
 
-function renderSteps(container, result, planner, language) {
-  const levels = planner.steps
-    .map((step) => step.base)
-    .filter((base) => result.steps.some((step) => step.base === base));
-  const costs = new Map(result.steps.map((step) => [`${step.building}:${step.base}`, step]));
-  const headers = [language === 'vi' ? 'Công trình' : 'Building', ...levels, language === 'vi' ? 'Tổng' : 'Total'];
-  const rows = result.selectedBuildingKeys.map((key) => [
-    buildingName(key, planner, language),
-    ...levels.map((level) => {
-      const cost = costs.get(`${key}:${level}`);
-      return cost === undefined ? '—' : `${formatNumber(cost.fc)} / ${formatNumber(cost.afc)}`;
-    }),
-    formatNumber(result.totals[key]),
-  ]);
-  const table = createTable(headers, rows);
-  table.className = 'forticlad-planner__breakdown-table';
-  container.replaceChildren(table);
-}
-
-function renderTotals(container, grandTotal, result, planner, language, inventory, message) {
+function renderTotals(container, result, planner, language) {
   const labels = language === 'vi'
-    ? ['Công trình', 'FC cần', 'AFC cần', 'FC thiếu', 'AFC thiếu']
-    : ['Building', 'FC required', 'AFC required', 'FC missing', 'AFC missing'];
+    ? ['Mục tiêu', 'Từ', 'Đến', 'Chi phí']
+    : ['Target', 'From', 'To', 'Cost'];
+  const autoLabel = language === 'vi' ? '(tự động thêm — điều kiện tiên quyết)' : '(auto-added — prerequisite)';
   const rows = result.effectiveBuildingKeys.map((key) => {
-    const fcMissing = inventoryValueFor(inventory.fc) === undefined ? '—' : formatNumber(Math.max(result.totals[key].fc - inventory.fc, 0));
-    const afcMissing = inventoryValueFor(inventory.afc) === undefined ? '—' : formatNumber(Math.max(result.totals[key].afc - inventory.afc, 0));
-    return [buildingName(key, planner, language), formatNumber(result.totals[key].fc), formatNumber(result.totals[key].afc), fcMissing, afcMissing];
+    const range = result.effectiveRanges[key];
+    const isAuto = !result.selectedBuildingKeys.includes(key);
+    const target = targetCell(buildingName(key, planner, language), isAuto, autoLabel);
+    return [target, range.currentBase, range.targetBase, formatCost(result.totals[key].fc, result.totals[key].afc)];
   });
   const table = createTable(labels, rows);
-  const footer = document.createElement('tfoot');
-  footer.append(row([language === 'vi' ? 'Tất cả công trình' : 'All buildings', formatNumber(result.resourceTotals.fc), formatNumber(result.resourceTotals.afc), missingValue(result.resourceTotals.fc, inventory.fc), missingValue(result.resourceTotals.afc, inventory.afc)], true));
-  table.append(footer);
+  table.className = 'forticlad-planner__breakdown-table';
+  grandTotalFooter(table, language === 'vi' ? 'Tổng cộng' : 'Grand total', formatCost(result.resourceTotals.fc, result.resourceTotals.afc));
   container.replaceChildren(table);
-  grandTotal.textContent = `${formatNumber(result.resourceTotals.fc)} FC / ${formatNumber(result.resourceTotals.afc)} AFC`;
 }
 
-function inventoryValueFor(value) { return Number.isInteger(value) && value >= 0 ? value : undefined; }
-function missingValue(required, stock) { return inventoryValueFor(stock) === undefined ? '—' : formatNumber(Math.max(required - stock, 0)); }
-
-function renderResourceBreakdown(container, legend, result, planner, language, inventory, coverage = false) {
-  const values = coverage ? result.resourceTotals : result.resourceTotals;
-  const title = language === 'vi' ? 'FC / AFC' : 'FC / AFC';
-  const paragraph = document.createElement('p');
-  paragraph.textContent = `${title}: ${formatNumber(values.fc)} / ${formatNumber(values.afc)}${coverage ? ` — ${language === 'vi' ? 'Kho' : 'Stock'} ${inventoryValueFor(inventory.fc) === undefined ? '—' : formatNumber(inventory.fc)} / ${inventoryValueFor(inventory.afc) === undefined ? '—' : formatNumber(inventory.afc)}` : ''}`;
-  container.replaceChildren(paragraph);
-  clearElement(legend);
-}
-
-function renderCoreChart(container, legend, result, planner, language) {
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('viewBox', '0 0 100 100');
-  svg.setAttribute('role', 'img');
-  svg.setAttribute('aria-label', language === 'vi' ? 'Tỷ trọng Lõi trọng giáp cần thiết theo công trình' : 'Required Forticlad Core distribution by building');
-
-  const circumference = 2 * Math.PI * 40;
-  let offset = 0;
-  const items = result.selectedBuildingKeys.map((key) => ({
-    key,
-    value: result.totals[key],
-    color: CHART_COLORS[planner.buildingKeys.indexOf(key)],
-  }));
-
-  items.forEach((item) => {
-    const length = result.grandTotal ? (item.value / result.grandTotal) * circumference : 0;
-    const slice = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    slice.setAttribute('cx', '50');
-    slice.setAttribute('cy', '50');
-    slice.setAttribute('r', '40');
-    slice.setAttribute('fill', 'none');
-    slice.setAttribute('stroke', item.color);
-    slice.setAttribute('stroke-width', '20');
-    slice.setAttribute('stroke-dasharray', `${length} ${circumference - length}`);
-    slice.setAttribute('stroke-dashoffset', String(-offset));
-    slice.setAttribute('transform', 'rotate(-90 50 50)');
-    const title = document.createElementNS('http://www.w3.org/2000/svg', 'title');
-    title.textContent = `${buildingName(item.key, planner, language)}: ${formatNumber(item.value)}`;
-    slice.append(title);
-    svg.append(slice);
-    offset += length;
-  });
-
-  const center = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-  center.setAttribute('x', '50');
-  center.setAttribute('y', '52');
-  center.setAttribute('text-anchor', 'middle');
-  center.setAttribute('font-size', '9');
-  center.textContent = formatNumber(result.grandTotal);
-  svg.append(center);
-  container.replaceChildren(svg);
-
-  legend.replaceChildren(...items.map((item) => chartLegendItem(item, result.grandTotal, planner, language)));
-}
-
-function chartLegendItem(item, grandTotal, planner, language) {
-  const entry = document.createElement('li');
-  const swatch = document.createElement('span');
-  swatch.className = 'forticlad-planner__chart-swatch';
-  swatch.style.backgroundColor = item.color;
-  const percentage = grandTotal ? `${((item.value / grandTotal) * 100).toFixed(1)}%` : '0%';
-  entry.append(swatch, document.createTextNode(`${buildingName(item.key, planner, language)} — ${formatNumber(item.value)} (${percentage})`));
-  return entry;
-}
-
-function renderCoverageChart(container, legend, result, coreOnHand, language) {
-  const hasInventory = Number.isInteger(coreOnHand) && coreOnHand >= 0;
-  if (!hasInventory) {
-    const message = document.createElement('p');
-    message.textContent = language === 'vi'
-      ? 'Nhập số Lõi trọng giáp hiện có để xem mức đáp ứng.'
-      : 'Enter your current Core amount to see coverage.';
-    container.replaceChildren(message);
-    clearElement(legend);
-    return;
-  }
-
-  const required = result.grandTotal;
-  const covered = Math.min(coreOnHand, required);
-  const missing = Math.max(required - coreOnHand, 0);
-  const coveragePercent = required ? (covered / required) * 100 : 100;
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('viewBox', '0 0 100 100');
-  svg.setAttribute('role', 'img');
-  svg.setAttribute('aria-label', language === 'vi'
-    ? `${coveragePercent.toFixed(1)}% Lõi trọng giáp đáp ứng mục tiêu`
-    : `${coveragePercent.toFixed(1)}% Forticlad Core coverage`);
-
-  appendDonutSlice(svg, '#a32020', 1, 0);
-  appendDonutSlice(svg, '#1d6b3b', required ? covered / required : 1, 0);
-
-  const center = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-  center.setAttribute('x', '50');
-  center.setAttribute('y', '48');
-  center.setAttribute('text-anchor', 'middle');
-  center.setAttribute('font-size', '10');
-  center.textContent = `${coveragePercent.toFixed(0)}%`;
-  const caption = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-  caption.setAttribute('x', '50');
-  caption.setAttribute('y', '59');
-  caption.setAttribute('text-anchor', 'middle');
-  caption.setAttribute('font-size', '6');
-  caption.textContent = language === 'vi' ? 'đáp ứng' : 'covered';
-  svg.append(center, caption);
-  container.replaceChildren(svg);
-
-  legend.replaceChildren(
-    coverageLegendItem('#1d6b3b', language === 'vi' ? 'Lõi đáp ứng mục tiêu' : 'Core covering target', covered),
-    coverageLegendItem('#a32020', language === 'vi' ? 'Lõi còn thiếu' : 'Missing Core', missing),
-    coverageLegendItem('#5d5d67', language === 'vi' ? 'Lõi hiện có' : 'Current Core', coreOnHand),
-    coverageLegendItem('#5d5d67', language === 'vi' ? 'Lõi cần thiết' : 'Core required', required),
-  );
-}
-
-function appendDonutSlice(svg, color, portion, offset) {
-  const circumference = 2 * Math.PI * 40;
-  const length = portion * circumference;
-  const slice = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-  slice.setAttribute('cx', '50');
-  slice.setAttribute('cy', '50');
-  slice.setAttribute('r', '40');
-  slice.setAttribute('fill', 'none');
-  slice.setAttribute('stroke', color);
-  slice.setAttribute('stroke-width', '20');
-  slice.setAttribute('stroke-dasharray', `${length} ${circumference - length}`);
-  slice.setAttribute('stroke-dashoffset', String(-offset * circumference));
-  slice.setAttribute('transform', 'rotate(-90 50 50)');
-  svg.append(slice);
-}
-
-function coverageLegendItem(color, label, value) {
-  const entry = document.createElement('li');
-  const swatch = document.createElement('span');
-  swatch.className = 'forticlad-planner__chart-swatch';
-  swatch.style.backgroundColor = color;
-  entry.append(swatch, document.createTextNode(`${label}: ${formatNumber(value)}`));
-  return entry;
+function formatCost(fc, afc) {
+  const parts = [];
+  if (fc > 0) parts.push(`${formatNumber(fc)} FC`);
+  if (afc > 0) parts.push(`${formatNumber(afc)} AFC`);
+  return parts.length ? parts.join(', ') : '—';
 }
 
 function renderSummary(elements, result, inventory, message) {
-  const hasFc = inventoryValueFor(inventory.fc) !== undefined;
-  const hasAfc = inventoryValueFor(inventory.afc) !== undefined;
-  setSummaryValue(elements.summaryStock, `${hasFc ? formatNumber(inventory.fc) : message.notSet} FC / ${hasAfc ? formatNumber(inventory.afc) : message.notSet} AFC`, hasFc || hasAfc ? '' : 'is-unset');
-  setSummaryValue(elements.summaryRequired, `${formatNumber(result.resourceTotals.fc)} FC / ${formatNumber(result.resourceTotals.afc)} AFC`);
-
-  if (result.selectedBuildingKeys.length === 0) {
-    setSummaryValue(elements.summaryBalance, message.noTarget, 'is-unset');
-    return;
-  }
-  if (!hasFc && !hasAfc) {
-    setSummaryValue(elements.summaryBalance, message.notSet, 'is-unset');
-    return;
-  }
-
-  const fcDifference = hasFc ? inventory.fc - result.resourceTotals.fc : null;
-  const afcDifference = hasAfc ? inventory.afc - result.resourceTotals.afc : null;
-  const summary = [fcDifference === null ? 'FC —' : fcDifference < 0 ? `FC ${message.missing.replace('{amount}', formatNumber(Math.abs(fcDifference)))}` : fcDifference > 0 ? `FC ${message.surplus.replace('{amount}', formatNumber(fcDifference))}` : 'FC covered', afcDifference === null ? 'AFC —' : afcDifference < 0 ? `AFC ${message.missing.replace('{amount}', formatNumber(Math.abs(afcDifference)))}` : afcDifference > 0 ? `AFC ${message.surplus.replace('{amount}', formatNumber(afcDifference))}` : 'AFC covered'];
-  setSummaryValue(elements.summaryBalance, summary.join(' / '), fcDifference < 0 || afcDifference < 0 ? 'is-missing' : 'is-complete');
+  renderMissingCard(elements.summaryFcNeeded, elements.summaryFcMissing, result.resourceTotals.fc, inventory.fc, result.selectedBuildingKeys.length > 0, message, formatNumber);
+  renderMissingCard(elements.summaryAfcNeeded, elements.summaryAfcMissing, result.resourceTotals.afc, inventory.afc, result.selectedBuildingKeys.length > 0, message, formatNumber);
 }
 
 function renderEmptyResults(elements, message) {
@@ -501,55 +326,11 @@ function renderEmptyResults(elements, message) {
     paragraph.textContent = message;
     return paragraph;
   };
-  elements.stepBreakdown.replaceChildren(emptyState());
   elements.buildingTotals.replaceChildren(emptyState());
-  elements.grandTotal.textContent = '—';
-  elements.coreChart.replaceChildren(emptyState());
-  elements.coverageChart.replaceChildren(emptyState());
-  clearElement(elements.chartLegend);
-  clearElement(elements.coverageLegend);
 }
 
 function clearSummary(elements) {
-  [elements.summaryStock, elements.summaryRequired, elements.summaryBalance].forEach((output) => setSummaryValue(output, '—'));
-}
-
-function setSummaryValue(output, value, state = '') {
-  output.textContent = value;
-  output.classList.remove('is-complete', 'is-missing', 'is-surplus', 'is-unset');
-  if (state) output.classList.add(state);
-}
-
-function createTable(headers, rows) {
-  const table = document.createElement('table');
-  const head = document.createElement('thead');
-  const headerRow = document.createElement('tr');
-  headers.forEach((header) => {
-    const headerCell = cell('th', header);
-    headerCell.scope = 'col';
-    headerRow.append(headerCell);
-  });
-  head.append(headerRow);
-  const body = document.createElement('tbody');
-  rows.forEach((values) => body.append(row(values, true)));
-  table.append(head, body);
-  return table;
-}
-
-function row(values, rowHeader = false) {
-  const element = document.createElement('tr');
-  values.forEach((value, index) => {
-    const rowCell = cell(rowHeader && index === 0 ? 'th' : 'td', value);
-    if (rowHeader && index === 0) rowCell.scope = 'row';
-    element.append(rowCell);
-  });
-  return element;
-}
-
-function cell(tag, value) {
-  const element = document.createElement(tag);
-  element.textContent = value;
-  return element;
+  [elements.summaryFcNeeded, elements.summaryFcMissing, elements.summaryAfcNeeded, elements.summaryAfcMissing].forEach((output) => setSummaryValue(output, '—'));
 }
 
 function buildingName(key, planner, language) {
@@ -557,10 +338,5 @@ function buildingName(key, planner, language) {
 }
 
 function setStatus(elements, value, isError = false) {
-  elements.status.textContent = value;
-  elements.status.classList.toggle('is-error', isError);
-}
-
-function clearElement(element) {
-  element.replaceChildren();
+  setStatusElement(elements.status, value, isError);
 }

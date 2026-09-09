@@ -46,7 +46,7 @@
 
   .forticlad-planner__inventory {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr);
     gap: 0.75rem;
     padding: 1rem;
     border: 1px solid #d9d9df;
@@ -56,17 +56,6 @@
   .forticlad-planner__inventory h3 {
     grid-column: 1 / -1;
     margin: 0;
-  }
-
-  .forticlad-planner__prerequisites {
-    margin-top: 1.25rem;
-    padding: 1rem;
-    border: 1px solid #d9d9df;
-    background: #fafafd;
-  }
-
-  .forticlad-planner__prerequisites ul {
-    margin-bottom: 0;
   }
 
   fieldset {
@@ -145,18 +134,43 @@
     padding-top: 1rem;
     border-top: 1px solid #e3e3e8;
 
-    &:first-child {
+    &:first-child,
+    &:first-of-type {
       padding-top: 0;
       border-top: 0;
     }
 
-    h3 {
+    h3,
+    h4 {
       margin: 0;
       font-size: 1rem;
     }
 
     &.is-invalid {
       border-color: #a32020;
+    }
+
+    &.is-accent {
+      padding: 0.75rem;
+      border: 1px solid #c05621;
+      background: #fdf3ea;
+    }
+  }
+
+  .forticlad-planner__troop-group {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    > h3 {
+      margin: 0;
+      padding-bottom: 0.35rem;
+      border-bottom: 2px solid #d9d9df;
+      font-size: 1.1rem;
     }
   }
 
@@ -191,55 +205,73 @@
     h2 {
       margin-top: 0;
     }
-
-    dl {
-      display: grid;
-      gap: 0.75rem;
-      margin: 0;
-    }
-
-    dl > div {
-      padding: 0.85rem;
-      border: 1px solid #d9d9df;
-      background: #fff;
-    }
-
-    dt {
-      font-size: 0.875rem;
-      font-weight: 600;
-    }
-
-    dd {
-      margin: 0.25rem 0 0;
-      font-size: 1.125rem;
-      font-weight: 700;
-      font-variant-numeric: tabular-nums;
-    }
   }
 
-  .forticlad-planner__summary-value {
-    display: inline-block;
-    padding: 0.1rem 0.3rem;
-    border: 1px solid transparent;
+  .forticlad-planner__missing-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.75rem;
+  }
 
-    &.is-complete {
-      border-color: #1d6b3b;
-      background: #e5f2e9;
-    }
+  .forticlad-planner__missing-card {
+    padding: 0.85rem;
+    border: 1px solid #d9d9df;
+    border-left: 3px solid #d97706;
+    background: #fff;
+  }
+
+  .forticlad-planner__missing-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.35rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .forticlad-planner__missing-card-icon {
+    width: 1rem;
+    height: 1rem;
+    flex: 0 0 auto;
+    color: #5d5d67;
+  }
+
+  .forticlad-planner__missing-card-value {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 1.125rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .forticlad-planner__missing-card-badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 0.2rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    background: #efeff2;
+    color: #5d5d67;
 
     &.is-missing {
-      border-color: #a32020;
-      background: #fbe9e9;
+      background: #3a1420;
+      color: #f87171;
+    }
+
+    &.is-complete {
+      background: #163a24;
+      color: #4ade80;
     }
 
     &.is-surplus {
-      border-color: #2d6a8f;
-      background: #e8f0f7;
+      background: #16283a;
+      color: #60a5fa;
     }
 
     &.is-unset {
-      border-color: #5d5d67;
       background: #efeff2;
+      color: #5d5d67;
     }
   }
 
@@ -248,15 +280,6 @@
     overflow-x: auto;
     overscroll-behavior-x: contain;
     -webkit-overflow-scrolling: touch;
-  }
-
-  .forticlad-planner__chart {
-    margin-top: 1.5rem;
-  }
-
-  .forticlad-planner__charts {
-    display: grid;
-    gap: 1.5rem;
   }
 
   .forticlad-planner__total-row {
@@ -271,37 +294,14 @@
     color: #a32020;
   }
 
-  .forticlad-planner__chart-graphic svg {
-    display: block;
-    width: min(100%, 16rem);
-    margin: 1rem auto;
-  }
-
-  .forticlad-planner__chart-legend {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
-    gap: 0.5rem 1rem;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .forticlad-planner__chart-legend li {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-  }
-
-  .forticlad-planner__chart-swatch {
-    width: 0.85rem;
-    height: 0.85rem;
-    flex: 0 0 auto;
-    border-radius: 50%;
-  }
-
   table {
     width: 100%;
     margin: 0;
+  }
+
+  th:first-child,
+  td:first-child {
+    text-align: left;
   }
 
   th:not(:first-child),
@@ -316,8 +316,28 @@
     font-weight: 700;
   }
 
+  .forticlad-planner__breakdown-table th:nth-child(2),
+  .forticlad-planner__breakdown-table td:nth-child(2),
+  .forticlad-planner__breakdown-table th:nth-child(3),
+  .forticlad-planner__breakdown-table td:nth-child(3) {
+    text-align: left;
+  }
+
+  .forticlad-planner__breakdown-table th.forticlad-planner__grand-total-label {
+    text-align: right;
+  }
+
+  .forticlad-planner__auto-tag {
+    color: #7c3f8c;
+    font-size: 0.8em;
+    font-style: italic;
+  }
+
   @media screen and (min-width: 768px) {
-    .forticlad-planner__summary dl {
+    .forticlad-planner__inventory {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .forticlad-planner__missing-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
     .forticlad-planner__fields {
@@ -336,10 +356,6 @@
 
     .forticlad-planner__range-error {
       grid-column: 2 / -1;
-    }
-
-    .forticlad-planner__charts {
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     }
   }
 }

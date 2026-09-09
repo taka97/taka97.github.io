@@ -69,7 +69,14 @@ export function getToolData(profile, tool) {
     ...data,
     fcOnHand: Number.isInteger(data.fcOnHand) ? data.fcOnHand : data.coreOnHand,
     afcOnHand: Number.isInteger(data.afcOnHand) ? data.afcOnHand : undefined,
+    ...(data.buildingBases ? { buildingBases: migrateBoomerBarrackKey(data.buildingBases) } : {}),
   };
+}
+
+function migrateBoomerBarrackKey(buildingBases) {
+  if (!buildingBases['boomer-barrack']) return buildingBases;
+  const { 'boomer-barrack': legacy, ...rest } = buildingBases;
+  return { ...rest, 'bomber-barrack': legacy };
 }
 
 export function updateToolData(profile, tool, data) {
