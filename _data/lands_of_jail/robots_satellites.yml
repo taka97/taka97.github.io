@@ -1,0 +1,78 @@
+schema_version: 1
+source:
+  url: https://www.lojcalc.com/robots-satellites.html
+  retrieved: 2026-09-10
+  note: Robots & Satellites tool. No cross-track prerequisites — every level's `requires` in the source is a literal `[]`. Robot is the only add-instance category (cap 12). Satellites are 9 fixed named units across 3 rarity tiers (R/SR/SSR), not addable — their cost curve is shared per tier, not per satellite (source's `makeSatelliteTrack(id, category, nameKey, costs)` passes the same `costs` array to every satellite call-site within a tier). Resource keys match the source's RESOURCES array exactly. SSR tier's cost table is derived from source's per-level `SSR_LEVEL_DATADISK` (90 entries) summed into 9 brackets of 10 plus `SSR_BREAKTHROUGH_PLANETCOIN` — values below were independently recomputed via script during brainstorming (see brainstorm report), not hand-summed.
+caps: { robots: 12 }
+resources:
+  - { key: PrisonerArmorData, label: Prisoner Armor Data }
+  - { key: PowerModule, label: Power Module }
+  - { key: AdvancedPowerModule, label: Advanced Power Module }
+  - { key: DataDisk, label: Data Disk }
+  - { key: PlanetCoin, label: Planet Coin }
+# 11 rows: index 0 = Level "1" (baseline, zero cost), indices 1-10 = ROBOT_COSTS[0..9] (levels 10-100).
+robotLevels:
+  - { PrisonerArmorData: 0,     PowerModule: 0,   AdvancedPowerModule: 0 }
+  - { PrisonerArmorData: 1200,  PowerModule: 20,  AdvancedPowerModule: 0 }
+  - { PrisonerArmorData: 2310,  PowerModule: 30,  AdvancedPowerModule: 0 }
+  - { PrisonerArmorData: 3600,  PowerModule: 40,  AdvancedPowerModule: 10 }
+  - { PrisonerArmorData: 5320,  PowerModule: 60,  AdvancedPowerModule: 15 }
+  - { PrisonerArmorData: 7560,  PowerModule: 80,  AdvancedPowerModule: 20 }
+  - { PrisonerArmorData: 10260, PowerModule: 100, AdvancedPowerModule: 30 }
+  - { PrisonerArmorData: 19400, PowerModule: 130, AdvancedPowerModule: 140 }
+  - { PrisonerArmorData: 24800, PowerModule: 160, AdvancedPowerModule: 50 }
+  - { PrisonerArmorData: 30300, PowerModule: 190, AdvancedPowerModule: 70 }
+  - { PrisonerArmorData: 36300, PowerModule: 230, AdvancedPowerModule: 90 }
+# One entry per rarity tier. `levels` is the shared cost curve for every satellite in
+# that tier (index 0 = baseline, remaining indices = that tier's cost table in order).
+# `estimated` on a level row is a list of resource keys (not a bare boolean) so only
+# the specific unconfirmed resource is flagged, matching source's precision (only
+# R-level-50's Data Disk figure was flagged, not the whole row/level).
+satelliteTiers:
+  - key: R
+    label: R
+    badge: "#5b8cff"
+    levels:
+      - { DataDisk: 0,     PlanetCoin: 0 }
+      - { DataDisk: 1565,  PlanetCoin: 10 }
+      - { DataDisk: 2840,  PlanetCoin: 20 }
+      - { DataDisk: 4730,  PlanetCoin: 40 }
+      - { DataDisk: 7480,  PlanetCoin: 60 }
+      - { DataDisk: 11230, PlanetCoin: 80, estimated: [DataDisk] }
+  - key: SR
+    label: SR
+    badge: "#9b6bff"
+    levels:
+      - { DataDisk: 0,     PlanetCoin: 0 }
+      - { DataDisk: 1740,  PlanetCoin: 20 }
+      - { DataDisk: 3125,  PlanetCoin: 40 }
+      - { DataDisk: 5205,  PlanetCoin: 60 }
+      - { DataDisk: 8225,  PlanetCoin: 100 }
+      - { DataDisk: 12350, PlanetCoin: 150 }
+      - { DataDisk: 17565, PlanetCoin: 200 }
+      - { DataDisk: 23825, PlanetCoin: 260 }
+  - key: SSR
+    label: SSR
+    badge: "#ffd60a"
+    levels:
+      - { DataDisk: 0,     PlanetCoin: 0 }
+      - { DataDisk: 1785,  PlanetCoin: 30 }
+      - { DataDisk: 3180,  PlanetCoin: 60 }
+      - { DataDisk: 5310,  PlanetCoin: 100 }
+      - { DataDisk: 8380,  PlanetCoin: 150 }
+      - { DataDisk: 12555, PlanetCoin: 210 }
+      - { DataDisk: 17820, PlanetCoin: 280 }
+      - { DataDisk: 24130, PlanetCoin: 360 }
+      - { DataDisk: 29025, PlanetCoin: 450 }
+      - { DataDisk: 32855, PlanetCoin: 500 }
+# 9 fixed units — cost comes from satelliteTiers[tier].levels, not stored here.
+satellites:
+  - { id: sat_r_laser, tier: R, labelKey: sat_r_laser }
+  - { id: sat_r_observateur, tier: R, labelKey: sat_r_observateur }
+  - { id: sat_r_radiance, tier: R, labelKey: sat_r_radiance }
+  - { id: sat_sr_arbitre, tier: SR, labelKey: sat_sr_arbitre }
+  - { id: sat_sr_sentinelle, tier: SR, labelKey: sat_sr_sentinelle }
+  - { id: sat_ssr_domaine_omniscient, tier: SSR, labelKey: sat_ssr_domaine_omniscient }
+  - { id: sat_ssr_nexus_celeste, tier: SSR, labelKey: sat_ssr_nexus_celeste }
+  - { id: sat_ssr_argus, tier: SSR, labelKey: sat_ssr_argus }
+  - { id: sat_ssr_polaris, tier: SSR, labelKey: sat_ssr_polaris }

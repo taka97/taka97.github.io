@@ -352,6 +352,44 @@
     font-style: italic;
   }
 
+  .loj-planner__rarity-badge {
+    display: inline-block;
+    padding: 0.1rem 0.5rem;
+    border: 1px solid var(--badge-color, #5d5d67);
+    border-radius: 999px;
+    color: var(--badge-color, #5d5d67);
+    font-size: 0.75em;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  .loj-planner__estimated-tag {
+    padding: 0 0.35em;
+    border: 1px solid #5d5d67;
+    border-radius: 999px;
+    background: none;
+    color: inherit;
+    font-size: 0.8em;
+    line-height: 1.4;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: 3px solid #4c77c2;
+      outline-offset: 2px;
+    }
+  }
+
+  .loj-planner__estimated-note {
+    margin-left: 0.35em;
+    color: #6b6b76;
+    font-size: 0.85em;
+    font-style: italic;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
   .loj-planner__sticky-bar {
     position: sticky;
     bottom: 0;

@@ -130,6 +130,27 @@ export function renderInstanceBadge(badgeElement, hasTarget, targetSetLabel, noT
   badgeElement.classList.toggle('is-no-target', !hasTarget);
 }
 
+export function renderEstimatedBadge(container, isEstimated, label, noteText) {
+  container.replaceChildren();
+  if (!isEstimated) return;
+  const toggle = document.createElement('button');
+  toggle.type = 'button';
+  toggle.className = 'loj-planner__estimated-tag';
+  toggle.textContent = '≈';
+  toggle.setAttribute('aria-expanded', 'false');
+  toggle.setAttribute('aria-label', label);
+  const note = document.createElement('span');
+  note.className = 'loj-planner__estimated-note';
+  note.textContent = noteText;
+  note.hidden = true;
+  toggle.addEventListener('click', () => {
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!expanded));
+    note.hidden = expanded;
+  });
+  container.append(toggle, note);
+}
+
 export function renderMissingCard(neededOutput, missingOutput, required, stock, hasTarget, message, formatNumber) {
   if (!hasTarget) {
     setSummaryValue(neededOutput, '—');

@@ -42,6 +42,8 @@ loj-en:
         url: /en/lands-of-jail/planners/forticlad/
       - title: Tomes & Collections
         url: /en/lands-of-jail/planners/tomes-collections/
+      - title: Robots & Satellites
+        url: /en/lands-of-jail/planners/robots-satellites/
       - title: Settings
         url: /en/lands-of-jail/tools/settings/
 
@@ -74,5 +76,7 @@ loj-vi:
         url: /vi/lands-of-jail/planners/forticlad/
       - title: Công cụ tính Tomes & Collections
         url: /vi/lands-of-jail/planners/tomes-collections/
+      - title: Công cụ tính Robots & Satellites
+        url: /vi/lands-of-jail/planners/robots-satellites/
       - title: Cài đặt
         url: /vi/lands-of-jail/tools/settings/
