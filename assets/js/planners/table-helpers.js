@@ -60,7 +60,7 @@ export function targetCell(name, isAuto, autoLabel) {
   const fragment = document.createDocumentFragment();
   fragment.append(`${name} `);
   const tag = document.createElement('span');
-  tag.className = 'forticlad-planner__auto-tag';
+  tag.className = 'loj-planner__auto-tag';
   tag.textContent = autoLabel;
   fragment.append(tag);
   return fragment;
@@ -72,13 +72,28 @@ export function grandTotalFooter(table, label, costText) {
   const labelCell = document.createElement('th');
   labelCell.scope = 'row';
   labelCell.colSpan = 3;
-  labelCell.className = 'forticlad-planner__grand-total-label';
+  labelCell.className = 'loj-planner__grand-total-label';
   labelCell.textContent = label;
   const costCell = document.createElement('td');
   costCell.textContent = costText;
   footerRow.append(labelCell, costCell);
   footer.append(footerRow);
   table.append(footer);
+}
+
+const ROMAN_NUMERALS = [[1000, 'M'], [900, 'CM'], [500, 'D'], [400, 'CD'], [100, 'C'], [90, 'XC'], [50, 'L'], [40, 'XL'], [10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I']];
+
+export function toRoman(value) {
+  if (!Number.isInteger(value) || value <= 0) return String(value);
+  let remaining = value;
+  let result = '';
+  for (const [amount, numeral] of ROMAN_NUMERALS) {
+    while (remaining >= amount) {
+      result += numeral;
+      remaining -= amount;
+    }
+  }
+  return result;
 }
 
 export function renderMissingCard(neededOutput, missingOutput, required, stock, hasTarget, message, formatNumber) {

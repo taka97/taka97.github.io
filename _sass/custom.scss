@@ -40,11 +40,11 @@
   }
 }
 
-/* Forticlad Core planner controls and tables. */
-.forticlad-planner {
+/* Shared Lands of Jail planner controls and tables (Forticlad, Tomes & Collections, and future tool migrations). */
+.loj-planner {
   margin: 1.5rem 0;
 
-  .forticlad-planner__inventory {
+  .loj-planner__inventory {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: 0.75rem;
@@ -53,7 +53,7 @@
     background: #fafafd;
   }
 
-  .forticlad-planner__inventory h3 {
+  .loj-planner__inventory h3 {
     grid-column: 1 / -1;
     margin: 0;
   }
@@ -73,7 +73,7 @@
   input,
   select,
   button,
-  .forticlad-planner__import {
+  .loj-planner__import {
     min-height: 2.5rem;
     box-sizing: border-box;
   }
@@ -90,7 +90,7 @@
   }
 
   button,
-  .forticlad-planner__import {
+  .loj-planner__import {
     padding: 0.45rem 0.75rem;
     border: 1px solid #5d5d67;
     border-radius: 0.2rem;
@@ -109,26 +109,26 @@
   input:focus-visible,
   select:focus-visible,
   button:focus-visible,
-  .forticlad-planner__import:focus-visible,
-  .forticlad-planner__table-wrap:focus-visible {
+  .loj-planner__import:focus-visible,
+  .loj-planner__table-wrap:focus-visible {
     outline: 3px solid #4c77c2;
     outline-offset: 2px;
   }
 
-  .forticlad-planner__fields,
-  .forticlad-planner__profile-actions,
-  .forticlad-planner__actions {
+  .loj-planner__fields,
+  .loj-planner__profile-actions,
+  .loj-planner__actions {
     display: grid;
     gap: 0.75rem;
     align-items: end;
   }
 
-  .forticlad-planner__building-ranges {
+  .loj-planner__instance-ranges {
     display: grid;
     gap: 1rem;
   }
 
-  .forticlad-planner__building-range {
+  .loj-planner__instance-range {
     display: grid;
     gap: 0.75rem;
     padding-top: 1rem;
@@ -157,7 +157,7 @@
     }
   }
 
-  .forticlad-planner__troop-group {
+  .loj-planner__group {
     display: grid;
     gap: 1rem;
     margin-bottom: 0.5rem;
@@ -176,19 +176,19 @@
     }
   }
 
-  .forticlad-planner__range-error {
+  .loj-planner__range-error {
     margin: 0;
     color: #a32020;
     font-weight: 600;
   }
 
-  .forticlad-planner__profile-actions,
-  .forticlad-planner__results,
-  .forticlad-planner__backup {
+  .loj-planner__profile-actions,
+  .loj-planner__results,
+  .loj-planner__backup {
     margin-top: 1.25rem;
   }
 
-  .forticlad-planner__status {
+  .loj-planner__status {
     min-height: 1.6em;
     margin: 1rem 0;
 
@@ -198,7 +198,7 @@
     }
   }
 
-  .forticlad-planner__summary {
+  .loj-planner__summary {
     margin-top: 1.25rem;
     padding: 1rem;
     border: 1px solid #d9d9df;
@@ -209,20 +209,20 @@
     }
   }
 
-  .forticlad-planner__missing-grid {
+  .loj-planner__missing-grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: 0.75rem;
   }
 
-  .forticlad-planner__missing-card {
+  .loj-planner__missing-card {
     padding: 0.85rem;
     border: 1px solid #d9d9df;
     border-left: 3px solid #d97706;
     background: #fff;
   }
 
-  .forticlad-planner__missing-card-header {
+  .loj-planner__missing-card-header {
     display: flex;
     align-items: center;
     gap: 0.4rem;
@@ -231,14 +231,14 @@
     font-weight: 600;
   }
 
-  .forticlad-planner__missing-card-icon {
+  .loj-planner__missing-card-icon {
     width: 1rem;
     height: 1rem;
     flex: 0 0 auto;
     color: #5d5d67;
   }
 
-  .forticlad-planner__missing-card-value {
+  .loj-planner__missing-card-value {
     display: block;
     margin-bottom: 0.4rem;
     font-size: 1.125rem;
@@ -246,7 +246,7 @@
     font-variant-numeric: tabular-nums;
   }
 
-  .forticlad-planner__missing-card-badge {
+  .loj-planner__missing-card-badge {
     display: inline-block;
     padding: 0.2rem 0.6rem;
     border-radius: 0.2rem;
@@ -277,22 +277,22 @@
     }
   }
 
-  .forticlad-planner__table-wrap {
+  .loj-planner__table-wrap {
     max-width: 100%;
     overflow-x: auto;
     overscroll-behavior-x: contain;
     -webkit-overflow-scrolling: touch;
   }
 
-  .forticlad-planner__total-row {
+  .loj-planner__total-row {
     font-weight: 700;
   }
 
-  .forticlad-planner__total-row .is-complete {
+  .loj-planner__total-row .is-complete {
     color: #1d6b3b;
   }
 
-  .forticlad-planner__total-row .is-missing {
+  .loj-planner__total-row .is-missing {
     color: #a32020;
   }
 
@@ -312,51 +312,85 @@
     font-variant-numeric: tabular-nums;
   }
 
-  .forticlad-planner__breakdown-table th:last-child,
-  .forticlad-planner__breakdown-table td:last-child {
+  .loj-planner__breakdown-table th:last-child,
+  .loj-planner__breakdown-table td:last-child {
     background: #e8eefb;
     font-weight: 700;
   }
 
-  .forticlad-planner__breakdown-table th:nth-child(2),
-  .forticlad-planner__breakdown-table td:nth-child(2),
-  .forticlad-planner__breakdown-table th:nth-child(3),
-  .forticlad-planner__breakdown-table td:nth-child(3) {
+  .loj-planner__breakdown-table th:nth-child(2),
+  .loj-planner__breakdown-table td:nth-child(2),
+  .loj-planner__breakdown-table th:nth-child(3),
+  .loj-planner__breakdown-table td:nth-child(3) {
     text-align: left;
   }
 
-  .forticlad-planner__breakdown-table th.forticlad-planner__grand-total-label {
+  .loj-planner__breakdown-table th.loj-planner__grand-total-label {
     text-align: right;
   }
 
-  .forticlad-planner__auto-tag {
+  .loj-planner__auto-tag {
     color: #7c3f8c;
     font-size: 0.8em;
     font-style: italic;
   }
 
+  .loj-planner__sticky-bar {
+    position: sticky;
+    bottom: 0;
+    z-index: 5;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid #5d5d67;
+    border-radius: 0.3rem;
+    background: #23232b;
+    color: #fff;
+    cursor: pointer;
+
+    &[hidden] {
+      display: none;
+    }
+
+    &:focus-visible {
+      outline: 3px solid #4c77c2;
+      outline-offset: 2px;
+    }
+  }
+
+  .loj-planner__sticky-chip {
+    padding: 0.25rem 0.6rem;
+    border-radius: 0.2rem;
+    background: #3a3a45;
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
   @media screen and (min-width: 768px) {
-    .forticlad-planner__inventory {
+    .loj-planner__inventory {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
-    .forticlad-planner__missing-grid {
+    .loj-planner__missing-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
-    .forticlad-planner__fields {
+    .loj-planner__fields {
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
     }
 
-    .forticlad-planner__profile-actions,
-    .forticlad-planner__actions {
+    .loj-planner__profile-actions,
+    .loj-planner__actions {
       grid-template-columns: minmax(0, 1fr) auto;
     }
 
-    .forticlad-planner__building-range {
+    .loj-planner__instance-range {
       grid-template-columns: minmax(12rem, 1fr) minmax(0, 1fr) minmax(0, 1fr);
       align-items: end;
     }
 
-    .forticlad-planner__range-error {
+    .loj-planner__range-error {
       grid-column: 2 / -1;
     }
   }

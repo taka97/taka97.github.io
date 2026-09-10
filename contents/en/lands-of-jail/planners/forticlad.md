@@ -13,16 +13,16 @@ aside:
 
 Calculate Forticlad Core (FC), Advanced Forticlad Core (AFC), and Hyperalloy for T11 Research, including automatically resolved prerequisites. Warden's Office progression is modeled from Level 30 all the way to FC10. Food, Wood, Steel, Gasoline and Gold Card aren't tracked — only FC, AFC and Hyperalloy.
 
-<section class="forticlad-planner" data-forticlad-planner data-lang="en" aria-labelledby="forticlad-planner-heading">
+<section class="loj-planner" data-forticlad-planner data-lang="en" aria-labelledby="forticlad-planner-heading">
   <h2 id="forticlad-planner-heading">Plan your upgrade</h2>
 
-  <section class="forticlad-planner__profile-context" aria-labelledby="forticlad-profile-heading">
+  <section class="loj-planner__profile-context" aria-labelledby="forticlad-profile-heading">
     <h3 id="forticlad-profile-heading">Active profile</h3>
     <p data-role="active-profile">Loading profile…</p>
     <p><a href="/en/lands-of-jail/tools/settings/">Manage profiles in Settings</a>.</p>
   </section>
 
-  <section class="forticlad-planner__inventory" aria-labelledby="forticlad-inventory-heading">
+  <section class="loj-planner__inventory" aria-labelledby="forticlad-inventory-heading">
     <h3 id="forticlad-inventory-heading">Current Stock</h3>
     <label for="forticlad-fc-on-hand">FC current amount
       <input id="forticlad-fc-on-hand" data-role="fc-on-hand" type="number" min="0" step="1" inputmode="numeric" autocomplete="off">
@@ -35,38 +35,38 @@ Calculate Forticlad Core (FC), Advanced Forticlad Core (AFC), and Hyperalloy for
     </label>
   </section>
 
-  <section class="forticlad-planner__summary" aria-labelledby="forticlad-summary-heading">
+  <section class="loj-planner__summary" aria-labelledby="forticlad-summary-heading">
     <h2 id="forticlad-summary-heading">What you're missing</h2>
-    <div class="forticlad-planner__missing-grid">
-      <div class="forticlad-planner__missing-card">
-        <div class="forticlad-planner__missing-card-header">
-          <svg class="forticlad-planner__missing-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 2 L20.6 7 L20.6 17 L12 22 L3.4 17 L3.4 7 Z"/><circle cx="12" cy="12" r="3"/></svg>
+    <div class="loj-planner__missing-grid">
+      <div class="loj-planner__missing-card">
+        <div class="loj-planner__missing-card-header">
+          <svg class="loj-planner__missing-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 2 L20.6 7 L20.6 17 L12 22 L3.4 17 L3.4 7 Z"/><circle cx="12" cy="12" r="3"/></svg>
           <span>FC</span>
         </div>
-        <output class="forticlad-planner__missing-card-value" data-role="summary-fc-needed">—</output>
-        <output class="forticlad-planner__missing-card-badge" data-role="summary-fc-missing">—</output>
+        <output class="loj-planner__missing-card-value" data-role="summary-fc-needed">—</output>
+        <output class="loj-planner__missing-card-badge" data-role="summary-fc-missing">—</output>
       </div>
-      <div class="forticlad-planner__missing-card">
-        <div class="forticlad-planner__missing-card-header">
-          <svg class="forticlad-planner__missing-card-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2 L4 14 h6 l-1 8 9-12h-6z"/></svg>
+      <div class="loj-planner__missing-card">
+        <div class="loj-planner__missing-card-header">
+          <svg class="loj-planner__missing-card-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2 L4 14 h6 l-1 8 9-12h-6z"/></svg>
           <span>AFC</span>
         </div>
-        <output class="forticlad-planner__missing-card-value" data-role="summary-afc-needed">—</output>
-        <output class="forticlad-planner__missing-card-badge" data-role="summary-afc-missing">—</output>
+        <output class="loj-planner__missing-card-value" data-role="summary-afc-needed">—</output>
+        <output class="loj-planner__missing-card-badge" data-role="summary-afc-missing">—</output>
       </div>
-      <div class="forticlad-planner__missing-card">
-        <div class="forticlad-planner__missing-card-header">
-          <svg class="forticlad-planner__missing-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
+      <div class="loj-planner__missing-card">
+        <div class="loj-planner__missing-card-header">
+          <svg class="loj-planner__missing-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
           <span>Hyperalloy</span>
         </div>
-        <output class="forticlad-planner__missing-card-value" data-role="summary-hyperalloy-needed">—</output>
-        <output class="forticlad-planner__missing-card-badge" data-role="summary-hyperalloy-missing">—</output>
+        <output class="loj-planner__missing-card-value" data-role="summary-hyperalloy-needed">—</output>
+        <output class="loj-planner__missing-card-badge" data-role="summary-hyperalloy-missing">—</output>
       </div>
     </div>
 
-    <section class="forticlad-planner__results" data-role="building-results" aria-labelledby="forticlad-totals-heading" hidden>
+    <section class="loj-planner__results" data-role="building-results" aria-labelledby="forticlad-totals-heading" hidden>
       <h3 id="forticlad-totals-heading">Upgrade requirements</h3>
-      <div data-role="building-totals" class="forticlad-planner__table-wrap" tabindex="0" role="region" aria-labelledby="forticlad-totals-heading">
+      <div data-role="building-totals" class="loj-planner__table-wrap" tabindex="0" role="region" aria-labelledby="forticlad-totals-heading">
         <p>Totals will appear after you select building ranges.</p>
       </div>
     </section>
@@ -75,26 +75,26 @@ Calculate Forticlad Core (FC), Advanced Forticlad Core (AFC), and Hyperalloy for
   <section aria-labelledby="forticlad-buildings-heading">
     <h2 id="forticlad-buildings-heading">Buildings</h2>
 
-    <form class="forticlad-planner__form" data-role="range-form">
+    <form class="loj-planner__form" data-role="range-form">
       <fieldset>
         <legend>Building Base ranges</legend>
-        <div data-role="building-ranges" class="forticlad-planner__building-ranges"></div>
+        <div data-role="building-ranges" class="loj-planner__instance-ranges"></div>
       </fieldset>
     </form>
 
-    <p data-role="status" class="forticlad-planner__status" role="status" aria-live="polite"></p>
+    <p data-role="status" class="loj-planner__status" role="status" aria-live="polite"></p>
   </section>
 
   <section data-research-planner data-lang="en" aria-labelledby="forticlad-research-heading">
     <h2 id="forticlad-research-heading">Research T11</h2>
 
-    <div data-role="research-tracks" class="forticlad-planner__building-ranges"></div>
+    <div data-role="research-tracks" class="loj-planner__instance-ranges"></div>
 
-    <p data-role="research-status" class="forticlad-planner__status" role="status" aria-live="polite"></p>
+    <p data-role="research-status" class="loj-planner__status" role="status" aria-live="polite"></p>
 
-    <section class="forticlad-planner__results" data-role="research-results" aria-labelledby="forticlad-research-totals-heading" hidden>
+    <section class="loj-planner__results" data-role="research-results" aria-labelledby="forticlad-research-totals-heading" hidden>
       <h3 id="forticlad-research-totals-heading">Research requirements</h3>
-      <div data-role="research-totals" class="forticlad-planner__table-wrap" tabindex="0" role="region" aria-labelledby="forticlad-research-totals-heading">
+      <div data-role="research-totals" class="loj-planner__table-wrap" tabindex="0" role="region" aria-labelledby="forticlad-research-totals-heading">
         <p>Totals will appear after you select track levels.</p>
       </div>
     </section>

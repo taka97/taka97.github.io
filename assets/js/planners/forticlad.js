@@ -211,7 +211,7 @@ function renderBuildingRanges(container, planner, ranges, language, disabled) {
 
   planner.buildingKeys.forEach((key) => {
     const row = document.createElement('div');
-    row.className = 'forticlad-planner__building-range';
+    row.className = 'loj-planner__instance-range';
     row.dataset.buildingKey = key;
     const heading = document.createElement('h3');
     heading.textContent = buildingName(key, planner, language);
@@ -219,7 +219,7 @@ function renderBuildingRanges(container, planner, ranges, language, disabled) {
     row.setAttribute('role', 'group');
     row.setAttribute('aria-labelledby', heading.id);
     const error = document.createElement('p');
-    error.className = 'forticlad-planner__range-error';
+    error.className = 'loj-planner__range-error';
     error.id = `forticlad-range-error-${key}`;
     error.dataset.role = 'range-error';
     error.hidden = true;
@@ -301,7 +301,7 @@ function renderTotals(container, result, planner, language) {
     return [target, range.currentBase, range.targetBase, formatCost(result.totals[key].fc, result.totals[key].afc)];
   });
   const table = createTable(labels, rows);
-  table.className = 'forticlad-planner__breakdown-table';
+  table.className = 'loj-planner__breakdown-table';
   grandTotalFooter(table, language === 'vi' ? 'Tổng cộng' : 'Grand total', formatCost(result.resourceTotals.fc, result.resourceTotals.afc));
   container.replaceChildren(table);
 }

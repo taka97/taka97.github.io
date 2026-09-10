@@ -254,7 +254,7 @@ function renderTrackRanges(container, planner, ranges, language, disabled) {
 
   planner.troops.forEach((troop) => {
     const group = document.createElement('details');
-    group.className = 'forticlad-planner__troop-group';
+    group.className = 'loj-planner__group';
     const summary = document.createElement('summary');
     summary.textContent = troopName(troop, language);
     group.append(summary);
@@ -262,7 +262,7 @@ function renderTrackRanges(container, planner, ranges, language, disabled) {
     planner.trackKeys.filter((key) => planner.tracks.get(key).troop === troop).forEach((key) => {
       const track = planner.tracks.get(key);
       const row = document.createElement('div');
-      row.className = `forticlad-planner__building-range${track.accent ? ' is-accent' : ''}`;
+      row.className = `loj-planner__instance-range${track.accent ? ' is-accent' : ''}`;
       row.dataset.trackKey = key;
       const rowHeading = document.createElement('h4');
       rowHeading.textContent = trackName(track, language);
@@ -270,7 +270,7 @@ function renderTrackRanges(container, planner, ranges, language, disabled) {
       row.setAttribute('role', 'group');
       row.setAttribute('aria-labelledby', rowHeading.id);
       const error = document.createElement('p');
-      error.className = 'forticlad-planner__range-error';
+      error.className = 'loj-planner__range-error';
       error.id = `research-range-error-${key}`;
       error.dataset.role = 'range-error';
       error.hidden = true;
@@ -350,7 +350,7 @@ function renderTotals(container, result, planner, language, message) {
     return [target, `Lv.${selection.currentLevel}`, `Lv.${selection.targetLevel}`, formatHyperalloy(result.totals[key])];
   });
   const table = createTable(labels, rows);
-  table.className = 'forticlad-planner__breakdown-table';
+  table.className = 'loj-planner__breakdown-table';
   grandTotalFooter(table, language === 'vi' ? 'Tổng cộng' : 'Grand total', formatHyperalloy(result.grandTotal));
   container.replaceChildren(table);
 }
