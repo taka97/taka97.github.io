@@ -123,6 +123,30 @@ from a Forticlad-only `.forticlad-planner__*` block during this migration) for r
 future lojcalc.com tool migrations (Robots & Satellites, Hero Equipment, Hero Stars &
 Exclusive Equipment).
 
+## Robots & Satellites Planner client flow
+
+`_data/lands_of_jail/robots_satellites.yml` holds 5 resources, Robot's 11-row cost
+table, and 3 satellite rarity tiers' (R/SR/SSR) shared cost curves (6/8/10 rows each)
+plus the 9 fixed named Satellites (`{id, tier, labelKey}`, no per-satellite cost — a
+Satellite's cost comes from its tier's shared curve). `robots-satellites-core.js` is a
+minimal engine with the same no-cascade shape as `tomes-core.js` — a range sum is a
+straight loop over `levels[currentIndex+1..targetIndex]`, no cross-entity requirement
+graph. It differs from `tomes-core.js` in two ways: Robot is a dynamic, repeatable
+add-instance category (cap 12, like Tomes), while Satellites are a *fixed* set keyed by
+id (not addable — state lives in an object keyed by satellite id, not an array); and
+breakdown rows carry an `estimated` array of resource keys (empty when nothing in the
+summed range is flagged) for the one unconfirmed source figure (R-tier level 50's Data
+Disk cost), driven by `robots-satellites.js`. Two small, generically-scoped UI
+primitives were added for reuse by later migrations (Hero Equipment, Hero Stars &
+Exclusive Equipment): `table-helpers.js`'s `renderEstimatedBadge` (an accessible
+click-to-toggle "≈" disclosure badge + hidden note) and `_sass/custom.scss`'s
+`.loj-planner__rarity-badge` (a colored pill driven by a `--badge-color` custom
+property, one per satellite tier heading) alongside `.loj-planner__estimated-tag`/
+`.loj-planner__estimated-note`. State (stock, Robot instance list, Satellite state)
+lives under the `robots-satellites` profile tool-data key as `{stock, robots: [...],
+satellites: { [id]: {currentIndex, targetIndex} }}`, saved with the same
+read-latest-then-merge-then-write pattern as Forticlad/Research/Tomes & Collections.
+
 ## Related
 
 - [Deployment guide](deployment-guide.md) · [Codebase summary](codebase-summary.md) ·
