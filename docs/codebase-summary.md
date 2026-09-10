@@ -2,7 +2,8 @@
 
 Static Jekyll site. Most behavior is content, theme configuration, and small Liquid
 include overrides; the Lands of Jail planners (Forticlad, Tomes & Collections,
-Robots & Satellites) add browser-only ES modules and IndexedDB profile storage.
+Robots & Satellites, Hero Equipment) add browser-only ES modules and IndexedDB profile
+storage.
 
 ## Layout
 
@@ -24,6 +25,7 @@ _data/
     forticlad_research.yml   Verified T11 Research tree (3 troops x 9 tracks, Hyperalloy)
     tomes_collections.yml    Verified Tome (13 levels) + Collection (43 levels) cost tables, caps
     robots_satellites.yml    Verified Robot (11 levels) + Satellite R/SR/SSR tier cost curves, caps
+    hero_equipment.yml       Verified shared Rarity (21) + Mastery (21) cost tables, 3 troops x 4 slots
 
 _includes/
   head/
@@ -49,6 +51,7 @@ contents/                    Bilingual content (source path only; URLs come from
       planners/forticlad.md  Forticlad Core Planner (matched EN/VI page)
       planners/tomes-collections.md  Tomes & Collections Planner (matched EN/VI page)
       planners/robots-satellites.md  Robots & Satellites Planner (matched EN/VI page)
+      planners/hero-equipment.md  Hero Equipment Planner (matched EN/VI page)
       tools/settings.md      Shared browser-local profile settings (matched EN/VI page)
       satellite.md           Game-level guide (lang: en, ref: loj-satellite)
       events/
@@ -99,12 +102,14 @@ docs/                        Project documentation (this set + DESIGN.md + super
 | Forticlad T11 research calculation + rendering | `assets/js/planners/research-core.js`, `research.js` |
 | Tomes & Collections calculation + rendering | `assets/js/planners/tomes-core.js`, `tomes.js` |
 | Robots & Satellites calculation + rendering | `assets/js/planners/robots-satellites-core.js`, `robots-satellites.js` |
+| Hero Equipment calculation + rendering | `assets/js/planners/hero-equipment-core.js`, `hero-equipment.js` |
 | Shared planner table rendering | `assets/js/planners/table-helpers.js` |
-| Shared planner block styling (`.loj-planner__*`) | `_sass/custom.scss` (shared by Forticlad, Tomes & Collections, and Robots & Satellites; reuse for future tool migrations) |
+| Shared planner block styling (`.loj-planner__*`) | `_sass/custom.scss` (shared by Forticlad, Tomes & Collections, Robots & Satellites, and Hero Equipment; reuse for future tool migrations) |
 | Shared browser-local profiles | `assets/js/planners/storage.js`, `profile-settings.js` |
 | Forticlad source data | `_data/lands_of_jail/forticlad.yml`, `forticlad_research.yml` |
 | Tomes & Collections source data | `_data/lands_of_jail/tomes_collections.yml` |
 | Robots & Satellites source data | `_data/lands_of_jail/robots_satellites.yml` |
+| Hero Equipment source data | `_data/lands_of_jail/hero_equipment.yml` |
 
 ## Build artifacts (not committed)
 

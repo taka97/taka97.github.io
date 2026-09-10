@@ -147,6 +147,36 @@ lives under the `robots-satellites` profile tool-data key as `{stock, robots: [.
 satellites: { [id]: {currentIndex, targetIndex} }}`, saved with the same
 read-latest-then-merge-then-write pattern as Forticlad/Research/Tomes & Collections.
 
+## Hero Equipment Planner client flow
+
+`_data/lands_of_jail/hero_equipment.yml` holds 4 resources, one shared 21-entry Rarity
+cost table, and one shared 21-entry Mastery cost table — verified byte-identical across
+all 3 troops and all 4 equipment slots, so the same two tables back all 12 (troop, slot)
+cells rather than each cell owning its own copy. `hero-equipment-core.js` is the first
+engine since `research-core.js` to resolve a cross-track prerequisite, but the shape is
+much simpler than Forticlad's N:M requirement graph: every Rarity level from
+`legendary_t1` onward carries a `requiresMastery` id pointing at that *same cell's own*
+Mastery track, so the dependency graph is exactly 12 disjoint 1:1 pairs, never
+cross-cell and never multi-hop. `calculateHeroEquipment` resolves each cell in a single
+pass — walk the selected Rarity range for any `requiresMastery` entries, bump the
+effective Mastery target to the highest one required (tagging that cell's Mastery row as
+automatic only when the bump exceeds the user's own selection), then range-sum both
+tracks — no fixed-point loop needed, unlike `resolveRequirements` in `research-core.js`.
+Breakdown rows carry an `estimated` array of resource keys, computed by
+`hero-equipment-core.js`'s `sumCostRange` for the one unconfirmed source figure (the
+Common → Uncommon "levels maxed" checkpoint's Equipment EXP cost, shared by all 12
+Rarity tracks) — rendered by `hero-equipment.js` with `table-helpers.js`'s
+`renderEstimatedBadge` unmodified, the same primitive
+Robots & Satellites introduced. The UI is a fixed 3×4 grid (12 cells, not addable) —
+closer to Robots & Satellites' fixed-named-Satellite pattern than Tomes' addable
+instances — with 48 selects total (2 tracks × 2 current/target selects × 12 cells) built
+per-cell via a shared `renderTrackRow` helper reused for both tracks, plus the existing
+`targetCell` "(auto-added — prerequisite)" tag from `research.js`'s cascade UI. State
+(stock, all 12 cells' Rarity/Mastery current and target indices) lives under the
+`hero-equipment` profile tool-data key as `{stock, equipment: { [troop]: { [slot]: {
+rarity: {currentIndex, targetIndex}, mastery: {currentIndex, targetIndex} } } } }`,
+saved with the same read-latest-then-merge-then-write pattern as every prior planner.
+
 ## Related
 
 - [Deployment guide](deployment-guide.md) · [Codebase summary](codebase-summary.md) ·
