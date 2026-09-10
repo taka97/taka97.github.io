@@ -28,16 +28,17 @@ export function calculateBuildingRequirements(planner, ranges) {
   const totals = emptyResourceTotals(planner.buildingKeys);
   const selectedBuildingKeys = Object.keys(selectedRanges).filter((key) => selectedRanges[key].targetBase);
   const effectiveBuildingKeys = Object.keys(effectiveRanges).filter((key) => effectiveRanges[key].targetBase);
+  const automaticBuildingKeys = effectiveBuildingKeys.filter((key) => effectiveRanges[key].targetBase !== selectedRanges[key].targetBase);
   const steps = [];
   for (const key of effectiveBuildingKeys) {
     const { currentIndex, targetIndex } = rangeIndexes(planner, effectiveRanges[key].currentBase, effectiveRanges[key].targetBase, key);
     for (const step of planner.steps.slice(currentIndex + 1, targetIndex + 1)) {
       const cost = step.costs[key];
       addCost(totals[key], cost);
-      steps.push({ building: key, base: step.base, ...cost, automatic: !selectedBuildingKeys.includes(key) });
+      steps.push({ building: key, base: step.base, ...cost, automatic: automaticBuildingKeys.includes(key) });
     }
   }
-  return { selectedBuildingKeys, effectiveBuildingKeys, automaticBuildingKeys: effectiveBuildingKeys.filter((key) => !selectedBuildingKeys.includes(key)), selectedRanges, effectiveRanges, steps, totals, grandTotal: resourceTotal(totals), resourceTotals: resourceTotals(totals) };
+  return { selectedBuildingKeys, effectiveBuildingKeys, automaticBuildingKeys, selectedRanges, effectiveRanges, steps, totals, grandTotal: resourceTotal(totals), resourceTotals: resourceTotals(totals) };
 }
 
 export function formatNumber(value) { return new Intl.NumberFormat().format(value); }

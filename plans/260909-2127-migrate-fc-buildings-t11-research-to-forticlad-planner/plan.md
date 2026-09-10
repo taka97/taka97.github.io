@@ -174,6 +174,28 @@ removed once both files' markup stopped using them.
 Deferred by the user (not done): live-browser QA of either section — no Chrome
 extension was available in the implementing session for either round of changes.
 
+**Auto-tag misfire (reported by user with screenshots):** `(auto-added — prerequisite)`
+was not appearing on rows the user expected. Root cause: `isAuto` was computed as
+"this building/track has no explicit target at all" (`!selectedBuildingKeys.includes(key)`
+/ `!selectedTrackKeys.includes(key)`), but every range row always carries an explicit
+target once a value is picked in its dropdown — so a building explicitly left at
+`current = target` (no upgrade requested) still counted as "selected", even when the
+cascade then raised its *effective* target above what the user picked. Example: Warden
+Office 2→3 requires Shieldbearer Barrack and Communication Center at Forticlad (2); the
+user had both explicitly set to Forticlad (1) (no change requested), so the old check
+saw a truthy target and called them "selected" instead of "auto-added", even though the
+engine silently bumped their effective target to (2) and costed that into the total.
+Fixed by adding `automaticBuildingKeys` / `automaticTrackKeys` to `planner-core.js` /
+`research-core.js`, defined as "effective target differs from the user's own selected
+target" rather than "no target was picked" — this is the correct signal for "the engine
+raised this beyond what you asked for". Both `forticlad.js` and `research.js` now read
+`result.automaticBuildingKeys` / `result.automaticTrackKeys` for the inline tag instead
+of re-deriving it from `selectedBuildingKeys`/`selectedTrackKeys`. Verified via a
+standalone script reproducing the user's exact input (Warden Office 2→3, everything
+else left at current=target): Shieldbearer Barrack and Communication Center now report
+`auto=true` (bumped 1→2), Bomber/Shooter/Command stay `auto=false` (no bump), grand
+total unchanged at 3,500 FC.
+
 A second duplicate-declaration bug (`formatCost` declared twice in `forticlad.js`,
 from an imprecise edit) reached the user's browser as a `SyntaxError` — `node --check`
 on a plain `.js` file didn't catch it because Node parses `.js` as a CommonJS script

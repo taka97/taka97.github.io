@@ -39,6 +39,7 @@ export function calculateResearchRequirements(planner, selections, fcLabLevel) {
   const totals = Object.fromEntries(planner.trackKeys.map((key) => [key, 0]));
   const selectedTrackKeys = planner.trackKeys.filter((key) => selectedSelections[key].targetLevel > 0);
   const effectiveTrackKeys = planner.trackKeys.filter((key) => effective[key].targetLevel > 0);
+  const automaticTrackKeys = effectiveTrackKeys.filter((key) => effective[key].targetLevel !== selectedSelections[key].targetLevel);
   const steps = [];
   for (const key of effectiveTrackKeys) {
     const track = planner.tracks.get(key);
@@ -46,11 +47,11 @@ export function calculateResearchRequirements(planner, selections, fcLabLevel) {
     for (let level = currentLevel + 1; level <= targetLevel; level += 1) {
       const hyperalloy = track.levels[level - 1];
       totals[key] += hyperalloy;
-      steps.push({ track: key, level, hyperalloy, automatic: !selectedTrackKeys.includes(key) });
+      steps.push({ track: key, level, hyperalloy, automatic: automaticTrackKeys.includes(key) });
     }
   }
   const grandTotal = Object.values(totals).reduce((sum, value) => sum + value, 0);
-  return { selectedTrackKeys, effectiveTrackKeys, automaticTrackKeys: effectiveTrackKeys.filter((key) => !selectedTrackKeys.includes(key)), selectedSelections, effectiveSelections: effective, steps, totals, grandTotal };
+  return { selectedTrackKeys, effectiveTrackKeys, automaticTrackKeys, selectedSelections, effectiveSelections: effective, steps, totals, grandTotal };
 }
 
 function normalizeRequirementEntry(entry, troop, dataTracks) {

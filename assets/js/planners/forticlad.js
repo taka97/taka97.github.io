@@ -298,7 +298,7 @@ function renderTotals(container, result, planner, language) {
   const autoLabel = language === 'vi' ? '(tự động thêm — điều kiện tiên quyết)' : '(auto-added — prerequisite)';
   const rows = result.effectiveBuildingKeys.map((key) => {
     const range = result.effectiveRanges[key];
-    const isAuto = !result.selectedBuildingKeys.includes(key);
+    const isAuto = result.automaticBuildingKeys.includes(key);
     const target = targetCell(buildingName(key, planner, language), isAuto, autoLabel);
     return [target, range.currentBase, range.targetBase, formatCost(result.totals[key].fc, result.totals[key].afc)];
   });

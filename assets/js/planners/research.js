@@ -345,7 +345,7 @@ function renderTotals(container, result, planner, language, message) {
     : ['Target', 'From', 'To', 'Cost'];
   const rows = result.effectiveTrackKeys.map((key) => {
     const selection = result.effectiveSelections[key];
-    const isAuto = !result.selectedTrackKeys.includes(key);
+    const isAuto = result.automaticTrackKeys.includes(key);
     const target = targetCell(trackName(planner.tracks.get(key), language), isAuto, message.autoLabel);
     return [target, `Lv.${selection.currentLevel}`, `Lv.${selection.targetLevel}`, formatHyperalloy(result.totals[key])];
   });
