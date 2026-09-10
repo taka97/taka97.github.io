@@ -1,0 +1,73 @@
+schema_version: 1
+source:
+  url: https://www.lojcalc.com/hero-equipment.html
+  retrieved: 2026-09-10
+  note: >
+    Rarity and Mastery cost curves are identical across all 3 troops and all
+    4 equipment slots (verified via live localStorage state dump,
+    resource-calc-heroequipment-state-v1, schemaVersion 5) — one shared
+    rarity table and one shared mastery table apply to all 12 (troop, slot)
+    pairs. Past Legendary, a slot's Rarity level requires that same slot's
+    own Mastery track at the paired level (never cross-slot/cross-troop).
+troops: [shieldbearer, bomber, shooter]
+slots: [gloves, helmet, chest, boots]
+resources:
+  - { key: EquipmentParts, label: Equipment EXP }
+  - { key: PrecisionEquipment, label: Precision Equipment }
+  - { key: Magnet, label: Magnet }
+  - { key: PotentialCoil, label: Potential Coil }
+# 21 entries: 11 tiers, each (except exotic_t3) paired with a "_s1" "levels
+# maxed" checkpoint. Target selects only the 11 non-"_s1" ids; Current may
+# select any of the 21. requiresMastery: level id (string, matches
+# mastery.levels ids below) the slot's own Mastery track must reach before
+# this Rarity level can be taken; omitted = no requirement. estimated: true
+# flags the whole level row (unlike robots_satellites.yml's per-resource-key
+# array) because only one resource is ever nonzero per row here.
+rarity:
+  levels:
+    - { id: common,             cost: { EquipmentParts: 0,      PrecisionEquipment: 0, Magnet: 0,    PotentialCoil: 0 } }
+    - { id: common_s1,          cost: { EquipmentParts: 2620,   PrecisionEquipment: 0, Magnet: 0,    PotentialCoil: 0 }, estimated: true }
+    - { id: uncommon,           cost: { EquipmentParts: 0,      PrecisionEquipment: 0, Magnet: 20,   PotentialCoil: 0 } }
+    - { id: uncommon_s1,        cost: { EquipmentParts: 6980,   PrecisionEquipment: 0, Magnet: 0,    PotentialCoil: 0 } }
+    - { id: rare,                cost: { EquipmentParts: 0,      PrecisionEquipment: 0, Magnet: 40,   PotentialCoil: 0 } }
+    - { id: rare_s1,             cost: { EquipmentParts: 19220,  PrecisionEquipment: 0, Magnet: 0,    PotentialCoil: 0 } }
+    - { id: epic,                cost: { EquipmentParts: 0,      PrecisionEquipment: 0, Magnet: 120,  PotentialCoil: 0 } }
+    - { id: epic_s1,             cost: { EquipmentParts: 41020,  PrecisionEquipment: 0, Magnet: 0,    PotentialCoil: 0 } }
+    - { id: legendary,           cost: { EquipmentParts: 0,      PrecisionEquipment: 0, Magnet: 200,  PotentialCoil: 0 } }
+    - { id: legendary_s1,        cost: { EquipmentParts: 77000,  PrecisionEquipment: 0, Magnet: 0,    PotentialCoil: 0 } }
+    - { id: legendary_t1,        cost: { EquipmentParts: 0,      PrecisionEquipment: 0, Magnet: 400,  PotentialCoil: 0 },  requiresMastery: "10" }
+    - { id: legendary_t1_s1,     cost: { EquipmentParts: 117000, PrecisionEquipment: 0, Magnet: 0,    PotentialCoil: 0 } }
+    - { id: legendary_t2,        cost: { EquipmentParts: 0,      PrecisionEquipment: 0, Magnet: 600,  PotentialCoil: 20 }, requiresMastery: "11" }
+    - { id: legendary_t2_s1,     cost: { EquipmentParts: 157000, PrecisionEquipment: 0, Magnet: 0,    PotentialCoil: 0 } }
+    - { id: exotic,              cost: { EquipmentParts: 0,      PrecisionEquipment: 0, Magnet: 1000, PotentialCoil: 40 }, requiresMastery: "12" }
+    - { id: exotic_s1,           cost: { EquipmentParts: 197000, PrecisionEquipment: 0, Magnet: 0,    PotentialCoil: 0 } }
+    - { id: exotic_t1,           cost: { EquipmentParts: 0,      PrecisionEquipment: 0, Magnet: 1000, PotentialCoil: 60 }, requiresMastery: "13" }
+    - { id: exotic_t1_s1,        cost: { EquipmentParts: 258000, PrecisionEquipment: 0, Magnet: 0,    PotentialCoil: 0 } }
+    - { id: exotic_t2,           cost: { EquipmentParts: 0,      PrecisionEquipment: 0, Magnet: 2000, PotentialCoil: 80 }, requiresMastery: "14" }
+    - { id: exotic_t2_s1,        cost: { EquipmentParts: 338200, PrecisionEquipment: 0, Magnet: 0,    PotentialCoil: 0 } }
+    - { id: exotic_t3,           cost: { EquipmentParts: 0,      PrecisionEquipment: 0, Magnet: 2000, PotentialCoil: 100 }, requiresMastery: "15" }
+# 21 entries, Level 0-20. id is the numeric level as a string (matches
+# rarity[].requiresMastery values above).
+mastery:
+  levels:
+    - { id: "0",  cost: { EquipmentParts: 0, PrecisionEquipment: 0,   Magnet: 0,    PotentialCoil: 0 } }
+    - { id: "1",  cost: { EquipmentParts: 0, PrecisionEquipment: 20,  Magnet: 0,    PotentialCoil: 0 } }
+    - { id: "2",  cost: { EquipmentParts: 0, PrecisionEquipment: 40,  Magnet: 0,    PotentialCoil: 0 } }
+    - { id: "3",  cost: { EquipmentParts: 0, PrecisionEquipment: 60,  Magnet: 0,    PotentialCoil: 0 } }
+    - { id: "4",  cost: { EquipmentParts: 0, PrecisionEquipment: 80,  Magnet: 0,    PotentialCoil: 0 } }
+    - { id: "5",  cost: { EquipmentParts: 0, PrecisionEquipment: 100, Magnet: 0,    PotentialCoil: 0 } }
+    - { id: "6",  cost: { EquipmentParts: 0, PrecisionEquipment: 120, Magnet: 0,    PotentialCoil: 0 } }
+    - { id: "7",  cost: { EquipmentParts: 0, PrecisionEquipment: 140, Magnet: 0,    PotentialCoil: 0 } }
+    - { id: "8",  cost: { EquipmentParts: 0, PrecisionEquipment: 160, Magnet: 0,    PotentialCoil: 0 } }
+    - { id: "9",  cost: { EquipmentParts: 0, PrecisionEquipment: 180, Magnet: 0,    PotentialCoil: 0 } }
+    - { id: "10", cost: { EquipmentParts: 0, PrecisionEquipment: 200, Magnet: 220,  PotentialCoil: 0 } }
+    - { id: "11", cost: { EquipmentParts: 0, PrecisionEquipment: 220, Magnet: 200,  PotentialCoil: 0 } }
+    - { id: "12", cost: { EquipmentParts: 0, PrecisionEquipment: 240, Magnet: 400,  PotentialCoil: 0 } }
+    - { id: "13", cost: { EquipmentParts: 0, PrecisionEquipment: 260, Magnet: 600,  PotentialCoil: 0 } }
+    - { id: "14", cost: { EquipmentParts: 0, PrecisionEquipment: 280, Magnet: 800,  PotentialCoil: 0 } }
+    - { id: "15", cost: { EquipmentParts: 0, PrecisionEquipment: 300, Magnet: 1000, PotentialCoil: 0 } }
+    - { id: "16", cost: { EquipmentParts: 0, PrecisionEquipment: 320, Magnet: 1200, PotentialCoil: 0 } }
+    - { id: "17", cost: { EquipmentParts: 0, PrecisionEquipment: 360, Magnet: 1400, PotentialCoil: 0 } }
+    - { id: "18", cost: { EquipmentParts: 0, PrecisionEquipment: 380, Magnet: 1600, PotentialCoil: 0 } }
+    - { id: "19", cost: { EquipmentParts: 0, PrecisionEquipment: 400, Magnet: 1800, PotentialCoil: 0 } }
+    - { id: "20", cost: { EquipmentParts: 0, PrecisionEquipment: 400, Magnet: 2000, PotentialCoil: 0 } }
