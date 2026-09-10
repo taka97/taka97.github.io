@@ -160,17 +160,19 @@
   .forticlad-planner__troop-group {
     display: grid;
     gap: 1rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
 
     &:last-child {
       margin-bottom: 0;
     }
 
-    > h3 {
+    > summary {
       margin: 0;
       padding-bottom: 0.35rem;
       border-bottom: 2px solid #d9d9df;
       font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
     }
   }
 

@@ -253,11 +253,11 @@ function renderTrackRanges(container, planner, ranges, language, disabled) {
   const message = MESSAGES[language];
 
   planner.troops.forEach((troop) => {
-    const group = document.createElement('div');
+    const group = document.createElement('details');
     group.className = 'forticlad-planner__troop-group';
-    const heading = document.createElement('h3');
-    heading.textContent = troopName(troop, language);
-    group.append(heading);
+    const summary = document.createElement('summary');
+    summary.textContent = troopName(troop, language);
+    group.append(summary);
 
     planner.trackKeys.filter((key) => planner.tracks.get(key).troop === troop).forEach((key) => {
       const track = planner.tracks.get(key);
