@@ -19,7 +19,6 @@ const MESSAGES = {
     storage: 'Browser storage is unavailable. Your calculations will still work.',
     range: 'Choose a target Base that is not lower than the current Base.',
     inventory: 'Enter a whole number of FC or AFC that is zero or greater.',
-    noTarget: 'No target selected',
     noTargets: 'No target selected yet. Choose a target Base for a building to see the Core you need.',
     notSet: 'Not set',
     covered: 'Covered',
@@ -32,7 +31,6 @@ const MESSAGES = {
     storage: 'Không thể dùng bộ nhớ trình duyệt. Bạn vẫn có thể tính toán.',
     range: 'Chọn Base mục tiêu không thấp hơn Base hiện tại.',
     inventory: 'Hãy nhập số FC hoặc AFC nguyên lớn hơn hoặc bằng 0.',
-    noTarget: 'Chưa chọn Base mục tiêu',
     noTargets: 'Chưa chọn Base mục tiêu. Hãy chọn Base mục tiêu cho một công trình để xem Lõi trọng giáp cần thiết.',
     notSet: 'Chưa nhập',
     covered: 'Đã đủ',
@@ -186,12 +184,12 @@ function buildingRanges(planner, savedData) {
     const legacyCurrent = savedData?.currentBase;
     const currentBase = validBase(planner, savedRange.currentBase) ? savedRange.currentBase
       : validBase(planner, legacyCurrent) ? legacyCurrent : planner.steps[0].base;
-    const targetBase = validBase(planner, savedRange.targetBase) ? savedRange.targetBase : '';
+    const targetBase = validBase(planner, savedRange.targetBase) ? savedRange.targetBase : currentBase;
     const currentIndex = planner.steps.findIndex((step) => step.base === currentBase);
     const targetIndex = planner.steps.findIndex((step) => step.base === targetBase);
     return [key, {
       currentBase,
-      targetBase: targetIndex !== -1 && targetIndex < currentIndex ? '' : targetBase,
+      targetBase: targetIndex !== -1 && targetIndex < currentIndex ? currentBase : targetBase,
     }];
   }));
 }
@@ -228,7 +226,7 @@ function renderBuildingRanges(container, planner, ranges, language, disabled) {
     error.setAttribute('role', 'alert');
     const availableSteps = planner.steps.slice(0, planner.baseIndexes.get(planner.maximumBases[key]) + 1);
     const current = rangeLabel(currentLabel, 'current-base', availableSteps, ranges[key].currentBase, disabled);
-    const target = rangeLabel(targetLabel, 'target-base', planner.steps.slice(0, planner.baseIndexes.get(planner.maximumBases[key]) + 1), ranges[key].targetBase, disabled, MESSAGES[language].noTarget);
+    const target = rangeLabel(targetLabel, 'target-base', planner.steps.slice(0, planner.baseIndexes.get(planner.maximumBases[key]) + 1), ranges[key].targetBase, disabled);
     target.querySelector('select').setAttribute('aria-describedby', error.id);
     row.append(heading, current, target, error);
     fragment.append(row);

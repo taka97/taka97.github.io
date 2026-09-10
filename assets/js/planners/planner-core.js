@@ -26,8 +26,8 @@ export function calculateBuildingRequirements(planner, ranges) {
   const selectedRanges = normalizeRanges(planner, ranges);
   const effectiveRanges = resolveRequirements(planner, selectedRanges);
   const totals = emptyResourceTotals(planner.buildingKeys);
-  const selectedBuildingKeys = Object.keys(selectedRanges).filter((key) => selectedRanges[key].targetBase);
-  const effectiveBuildingKeys = Object.keys(effectiveRanges).filter((key) => effectiveRanges[key].targetBase);
+  const selectedBuildingKeys = Object.keys(selectedRanges).filter((key) => hasUpgrade(planner, selectedRanges[key]));
+  const effectiveBuildingKeys = Object.keys(effectiveRanges).filter((key) => hasUpgrade(planner, effectiveRanges[key]));
   const automaticBuildingKeys = effectiveBuildingKeys.filter((key) => effectiveRanges[key].targetBase !== selectedRanges[key].targetBase);
   const steps = [];
   for (const key of effectiveBuildingKeys) {
@@ -109,7 +109,7 @@ function resolveRequirements(planner, selectedRanges) {
   while (changed) {
     changed = false;
     for (const [targetKey, range] of Object.entries(effective)) {
-      if (!range.targetBase) continue;
+      if (!hasUpgrade(planner, range)) continue;
       const targetIndex = planner.baseIndexes.get(range.targetBase);
       for (let index = 1; index <= targetIndex; index += 1) {
         const base = planner.steps[index].base;
@@ -137,6 +137,7 @@ function rangeIndexes(planner, currentBase, targetBase, buildingKey) {
 }
 
 function resolveBase(planner, base) { return planner.baseIndexes.has(base) ? base : planner.aliases.get(base); }
+function hasUpgrade(planner, range) { return Boolean(range.targetBase) && planner.baseIndexes.get(range.targetBase) > planner.baseIndexes.get(range.currentBase); }
 function calculateSteps(planner, steps, buildingKey) {
   if (!buildingKey || !planner.buildingKeys.includes(buildingKey)) throw new RangeError('Choose a valid building.');
   const totals = { fc: 0, afc: 0 };
