@@ -1,0 +1,87 @@
+schema_version: 1
+source:
+  url: https://www.lojcalc.com/tomes-collections.html
+  retrieved: 2026-09-10
+  note: Tomes & Collections tool. Two independent, prerequisite-free repeatable instance tracks (Tome, Collection) sharing one stock pool and one combined breakdown — every level's `requires` in the source is a literal `[]`, so unlike Forticlad/Research there is no cascade/auto-bump logic here. Resource key names match the source's RESOURCES array exactly.
+caps: { tomes: 18, collections: 6 }
+resources:
+  - { key: SealOfWisdom, label: Seal of Wisdom }
+  - { key: SealOfKnowledge, label: Seal of Knowledge }
+  - { key: CommonCoin, label: Common Trove Coin }
+  - { key: RareCoin, label: Rare Trove Coin }
+  - { key: PreciousCoin, label: Precious Trove Coin }
+  - { key: LegendaryCoin, label: Legendary Trove Coin }
+# 13 rows: index 0 = Level 0 (free start), index 1-12 = Level I..XII (TOME_COSTS[0..11]).
+tomeLevels:
+  - { SealOfWisdom: 0, SealOfKnowledge: 0 }
+  - { SealOfWisdom: 10, SealOfKnowledge: 10 }
+  - { SealOfWisdom: 50, SealOfKnowledge: 60 }
+  - { SealOfWisdom: 90, SealOfKnowledge: 110 }
+  - { SealOfWisdom: 160, SealOfKnowledge: 200 }
+  - { SealOfWisdom: 270, SealOfKnowledge: 330 }
+  - { SealOfWisdom: 380, SealOfKnowledge: 460 }
+  - { SealOfWisdom: 480, SealOfKnowledge: 600 }
+  - { SealOfWisdom: 540, SealOfKnowledge: 660 }
+  - { SealOfWisdom: 620, SealOfKnowledge: 780 }
+  - { SealOfWisdom: 760, SealOfKnowledge: 920 }
+  - { SealOfWisdom: 920, SealOfKnowledge: 1040 }
+  - { SealOfWisdom: 1040, SealOfKnowledge: 1240 }
+# 11 tiers; Uncommon has 2 rows (base + 1 star), every other tier has 4 rows (base + 3 stars).
+collectionTiers:
+  - { key: uncommon, label: Uncommon, rows: 2 }
+  - { key: rare, label: Rare, rows: 4 }
+  - { key: epic, label: Epic, rows: 4 }
+  - { key: epic_t1, label: Epic T1, rows: 4 }
+  - { key: legendary, label: Legendary, rows: 4 }
+  - { key: legendary_t1, label: Legendary T1, rows: 4 }
+  - { key: legendary_t2, label: Legendary T2, rows: 4 }
+  - { key: exotic, label: Exotic, rows: 4 }
+  - { key: exotic_t1, label: Exotic T1, rows: 4 }
+  - { key: exotic_t2, label: Exotic T2, rows: 4 }
+  - { key: exotic_t3, label: Exotic T3, rows: 4 }
+# 43 rows: index 0 = "start" (free), then 42 tier rows in COLLECTION_TIERS order.
+# `star: 0` = the tier's base row, `star: N` = that tier's Nth star row.
+collectionLevels:
+  - { id: start, tier: start, star: 0, CommonCoin: 0, RareCoin: 0, PreciousCoin: 0, LegendaryCoin: 0 }
+  - { id: uncommon, tier: uncommon, star: 0, CommonCoin: 3000, RareCoin: 30, PreciousCoin: 0, LegendaryCoin: 0 }
+  - { id: uncommon_s1, tier: uncommon, star: 1, CommonCoin: 7500, RareCoin: 75, PreciousCoin: 0, LegendaryCoin: 0 }
+  - { id: rare, tier: rare, star: 0, CommonCoin: 13500, RareCoin: 135, PreciousCoin: 0, LegendaryCoin: 0 }
+  - { id: rare_s1, tier: rare, star: 1, CommonCoin: 20000, RareCoin: 200, PreciousCoin: 0, LegendaryCoin: 0 }
+  - { id: rare_s2, tier: rare, star: 2, CommonCoin: 5000, RareCoin: 50, PreciousCoin: 70, LegendaryCoin: 0 }
+  - { id: rare_s3, tier: rare, star: 3, CommonCoin: 6000, RareCoin: 60, PreciousCoin: 80, LegendaryCoin: 0 }
+  - { id: epic, tier: epic, star: 0, CommonCoin: 7000, RareCoin: 70, PreciousCoin: 90, LegendaryCoin: 0 }
+  - { id: epic_s1, tier: epic, star: 1, CommonCoin: 8000, RareCoin: 80, PreciousCoin: 100, LegendaryCoin: 0 }
+  - { id: epic_s2, tier: epic, star: 2, CommonCoin: 9000, RareCoin: 90, PreciousCoin: 110, LegendaryCoin: 0 }
+  - { id: epic_s3, tier: epic, star: 3, CommonCoin: 10000, RareCoin: 100, PreciousCoin: 120, LegendaryCoin: 0 }
+  - { id: epic_t1, tier: epic_t1, star: 0, CommonCoin: 15000, RareCoin: 150, PreciousCoin: 140, LegendaryCoin: 0 }
+  - { id: epic_t1_s1, tier: epic_t1, star: 1, CommonCoin: 20000, RareCoin: 200, PreciousCoin: 150, LegendaryCoin: 0 }
+  - { id: epic_t1_s2, tier: epic_t1, star: 2, CommonCoin: 25000, RareCoin: 250, PreciousCoin: 170, LegendaryCoin: 0 }
+  - { id: epic_t1_s3, tier: epic_t1, star: 3, CommonCoin: 30000, RareCoin: 300, PreciousCoin: 210, LegendaryCoin: 0 }
+  - { id: legendary, tier: legendary, star: 0, CommonCoin: 41000, RareCoin: 410, PreciousCoin: 90, LegendaryCoin: 0 }
+  - { id: legendary_s1, tier: legendary, star: 1, CommonCoin: 43000, RareCoin: 430, PreciousCoin: 90, LegendaryCoin: 0 }
+  - { id: legendary_s2, tier: legendary, star: 2, CommonCoin: 47000, RareCoin: 470, PreciousCoin: 100, LegendaryCoin: 0 }
+  - { id: legendary_s3, tier: legendary, star: 3, CommonCoin: 49000, RareCoin: 490, PreciousCoin: 100, LegendaryCoin: 0 }
+  - { id: legendary_t1, tier: legendary_t1, star: 0, CommonCoin: 53000, RareCoin: 530, PreciousCoin: 100, LegendaryCoin: 0 }
+  - { id: legendary_t1_s1, tier: legendary_t1, star: 1, CommonCoin: 57000, RareCoin: 570, PreciousCoin: 120, LegendaryCoin: 0 }
+  - { id: legendary_t1_s2, tier: legendary_t1, star: 2, CommonCoin: 61000, RareCoin: 610, PreciousCoin: 120, LegendaryCoin: 0 }
+  - { id: legendary_t1_s3, tier: legendary_t1, star: 3, CommonCoin: 66000, RareCoin: 660, PreciousCoin: 120, LegendaryCoin: 0 }
+  - { id: legendary_t2, tier: legendary_t2, star: 0, CommonCoin: 71000, RareCoin: 710, PreciousCoin: 120, LegendaryCoin: 0 }
+  - { id: legendary_t2_s1, tier: legendary_t2, star: 1, CommonCoin: 83000, RareCoin: 830, PreciousCoin: 160, LegendaryCoin: 0 }
+  - { id: legendary_t2_s2, tier: legendary_t2, star: 2, CommonCoin: 88000, RareCoin: 880, PreciousCoin: 170, LegendaryCoin: 0 }
+  - { id: legendary_t2_s3, tier: legendary_t2, star: 3, CommonCoin: 95000, RareCoin: 950, PreciousCoin: 180, LegendaryCoin: 0 }
+  - { id: exotic, tier: exotic, star: 0, CommonCoin: 100000, RareCoin: 1000, PreciousCoin: 180, LegendaryCoin: 15 }
+  - { id: exotic_s1, tier: exotic, star: 1, CommonCoin: 105000, RareCoin: 1050, PreciousCoin: 190, LegendaryCoin: 20 }
+  - { id: exotic_s2, tier: exotic, star: 2, CommonCoin: 110000, RareCoin: 1100, PreciousCoin: 200, LegendaryCoin: 20 }
+  - { id: exotic_s3, tier: exotic, star: 3, CommonCoin: 115000, RareCoin: 1150, PreciousCoin: 210, LegendaryCoin: 25 }
+  - { id: exotic_t1, tier: exotic_t1, star: 0, CommonCoin: 120000, RareCoin: 1200, PreciousCoin: 245, LegendaryCoin: 25 }
+  - { id: exotic_t1_s1, tier: exotic_t1, star: 1, CommonCoin: 125000, RareCoin: 1250, PreciousCoin: 255, LegendaryCoin: 30 }
+  - { id: exotic_t1_s2, tier: exotic_t1, star: 2, CommonCoin: 130000, RareCoin: 1300, PreciousCoin: 265, LegendaryCoin: 30 }
+  - { id: exotic_t1_s3, tier: exotic_t1, star: 3, CommonCoin: 135000, RareCoin: 1350, PreciousCoin: 275, LegendaryCoin: 35 }
+  - { id: exotic_t2, tier: exotic_t2, star: 0, CommonCoin: 140000, RareCoin: 1400, PreciousCoin: 310, LegendaryCoin: 35 }
+  - { id: exotic_t2_s1, tier: exotic_t2, star: 1, CommonCoin: 145000, RareCoin: 1450, PreciousCoin: 315, LegendaryCoin: 40 }
+  - { id: exotic_t2_s2, tier: exotic_t2, star: 2, CommonCoin: 150000, RareCoin: 1500, PreciousCoin: 325, LegendaryCoin: 40 }
+  - { id: exotic_t2_s3, tier: exotic_t2, star: 3, CommonCoin: 160000, RareCoin: 1600, PreciousCoin: 335, LegendaryCoin: 45 }
+  - { id: exotic_t3, tier: exotic_t3, star: 0, CommonCoin: 165000, RareCoin: 1650, PreciousCoin: 350, LegendaryCoin: 45 }
+  - { id: exotic_t3_s1, tier: exotic_t3, star: 1, CommonCoin: 170000, RareCoin: 1700, PreciousCoin: 365, LegendaryCoin: 50 }
+  - { id: exotic_t3_s2, tier: exotic_t3, star: 2, CommonCoin: 175000, RareCoin: 1750, PreciousCoin: 385, LegendaryCoin: 50 }
+  - { id: exotic_t3_s3, tier: exotic_t3, star: 3, CommonCoin: 180000, RareCoin: 1800, PreciousCoin: 410, LegendaryCoin: 55 }
