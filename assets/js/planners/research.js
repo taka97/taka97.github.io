@@ -1,6 +1,6 @@
 import { createPlanner } from './planner-core.js';
 import { createProfileStore, getToolData, updateToolData } from './storage.js';
-import { createTable, clearElement, setSummaryValue, setStatus as setStatusElement, renderMissingCard, targetCell, grandTotalFooter } from './table-helpers.js';
+import { createTable, clearElement, setSummaryValue, setStatus as setStatusElement, renderMissingCard, targetCell, grandTotalFooter, renderInstanceBadge } from './table-helpers.js';
 import { createResearchPlanner, calculateResearchRequirements, formatNumber } from './research-core.js';
 
 const TROOP_TRANSLATIONS = {
@@ -38,6 +38,7 @@ const MESSAGES = {
     currentLabel: 'Current level',
     targetLabel: 'Target level',
     noTargetLabel: 'No target',
+    targetSetLabel: 'Target set',
     fcLabLevel: 'FC Lab must reach level {level} first.',
     prerequisiteUnreachable: 'A prerequisite track cannot reach level {level}.',
   },
@@ -57,10 +58,15 @@ const MESSAGES = {
     currentLabel: 'Lv. hiện tại',
     targetLabel: 'Lv. mục tiêu',
     noTargetLabel: 'Chưa chọn',
+    targetSetLabel: 'Đã đặt mục tiêu',
     fcLabLevel: 'Phòng Lab FC cần đạt Lv.{level} trước.',
     prerequisiteUnreachable: 'Một nhánh điều kiện tiên quyết không thể đạt Lv.{level}.',
   },
 };
+
+function dispatchResearchTotals(totals, stock) {
+  document.dispatchEvent(new CustomEvent('forticlad:research-totals-changed', { detail: { totals, stock } }));
+}
 
 function localizedErrorMessage(error, message, fallback = message.range) {
   if (error?.code === 'fc-lab-level') return message.fcLabLevel.replace('{level}', String(error.params.level));
@@ -171,6 +177,7 @@ async function initializeResearchPlanner(container) {
     if (updateRangeWarnings(elements.researchTracks, planner, language)) {
       clearResults(elements);
       elements.trackResults.hidden = true;
+      dispatchResearchTotals(null, null);
       setStatus(elements, message.range, true);
       return;
     }
@@ -179,6 +186,7 @@ async function initializeResearchPlanner(container) {
       const toolData = getToolData(profile, 'forticlad');
       const inventory = toolData.hyperalloyOnHand;
       renderSummary(elements, result, inventory, message);
+      dispatchResearchTotals({ hyperalloy: result.grandTotal }, { hyperalloy: inventory });
       if (result.selectedTrackKeys.length === 0) {
         renderEmptyResults(elements, message.noTargets);
         elements.trackResults.hidden = true;
@@ -191,6 +199,7 @@ async function initializeResearchPlanner(container) {
     } catch (error) {
       clearResults(elements);
       elements.trackResults.hidden = true;
+      dispatchResearchTotals(null, null);
       if (profile) setStatus(elements, localizedErrorMessage(error, message), true);
     }
   }
@@ -269,6 +278,11 @@ function renderTrackRanges(container, planner, ranges, language, disabled) {
       rowHeading.id = `research-track-${key}`;
       row.setAttribute('role', 'group');
       row.setAttribute('aria-labelledby', rowHeading.id);
+      const badge = document.createElement('span');
+      badge.className = 'loj-planner__instance-badge';
+      badge.dataset.role = 'instance-badge';
+      renderInstanceBadge(badge, ranges[key].targetLevel !== 0, message.targetSetLabel, message.noTargetLabel);
+      rowHeading.append(badge);
       const error = document.createElement('p');
       error.className = 'loj-planner__range-error';
       error.id = `research-range-error-${key}`;
@@ -321,6 +335,7 @@ function updateRangeWarnings(container, planner, language) {
   const warning = language === 'vi'
     ? 'Lv. mục tiêu không được thấp hơn Lv. hiện tại.'
     : 'Target level cannot be lower than current level.';
+  const message = MESSAGES[language];
   let hasInvalidRange = false;
 
   container.querySelectorAll('[data-track-key]').forEach((trackRow) => {
@@ -334,6 +349,7 @@ function updateRangeWarnings(container, planner, language) {
     error.textContent = invalid ? warning : '';
     error.hidden = !invalid;
     hasInvalidRange ||= invalid;
+    renderInstanceBadge(trackRow.querySelector('[data-role="instance-badge"]'), targetLevel !== 0, message.targetSetLabel, message.noTargetLabel);
   });
 
   return hasInvalidRange;

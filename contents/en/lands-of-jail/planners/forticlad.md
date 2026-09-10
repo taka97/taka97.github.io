@@ -100,6 +100,8 @@ Calculate Forticlad Core (FC), Advanced Forticlad Core (AFC), and Hyperalloy for
     </section>
   </section>
 
+  <div data-role="sticky-bar" class="loj-planner__sticky-bar" tabindex="0" role="button" aria-label="Scroll to what you're missing" hidden></div>
+
 </section>
 
 <script id="forticlad-data" type="application/json">{{ site.data.lands_of_jail.forticlad | jsonify }}</script>

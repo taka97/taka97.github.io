@@ -96,6 +96,40 @@ export function toRoman(value) {
   return result;
 }
 
+export function updateStickyBar(container, resources, totals, stock, stickyBarLabel, formatNumber) {
+  const chips = totals
+    ? resources
+        .filter((resource) => Number.isInteger(stock[resource.key]))
+        .map((resource) => ({ resource, missing: Math.max(totals[resource.key] - stock[resource.key], 0) }))
+        .filter((entry) => entry.missing > 0)
+    : [];
+  if (chips.length === 0) {
+    container.hidden = true;
+    container.replaceChildren();
+    return;
+  }
+  const fragment = document.createDocumentFragment();
+  const summaryParts = [];
+  chips.forEach(({ resource, missing }) => {
+    const chip = document.createElement('span');
+    chip.className = 'loj-planner__sticky-chip';
+    const text = `${resource.label}: ${formatNumber(missing)}`;
+    chip.textContent = text;
+    summaryParts.push(text);
+    fragment.append(chip);
+  });
+  container.replaceChildren(fragment);
+  container.hidden = false;
+  container.setAttribute('aria-label', `${stickyBarLabel} ${summaryParts.join(', ')}`);
+}
+
+export function renderInstanceBadge(badgeElement, hasTarget, targetSetLabel, noTargetLabel) {
+  if (!badgeElement) return;
+  badgeElement.textContent = hasTarget ? targetSetLabel : noTargetLabel;
+  badgeElement.classList.toggle('is-target-set', hasTarget);
+  badgeElement.classList.toggle('is-no-target', !hasTarget);
+}
+
 export function renderMissingCard(neededOutput, missingOutput, required, stock, hasTarget, message, formatNumber) {
   if (!hasTarget) {
     setSummaryValue(neededOutput, '—');

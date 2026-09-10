@@ -100,6 +100,8 @@ Tính Lõi Trọng Giáp (FC), Lõi Trọng Giáp Cao Cấp (AFC) và Hyperalloy
     </section>
   </section>
 
+  <div data-role="sticky-bar" class="loj-planner__sticky-bar" tabindex="0" role="button" aria-label="Cuộn đến phần bạn còn thiếu gì" hidden></div>
+
 </section>
 
 <script id="forticlad-data" type="application/json">{{ site.data.lands_of_jail.forticlad | jsonify }}</script>

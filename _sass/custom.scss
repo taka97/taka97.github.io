@@ -157,6 +157,23 @@
     }
   }
 
+  .loj-planner__instance-badge {
+    display: inline-block;
+    margin-left: 0.5rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 0.2rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    vertical-align: middle;
+    background: #efeff2;
+    color: #5d5d67;
+
+    &.is-target-set {
+      background: #fdf3ea;
+      color: #c05621;
+    }
+  }
+
   .loj-planner__group {
     display: grid;
     gap: 1rem;

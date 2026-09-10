@@ -1,6 +1,6 @@
 import { createTomesPlanner, calculateTomesRequirements, formatNumber } from './tomes-core.js';
 import { createProfileStore, getToolData, updateToolData } from './storage.js';
-import { createTable, clearElement, setStatus as setStatusElement, renderMissingCard, grandTotalFooter, toRoman } from './table-helpers.js';
+import { createTable, clearElement, setStatus as setStatusElement, renderMissingCard, grandTotalFooter, toRoman, updateStickyBar, renderInstanceBadge } from './table-helpers.js';
 
 const MESSAGES = {
   en: {
@@ -25,6 +25,7 @@ const MESSAGES = {
     resetLabel: 'Reset to default',
     resetConfirmLabel: 'Click again to confirm reset',
     stickyBarLabel: 'Missing:',
+    targetSetLabel: 'Target set',
   },
   vi: {
     noProfile: 'Hãy tạo hoặc chọn hồ sơ đang dùng trong Cài đặt trước khi lập kế hoạch.',
@@ -48,6 +49,7 @@ const MESSAGES = {
     resetLabel: 'Khôi phục mặc định',
     resetConfirmLabel: 'Bấm lần nữa để xác nhận',
     stickyBarLabel: 'Còn thiếu:',
+    targetSetLabel: 'Đã đặt mục tiêu',
   },
 };
 
@@ -250,7 +252,7 @@ async function initializeTomesPlanner(container) {
       clearElement(elements.missingGrid);
       clearElement(elements.totals);
       elements.results.hidden = true;
-      updateStickyBar(elements.stickyBar, null, stock, message, planner);
+      updateStickyBar(elements.stickyBar, planner.resources, null, stock, message.stickyBarLabel, formatNumber);
       setStatus(elements, message.range, true);
       return;
     }
@@ -265,13 +267,13 @@ async function initializeTomesPlanner(container) {
         renderBreakdownTable(elements.totals, result, planner, language, message);
         elements.results.hidden = false;
       }
-      updateStickyBar(elements.stickyBar, result.totals, stock, message, planner);
+      updateStickyBar(elements.stickyBar, planner.resources, result.totals, stock, message.stickyBarLabel, formatNumber);
       setStatus(elements, '');
     } catch (error) {
       clearElement(elements.missingGrid);
       clearElement(elements.totals);
       elements.results.hidden = true;
-      updateStickyBar(elements.stickyBar, null, stock, message, planner);
+      updateStickyBar(elements.stickyBar, planner.resources, null, stock, message.stickyBarLabel, formatNumber);
       setStatus(elements, error.message || message.range, true);
     }
   }
@@ -360,6 +362,12 @@ function renderInstanceList(container, category, instances, maxIndex, labelFn, m
     card.setAttribute('role', 'group');
     card.setAttribute('aria-labelledby', heading.id);
 
+    const badge = document.createElement('span');
+    badge.className = 'loj-planner__instance-badge';
+    badge.dataset.role = 'instance-badge';
+    renderInstanceBadge(badge, instance.targetIndex !== 0, message.targetSetLabel, message.noTarget);
+    heading.append(badge);
+
     const errorId = `${category}-range-error-${index}`;
     const error = document.createElement('p');
     error.className = 'loj-planner__range-error';
@@ -420,6 +428,7 @@ function updateRangeWarnings(container, message) {
     error.textContent = invalid ? message.range : '';
     error.hidden = !invalid;
     hasInvalidRange ||= invalid;
+    renderInstanceBadge(card.querySelector('[data-role="instance-badge"]'), targetIndex !== 0, message.targetSetLabel, message.noTarget);
   });
   return hasInvalidRange;
 }
@@ -481,33 +490,6 @@ function renderBreakdownTable(container, result, planner, language, message) {
 function formatCost(cost, planner) {
   const parts = planner.resources.filter((resource) => cost[resource.key] > 0).map((resource) => `${formatNumber(cost[resource.key])} ${resource.label}`);
   return parts.length ? parts.join(', ') : '—';
-}
-
-function updateStickyBar(container, totals, stock, message, planner) {
-  const chips = totals
-    ? planner.resources
-        .filter((resource) => Number.isInteger(stock[resource.key]))
-        .map((resource) => ({ resource, missing: Math.max(totals[resource.key] - stock[resource.key], 0) }))
-        .filter((entry) => entry.missing > 0)
-    : [];
-  if (chips.length === 0) {
-    container.hidden = true;
-    container.replaceChildren();
-    return;
-  }
-  const fragment = document.createDocumentFragment();
-  const summaryParts = [];
-  chips.forEach(({ resource, missing }) => {
-    const chip = document.createElement('span');
-    chip.className = 'loj-planner__sticky-chip';
-    const text = `${resource.label}: ${formatNumber(missing)}`;
-    chip.textContent = text;
-    summaryParts.push(text);
-    fragment.append(chip);
-  });
-  container.replaceChildren(fragment);
-  container.hidden = false;
-  container.setAttribute('aria-label', `${message.stickyBarLabel} ${summaryParts.join(', ')}`);
 }
 
 function setStatus(elements, value, isError = false) {

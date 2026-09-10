@@ -1,6 +1,6 @@
 import { calculateBuildingRequirements, createPlanner, formatNumber } from './planner-core.js';
 import { createProfileStore, getToolData, updateToolData } from './storage.js';
-import { createTable, clearElement, setSummaryValue, setStatus as setStatusElement, renderMissingCard, targetCell, grandTotalFooter } from './table-helpers.js';
+import { createTable, clearElement, setSummaryValue, setStatus as setStatusElement, renderMissingCard, targetCell, grandTotalFooter, updateStickyBar, renderInstanceBadge } from './table-helpers.js';
 
 const BUILDING_TRANSLATIONS = {
   'warden-office': 'Văn phòng Giám ngục',
@@ -25,6 +25,9 @@ const MESSAGES = {
     needed: '{amount} needed',
     missing: 'Missing {amount}',
     surplus: 'Surplus {amount}',
+    stickyBarLabel: 'Missing:',
+    targetSetLabel: 'Target set',
+    noTargetLabel: 'No target',
   },
   vi: {
     noProfile: 'Hãy tạo hoặc chọn hồ sơ đang dùng trong Cài đặt trước khi lập kế hoạch.',
@@ -37,6 +40,9 @@ const MESSAGES = {
     needed: 'Cần {amount}',
     missing: 'Còn thiếu {amount}',
     surplus: 'Dư {amount}',
+    stickyBarLabel: 'Còn thiếu:',
+    targetSetLabel: 'Đã đặt mục tiêu',
+    noTargetLabel: 'Chưa đặt mục tiêu',
   },
 };
 
@@ -80,6 +86,37 @@ async function initializePlanner(container) {
     elements.afcOnHand.disabled = true;
     if (!storageUnavailable) setStatus(elements, message.noProfile, true);
   }
+
+  const stickyResources = [
+    { key: 'fc', label: 'FC' },
+    { key: 'afc', label: 'AFC' },
+    { key: 'hyperalloy', label: 'Hyperalloy' },
+  ];
+  let buildingSlice = { totals: null, stock: null };
+  let researchSlice = { totals: null, stock: null };
+
+  function updateCombinedStickyBar() {
+    const totals = { ...(buildingSlice.totals || {}), ...(researchSlice.totals || {}) };
+    const stock = { ...(buildingSlice.stock || {}), ...(researchSlice.stock || {}) };
+    updateStickyBar(elements.stickyBar, stickyResources, totals, stock, message.stickyBarLabel, formatNumber);
+  }
+
+  function scrollToSummary() {
+    elements.summaryHeading?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  document.addEventListener('forticlad:research-totals-changed', (event) => {
+    researchSlice = event.detail;
+    updateCombinedStickyBar();
+  });
+
+  elements.stickyBar.addEventListener('click', scrollToSummary);
+  elements.stickyBar.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      scrollToSummary();
+    }
+  });
 
   renderBuildingRanges(
     elements.buildingRanges,
@@ -142,6 +179,8 @@ async function initializePlanner(container) {
       clearSummary(elements);
       clearElement(elements.buildingTotals);
       elements.buildingResults.hidden = true;
+      buildingSlice = { totals: null, stock: null };
+      updateCombinedStickyBar();
       setStatus(elements, message.range, true);
       return;
     }
@@ -150,6 +189,8 @@ async function initializePlanner(container) {
       const toolData = getToolData(profile, 'forticlad');
       const inventory = { fc: toolData.fcOnHand ?? toolData.coreOnHand, afc: toolData.afcOnHand };
       renderSummary(elements, result, inventory, message);
+      buildingSlice = { totals: result.resourceTotals, stock: inventory };
+      updateCombinedStickyBar();
       if (result.selectedBuildingKeys.length === 0) {
         renderEmptyResults(elements, message.noTargets);
         elements.buildingResults.hidden = true;
@@ -163,6 +204,8 @@ async function initializePlanner(container) {
       clearSummary(elements);
       clearElement(elements.buildingTotals);
       elements.buildingResults.hidden = true;
+      buildingSlice = { totals: null, stock: null };
+      updateCombinedStickyBar();
       if (profile) setStatus(elements, error.message || message.range, true);
     }
   }
@@ -175,6 +218,7 @@ function getElements(container) {
     buildingTotals: find('building-totals'), buildingResults: find('building-results'),
     summaryFcNeeded: find('summary-fc-needed'), summaryFcMissing: find('summary-fc-missing'),
     summaryAfcNeeded: find('summary-afc-needed'), summaryAfcMissing: find('summary-afc-missing'),
+    stickyBar: find('sticky-bar'), summaryHeading: container.querySelector('#forticlad-summary-heading'),
   };
 }
 
@@ -207,6 +251,7 @@ function inventoryValue(input) {
 function renderBuildingRanges(container, planner, ranges, language, disabled) {
   const currentLabel = language === 'vi' ? 'Base hiện tại' : 'Current Base';
   const targetLabel = language === 'vi' ? 'Base mục tiêu' : 'Target Base';
+  const message = MESSAGES[language];
   const fragment = document.createDocumentFragment();
 
   planner.buildingKeys.forEach((key) => {
@@ -218,6 +263,11 @@ function renderBuildingRanges(container, planner, ranges, language, disabled) {
     heading.id = `forticlad-building-${key}`;
     row.setAttribute('role', 'group');
     row.setAttribute('aria-labelledby', heading.id);
+    const badge = document.createElement('span');
+    badge.className = 'loj-planner__instance-badge';
+    badge.dataset.role = 'instance-badge';
+    renderInstanceBadge(badge, ranges[key].currentBase !== ranges[key].targetBase, message.targetSetLabel, message.noTargetLabel);
+    heading.append(badge);
     const error = document.createElement('p');
     error.className = 'loj-planner__range-error';
     error.id = `forticlad-range-error-${key}`;
@@ -269,6 +319,7 @@ function updateRangeWarnings(container, planner, language) {
   const warning = language === 'vi'
     ? 'Base mục tiêu không được thấp hơn Base hiện tại.'
     : 'Target Base cannot be lower than Current Base.';
+  const message = MESSAGES[language];
   let hasInvalidRange = false;
 
   container.querySelectorAll('[data-building-key]').forEach((row) => {
@@ -284,6 +335,7 @@ function updateRangeWarnings(container, planner, language) {
     error.textContent = invalid ? warning : '';
     error.hidden = !invalid;
     hasInvalidRange ||= invalid;
+    renderInstanceBadge(row.querySelector('[data-role="instance-badge"]'), currentSelect.value !== targetSelect.value, message.targetSetLabel, message.noTargetLabel);
   });
 
   return hasInvalidRange;
