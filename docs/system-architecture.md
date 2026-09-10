@@ -105,6 +105,24 @@ lets `research.js` react when a building change (e.g. FC Lab's level) affects re
 prerequisites. Settings owns profile creation, selection, deletion, and JSON
 backup/restore; player profile and inventory data stays in IndexedDB.
 
+## Tomes & Collections Planner client flow
+
+`_data/lands_of_jail/tomes_collections.yml` holds two flat, prerequisite-free cost
+tables (13 Tome levels, 43 Collection levels across 11 tiers) plus add-instance caps
+(18 Tomes / 6 Collections) and resource labels. `tomes-core.js` is a minimal engine —
+no cross-entity requirement graph, unlike `planner-core.js`/`research-core.js` — that
+sums per-instance cost ranges into combined totals, driven by `tomes.js`. Instances are
+repeatable (an arbitrary number of Tomes/Collections, each just `{currentIndex,
+targetIndex}`), added via an "+ Add" control up to the cap with no per-instance remove;
+a page-local double-click-confirm "Reset to default" control is the only way counts
+shrink back to one each. State (stock, tome/collection instance lists) lives under the
+`tomes-collections` profile tool-data key, saved with the same
+read-latest-then-merge-then-write pattern as Forticlad/Research. Both this page and
+Forticlad's share one `.loj-planner__*` SCSS block in `_sass/custom.scss` (generalized
+from a Forticlad-only `.forticlad-planner__*` block during this migration) for reuse by
+future lojcalc.com tool migrations (Robots & Satellites, Hero Equipment, Hero Stars &
+Exclusive Equipment).
+
 ## Related
 
 - [Deployment guide](deployment-guide.md) · [Codebase summary](codebase-summary.md) ·

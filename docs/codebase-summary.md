@@ -1,8 +1,8 @@
 # Codebase Summary — Game Guides
 
 Static Jekyll site. Most behavior is content, theme configuration, and small Liquid
-include overrides; the Forticlad Planner adds browser-only ES modules and IndexedDB
-profile storage.
+include overrides; the Lands of Jail planners (Forticlad, Tomes & Collections) add
+browser-only ES modules and IndexedDB profile storage.
 
 ## Layout
 
@@ -22,6 +22,7 @@ _data/
   lands_of_jail/
     forticlad.yml            Verified Base-step/Core costs for the 8 planner buildings
     forticlad_research.yml   Verified T11 Research tree (3 troops x 9 tracks, Hyperalloy)
+    tomes_collections.yml    Verified Tome (13 levels) + Collection (43 levels) cost tables, caps
 
 _includes/
   head/
@@ -45,6 +46,7 @@ contents/                    Bilingual content (source path only; URLs come from
     lands-of-jail/
       index.md               Game landing (lang: en, ref: loj-home)
       planners/forticlad.md  Forticlad Core Planner (matched EN/VI page)
+      planners/tomes-collections.md  Tomes & Collections Planner (matched EN/VI page)
       tools/settings.md      Shared browser-local profile settings (matched EN/VI page)
       satellite.md           Game-level guide (lang: en, ref: loj-satellite)
       events/
@@ -93,9 +95,12 @@ docs/                        Project documentation (this set + DESIGN.md + super
 | Typography + components | `_sass/custom.scss` |
 | Forticlad building calculation + rendering | `assets/js/planners/planner-core.js`, `forticlad.js` |
 | Forticlad T11 research calculation + rendering | `assets/js/planners/research-core.js`, `research.js` |
+| Tomes & Collections calculation + rendering | `assets/js/planners/tomes-core.js`, `tomes.js` |
 | Shared planner table rendering | `assets/js/planners/table-helpers.js` |
+| Shared planner block styling (`.loj-planner__*`) | `_sass/custom.scss` (shared by Forticlad and Tomes & Collections; reuse for future tool migrations) |
 | Shared browser-local profiles | `assets/js/planners/storage.js`, `profile-settings.js` |
 | Forticlad source data | `_data/lands_of_jail/forticlad.yml`, `forticlad_research.yml` |
+| Tomes & Collections source data | `_data/lands_of_jail/tomes_collections.yml` |
 
 ## Build artifacts (not committed)
 
