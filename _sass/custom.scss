@@ -285,6 +285,7 @@
     height: 1rem;
     flex: 0 0 auto;
     color: #5d5d67;
+    object-fit: contain;
   }
 
   .loj-planner__missing-card-value {
@@ -431,9 +432,9 @@
     gap: 0.5rem;
     margin-top: 1.25rem;
     padding: 0.75rem 1rem;
-    border: 1px solid #5d5d67;
+    border: 1px solid #0d3d39;
     border-radius: 0.3rem;
-    background: #23232b;
+    background: #134e4a;
     color: #fff;
     cursor: pointer;
 
@@ -448,12 +449,22 @@
   }
 
   .loj-planner__sticky-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
     padding: 0.25rem 0.6rem;
     border-radius: 0.2rem;
-    background: #3a3a45;
+    background: #1f6f68;
     font-size: 0.85rem;
     font-weight: 600;
     font-variant-numeric: tabular-nums;
+  }
+
+  .loj-planner__sticky-chip-icon {
+    width: 1rem;
+    height: 1rem;
+    flex: 0 0 auto;
+    object-fit: contain;
   }
 
   @media screen and (min-width: 768px) {

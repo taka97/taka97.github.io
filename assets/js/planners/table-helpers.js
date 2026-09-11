@@ -96,6 +96,15 @@ export function toRoman(value) {
   return result;
 }
 
+export function resourceIcon(resource, className) {
+  if (!resource.icon) return null;
+  const img = document.createElement('img');
+  img.className = className;
+  img.src = resource.icon;
+  img.alt = '';
+  return img;
+}
+
 export function updateStickyBar(container, resources, totals, stock, stickyBarLabel, formatNumber) {
   const chips = totals
     ? resources
@@ -113,8 +122,10 @@ export function updateStickyBar(container, resources, totals, stock, stickyBarLa
   chips.forEach(({ resource, missing }) => {
     const chip = document.createElement('span');
     chip.className = 'loj-planner__sticky-chip';
+    const icon = resourceIcon(resource, 'loj-planner__sticky-chip-icon');
+    if (icon) chip.append(icon);
     const text = `${resource.label}: ${formatNumber(missing)}`;
-    chip.textContent = text;
+    chip.append(document.createTextNode(text));
     summaryParts.push(text);
     fragment.append(chip);
   });

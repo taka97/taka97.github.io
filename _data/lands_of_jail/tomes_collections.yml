@@ -36,11 +36,12 @@ collectionSlots:
   - { troop: shooter, label: Short Gun }
   - { troop: shooter, label: Long Gun }
 resources:
-  - { key: SealOfWisdom, label: Seal of Wisdom }
-  - { key: SealOfKnowledge, label: Seal of Knowledge }
-  - { key: CommonCoin, label: Common Trove Coin }
-  - { key: RareCoin, label: Rare Trove Coin }
-  - { key: PreciousCoin, label: Precious Trove Coin }
+  - { key: SealOfWisdom, label: Seal of Wisdom, icon: /assets/images/lands-of-jail/collections-tomes/seal-of-wisdom.png }
+  - { key: SealOfKnowledge, label: Seal of Knowledge, icon: /assets/images/lands-of-jail/collections-tomes/seal-of-knowledge.png }
+  - { key: CommonCoin, label: Common Trove Coin, icon: /assets/images/lands-of-jail/collections-tomes/common-trove-coin.png }
+  - { key: RareCoin, label: Rare Trove Coin, icon: /assets/images/lands-of-jail/collections-tomes/rare-trove-coin.png }
+  - { key: PreciousCoin, label: Precious Trove Coin, icon: /assets/images/lands-of-jail/collections-tomes/precious-trove-coin.png }
+  # No icon asset exists yet for Legendary Trove Coin (also icon-less in the Current Stock section).
   - { key: LegendaryCoin, label: Legendary Trove Coin }
 # 13 rows: index 0 = Level 0 (free start), index 1-12 = Level I..XII (TOME_COSTS[0..11]).
 tomeLevels:
