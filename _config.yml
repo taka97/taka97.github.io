@@ -9,6 +9,11 @@ theme: jekyll-text-theme
 text_skin: default
 highlight_theme: tomorrow-night-eighties
 lang: en
+# Default `bootcdn` preset points jQuery/etc at cdn.bootcss.com, which browser
+# tracking protection and ad blockers commonly block outside China (breaks the
+# TOC/affix scripts that depend on jQuery). `unpkg` is the theme's other
+# built-in CDN preset and isn't affected.
+sources: unpkg
 
 search:
   provider: default
