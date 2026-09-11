@@ -177,6 +177,38 @@ per-cell via a shared `renderTrackRow` helper reused for both tracks, plus the e
 rarity: {currentIndex, targetIndex}, mastery: {currentIndex, targetIndex} } } } }`,
 saved with the same read-latest-then-merge-then-write pattern as every prior planner.
 
+## Hero Stars & Exclusive Equipment Planner client flow
+
+`_data/lands_of_jail/hero_stars_exclusive_equipment.yml` holds 2 resources, a
+32-entry Hero Stars level table (keyed by id: a `start` baseline, `recruited`, and 5
+star tiers each with a `starK_s1`..`starK_s5` stage-checkpoint run plus a plain `starK`
+"whole tier" id), and an 11-entry Exclusive Equipment level table (numeric `0`..`10`
+ids, no stage sub-levels). `hero-stars-exclusive-equipment-core.js` is the simplest
+engine of the 5 — cost is identical across all heroes (confirmed live), every level's
+`requires` is empty on both tracks, so there's no cascade/prerequisite resolution at
+all, and (unlike every other tool) neither track has any `estimated`-flagged figure, so
+the engine drops that bookkeeping entirely. `buildBreakdown` is copied verbatim from
+`robots-satellites-core.js` — a straight range sum over `levels[currentIndex+1..
+targetIndex]` — and called twice, once per track, against two independent addable
+instance arrays (Hero Stars and Exclusive Equipment, each capped at 6). Per this plan's
+validation, the cap is enforced UI-only (`hero-stars-exclusive-equipment.js`'s two add
+buttons disable independently at 6, mirroring `robots-satellites.js`'s
+`handleAddRobot`/`updateAddButtonState`) — `calculateHeroStarsEquipment` never checks
+instance-array length, matching `calculateRobotsSatellitesRequirements` precedent
+exactly. The one new UI wrinkle: Hero Stars' Target `<select>` must exclude the `start`
+id and every stage-checkpoint id (`/_s\d+$/`), generalizing `hero-equipment.js`'s
+single-stage `!id.endsWith('_s1')` filter to this track's 5 stages per tier — built via
+a `buildOptionsForIndices`-style helper (the same filtered-index-list pattern
+`hero-equipment.js` uses for its Rarity Target list) rather than the contiguous
+0..maxIndex range `robots-satellites.js`'s simpler `buildLevelOptions` assumes.
+Exclusive Equipment's Current/Target selects both use the full contiguous 0-10 range,
+no filtering needed. State (stock, both instance lists) lives under the
+`hero-stars-exclusive-equipment` profile tool-data key as `{stock, heroStars: [
+{currentIndex, targetIndex}, ... ], exclusiveEquipment: [ {currentIndex, targetIndex},
+... ] }`, saved with the same read-latest-then-merge-then-write pattern as every prior
+planner. This closes the lojcalc.com migration series — all 5 tools now share one
+`.loj-planner__*` SCSS block and `table-helpers.js` primitive set.
+
 ## Related
 
 - [Deployment guide](deployment-guide.md) · [Codebase summary](codebase-summary.md) ·

@@ -21,18 +21,19 @@ guides, with a small browser-local tools track for Lands of Jail.
 
 ## Lands of Jail tools
 
-- **Ready to release:** Forticlad is the first browser-local calculator module in the
-  broader Lands of Jail tools roadmap. Its target-driven Core calculator (8 buildings
-  incl. FC Lab) and its T11 Research calculator (3 troop lines x 9 tracks, Hyperalloy)
-  are implemented and validated locally; it becomes a shipped roadmap item when the
-  change is committed and deployed.
+- **Migration series complete:** all 5 lojcalc.com browser-local calculator tools have
+  been migrated into this site's `.loj-planner__*` pattern — Forticlad (Core + T11
+  Research), Tomes & Collections, Robots & Satellites, Hero Equipment, and Hero Stars &
+  Exclusive Equipment. No further lojcalc.com tool migrations are planned.
 - **Verified boundary:** FC/AFC building data through FC10 and T11 Research data are
   transcribed from the cited independent reference; Medical Station stops at FC8, FC
   Lab stops at level 6, and prerequisites are resolved from the checked-in requirement
   graphs in [`_data/lands_of_jail/forticlad.yml`](../_data/lands_of_jail/forticlad.yml)
-  and [`forticlad_research.yml`](../_data/lands_of_jail/forticlad_research.yml). Other
-  lojcalc.com tools (Tomes & Collections, Robots & Satellites, Hero Equipment, Hero
-  Stars & Exclusive Equipment) remain out of scope.
+  and [`forticlad_research.yml`](../_data/lands_of_jail/forticlad_research.yml). The
+  other 4 tools' data (Tomes & Collections, Robots & Satellites, Hero Equipment, Hero
+  Stars & Exclusive Equipment) is transcribed from live source state captured during
+  each tool's own migration — see each tool's `_data/lands_of_jail/*.yml` `source` block
+  for its retrieval date and provenance notes.
 
 ## Known gaps / enhancements
 
