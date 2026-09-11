@@ -46,6 +46,8 @@ loj-en:
         url: /en/lands-of-jail/planners/robots-satellites/
       - title: Hero Equipment
         url: /en/lands-of-jail/planners/hero-equipment/
+      - title: Hero Stars & Exclusive Equipment
+        url: /en/lands-of-jail/planners/hero-stars-exclusive-equipment/
       - title: Settings
         url: /en/lands-of-jail/tools/settings/
 
@@ -82,5 +84,7 @@ loj-vi:
         url: /vi/lands-of-jail/planners/robots-satellites/
       - title: Công cụ tính Hero Equipment
         url: /vi/lands-of-jail/planners/hero-equipment/
+      - title: Công cụ tính Hero Stars & Exclusive Equipment
+        url: /vi/lands-of-jail/planners/hero-stars-exclusive-equipment/
       - title: Cài đặt
         url: /vi/lands-of-jail/tools/settings/

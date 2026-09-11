@@ -1,0 +1,76 @@
+schema_version: 1
+source:
+  url: https://www.lojcalc.com/hero-stars-exclusive-equipment.html
+  retrieved: 2026-09-11
+  note: >
+    Cost is identical across all heroes (source's own "What this does"
+    copy) — one shared Hero Stars level table and one shared Exclusive
+    Equipment level table apply to every added instance. The two "+ Add
+    Hero" buttons are independent (separate counters, separate caps).
+    No cross-track prerequisite exists (every level's requires is empty on
+    both tracks, verified via live trackById() dump) — unlike Hero
+    Equipment's Rarity→Mastery pairing, this tool needs no cascade
+    resolution.
+resources:
+  - { key: HeroFragment, label: Redeem }
+  - { key: ExclusiveEquipPart, label: Exclusive Weapon Parts }
+caps: { heroStars: 6, exclusiveEquipment: 6 }
+# 32 entries. id suffix _s1.._s5 = stage sub-level within a star tier
+# ("K stars · stage N" in source UI); plain starK id = the tier's "whole"
+# checkpoint. Current select offers all 32; Target select must exclude
+# `start` and every _s\d+ stage id (UI-layer filter, Phase 3) — leaves
+# exactly 6 Target options: recruited, star1, star2, star3, star4, star5,
+# matching the live page's Target dropdown exactly. All costs are
+# HeroFragment only (ExclusiveEquipPart is 0 on every entry) — normalized
+# to 0 in the engine like every other planner's normalizeCost.
+heroStars:
+  levels:
+    - { id: start,       cost: { HeroFragment: 0 } }
+    - { id: recruited,   cost: { HeroFragment: 10 } }
+    - { id: star1_s1,    cost: { HeroFragment: 1 } }
+    - { id: star1_s2,    cost: { HeroFragment: 1 } }
+    - { id: star1_s3,    cost: { HeroFragment: 2 } }
+    - { id: star1_s4,    cost: { HeroFragment: 2 } }
+    - { id: star1_s5,    cost: { HeroFragment: 2 } }
+    - { id: star1,       cost: { HeroFragment: 2 } }
+    - { id: star2_s1,    cost: { HeroFragment: 5 } }
+    - { id: star2_s2,    cost: { HeroFragment: 5 } }
+    - { id: star2_s3,    cost: { HeroFragment: 5 } }
+    - { id: star2_s4,    cost: { HeroFragment: 5 } }
+    - { id: star2_s5,    cost: { HeroFragment: 5 } }
+    - { id: star2,       cost: { HeroFragment: 15 } }
+    - { id: star3_s1,    cost: { HeroFragment: 15 } }
+    - { id: star3_s2,    cost: { HeroFragment: 15 } }
+    - { id: star3_s3,    cost: { HeroFragment: 15 } }
+    - { id: star3_s4,    cost: { HeroFragment: 15 } }
+    - { id: star3_s5,    cost: { HeroFragment: 15 } }
+    - { id: star3,       cost: { HeroFragment: 40 } }
+    - { id: star4_s1,    cost: { HeroFragment: 40 } }
+    - { id: star4_s2,    cost: { HeroFragment: 40 } }
+    - { id: star4_s3,    cost: { HeroFragment: 40 } }
+    - { id: star4_s4,    cost: { HeroFragment: 40 } }
+    - { id: star4_s5,    cost: { HeroFragment: 40 } }
+    - { id: star4,       cost: { HeroFragment: 100 } }
+    - { id: star5_s1,    cost: { HeroFragment: 100 } }
+    - { id: star5_s2,    cost: { HeroFragment: 100 } }
+    - { id: star5_s3,    cost: { HeroFragment: 100 } }
+    - { id: star5_s4,    cost: { HeroFragment: 100 } }
+    - { id: star5_s5,    cost: { HeroFragment: 100 } }
+    - { id: star5,       cost: { HeroFragment: 100 } }
+# 11 entries, Level 0-10 (id = numeric level as a string). All costs are
+# ExclusiveEquipPart only (HeroFragment is 0 on every entry). Current and
+# Target selects both offer all 11 — no checkpoint filtering needed on
+# this track (numeric levelStyle, no stage sub-levels).
+exclusiveEquipment:
+  levels:
+    - { id: "0",  cost: { ExclusiveEquipPart: 0 } }
+    - { id: "1",  cost: { ExclusiveEquipPart: 10 } }
+    - { id: "2",  cost: { ExclusiveEquipPart: 25 } }
+    - { id: "3",  cost: { ExclusiveEquipPart: 25 } }
+    - { id: "4",  cost: { ExclusiveEquipPart: 45 } }
+    - { id: "5",  cost: { ExclusiveEquipPart: 45 } }
+    - { id: "6",  cost: { ExclusiveEquipPart: 65 } }
+    - { id: "7",  cost: { ExclusiveEquipPart: 65 } }
+    - { id: "8",  cost: { ExclusiveEquipPart: 85 } }
+    - { id: "9",  cost: { ExclusiveEquipPart: 85 } }
+    - { id: "10", cost: { ExclusiveEquipPart: 100 } }
