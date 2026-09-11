@@ -4,6 +4,37 @@ source:
   retrieved: 2026-09-10
   note: Tomes & Collections tool. Two independent, prerequisite-free repeatable instance tracks (Tome, Collection) sharing one stock pool and one combined breakdown — every level's `requires` in the source is a literal `[]`, so unlike Forticlad/Research there is no cascade/auto-bump logic here. Resource key names match the source's RESOURCES array exactly.
 caps: { tomes: 18, collections: 6 }
+# The 18 Tome slots are fixed too, same 3 troops as collectionSlots: each troop has
+# 3 Attack + 3 Defense tomes (3 troops x 2 types x 3 = 18). Order is 3 consecutive
+# slots per troop+type block.
+tomeSlots:
+  - { troop: shieldbearer, type: attack }
+  - { troop: shieldbearer, type: attack }
+  - { troop: shieldbearer, type: attack }
+  - { troop: shieldbearer, type: defense }
+  - { troop: shieldbearer, type: defense }
+  - { troop: shieldbearer, type: defense }
+  - { troop: bomber, type: attack }
+  - { troop: bomber, type: attack }
+  - { troop: bomber, type: attack }
+  - { troop: bomber, type: defense }
+  - { troop: bomber, type: defense }
+  - { troop: bomber, type: defense }
+  - { troop: shooter, type: attack }
+  - { troop: shooter, type: attack }
+  - { troop: shooter, type: attack }
+  - { troop: shooter, type: defense }
+  - { troop: shooter, type: defense }
+  - { troop: shooter, type: defense }
+# The 6 Collection slots are fixed in-game items, not a free-form add-up-to-6 list:
+# 2 per troop (Shieldbearer, Bomber, Shooter). Order here is the fixed slot order.
+collectionSlots:
+  - { troop: shieldbearer, label: Knuckles }
+  - { troop: shieldbearer, label: Helmet }
+  - { troop: bomber, label: Frag Grenade }
+  - { troop: bomber, label: High-Explosive Grenade }
+  - { troop: shooter, label: Short Gun }
+  - { troop: shooter, label: Long Gun }
 resources:
   - { key: SealOfWisdom, label: Seal of Wisdom }
   - { key: SealOfKnowledge, label: Seal of Knowledge }

@@ -2,6 +2,17 @@ import { createTomesPlanner, calculateTomesRequirements, formatNumber } from './
 import { createProfileStore, getToolData, updateToolData } from './storage.js';
 import { createTable, clearElement, setStatus as setStatusElement, renderMissingCard, grandTotalFooter, toRoman, updateStickyBar, renderInstanceBadge } from './table-helpers.js';
 
+const TROOP_TRANSLATIONS = {
+  shieldbearer: 'Khiên binh',
+  bomber: 'Bomber',
+  shooter: 'Xạ thủ',
+};
+
+const TOME_TYPE_TRANSLATIONS = {
+  attack: 'Tấn công',
+  defense: 'Phòng thủ',
+};
+
 const MESSAGES = {
   en: {
     noProfile: 'Create or select an active profile in Settings before planning.',
@@ -15,7 +26,6 @@ const MESSAGES = {
     missing: 'Missing {amount}',
     surplus: 'Surplus {amount}',
     tomeLabel: 'Tome {n}',
-    collectionLabel: 'Collection {n}',
     notStarted: 'Not started',
     noTarget: 'No target',
     levelPrefix: 'Level',
@@ -39,7 +49,6 @@ const MESSAGES = {
     missing: 'Còn thiếu {amount}',
     surplus: 'Dư {amount}',
     tomeLabel: 'Tome {n}',
-    collectionLabel: 'Collection {n}',
     notStarted: 'Chưa bắt đầu',
     noTarget: 'Chưa chọn',
     levelPrefix: 'Cấp',
@@ -67,7 +76,7 @@ async function initializeTomesPlanner(container) {
   let storageUnavailable = false;
 
   try {
-    planner = createTomesPlanner(JSON.parse(document.querySelector('#tomes-data').textContent));
+    planner = createTomesPlanner(JSON.parse(document.querySelector('#collections-tomes-data').textContent));
   } catch (error) {
     setStatus(elements, error.message, true);
     return;
@@ -84,15 +93,15 @@ async function initializeTomesPlanner(container) {
 
   const disabled = !profile;
   let stock = {};
-  let tomeInstances = [{ currentIndex: 0, targetIndex: 0 }];
-  let collectionInstances = [{ currentIndex: 0, targetIndex: 0 }];
+  let tomeInstances = defaultFixedInstances(planner.caps.tomes);
+  let collectionInstances = defaultFixedInstances(planner.caps.collections);
 
   if (profile) {
     elements.activeProfile.textContent = `${profile.server} — ${profile.name}`;
     const toolData = getToolData(profile, 'tomes-collections');
     stock = sanitizeStock(toolData.stock, planner);
-    tomeInstances = sanitizeInstances(toolData.tomes, planner.caps.tomes, planner.tomeLevels.length - 1);
-    collectionInstances = sanitizeInstances(toolData.collections, planner.caps.collections, planner.collectionLevels.length - 1);
+    tomeInstances = sanitizeFixedInstances(toolData.tomes, planner.caps.tomes, planner.tomeLevels.length - 1);
+    collectionInstances = sanitizeFixedInstances(toolData.collections, planner.caps.collections, planner.collectionLevels.length - 1);
   } else {
     elements.activeProfile.textContent = language === 'vi' ? 'Chưa chọn hồ sơ.' : 'No active profile selected.';
     if (!storageUnavailable) setStatus(elements, message.noProfile, true);
@@ -101,15 +110,12 @@ async function initializeTomesPlanner(container) {
   renderStockInputs();
   renderInstanceListFor('tomes');
   renderInstanceListFor('collections');
-  updateAddButtonState();
   elements.reset.disabled = disabled;
   renderResult();
 
   elements.tomesList.addEventListener('change', (event) => handleInstanceChange(event));
   elements.collectionsList.addEventListener('change', (event) => handleInstanceChange(event));
   elements.stockInputs.forEach((input) => input.addEventListener('change', handleStockChange));
-  elements.addTome.addEventListener('click', () => handleAdd('tomes'));
-  elements.addCollection.addEventListener('click', () => handleAdd('collections'));
   elements.reset.addEventListener('click', handleReset);
   elements.stickyBar.addEventListener('click', scrollToSummary);
   elements.stickyBar.addEventListener('keydown', (event) => {
@@ -166,36 +172,12 @@ async function initializeTomesPlanner(container) {
     renderResult();
   }
 
-  async function handleAdd(category) {
-    if (!profile) return;
-    disarmReset();
-    const cap = category === 'tomes' ? planner.caps.tomes : planner.caps.collections;
-    const list = category === 'tomes' ? tomeInstances : collectionInstances;
-    if (list.length >= cap) return;
-    const updated = [...list, { currentIndex: 0, targetIndex: 0 }];
-    if (category === 'tomes') tomeInstances = updated;
-    else collectionInstances = updated;
-    renderInstanceListFor(category);
-    updateAddButtonState();
-    try {
-      await persist({ [category]: updated });
-    } catch (error) {
-      setStatus(elements, error.message || message.storage, true);
-    }
-    renderResult();
-  }
-
   function renderInstanceListFor(category) {
     if (category === 'tomes') {
-      renderInstanceList(elements.tomesList, 'tomes', tomeInstances, planner.tomeLevels.length - 1, (index) => tomeLevelLabel(index, message), message, disabled);
+      renderTomeGroups(elements.tomesList, tomeInstances, planner, language, (index) => tomeLevelLabel(index, message), message, disabled);
     } else {
-      renderInstanceList(elements.collectionsList, 'collections', collectionInstances, planner.collectionLevels.length - 1, (index) => collectionLevelLabel(index, planner, message), message, disabled);
+      renderCollectionGroups(elements.collectionsList, collectionInstances, planner, language, (index) => collectionLevelLabel(index, planner, message), message, disabled);
     }
-  }
-
-  function updateAddButtonState() {
-    elements.addTome.disabled = disabled || tomeInstances.length >= planner.caps.tomes;
-    elements.addCollection.disabled = disabled || collectionInstances.length >= planner.caps.collections;
   }
 
   let resetArmed = false;
@@ -220,12 +202,11 @@ async function initializeTomesPlanner(container) {
     }
     disarmReset();
     stock = {};
-    tomeInstances = [{ currentIndex: 0, targetIndex: 0 }];
-    collectionInstances = [{ currentIndex: 0, targetIndex: 0 }];
+    tomeInstances = defaultFixedInstances(planner.caps.tomes);
+    collectionInstances = defaultFixedInstances(planner.caps.collections);
     renderStockInputs();
     renderInstanceListFor('tomes');
     renderInstanceListFor('collections');
-    updateAddButtonState();
     try {
       await persist({ stock, tomes: tomeInstances, collections: collectionInstances });
     } catch (error) {
@@ -292,9 +273,7 @@ function getElements(container) {
     results: find('results'),
     totals: find('totals'),
     tomesList: find('tomes-list'),
-    addTome: find('add-tome'),
     collectionsList: find('collections-list'),
-    addCollection: find('add-collection'),
     reset: find('reset'),
     status: find('status'),
     stickyBar: find('sticky-bar'),
@@ -310,8 +289,13 @@ function sanitizeStock(stock, planner) {
   return result;
 }
 
-function sanitizeInstances(list, cap, maxIndex) {
-  const source = Array.isArray(list) && list.length > 0 ? list.slice(0, cap) : [{ currentIndex: 0, targetIndex: 0 }];
+function defaultFixedInstances(count) {
+  return Array.from({ length: count }, () => ({ currentIndex: 0, targetIndex: 0 }));
+}
+
+function sanitizeFixedInstances(list, count, maxIndex) {
+  const source = Array.isArray(list) ? list.slice(0, count) : [];
+  while (source.length < count) source.push({ currentIndex: 0, targetIndex: 0 });
   return source.map((instance) => ({
     currentIndex: clampInstanceValue(instance?.currentIndex, maxIndex),
     targetIndex: clampInstanceValue(instance?.targetIndex, maxIndex),
@@ -348,57 +332,113 @@ function buildLevelOptions(maxIndex, labelFn, zeroLabelOverride) {
   return options;
 }
 
-function renderInstanceList(container, category, instances, maxIndex, labelFn, message, disabled) {
+function renderTomeGroups(container, instances, planner, language, labelFn, message, disabled) {
   const fragment = document.createDocumentFragment();
-  instances.forEach((instance, index) => {
-    const card = document.createElement('div');
-    card.className = 'loj-planner__instance-range';
-    card.dataset.category = category;
-    card.dataset.instanceIndex = String(index);
-    const headingText = (category === 'tomes' ? message.tomeLabel : message.collectionLabel).replace('{n}', String(index + 1));
-    const heading = document.createElement('h3');
-    heading.textContent = headingText;
-    heading.id = `${category}-instance-${index}`;
-    card.setAttribute('role', 'group');
-    card.setAttribute('aria-labelledby', heading.id);
-
-    const badge = document.createElement('span');
-    badge.className = 'loj-planner__instance-badge';
-    badge.dataset.role = 'instance-badge';
-    renderInstanceBadge(badge, instance.targetIndex !== 0, message.targetSetLabel, message.noTarget);
-    heading.append(badge);
-
-    const errorId = `${category}-range-error-${index}`;
-    const error = document.createElement('p');
-    error.className = 'loj-planner__range-error';
-    error.id = errorId;
-    error.dataset.role = 'range-error';
-    error.hidden = true;
-    error.setAttribute('role', 'alert');
-
-    const currentLabel = document.createElement('label');
-    currentLabel.textContent = message.currentLabel;
-    const currentSelect = document.createElement('select');
-    currentSelect.dataset.role = 'current-level';
-    currentSelect.disabled = disabled;
-    currentSelect.replaceChildren(...buildLevelOptions(maxIndex, labelFn));
-    currentSelect.value = String(instance.currentIndex);
-    currentLabel.append(currentSelect);
-
-    const targetLabel = document.createElement('label');
-    targetLabel.textContent = message.targetLabel;
-    const targetSelect = document.createElement('select');
-    targetSelect.dataset.role = 'target-level';
-    targetSelect.disabled = disabled;
-    targetSelect.replaceChildren(...buildLevelOptions(maxIndex, labelFn, message.noTarget));
-    targetSelect.value = String(instance.targetIndex);
-    targetSelect.setAttribute('aria-describedby', errorId);
-    targetLabel.append(targetSelect);
-
-    card.append(heading, currentLabel, targetLabel, error);
-    fragment.append(card);
+  const troops = [...new Set(planner.tomeSlots.map((slot) => slot.troop))];
+  troops.forEach((troop) => {
+    const group = document.createElement('details');
+    group.className = 'loj-planner__group';
+    group.open = true;
+    const summary = document.createElement('summary');
+    const troopHeading = document.createElement('h3');
+    troopHeading.className = 'loj-planner__group-heading';
+    troopHeading.textContent = troopName(troop, language);
+    troopHeading.id = `tomes-troop-${troop}`;
+    summary.append(troopHeading);
+    group.append(summary);
+    planner.tomeSlots.forEach((slot, index) => {
+      if (slot.troop !== troop) return;
+      const instance = instances[index] ?? { currentIndex: 0, targetIndex: 0 };
+      const headingText = `${tomeTypeName(slot.type, language)} - ${message.tomeLabel.replace('{n}', String(slot.local))}`;
+      group.append(buildInstanceCard('tomes', index, instance, planner.tomeLevels.length - 1, labelFn, message, disabled, headingText, 'div'));
+    });
+    fragment.append(group);
   });
   container.replaceChildren(fragment);
+}
+
+function renderCollectionGroups(container, instances, planner, language, labelFn, message, disabled) {
+  const fragment = document.createDocumentFragment();
+  const troops = [...new Set(planner.collectionSlots.map((slot) => slot.troop))];
+  troops.forEach((troop) => {
+    const group = document.createElement('details');
+    group.className = 'loj-planner__group';
+    group.open = true;
+    const summary = document.createElement('summary');
+    summary.textContent = troopName(troop, language);
+    group.append(summary);
+    planner.collectionSlots.forEach((slot, index) => {
+      if (slot.troop !== troop) return;
+      const instance = instances[index] ?? { currentIndex: 0, targetIndex: 0 };
+      group.append(buildInstanceCard('collections', index, instance, planner.collectionLevels.length - 1, labelFn, message, disabled, slot.label));
+    });
+    fragment.append(group);
+  });
+  container.replaceChildren(fragment);
+}
+
+function buildInstanceCard(category, index, instance, maxIndex, labelFn, message, disabled, headingText, headingTag = 'h3') {
+  const card = document.createElement('div');
+  card.className = 'loj-planner__instance-range';
+  card.dataset.category = category;
+  card.dataset.instanceIndex = String(index);
+  const headingRow = document.createElement('div');
+  headingRow.className = 'loj-planner__instance-heading';
+  const heading = document.createElement(headingTag);
+  heading.className = 'loj-planner__instance-label';
+  heading.textContent = headingText;
+  heading.id = `${category}-instance-${index}`;
+  card.setAttribute('role', 'group');
+  card.setAttribute('aria-labelledby', heading.id);
+
+  const badge = document.createElement('span');
+  badge.className = 'loj-planner__instance-badge';
+  badge.dataset.role = 'instance-badge';
+  renderInstanceBadge(badge, instance.targetIndex !== 0, message.targetSetLabel, message.noTarget);
+  headingRow.append(heading, badge);
+
+  const errorId = `${category}-range-error-${index}`;
+  const error = document.createElement('p');
+  error.className = 'loj-planner__range-error';
+  error.id = errorId;
+  error.dataset.role = 'range-error';
+  error.hidden = true;
+  error.setAttribute('role', 'alert');
+
+  const currentLabel = document.createElement('label');
+  currentLabel.textContent = message.currentLabel;
+  const currentSelect = document.createElement('select');
+  currentSelect.dataset.role = 'current-level';
+  currentSelect.disabled = disabled;
+  currentSelect.replaceChildren(...buildLevelOptions(maxIndex, labelFn));
+  currentSelect.value = String(instance.currentIndex);
+  currentLabel.append(currentSelect);
+
+  const targetLabel = document.createElement('label');
+  targetLabel.textContent = message.targetLabel;
+  const targetSelect = document.createElement('select');
+  targetSelect.dataset.role = 'target-level';
+  targetSelect.disabled = disabled;
+  targetSelect.replaceChildren(...buildLevelOptions(maxIndex, labelFn, message.noTarget));
+  targetSelect.value = String(instance.targetIndex);
+  targetSelect.setAttribute('aria-describedby', errorId);
+  targetLabel.append(targetSelect);
+
+  card.append(headingRow, currentLabel, targetLabel, error);
+  return card;
+}
+
+function troopName(troop, language) {
+  return language === 'vi' ? TROOP_TRANSLATIONS[troop] : troop.charAt(0).toUpperCase() + troop.slice(1);
+}
+
+function tomeTypeName(type, language) {
+  return language === 'vi' ? TOME_TYPE_TRANSLATIONS[type] : type.charAt(0).toUpperCase() + type.slice(1);
+}
+
+function tomeSlotLabel(planner, index, language) {
+  const slot = planner.tomeSlots[index];
+  return `${troopName(slot.troop, language)} · ${tomeTypeName(slot.type, language)} - Tome ${slot.local}`;
 }
 
 function selectedInstances(container) {
@@ -469,13 +509,13 @@ function renderBreakdownTable(container, result, planner, language, message) {
   const labels = language === 'vi' ? ['Mục tiêu', 'Từ', 'Đến', 'Chi phí'] : ['Target', 'From', 'To', 'Cost'];
   const rows = [
     ...result.tomeBreakdown.map((entry) => [
-      message.tomeLabel.replace('{n}', String(entry.index + 1)),
+      tomeSlotLabel(planner, entry.index, language),
       tomeLevelLabel(entry.currentIndex, message),
       tomeLevelLabel(entry.targetIndex, message),
       formatCost(entry.cost, planner),
     ]),
     ...result.collectionBreakdown.map((entry) => [
-      message.collectionLabel.replace('{n}', String(entry.index + 1)),
+      planner.collectionSlots[entry.index].label,
       collectionLevelLabel(entry.currentIndex, planner, message),
       collectionLevelLabel(entry.targetIndex, planner, message),
       formatCost(entry.cost, planner),

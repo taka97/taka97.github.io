@@ -40,8 +40,8 @@ loj-en:
     children:
       - title: Forticlad Core Planner
         url: /en/lands-of-jail/planners/forticlad/
-      - title: Tomes & Collections
-        url: /en/lands-of-jail/planners/tomes-collections/
+      - title: Collections & Tomes
+        url: /en/lands-of-jail/planners/collections-tomes/
       - title: Robots & Satellites
         url: /en/lands-of-jail/planners/robots-satellites/
       - title: Hero Equipment
@@ -78,8 +78,8 @@ loj-vi:
     children:
       - title: Công cụ tính Lõi trọng giáp
         url: /vi/lands-of-jail/planners/forticlad/
-      - title: Công cụ tính Tomes & Collections
-        url: /vi/lands-of-jail/planners/tomes-collections/
+      - title: Công cụ tính Collections & Tomes
+        url: /vi/lands-of-jail/planners/collections-tomes/
       - title: Công cụ tính Robots & Satellites
         url: /vi/lands-of-jail/planners/robots-satellites/
       - title: Công cụ tính Hero Equipment

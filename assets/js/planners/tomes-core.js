@@ -21,8 +21,16 @@ export function createTomesPlanner(data) {
   const tiers = Array.isArray(data.collectionTiers) ? data.collectionTiers.map(normalizeTier) : [];
   const resources = Array.isArray(data.resources) ? data.resources.map(normalizeResource) : [];
   const caps = { tomes: positiveInteger(data.caps.tomes, 'caps.tomes'), collections: positiveInteger(data.caps.collections, 'caps.collections') };
+  if (!Array.isArray(data.tomeSlots) || data.tomeSlots.length !== caps.tomes) {
+    throw new TypeError(`Tomes & Collections data must contain exactly ${caps.tomes} tome slots.`);
+  }
+  const tomeSlots = withLocalPosition(data.tomeSlots.map(normalizeTomeSlot));
+  if (!Array.isArray(data.collectionSlots) || data.collectionSlots.length !== caps.collections) {
+    throw new TypeError(`Tomes & Collections data must contain exactly ${caps.collections} collection slots.`);
+  }
+  const collectionSlots = data.collectionSlots.map(normalizeCollectionSlot);
 
-  return { tomeLevels, collectionLevels, tiers, resources, caps };
+  return { tomeLevels, collectionLevels, tiers, resources, caps, tomeSlots, collectionSlots };
 }
 
 export function calculateTomesRequirements(planner, tomeInstances, collectionInstances) {
@@ -68,6 +76,31 @@ function normalizeCost(row, context) {
     cost[key] = value;
   }
   return cost;
+}
+
+function normalizeTomeSlot(slot) {
+  if (!slot || typeof slot.troop !== 'string' || !slot.troop || typeof slot.type !== 'string' || !slot.type) {
+    throw new TypeError('Tomes & Collections data has an invalid tome slot definition.');
+  }
+  return { troop: slot.troop, type: slot.type };
+}
+
+// The 18 tome slots are a fixed, constant layout, so each slot's 1-based position
+// within its (troop, type) group is computed once here instead of on every render.
+function withLocalPosition(slots) {
+  const counts = {};
+  return slots.map((slot) => {
+    const key = `${slot.troop}:${slot.type}`;
+    counts[key] = (counts[key] ?? 0) + 1;
+    return { ...slot, local: counts[key] };
+  });
+}
+
+function normalizeCollectionSlot(slot) {
+  if (!slot || typeof slot.troop !== 'string' || !slot.troop || typeof slot.label !== 'string' || !slot.label) {
+    throw new TypeError('Tomes & Collections data has an invalid collection slot definition.');
+  }
+  return { troop: slot.troop, label: slot.label };
 }
 
 function normalizeTier(tier) {
