@@ -43,7 +43,7 @@ guides, with a small browser-local tools track for Lands of Jail.
 | Dark mode | Deferred (YAGNI) — plan in [DESIGN.md](DESIGN.md) | Low |
 | Teal/amber accents in palette | Reserved for future callouts/badges | Low |
 | Badge-stack layout rollout (see below) | Applied to all 5 planners — plan: `plans/260911-2022-badge-stack-layout-rollout/` | Done |
-| Step-id/display-text decoupling audit (see below) | Forticlad done; other 4 tools checked (source only) — IndexedDB spot-check pending | Medium |
+| Step-id/display-text decoupling audit (see below) | Done — Forticlad fixed, other 4 tools verified against real IndexedDB data | Done |
 
 ### Step-id/display-text decoupling audit
 
@@ -91,17 +91,23 @@ shape) after a request to double-check with fresh eyes.
 No storage-migration action needed for any of the other 4 tools based on this
 audit — tracked here so it isn't re-investigated later.
 
-**Caveat — source-only audit, not yet spot-checked against real data:**
-everything above was verified by reading `_data/lands_of_jail/*.yml` and each
-planner's JS (label/heading-construction functions), the same way the
-Forticlad conclusion was first reached — but for Forticlad, the conclusion was
-*also* cross-checked directly against a real saved profile's actual
-`IndexedDB` contents (`lands-of-jail-tools` → `profiles` store), which is what
-caught the cross-script `stock` clobber regression that pure source review
-missed. The other 4 tools' *live* stored `IndexedDB` values (`stock`,
-instance-state arrays, etc.) have **not** been inspected the same way yet —
-only their source code has. User flagged this gap 2026-09-11; re-verify
-against real browser data later (not now) before fully trusting this audit.
+**Real-data spot-check (2026-09-11) — confirms the audit above:** ran a
+read-only console dump of the user's real `lands-of-jail-tools` → `profiles`
+store against all 4 tools' `tools.*` slots. Result: `stock` keys match each
+tool's yml `resources` exactly (no leftover flat fields like Forticlad's old
+`fcOnHand`/`afcOnHand`), and `robots-satellites`' `satellites` map is keyed by
+stable ids (`sat_r_laser`, `sat_ssr_domaine_omniscient`, ...), never by
+display name. No bug found; source-only conclusion holds against real data.
+
+Side note (not part of this audit, not actionable): these 4 tools' instance
+tracks (`tomes`, `collections`, `robots`, `heroStars`, `exclusiveEquipment`,
+`equipment`) persist plain numeric `{currentIndex, targetIndex}` positions
+into each yml's fixed-order arrays, rather than named ids. That's a different,
+narrower risk than Forticlad's issue — reordering (not renaming) a yml
+`levels`/`tomeSlots`/etc. array would silently corrupt saved indices — but
+since these arrays are fixed game data that's never reordered in practice, no
+migration is warranted now. Noted so it isn't mistaken for the same bug class
+Forticlad had.
 
 ### Badge-stack layout rollout — Done (2026-09-11)
 
