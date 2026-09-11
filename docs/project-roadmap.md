@@ -42,6 +42,100 @@ guides, with a small browser-local tools track for Lands of Jail.
 | VI search UI strings not localized | Theme renders search placeholder in EN only | Low |
 | Dark mode | Deferred (YAGNI) — plan in [DESIGN.md](DESIGN.md) | Low |
 | Teal/amber accents in palette | Reserved for future callouts/badges | Low |
+| Badge-stack layout rollout (see below) | Applied to all 5 planners — plan: `plans/260911-2022-badge-stack-layout-rollout/` | Done |
+| Step-id/display-text decoupling audit (see below) | Forticlad done; other 4 tools checked (source only) — IndexedDB spot-check pending | Medium |
+
+### Step-id/display-text decoupling audit
+
+Forticlad Core Planner's step ids used to double as display text, coupling
+persisted user progress to translatable strings — fixed in
+[`plans/260911-1835-forticlad-stable-step-ids/`](../plans/260911-1835-forticlad-stable-step-ids/plan.md)
+(stable snake_case ids + separate `label` field, plus a `stock: {}` storage
+reshape for FC/AFC/Hyperalloy on-hand amounts). That plan's Post-Phase-3 review
+also caught and fixed a cross-script storage-clobber regression specific to
+Forticlad's architecture (its planner UI is split across `forticlad.js` +
+`research.js`, both sharing one `tools.forticlad` storage slot).
+
+Checked whether either issue — or the broader question of whether adding VI
+translations *later* would ever force a storage-key migration like Forticlad
+needed — applies to the other 4 lojcalc-style planners. Two passes
+(2026-09-11): an initial id/yml scout, then a deeper re-audit tracing every
+label/heading-construction function in each planner's JS (not just the yml
+shape) after a request to double-check with fresh eyes.
+
+- **Id/display-text coupling** — not present anywhere. Collections & Tomes,
+  Robots & Satellites, Hero Equipment, and Hero Stars & Exclusive Equipment
+  all use stable snake_case/id-like keys (`rare_s1`, `sat_r_laser`,
+  `legendary_t1_s1`, `star1_s1`) as the stored/lookup identifier, fully
+  separate from whatever text renders on screen. None of these 4 tools would
+  ever need a storage-key migration to add or change translations later —
+  confirmed by reading every `heading`/`headingText`/`label` construction site
+  in each planner file, not just the yml `id` fields.
+- **Shared storage-slot clobber** — not applicable. Each of the other 4
+  planners owns its `tools.*` slot exclusively (one file, one tool key each:
+  `collections-tomes`, `robots-satellites`, `hero-equipment`,
+  `hero-stars-exclusive-equipment`) — confirmed via grep, no file pair shares
+  a slot the way `forticlad.js`/`research.js` do. That regression class is
+  Forticlad-specific architecture, not a systemic pattern.
+- **Found instead — a translation-content gap (not a data-model risk):**
+  `hero-equipment.js` and `hero-stars-exclusive-equipment.js`'s resource
+  labels (`_data/lands_of_jail/hero_equipment.yml` / `hero_stars_exclusive_equipment.yml`
+  `resources: [{ key: EquipmentParts, label: Equipment EXP }, ...]`) are a
+  single plain-English string with no VI variant, unlike Forticlad's
+  `BUILDING_TRANSLATIONS` or Tomes' `TROOP_TRANSLATIONS`/`TOME_TYPE_TRANSLATIONS`
+  dicts. `key` and `label` are already separate fields here, so adding VI text
+  later is purely additive (mirror the `BUILDING_TRANSLATIONS`-keyed-by-`key`
+  pattern) — zero migration risk, just untranslated content. Not urgent;
+  noted so it isn't mistaken for the same class of bug Forticlad had.
+
+No storage-migration action needed for any of the other 4 tools based on this
+audit — tracked here so it isn't re-investigated later.
+
+**Caveat — source-only audit, not yet spot-checked against real data:**
+everything above was verified by reading `_data/lands_of_jail/*.yml` and each
+planner's JS (label/heading-construction functions), the same way the
+Forticlad conclusion was first reached — but for Forticlad, the conclusion was
+*also* cross-checked directly against a real saved profile's actual
+`IndexedDB` contents (`lands-of-jail-tools` → `profiles` store), which is what
+caught the cross-script `stock` clobber regression that pure source review
+missed. The other 4 tools' *live* stored `IndexedDB` values (`stock`,
+instance-state arrays, etc.) have **not** been inspected the same way yet —
+only their source code has. User flagged this gap 2026-09-11; re-verify
+against real browser data later (not now) before fully trusting this audit.
+
+### Badge-stack layout rollout — Done (2026-09-11)
+
+Collections & Tomes' redesign (`341282e`) fixed a sidebar-TOC bug where the
+"No target"/"Target set" instance badge's text leaked into the TOC entry,
+because the badge `<span>` was appended directly inside the item's heading
+element. The fix: wrap heading + badge in a `.loj-planner__instance-heading`
+flex-column div instead of nesting the badge inside the heading, so the badge
+renders stacked under the name and the TOC (which reads heading text) no
+longer picks it up. User confirmed intent to roll this out to the other
+planners, deferred timing ("we will do it later") — now done. Full plan:
+[`plans/260911-2022-badge-stack-layout-rollout/`](../plans/260911-2022-badge-stack-layout-rollout/plan.md).
+
+All planners now use the wrapper pattern — verified via live browser DOM
+inspection (badge confirmed as a sibling of the label element, never nested
+inside it) on every page:
+
+| File | Heading element | Status |
+| --- | --- | --- |
+| `assets/js/planners/forticlad.js` (building rows) | `<h3>` | **Done** |
+| `assets/js/planners/research.js` (T11 research track rows) | `<h4>` | **Done** |
+| `assets/js/planners/robots-satellites.js` | `<h3>` | **Done** |
+| `assets/js/planners/hero-equipment.js` | `<h5>` | **Done** |
+| `assets/js/planners/hero-stars-exclusive-equipment.js` | `<h3>` | **Done** |
+| `assets/js/planners/tomes.js` (Collections & Tomes) | `.loj-planner__instance-heading` wrapper | **Done** (reference implementation) |
+
+Scope note: only the heading/badge wrapper + CSS treatment is confirmed
+in-scope for the rollout — Tomes' additional troop-grouped `<details>`
+restructuring in the same commit was specific to its fixed-count grouping
+need and is not implied for the other planners unless separately requested.
+
+Reference implementation: `assets/js/planners/tomes.js`'s `buildInstanceCard`
+(the `.loj-planner__instance-heading`/`.loj-planner__instance-label` CSS is in
+`_sass/custom.scss`). Full history: commit `341282e`.
 
 ## Content backlog
 

@@ -274,7 +274,10 @@ function renderTrackRanges(container, planner, ranges, language, disabled) {
       const row = document.createElement('div');
       row.className = `loj-planner__instance-range${track.accent ? ' is-accent' : ''}`;
       row.dataset.trackKey = key;
+      const headingRow = document.createElement('div');
+      headingRow.className = 'loj-planner__instance-heading';
       const rowHeading = document.createElement('h4');
+      rowHeading.className = 'loj-planner__instance-label';
       rowHeading.textContent = trackName(track, language);
       rowHeading.id = `research-track-${key}`;
       row.setAttribute('role', 'group');
@@ -283,7 +286,7 @@ function renderTrackRanges(container, planner, ranges, language, disabled) {
       badge.className = 'loj-planner__instance-badge';
       badge.dataset.role = 'instance-badge';
       renderInstanceBadge(badge, ranges[key].targetLevel !== 0, message.targetSetLabel, message.noTargetLabel);
-      rowHeading.append(badge);
+      headingRow.append(rowHeading, badge);
       const error = document.createElement('p');
       error.className = 'loj-planner__range-error';
       error.id = `research-range-error-${key}`;
@@ -295,7 +298,7 @@ function renderTrackRanges(container, planner, ranges, language, disabled) {
       const current = levelSelect(message.currentLabel, 'current-level', levels, ranges[key].currentLevel, disabled, startLabel);
       const target = levelSelect(message.targetLabel, 'target-level', levels, ranges[key].targetLevel, disabled, message.noTargetLabel);
       target.querySelector('select').setAttribute('aria-describedby', error.id);
-      row.append(rowHeading, current, target, error);
+      row.append(headingRow, current, target, error);
       group.append(row);
     });
 

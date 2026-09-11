@@ -261,7 +261,10 @@ function renderBuildingRanges(container, planner, ranges, language, disabled) {
     const row = document.createElement('div');
     row.className = 'loj-planner__instance-range';
     row.dataset.buildingKey = key;
+    const headingRow = document.createElement('div');
+    headingRow.className = 'loj-planner__instance-heading';
     const heading = document.createElement('h3');
+    heading.className = 'loj-planner__instance-label';
     heading.textContent = buildingName(key, planner, language);
     heading.id = `forticlad-building-${key}`;
     row.setAttribute('role', 'group');
@@ -270,7 +273,7 @@ function renderBuildingRanges(container, planner, ranges, language, disabled) {
     badge.className = 'loj-planner__instance-badge';
     badge.dataset.role = 'instance-badge';
     renderInstanceBadge(badge, ranges[key].currentBase !== ranges[key].targetBase, message.targetSetLabel, message.noTargetLabel);
-    heading.append(badge);
+    headingRow.append(heading, badge);
     const error = document.createElement('p');
     error.className = 'loj-planner__range-error';
     error.id = `forticlad-range-error-${key}`;
@@ -281,7 +284,7 @@ function renderBuildingRanges(container, planner, ranges, language, disabled) {
     const current = rangeLabel(currentLabel, 'current-base', availableSteps, ranges[key].currentBase, disabled);
     const target = rangeLabel(targetLabel, 'target-base', planner.steps.slice(0, planner.baseIndexes.get(planner.maximumBases[key]) + 1), ranges[key].targetBase, disabled);
     target.querySelector('select').setAttribute('aria-describedby', error.id);
-    row.append(heading, current, target, error);
+    row.append(headingRow, current, target, error);
     fragment.append(row);
   });
 

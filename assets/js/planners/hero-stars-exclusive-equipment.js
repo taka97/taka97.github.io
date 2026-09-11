@@ -405,7 +405,10 @@ function renderInstanceCards(container, keyPrefix, cards, disabled, message) {
     const card = document.createElement('div');
     card.className = 'loj-planner__instance-range';
     card.dataset.cardKey = entry.key;
+    const headingRow = document.createElement('div');
+    headingRow.className = 'loj-planner__instance-heading';
     const heading = document.createElement('h3');
+    heading.className = 'loj-planner__instance-label';
     heading.textContent = entry.headingText;
     heading.id = `${keyPrefix}-instance-${entry.key}`;
     card.setAttribute('role', 'group');
@@ -415,7 +418,7 @@ function renderInstanceCards(container, keyPrefix, cards, disabled, message) {
     badge.className = 'loj-planner__instance-badge';
     badge.dataset.role = 'instance-badge';
     renderInstanceBadge(badge, entry.targetIndex !== 0, message.targetSetLabel, message.noTarget);
-    heading.append(badge);
+    headingRow.append(heading, badge);
 
     const errorId = `${keyPrefix}-range-error-${entry.key}`;
     const error = document.createElement('p');
@@ -444,7 +447,7 @@ function renderInstanceCards(container, keyPrefix, cards, disabled, message) {
     targetSelect.setAttribute('aria-describedby', errorId);
     targetLabel.append(targetSelect);
 
-    card.append(heading, currentLabel, targetLabel, error);
+    card.append(headingRow, currentLabel, targetLabel, error);
     fragment.append(card);
   });
   container.replaceChildren(fragment);

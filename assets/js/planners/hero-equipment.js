@@ -412,7 +412,10 @@ function renderTrackRow(cellKey, track, options, message, disabled) {
   row.className = 'loj-planner__instance-range';
   row.dataset.cellKey = cellKey;
   row.dataset.track = track;
+  const headingRow = document.createElement('div');
+  headingRow.className = 'loj-planner__instance-heading';
   const rowHeading = document.createElement('h5');
+  rowHeading.className = 'loj-planner__instance-label';
   rowHeading.textContent = options.heading;
   rowHeading.id = `he-${cellKey}-${track}`;
   row.setAttribute('role', 'group');
@@ -422,7 +425,7 @@ function renderTrackRow(cellKey, track, options, message, disabled) {
   badge.className = 'loj-planner__instance-badge';
   badge.dataset.role = 'instance-badge';
   renderInstanceBadge(badge, options.targetIndex !== 0, message.targetSetLabel, message.noTarget);
-  rowHeading.append(badge);
+  headingRow.append(rowHeading, badge);
 
   const errorId = `he-range-error-${cellKey}-${track}`;
   const error = document.createElement('p');
@@ -451,7 +454,7 @@ function renderTrackRow(cellKey, track, options, message, disabled) {
   targetSelect.setAttribute('aria-describedby', errorId);
   targetLabel.append(targetSelect);
 
-  row.append(rowHeading, currentLabel, targetLabel, error);
+  row.append(headingRow, currentLabel, targetLabel, error);
   return row;
 }
 
