@@ -299,7 +299,6 @@ async function initializeHeroStarsEquipmentPlanner(container) {
     if (invalid) {
       clearElement(elements.missingGrid);
       clearElement(elements.totals);
-      elements.results.hidden = true;
       updateStickyBar(elements.stickyBar, planner.resources, null, stock, message.stickyBarLabel, formatNumber);
       setStatus(elements, message.range, true);
       return;
@@ -310,17 +309,14 @@ async function initializeHeroStarsEquipmentPlanner(container) {
       const totalRows = result.heroStarsBreakdown.length + result.exclusiveEquipmentBreakdown.length;
       if (totalRows === 0) {
         renderEmptyResults(elements.totals, message.noTargets);
-        elements.results.hidden = true;
       } else {
         renderBreakdownTable(elements.totals, result, planner, language, message);
-        elements.results.hidden = false;
       }
       updateStickyBar(elements.stickyBar, planner.resources, result.totals, stock, message.stickyBarLabel, formatNumber);
       setStatus(elements, '');
     } catch (error) {
       clearElement(elements.missingGrid);
       clearElement(elements.totals);
-      elements.results.hidden = true;
       updateStickyBar(elements.stickyBar, planner.resources, null, stock, message.stickyBarLabel, formatNumber);
       setStatus(elements, error.message || message.range, true);
     }
@@ -337,7 +333,6 @@ function getElements(container) {
     activeProfile: find('active-profile'),
     stockInputs: [...container.querySelectorAll('[data-role="stock-input"]')],
     missingGrid: find('missing-grid'),
-    results: find('results'),
     totals: find('totals'),
     heroStarsList: find('hero-stars-list'),
     addHeroStars: find('add-hero-stars'),

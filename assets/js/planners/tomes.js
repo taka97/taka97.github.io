@@ -250,7 +250,6 @@ async function initializeTomesPlanner(container) {
     if (invalid) {
       clearElement(elements.missingGrid);
       clearElement(elements.totals);
-      elements.results.hidden = true;
       updateStickyBar(elements.stickyBar, planner.resources, null, stock, message.stickyBarLabel, formatNumber);
       setStatus(elements, message.range, true);
       return;
@@ -261,17 +260,14 @@ async function initializeTomesPlanner(container) {
       const totalRows = result.tomeBreakdown.length + result.collectionBreakdown.length;
       if (totalRows === 0) {
         renderEmptyResults(elements.totals, message.noTargets);
-        elements.results.hidden = true;
       } else {
         renderBreakdownTable(elements.totals, result, planner, language, message);
-        elements.results.hidden = false;
       }
       updateStickyBar(elements.stickyBar, planner.resources, result.totals, stock, message.stickyBarLabel, formatNumber);
       setStatus(elements, '');
     } catch (error) {
       clearElement(elements.missingGrid);
       clearElement(elements.totals);
-      elements.results.hidden = true;
       updateStickyBar(elements.stickyBar, planner.resources, null, stock, message.stickyBarLabel, formatNumber);
       setStatus(elements, error.message || message.range, true);
     }
@@ -288,7 +284,6 @@ function getElements(container) {
     activeProfile: find('active-profile'),
     stockInputs: [...container.querySelectorAll('[data-role="stock-input"]')],
     missingGrid: find('missing-grid'),
-    results: find('results'),
     totals: find('totals'),
     tomesList: find('tomes-list'),
     collectionsList: find('collections-list'),

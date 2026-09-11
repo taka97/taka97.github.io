@@ -45,7 +45,7 @@ Tính số Data Disk, Planet Coin và Power Module cần để nâng cấp Robot
     <h2 id="rs-summary-heading" data-role="summary-heading">Bạn còn thiếu gì</h2>
     <div data-role="missing-grid" class="loj-planner__missing-grid"></div>
 
-    <section class="loj-planner__results" data-role="results" aria-labelledby="rs-totals-heading" hidden>
+    <section class="loj-planner__results" data-role="results" aria-labelledby="rs-totals-heading">
       <h3 id="rs-totals-heading">Yêu cầu nâng cấp</h3>
       <div data-role="totals" class="loj-planner__table-wrap" tabindex="0" role="region" aria-labelledby="rs-totals-heading">
         <p>Tổng sẽ hiện sau khi bạn chọn cấp mục tiêu cho một Robot hoặc Satellite.</p>

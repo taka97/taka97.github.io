@@ -64,7 +64,7 @@ Tính Lõi Trọng Giáp (FC), Lõi Trọng Giáp Cao Cấp (AFC) và Hyperalloy
       </div>
     </div>
 
-    <section class="loj-planner__results" data-role="building-results" aria-labelledby="forticlad-totals-heading" hidden>
+    <section class="loj-planner__results" data-role="building-results" aria-labelledby="forticlad-totals-heading">
       <h3 id="forticlad-totals-heading">Yêu cầu nâng cấp</h3>
       <div data-role="building-totals" class="loj-planner__table-wrap" tabindex="0" role="region" aria-labelledby="forticlad-totals-heading">
         <p>Tổng sẽ hiện sau khi bạn chọn khoảng Base của các công trình.</p>
@@ -92,7 +92,7 @@ Tính Lõi Trọng Giáp (FC), Lõi Trọng Giáp Cao Cấp (AFC) và Hyperalloy
 
     <p data-role="research-status" class="loj-planner__status" role="status" aria-live="polite"></p>
 
-    <section class="loj-planner__results" data-role="research-results" aria-labelledby="forticlad-research-totals-heading" hidden>
+    <section class="loj-planner__results" data-role="research-results" aria-labelledby="forticlad-research-totals-heading">
       <h3 id="forticlad-research-totals-heading">Yêu cầu nghiên cứu</h3>
       <div data-role="research-totals" class="loj-planner__table-wrap" tabindex="0" role="region" aria-labelledby="forticlad-research-totals-heading">
         <p>Tổng sẽ hiện sau khi bạn chọn Lv. của các nhánh nghiên cứu.</p>

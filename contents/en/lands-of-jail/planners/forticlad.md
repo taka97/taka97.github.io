@@ -64,7 +64,7 @@ Calculate Forticlad Core (FC), Advanced Forticlad Core (AFC), and Hyperalloy for
       </div>
     </div>
 
-    <section class="loj-planner__results" data-role="building-results" aria-labelledby="forticlad-totals-heading" hidden>
+    <section class="loj-planner__results" data-role="building-results" aria-labelledby="forticlad-totals-heading">
       <h3 id="forticlad-totals-heading">Upgrade requirements</h3>
       <div data-role="building-totals" class="loj-planner__table-wrap" tabindex="0" role="region" aria-labelledby="forticlad-totals-heading">
         <p>Totals will appear after you select building ranges.</p>
@@ -92,7 +92,7 @@ Calculate Forticlad Core (FC), Advanced Forticlad Core (AFC), and Hyperalloy for
 
     <p data-role="research-status" class="loj-planner__status" role="status" aria-live="polite"></p>
 
-    <section class="loj-planner__results" data-role="research-results" aria-labelledby="forticlad-research-totals-heading" hidden>
+    <section class="loj-planner__results" data-role="research-results" aria-labelledby="forticlad-research-totals-heading">
       <h3 id="forticlad-research-totals-heading">Research requirements</h3>
       <div data-role="research-totals" class="loj-planner__table-wrap" tabindex="0" role="region" aria-labelledby="forticlad-research-totals-heading">
         <p>Totals will appear after you select track levels.</p>

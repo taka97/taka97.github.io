@@ -54,7 +54,7 @@ Tính số Seal và Trove Coin cần để nâng cấp Collections và Tomes. 6 
     <h2 id="collections-tomes-summary-heading" data-role="summary-heading">Bạn còn thiếu gì</h2>
     <div data-role="missing-grid" class="loj-planner__missing-grid"></div>
 
-    <section class="loj-planner__results" data-role="results" aria-labelledby="collections-tomes-totals-heading" hidden>
+    <section class="loj-planner__results" data-role="results" aria-labelledby="collections-tomes-totals-heading">
       <h3 id="collections-tomes-totals-heading">Yêu cầu nâng cấp</h3>
       <div data-role="totals" class="loj-planner__table-wrap" tabindex="0" role="region" aria-labelledby="collections-tomes-totals-heading">
         <p>Tổng sẽ hiện sau khi bạn chọn cấp mục tiêu cho một Tome hoặc Collection.</p>

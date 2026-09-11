@@ -181,7 +181,6 @@ async function initializePlanner(container) {
     if (updateRangeWarnings(elements.buildingRanges, planner, language)) {
       clearSummary(elements);
       clearElement(elements.buildingTotals);
-      elements.buildingResults.hidden = true;
       buildingSlice = { totals: null, stock: null };
       updateCombinedStickyBar();
       setStatus(elements, message.range, true);
@@ -196,17 +195,14 @@ async function initializePlanner(container) {
       updateCombinedStickyBar();
       if (result.selectedBuildingKeys.length === 0) {
         renderEmptyResults(elements, message.noTargets);
-        elements.buildingResults.hidden = true;
         setStatus(elements, '');
         return;
       }
       renderTotals(elements.buildingTotals, result, planner, language);
-      elements.buildingResults.hidden = false;
       if (profile) setStatus(elements, '');
     } catch (error) {
       clearSummary(elements);
       clearElement(elements.buildingTotals);
-      elements.buildingResults.hidden = true;
       buildingSlice = { totals: null, stock: null };
       updateCombinedStickyBar();
       if (profile) setStatus(elements, error.message || message.range, true);
@@ -218,7 +214,7 @@ function getElements(container) {
   const find = (role) => container.querySelector(`[data-role="${role}"]`);
   return {
     activeProfile: find('active-profile'), fcOnHand: find('fc-on-hand'), afcOnHand: find('afc-on-hand'), buildingRanges: find('building-ranges'), status: find('status'),
-    buildingTotals: find('building-totals'), buildingResults: find('building-results'),
+    buildingTotals: find('building-totals'),
     summaryFcNeeded: find('summary-fc-needed'), summaryFcMissing: find('summary-fc-missing'),
     summaryAfcNeeded: find('summary-afc-needed'), summaryAfcMissing: find('summary-afc-missing'),
     stickyBar: find('sticky-bar'), summaryHeading: container.querySelector('#forticlad-summary-heading'),

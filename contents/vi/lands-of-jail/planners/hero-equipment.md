@@ -42,7 +42,7 @@ Tính số Equipment EXP, Precision Equipment, Magnet và Potential Coil cần �
     <h2 id="he-summary-heading" data-role="summary-heading">Bạn còn thiếu gì</h2>
     <div data-role="missing-grid" class="loj-planner__missing-grid"></div>
 
-    <section class="loj-planner__results" data-role="results" aria-labelledby="he-totals-heading" hidden>
+    <section class="loj-planner__results" data-role="results" aria-labelledby="he-totals-heading">
       <h3 id="he-totals-heading">Yêu cầu nâng cấp</h3>
       <div data-role="totals" class="loj-planner__table-wrap" tabindex="0" role="region" aria-labelledby="he-totals-heading">
         <p>Tổng sẽ hiện sau khi bạn chọn cấp mục tiêu cho một nhánh Độ hiếm hoặc Tinh thông.</p>

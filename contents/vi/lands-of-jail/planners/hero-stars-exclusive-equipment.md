@@ -36,7 +36,7 @@ Tính số Redeem (Chuộc) và Exclusive Weapon Parts cần để nâng cấp S
     <h2 id="hsee-summary-heading" data-role="summary-heading">Bạn còn thiếu gì</h2>
     <div data-role="missing-grid" class="loj-planner__missing-grid"></div>
 
-    <section class="loj-planner__results" data-role="results" aria-labelledby="hsee-totals-heading" hidden>
+    <section class="loj-planner__results" data-role="results" aria-labelledby="hsee-totals-heading">
       <h3 id="hsee-totals-heading">Yêu cầu nâng cấp</h3>
       <div data-role="totals" class="loj-planner__table-wrap" tabindex="0" role="region" aria-labelledby="hsee-totals-heading">
         <p>Tổng sẽ hiện sau khi bạn chọn cấp mục tiêu cho một Hero Stars hoặc Exclusive Equipment.</p>

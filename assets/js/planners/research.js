@@ -178,7 +178,6 @@ async function initializeResearchPlanner(container) {
     if (!profile) return;
     if (updateRangeWarnings(elements.researchTracks, planner, language)) {
       clearResults(elements);
-      elements.trackResults.hidden = true;
       dispatchResearchTotals(null, null);
       setStatus(elements, message.range, true);
       return;
@@ -191,16 +190,13 @@ async function initializeResearchPlanner(container) {
       dispatchResearchTotals({ hyperalloy: result.grandTotal }, { hyperalloy: inventory });
       if (result.selectedTrackKeys.length === 0) {
         renderEmptyResults(elements, message.noTargets);
-        elements.trackResults.hidden = true;
         setStatus(elements, '');
         return;
       }
       renderTotals(elements.trackTotals, result, planner, language, message);
-      elements.trackResults.hidden = false;
       if (profile) setStatus(elements, '');
     } catch (error) {
       clearResults(elements);
-      elements.trackResults.hidden = true;
       dispatchResearchTotals(null, null);
       if (profile) setStatus(elements, localizedErrorMessage(error, message), true);
     }
@@ -211,7 +207,7 @@ function getElements(container) {
   const find = (role) => container.querySelector(`[data-role="${role}"]`);
   return {
     researchTracks: find('research-tracks'), status: find('research-status'),
-    trackTotals: find('research-totals'), trackResults: find('research-results'),
+    trackTotals: find('research-totals'),
     hyperalloyOnHand: document.querySelector('[data-role="hyperalloy-on-hand"]'),
     summaryHyperalloyNeeded: document.querySelector('[data-role="summary-hyperalloy-needed"]'),
     summaryHyperalloyMissing: document.querySelector('[data-role="summary-hyperalloy-missing"]'),

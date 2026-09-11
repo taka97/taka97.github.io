@@ -45,7 +45,7 @@ Calculate the Data Disks, Planet Coins, and Power Modules needed to level up you
     <h2 id="rs-summary-heading" data-role="summary-heading">What you're missing</h2>
     <div data-role="missing-grid" class="loj-planner__missing-grid"></div>
 
-    <section class="loj-planner__results" data-role="results" aria-labelledby="rs-totals-heading" hidden>
+    <section class="loj-planner__results" data-role="results" aria-labelledby="rs-totals-heading">
       <h3 id="rs-totals-heading">Upgrade requirements</h3>
       <div data-role="totals" class="loj-planner__table-wrap" tabindex="0" role="region" aria-labelledby="rs-totals-heading">
         <p>Totals will appear after you select a target level for a Robot or Satellite.</p>
