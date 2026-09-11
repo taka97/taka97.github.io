@@ -26,27 +26,27 @@ Calculate the Seals and Trove Coins needed to level up your Collections and Tome
     <h3 id="collections-tomes-inventory-heading">Current Stock</h3>
     <label for="collections-tomes-stock-common-coin">
       <span class="loj-planner__stock-label"><img class="loj-planner__stock-icon" src="/assets/images/lands-of-jail/collections-tomes/common-trove-coin.png" alt="" width="24" height="24">Common Trove Coin</span>
-      <input id="collections-tomes-stock-common-coin" data-role="stock-input" data-resource-key="CommonCoin" type="number" min="0" step="1" inputmode="numeric" autocomplete="off">
+      <input id="collections-tomes-stock-common-coin" data-role="stock-input" data-resource-key="CommonCoin" type="text" inputmode="numeric" pattern="[0-9,]*" autocomplete="off">
     </label>
     <label for="collections-tomes-stock-rare-coin">
       <span class="loj-planner__stock-label"><img class="loj-planner__stock-icon" src="/assets/images/lands-of-jail/collections-tomes/rare-trove-coin.png" alt="" width="24" height="24">Rare Trove Coin</span>
-      <input id="collections-tomes-stock-rare-coin" data-role="stock-input" data-resource-key="RareCoin" type="number" min="0" step="1" inputmode="numeric" autocomplete="off">
+      <input id="collections-tomes-stock-rare-coin" data-role="stock-input" data-resource-key="RareCoin" type="text" inputmode="numeric" pattern="[0-9,]*" autocomplete="off">
     </label>
     <label for="collections-tomes-stock-precious-coin">
       <span class="loj-planner__stock-label"><img class="loj-planner__stock-icon" src="/assets/images/lands-of-jail/collections-tomes/precious-trove-coin.png" alt="" width="24" height="24">Precious Trove Coin</span>
-      <input id="collections-tomes-stock-precious-coin" data-role="stock-input" data-resource-key="PreciousCoin" type="number" min="0" step="1" inputmode="numeric" autocomplete="off">
+      <input id="collections-tomes-stock-precious-coin" data-role="stock-input" data-resource-key="PreciousCoin" type="text" inputmode="numeric" pattern="[0-9,]*" autocomplete="off">
     </label>
     <label for="collections-tomes-stock-legendary-coin">
       <span class="loj-planner__stock-label">Legendary Trove Coin</span>
-      <input id="collections-tomes-stock-legendary-coin" data-role="stock-input" data-resource-key="LegendaryCoin" type="number" min="0" step="1" inputmode="numeric" autocomplete="off">
+      <input id="collections-tomes-stock-legendary-coin" data-role="stock-input" data-resource-key="LegendaryCoin" type="text" inputmode="numeric" pattern="[0-9,]*" autocomplete="off">
     </label>
     <label for="collections-tomes-stock-seal-of-wisdom">
       <span class="loj-planner__stock-label"><img class="loj-planner__stock-icon" src="/assets/images/lands-of-jail/collections-tomes/seal-of-wisdom.png" alt="" width="24" height="24">Seal of Wisdom</span>
-      <input id="collections-tomes-stock-seal-of-wisdom" data-role="stock-input" data-resource-key="SealOfWisdom" type="number" min="0" step="1" inputmode="numeric" autocomplete="off">
+      <input id="collections-tomes-stock-seal-of-wisdom" data-role="stock-input" data-resource-key="SealOfWisdom" type="text" inputmode="numeric" pattern="[0-9,]*" autocomplete="off">
     </label>
     <label for="collections-tomes-stock-seal-of-knowledge">
       <span class="loj-planner__stock-label"><img class="loj-planner__stock-icon" src="/assets/images/lands-of-jail/collections-tomes/seal-of-knowledge.png" alt="" width="24" height="24">Seal of Knowledge</span>
-      <input id="collections-tomes-stock-seal-of-knowledge" data-role="stock-input" data-resource-key="SealOfKnowledge" type="number" min="0" step="1" inputmode="numeric" autocomplete="off">
+      <input id="collections-tomes-stock-seal-of-knowledge" data-role="stock-input" data-resource-key="SealOfKnowledge" type="text" inputmode="numeric" pattern="[0-9,]*" autocomplete="off">
     </label>
   </section>
 

@@ -115,7 +115,12 @@ async function initializeTomesPlanner(container) {
 
   elements.tomesList.addEventListener('change', (event) => handleInstanceChange(event));
   elements.collectionsList.addEventListener('change', (event) => handleInstanceChange(event));
-  elements.stockInputs.forEach((input) => input.addEventListener('change', handleStockChange));
+  elements.stockInputs.forEach((input) => {
+    input.addEventListener('change', handleStockChange);
+    input.addEventListener('focus', handleStockFocus);
+    input.addEventListener('input', handleStockInput);
+    input.addEventListener('blur', handleStockBlur);
+  });
   elements.reset.addEventListener('click', handleReset);
   elements.stickyBar.addEventListener('click', scrollToSummary);
   elements.stickyBar.addEventListener('keydown', (event) => {
@@ -128,9 +133,22 @@ async function initializeTomesPlanner(container) {
   function renderStockInputs() {
     elements.stockInputs.forEach((input) => {
       const key = input.dataset.resourceKey;
-      input.value = Number.isInteger(stock[key]) && stock[key] >= 0 ? stock[key] : '';
+      input.value = Number.isInteger(stock[key]) && stock[key] >= 0 ? formatNumber(stock[key]) : '';
       input.disabled = disabled;
     });
+  }
+
+  function handleStockFocus(event) {
+    event.target.value = event.target.value.replace(/[^\d]/g, '');
+  }
+
+  function handleStockInput(event) {
+    event.target.value = event.target.value.replace(/[^\d]/g, '');
+  }
+
+  function handleStockBlur(event) {
+    const key = event.target.dataset.resourceKey;
+    event.target.value = Number.isInteger(stock[key]) && stock[key] >= 0 ? formatNumber(stock[key]) : '';
   }
 
   async function handleStockChange(event) {
@@ -307,8 +325,9 @@ function clampInstanceValue(value, maxIndex) {
 }
 
 function inventoryValue(input) {
-  if (input.value === '') return null;
-  const value = input.valueAsNumber;
+  const raw = input.value.replace(/[^\d]/g, '');
+  if (raw === '') return null;
+  const value = Number(raw);
   return Number.isInteger(value) && value >= 0 ? value : undefined;
 }
 
