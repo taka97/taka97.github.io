@@ -25,13 +25,13 @@ Calculate Forticlad Core (FC), Advanced Forticlad Core (AFC), and Hyperalloy for
   <section class="loj-planner__inventory" aria-labelledby="forticlad-inventory-heading">
     <h3 id="forticlad-inventory-heading">Current Stock</h3>
     <label for="forticlad-fc-on-hand">FC current amount
-      <input id="forticlad-fc-on-hand" data-role="fc-on-hand" type="number" min="0" step="1" inputmode="numeric" autocomplete="off">
+      <input id="forticlad-fc-on-hand" data-role="fc-on-hand" data-resource-key="fc" type="text" pattern="[0-9,]*" inputmode="numeric" autocomplete="off">
     </label>
     <label for="forticlad-afc-on-hand">AFC current amount
-      <input id="forticlad-afc-on-hand" data-role="afc-on-hand" type="number" min="0" step="1" inputmode="numeric" autocomplete="off">
+      <input id="forticlad-afc-on-hand" data-role="afc-on-hand" data-resource-key="afc" type="text" pattern="[0-9,]*" inputmode="numeric" autocomplete="off">
     </label>
     <label for="forticlad-hyperalloy-on-hand">Hyperalloy current amount
-      <input id="forticlad-hyperalloy-on-hand" data-role="hyperalloy-on-hand" type="number" min="0" step="1" inputmode="numeric" autocomplete="off">
+      <input id="forticlad-hyperalloy-on-hand" data-role="hyperalloy-on-hand" data-resource-key="hyperalloy" type="text" pattern="[0-9,]*" inputmode="numeric" autocomplete="off">
     </label>
   </section>
 

@@ -1,6 +1,6 @@
 import { createPlanner } from './planner-core.js';
 import { createProfileStore, getToolData, updateToolData } from './storage.js';
-import { createTable, clearElement, setSummaryValue, setStatus as setStatusElement, renderMissingCard, targetCell, grandTotalFooter, renderInstanceBadge } from './table-helpers.js';
+import { createTable, clearElement, setSummaryValue, setStatus as setStatusElement, renderMissingCard, targetCell, grandTotalFooter, renderInstanceBadge, formatStockInputValue, parseStockInputValue, wireStockInputFormatting } from './table-helpers.js';
 import { createResearchPlanner, calculateResearchRequirements, formatNumber } from './research-core.js';
 
 const TROOP_TRANSLATIONS = {
@@ -87,6 +87,7 @@ async function initializeResearchPlanner(container) {
   let store = null;
   let profile = null;
   let storageUnavailable = false;
+  let stock = {};
 
   try {
     buildingsPlanner = createPlanner(JSON.parse(document.querySelector('#forticlad-data').textContent));
@@ -108,7 +109,8 @@ async function initializeResearchPlanner(container) {
 
   if (profile) {
     const toolData = getToolData(profile, 'forticlad');
-    if (elements.hyperalloyOnHand) elements.hyperalloyOnHand.value = Number.isInteger(toolData.stock?.hyperalloy) && toolData.stock.hyperalloy >= 0 ? toolData.stock.hyperalloy : '';
+    stock = { hyperalloy: toolData.stock?.hyperalloy };
+    if (elements.hyperalloyOnHand) elements.hyperalloyOnHand.value = formatStockInputValue(stock.hyperalloy, formatNumber);
   } else {
     if (elements.hyperalloyOnHand) elements.hyperalloyOnHand.disabled = true;
   }
@@ -136,13 +138,15 @@ async function initializeResearchPlanner(container) {
   });
 
   if (elements.hyperalloyOnHand) {
+    wireStockInputFormatting(elements.hyperalloyOnHand, (key) => stock[key], formatNumber);
     elements.hyperalloyOnHand.addEventListener('change', async () => {
       if (!profile || !store) return;
-      const value = inventoryValue(elements.hyperalloyOnHand);
+      const value = parseStockInputValue(elements.hyperalloyOnHand);
       if (value === undefined) {
         setStatus(elements, message.inventory, true);
         return;
       }
+      stock = { ...stock, hyperalloy: value };
       try {
         profile = await saveResearchData({ stock: { hyperalloy: value } });
         renderResult();
@@ -246,12 +250,6 @@ function trackRanges(planner, savedData) {
     const targetLevel = Number.isInteger(saved.targetLevel) && saved.targetLevel >= currentLevel && saved.targetLevel <= track.levels.length ? saved.targetLevel : 0;
     return [key, { currentLevel, targetLevel }];
   }));
-}
-
-function inventoryValue(input) {
-  if (input.value === '') return null;
-  const value = input.valueAsNumber;
-  return Number.isInteger(value) && value >= 0 ? value : undefined;
 }
 
 function renderTrackRanges(container, planner, ranges, language, disabled) {

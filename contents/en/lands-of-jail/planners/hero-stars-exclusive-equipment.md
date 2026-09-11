@@ -25,10 +25,10 @@ Calculate the Redeem and Exclusive Weapon Parts needed to level up your heroes' 
   <section class="loj-planner__inventory" aria-labelledby="hsee-inventory-heading">
     <h3 id="hsee-inventory-heading">Current Stock</h3>
     <label for="hsee-stock-hero-fragment">Redeem
-      <input id="hsee-stock-hero-fragment" data-role="stock-input" data-resource-key="HeroFragment" type="number" min="0" step="1" inputmode="numeric" autocomplete="off">
+      <input id="hsee-stock-hero-fragment" data-role="stock-input" data-resource-key="HeroFragment" type="text" pattern="[0-9,]*" inputmode="numeric" autocomplete="off">
     </label>
     <label for="hsee-stock-exclusive-equip-part">Exclusive Weapon Parts
-      <input id="hsee-stock-exclusive-equip-part" data-role="stock-input" data-resource-key="ExclusiveEquipPart" type="number" min="0" step="1" inputmode="numeric" autocomplete="off">
+      <input id="hsee-stock-exclusive-equip-part" data-role="stock-input" data-resource-key="ExclusiveEquipPart" type="text" pattern="[0-9,]*" inputmode="numeric" autocomplete="off">
     </label>
   </section>
 

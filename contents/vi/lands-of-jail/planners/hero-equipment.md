@@ -25,16 +25,16 @@ Tính số Equipment EXP, Precision Equipment, Magnet và Potential Coil cần �
   <section class="loj-planner__inventory" aria-labelledby="he-inventory-heading">
     <h3 id="he-inventory-heading">Kho hiện tại</h3>
     <label for="he-stock-equipment-parts">Equipment EXP
-      <input id="he-stock-equipment-parts" data-role="stock-input" data-resource-key="EquipmentParts" type="number" min="0" step="1" inputmode="numeric" autocomplete="off">
+      <input id="he-stock-equipment-parts" data-role="stock-input" data-resource-key="EquipmentParts" type="text" pattern="[0-9,]*" inputmode="numeric" autocomplete="off">
     </label>
     <label for="he-stock-precision-equipment">Precision Equipment
-      <input id="he-stock-precision-equipment" data-role="stock-input" data-resource-key="PrecisionEquipment" type="number" min="0" step="1" inputmode="numeric" autocomplete="off">
+      <input id="he-stock-precision-equipment" data-role="stock-input" data-resource-key="PrecisionEquipment" type="text" pattern="[0-9,]*" inputmode="numeric" autocomplete="off">
     </label>
     <label for="he-stock-magnet">Magnet
-      <input id="he-stock-magnet" data-role="stock-input" data-resource-key="Magnet" type="number" min="0" step="1" inputmode="numeric" autocomplete="off">
+      <input id="he-stock-magnet" data-role="stock-input" data-resource-key="Magnet" type="text" pattern="[0-9,]*" inputmode="numeric" autocomplete="off">
     </label>
     <label for="he-stock-potential-coil">Potential Coil
-      <input id="he-stock-potential-coil" data-role="stock-input" data-resource-key="PotentialCoil" type="number" min="0" step="1" inputmode="numeric" autocomplete="off">
+      <input id="he-stock-potential-coil" data-role="stock-input" data-resource-key="PotentialCoil" type="text" pattern="[0-9,]*" inputmode="numeric" autocomplete="off">
     </label>
   </section>
 

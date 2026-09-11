@@ -1,6 +1,6 @@
 import { createHeroStarsEquipmentPlanner, calculateHeroStarsEquipment, formatNumber } from './hero-stars-exclusive-equipment-core.js';
 import { createProfileStore, getToolData, updateToolData } from './storage.js';
-import { createTable, clearElement, setStatus as setStatusElement, renderMissingCard, grandTotalFooter, updateStickyBar, renderInstanceBadge } from './table-helpers.js';
+import { createTable, clearElement, setStatus as setStatusElement, renderMissingCard, grandTotalFooter, updateStickyBar, renderInstanceBadge, formatStockInputValue, parseStockInputValue, wireStockInputFormatting } from './table-helpers.js';
 
 const MESSAGES = {
   en: {
@@ -118,7 +118,10 @@ async function initializeHeroStarsEquipmentPlanner(container) {
 
   elements.heroStarsList.addEventListener('change', handleInstanceChange);
   elements.exclusiveEquipmentList.addEventListener('change', handleInstanceChange);
-  elements.stockInputs.forEach((input) => input.addEventListener('change', handleStockChange));
+  elements.stockInputs.forEach((input) => {
+    input.addEventListener('change', handleStockChange);
+    wireStockInputFormatting(input, (key) => stock[key], formatNumber);
+  });
   elements.addHeroStars.addEventListener('click', handleAddHeroStars);
   elements.addExclusiveEquipment.addEventListener('click', handleAddExclusiveEquipment);
   elements.reset.addEventListener('click', handleReset);
@@ -133,7 +136,7 @@ async function initializeHeroStarsEquipmentPlanner(container) {
   function renderStockInputs() {
     elements.stockInputs.forEach((input) => {
       const key = input.dataset.resourceKey;
-      input.value = Number.isInteger(stock[key]) && stock[key] >= 0 ? stock[key] : '';
+      input.value = formatStockInputValue(stock[key], formatNumber);
       input.disabled = disabled;
     });
   }
@@ -142,7 +145,7 @@ async function initializeHeroStarsEquipmentPlanner(container) {
     if (!profile || !store) return;
     disarmReset();
     const key = event.target.dataset.resourceKey;
-    const value = inventoryValue(event.target);
+    const value = parseStockInputValue(event.target);
     if (value === undefined) {
       setStatus(elements, message.inventory, true);
       return;
@@ -363,12 +366,6 @@ function sanitizeInstances(list, maxIndex, cap) {
 
 function clampInstanceValue(value, maxIndex) {
   return Number.isInteger(value) && value >= 0 && value <= maxIndex ? value : 0;
-}
-
-function inventoryValue(input) {
-  if (input.value === '') return null;
-  const value = input.valueAsNumber;
-  return Number.isInteger(value) && value >= 0 ? value : undefined;
 }
 
 function heroStarsLevelLabel(index, planner, message) {

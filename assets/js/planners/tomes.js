@@ -1,6 +1,6 @@
 import { createTomesPlanner, calculateTomesRequirements, formatNumber } from './tomes-core.js';
 import { createProfileStore, getToolData, updateToolData } from './storage.js';
-import { createTable, clearElement, setStatus as setStatusElement, renderMissingCard, grandTotalFooter, toRoman, updateStickyBar, renderInstanceBadge, resourceIcon } from './table-helpers.js';
+import { createTable, clearElement, setStatus as setStatusElement, renderMissingCard, grandTotalFooter, toRoman, updateStickyBar, renderInstanceBadge, resourceIcon, formatStockInputValue, parseStockInputValue, wireStockInputFormatting } from './table-helpers.js';
 
 const TROOP_TRANSLATIONS = {
   shieldbearer: 'Khiên binh',
@@ -117,9 +117,7 @@ async function initializeTomesPlanner(container) {
   elements.collectionsList.addEventListener('change', (event) => handleInstanceChange(event));
   elements.stockInputs.forEach((input) => {
     input.addEventListener('change', handleStockChange);
-    input.addEventListener('focus', handleStockFocus);
-    input.addEventListener('input', handleStockInput);
-    input.addEventListener('blur', handleStockBlur);
+    wireStockInputFormatting(input, (key) => stock[key], formatNumber);
   });
   elements.reset.addEventListener('click', handleReset);
   elements.stickyBar.addEventListener('click', scrollToSummary);
@@ -133,29 +131,16 @@ async function initializeTomesPlanner(container) {
   function renderStockInputs() {
     elements.stockInputs.forEach((input) => {
       const key = input.dataset.resourceKey;
-      input.value = Number.isInteger(stock[key]) && stock[key] >= 0 ? formatNumber(stock[key]) : '';
+      input.value = formatStockInputValue(stock[key], formatNumber);
       input.disabled = disabled;
     });
-  }
-
-  function handleStockFocus(event) {
-    event.target.value = event.target.value.replace(/[^\d]/g, '');
-  }
-
-  function handleStockInput(event) {
-    event.target.value = event.target.value.replace(/[^\d]/g, '');
-  }
-
-  function handleStockBlur(event) {
-    const key = event.target.dataset.resourceKey;
-    event.target.value = Number.isInteger(stock[key]) && stock[key] >= 0 ? formatNumber(stock[key]) : '';
   }
 
   async function handleStockChange(event) {
     if (!profile || !store) return;
     disarmReset();
     const key = event.target.dataset.resourceKey;
-    const value = inventoryValue(event.target);
+    const value = parseStockInputValue(event.target);
     if (value === undefined) {
       setStatus(elements, message.inventory, true);
       return;
@@ -317,13 +302,6 @@ function sanitizeFixedInstances(list, count, maxIndex) {
 
 function clampInstanceValue(value, maxIndex) {
   return Number.isInteger(value) && value >= 0 && value <= maxIndex ? value : 0;
-}
-
-function inventoryValue(input) {
-  const raw = input.value.replace(/[^\d]/g, '');
-  if (raw === '') return null;
-  const value = Number(raw);
-  return Number.isInteger(value) && value >= 0 ? value : undefined;
 }
 
 function tomeLevelLabel(index, message) {

@@ -1,6 +1,6 @@
 import { createRobotsSatellitesPlanner, calculateRobotsSatellitesRequirements, formatNumber, resolveLevelIndex } from './robots-satellites-core.js';
 import { createProfileStore, getToolData, updateToolData } from './storage.js';
-import { createTable, clearElement, setStatus as setStatusElement, renderMissingCard, grandTotalFooter, updateStickyBar, renderInstanceBadge, renderEstimatedBadge, resourceIcon } from './table-helpers.js';
+import { createTable, clearElement, setStatus as setStatusElement, renderMissingCard, grandTotalFooter, updateStickyBar, renderInstanceBadge, renderEstimatedBadge, resourceIcon, formatStockInputValue, parseStockInputValue, wireStockInputFormatting } from './table-helpers.js';
 
 const SATELLITE_TIER_KEYS = ['R', 'SR', 'SSR'];
 
@@ -139,7 +139,10 @@ async function initializeRobotsSatellitesPlanner(container) {
   SATELLITE_TIER_KEYS.forEach((tierKey) => {
     elements.satelliteLists[tierKey].addEventListener('change', handleInstanceChange);
   });
-  elements.stockInputs.forEach((input) => input.addEventListener('change', handleStockChange));
+  elements.stockInputs.forEach((input) => {
+    input.addEventListener('change', handleStockChange);
+    wireStockInputFormatting(input, (key) => stock[key], formatNumber);
+  });
   elements.addRobot.addEventListener('click', handleAddRobot);
   elements.reset.addEventListener('click', handleReset);
   elements.stickyBar.addEventListener('click', scrollToSummary);
@@ -153,7 +156,7 @@ async function initializeRobotsSatellitesPlanner(container) {
   function renderStockInputs() {
     elements.stockInputs.forEach((input) => {
       const key = input.dataset.resourceKey;
-      input.value = Number.isInteger(stock[key]) && stock[key] >= 0 ? stock[key] : '';
+      input.value = formatStockInputValue(stock[key], formatNumber);
       input.disabled = disabled;
     });
   }
@@ -162,7 +165,7 @@ async function initializeRobotsSatellitesPlanner(container) {
     if (!profile || !store) return;
     disarmReset();
     const key = event.target.dataset.resourceKey;
-    const value = inventoryValue(event.target);
+    const value = parseStockInputValue(event.target);
     if (value === undefined) {
       setStatus(elements, message.inventory, true);
       return;
@@ -415,12 +418,6 @@ function toSatelliteStorageState(satelliteState, planner) {
     };
   });
   return result;
-}
-
-function inventoryValue(input) {
-  if (input.value === '') return null;
-  const value = input.valueAsNumber;
-  return Number.isInteger(value) && value >= 0 ? value : undefined;
 }
 
 // Shared by robots (baseline id "level_1") and satellites (baseline id "not_started") —

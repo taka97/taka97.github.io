@@ -39,6 +39,34 @@ export function inventoryValueFor(value) {
   return Number.isInteger(value) && value >= 0 ? value : undefined;
 }
 
+// Shared "Current Stock" input behavior: thousand-separator display, raw digits
+// while editing. `input type="text" pattern="[0-9,]*" inputmode="numeric"` is
+// required in the markup for this to make sense (native `type="number"` can't
+// display grouped digits).
+export function formatStockInputValue(value, formatNumber) {
+  return inventoryValueFor(value) !== undefined ? formatNumber(value) : '';
+}
+
+export function parseStockInputValue(input) {
+  const raw = input.value.replace(/[^\d]/g, '');
+  if (raw === '') return null;
+  const value = Number(raw);
+  return Number.isInteger(value) && value >= 0 ? value : undefined;
+}
+
+function stripNonDigits(event) {
+  event.target.value = event.target.value.replace(/[^\d]/g, '');
+}
+
+export function wireStockInputFormatting(input, getStockValue, formatNumber) {
+  input.addEventListener('focus', stripNonDigits);
+  input.addEventListener('input', stripNonDigits);
+  input.addEventListener('blur', (event) => {
+    const key = event.target.dataset.resourceKey;
+    event.target.value = formatStockInputValue(getStockValue(key), formatNumber);
+  });
+}
+
 export function missingValue(required, stock, formatNumber) {
   return inventoryValueFor(stock) === undefined ? '—' : formatNumber(Math.max(required - stock, 0));
 }

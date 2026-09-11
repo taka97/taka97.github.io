@@ -26,23 +26,23 @@ Calculate the Data Disks, Planet Coins, and Power Modules needed to level up you
     <h3 id="rs-inventory-heading">Current Stock</h3>
     <label for="rs-stock-prisoner-armor-data">
       <span class="loj-planner__stock-label"><img class="loj-planner__stock-icon" src="/assets/images/lands-of-jail/robots-satellites/prisoner-armor-data.png" alt="" width="24" height="24">Prisoner Armor Data</span>
-      <input id="rs-stock-prisoner-armor-data" data-role="stock-input" data-resource-key="PrisonerArmorData" type="number" min="0" step="1" inputmode="numeric" autocomplete="off">
+      <input id="rs-stock-prisoner-armor-data" data-role="stock-input" data-resource-key="PrisonerArmorData" type="text" pattern="[0-9,]*" inputmode="numeric" autocomplete="off">
     </label>
     <label for="rs-stock-power-module">
       <span class="loj-planner__stock-label"><img class="loj-planner__stock-icon" src="/assets/images/lands-of-jail/robots-satellites/power-module.png" alt="" width="24" height="24">Power Module</span>
-      <input id="rs-stock-power-module" data-role="stock-input" data-resource-key="PowerModule" type="number" min="0" step="1" inputmode="numeric" autocomplete="off">
+      <input id="rs-stock-power-module" data-role="stock-input" data-resource-key="PowerModule" type="text" pattern="[0-9,]*" inputmode="numeric" autocomplete="off">
     </label>
     <label for="rs-stock-advanced-power-module">
       <span class="loj-planner__stock-label"><img class="loj-planner__stock-icon" src="/assets/images/lands-of-jail/robots-satellites/advanced-power-module.png" alt="" width="24" height="24">Advanced Power Module</span>
-      <input id="rs-stock-advanced-power-module" data-role="stock-input" data-resource-key="AdvancedPowerModule" type="number" min="0" step="1" inputmode="numeric" autocomplete="off">
+      <input id="rs-stock-advanced-power-module" data-role="stock-input" data-resource-key="AdvancedPowerModule" type="text" pattern="[0-9,]*" inputmode="numeric" autocomplete="off">
     </label>
     <label for="rs-stock-data-disk">
       <span class="loj-planner__stock-label"><img class="loj-planner__stock-icon" src="/assets/images/lands-of-jail/robots-satellites/data-disk.png" alt="" width="24" height="24">Data Disk</span>
-      <input id="rs-stock-data-disk" data-role="stock-input" data-resource-key="DataDisk" type="number" min="0" step="1" inputmode="numeric" autocomplete="off">
+      <input id="rs-stock-data-disk" data-role="stock-input" data-resource-key="DataDisk" type="text" pattern="[0-9,]*" inputmode="numeric" autocomplete="off">
     </label>
     <label for="rs-stock-planet-coin">
       <span class="loj-planner__stock-label"><img class="loj-planner__stock-icon" src="/assets/images/lands-of-jail/robots-satellites/planet-coin.png" alt="" width="24" height="24">Planet Coin</span>
-      <input id="rs-stock-planet-coin" data-role="stock-input" data-resource-key="PlanetCoin" type="number" min="0" step="1" inputmode="numeric" autocomplete="off">
+      <input id="rs-stock-planet-coin" data-role="stock-input" data-resource-key="PlanetCoin" type="text" pattern="[0-9,]*" inputmode="numeric" autocomplete="off">
     </label>
   </section>
 

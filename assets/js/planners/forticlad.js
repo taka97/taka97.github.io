@@ -1,6 +1,6 @@
 import { calculateBuildingRequirements, createPlanner, formatNumber } from './planner-core.js';
 import { createProfileStore, getToolData, updateToolData } from './storage.js';
-import { createTable, clearElement, setSummaryValue, setStatus as setStatusElement, renderMissingCard, targetCell, grandTotalFooter, updateStickyBar, renderInstanceBadge } from './table-helpers.js';
+import { createTable, clearElement, setSummaryValue, setStatus as setStatusElement, renderMissingCard, targetCell, grandTotalFooter, updateStickyBar, renderInstanceBadge, formatStockInputValue, parseStockInputValue, wireStockInputFormatting } from './table-helpers.js';
 
 const BUILDING_TRANSLATIONS = {
   'warden-office': 'Văn phòng Giám ngục',
@@ -58,6 +58,7 @@ async function initializePlanner(container) {
   let store = null;
   let profile = null;
   let storageUnavailable = false;
+  let stock = {};
 
   try {
     planner = createPlanner(JSON.parse(document.querySelector('#forticlad-data').textContent));
@@ -78,8 +79,9 @@ async function initializePlanner(container) {
   if (profile) {
     elements.activeProfile.textContent = `${profile.server} — ${profile.name}`;
     const toolData = getToolData(profile, 'forticlad');
-    elements.fcOnHand.value = Number.isInteger(toolData.stock?.fc) && toolData.stock.fc >= 0 ? toolData.stock.fc : '';
-    elements.afcOnHand.value = Number.isInteger(toolData.stock?.afc) && toolData.stock.afc >= 0 ? toolData.stock.afc : '';
+    stock = { fc: toolData.stock?.fc, afc: toolData.stock?.afc };
+    elements.fcOnHand.value = formatStockInputValue(stock.fc, formatNumber);
+    elements.afcOnHand.value = formatStockInputValue(stock.afc, formatNumber);
   } else {
     elements.activeProfile.textContent = language === 'vi' ? 'Chưa chọn hồ sơ.' : 'No active profile selected.';
     elements.fcOnHand.disabled = true;
@@ -148,21 +150,25 @@ async function initializePlanner(container) {
     renderResult();
   });
 
-  [elements.fcOnHand, elements.afcOnHand].forEach((input) => input.addEventListener('change', async () => {
-    if (!profile || !store) return;
-    const value = inventoryValue(input);
-    if (value === undefined) {
-      setStatus(elements, message.inventory, true);
-      return;
-    }
-    try {
+  [elements.fcOnHand, elements.afcOnHand].forEach((input) => {
+    wireStockInputFormatting(input, (key) => stock[key], formatNumber);
+    input.addEventListener('change', async () => {
+      if (!profile || !store) return;
+      const value = parseStockInputValue(input);
+      if (value === undefined) {
+        setStatus(elements, message.inventory, true);
+        return;
+      }
       const stockKey = input.dataset.role === 'fc-on-hand' ? 'fc' : 'afc';
-      profile = await saveForticladData({ stock: { [stockKey]: value } });
-      renderResult();
-    } catch (error) {
-      setStatus(elements, error.message || message.storage, true);
-    }
-  }));
+      stock = { ...stock, [stockKey]: value };
+      try {
+        profile = await saveForticladData({ stock: { [stockKey]: value } });
+        renderResult();
+      } catch (error) {
+        setStatus(elements, error.message || message.storage, true);
+      }
+    });
+  });
 
   async function saveForticladData(changes) {
     const latest = (await store.listProfiles()).find((item) => item.id === profile.id) ?? profile;
@@ -239,12 +245,6 @@ function buildingRanges(planner, savedData) {
 
 function validBase(planner, base) {
   return planner.steps.some((step) => step.base === base);
-}
-
-function inventoryValue(input) {
-  if (input.value === '') return null;
-  const value = input.valueAsNumber;
-  return Number.isInteger(value) && value >= 0 ? value : undefined;
 }
 
 function renderBuildingRanges(container, planner, ranges, language, disabled) {

@@ -25,13 +25,13 @@ Tính Lõi Trọng Giáp (FC), Lõi Trọng Giáp Cao Cấp (AFC) và Hyperalloy
   <section class="loj-planner__inventory" aria-labelledby="forticlad-inventory-heading">
     <h3 id="forticlad-inventory-heading">Kho hiện tại</h3>
     <label for="forticlad-fc-on-hand">FC hiện có
-      <input id="forticlad-fc-on-hand" data-role="fc-on-hand" type="number" min="0" step="1" inputmode="numeric" autocomplete="off">
+      <input id="forticlad-fc-on-hand" data-role="fc-on-hand" data-resource-key="fc" type="text" pattern="[0-9,]*" inputmode="numeric" autocomplete="off">
     </label>
     <label for="forticlad-afc-on-hand">AFC hiện có
-      <input id="forticlad-afc-on-hand" data-role="afc-on-hand" type="number" min="0" step="1" inputmode="numeric" autocomplete="off">
+      <input id="forticlad-afc-on-hand" data-role="afc-on-hand" data-resource-key="afc" type="text" pattern="[0-9,]*" inputmode="numeric" autocomplete="off">
     </label>
     <label for="forticlad-hyperalloy-on-hand">Hyperalloy hiện có
-      <input id="forticlad-hyperalloy-on-hand" data-role="hyperalloy-on-hand" type="number" min="0" step="1" inputmode="numeric" autocomplete="off">
+      <input id="forticlad-hyperalloy-on-hand" data-role="hyperalloy-on-hand" data-resource-key="hyperalloy" type="text" pattern="[0-9,]*" inputmode="numeric" autocomplete="off">
     </label>
   </section>
 
