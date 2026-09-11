@@ -1,6 +1,6 @@
 import { createRobotsSatellitesPlanner, calculateRobotsSatellitesRequirements, formatNumber } from './robots-satellites-core.js';
 import { createProfileStore, getToolData, updateToolData } from './storage.js';
-import { createTable, clearElement, setStatus as setStatusElement, renderMissingCard, grandTotalFooter, updateStickyBar, renderInstanceBadge, renderEstimatedBadge } from './table-helpers.js';
+import { createTable, clearElement, setStatus as setStatusElement, renderMissingCard, grandTotalFooter, updateStickyBar, renderInstanceBadge, renderEstimatedBadge, resourceIcon } from './table-helpers.js';
 
 const SATELLITE_TIER_KEYS = ['R', 'SR', 'SSR'];
 
@@ -514,7 +514,9 @@ function renderMissingSummary(container, totals, stock, message, planner) {
     card.className = 'loj-planner__missing-card';
     const header = document.createElement('div');
     header.className = 'loj-planner__missing-card-header';
-    header.textContent = resource.label;
+    const icon = resourceIcon(resource, 'loj-planner__missing-card-icon');
+    if (icon) header.append(icon);
+    header.append(document.createTextNode(resource.label));
     const neededOutput = document.createElement('output');
     neededOutput.className = 'loj-planner__missing-card-value';
     const missingOutput = document.createElement('output');

@@ -115,7 +115,7 @@ function normalizeResource(resource) {
   if (!resource || typeof resource.key !== 'string' || typeof resource.label !== 'string' || !RESOURCE_KEYS.includes(resource.key)) {
     throw new TypeError('Robots & Satellites data has an invalid resource definition.');
   }
-  return { key: resource.key, label: resource.label };
+  return { key: resource.key, label: resource.label, ...(typeof resource.icon === 'string' ? { icon: resource.icon } : {}) };
 }
 
 function positiveInteger(value, context) {

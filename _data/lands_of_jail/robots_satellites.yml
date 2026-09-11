@@ -5,11 +5,11 @@ source:
   note: Robots & Satellites tool. No cross-track prerequisites — every level's `requires` in the source is a literal `[]`. Robot is the only add-instance category (cap 12). Satellites are 9 fixed named units across 3 rarity tiers (R/SR/SSR), not addable — their cost curve is shared per tier, not per satellite (source's `makeSatelliteTrack(id, category, nameKey, costs)` passes the same `costs` array to every satellite call-site within a tier). Resource keys match the source's RESOURCES array exactly. SSR tier's cost table is derived from source's per-level `SSR_LEVEL_DATADISK` (90 entries) summed into 9 brackets of 10 plus `SSR_BREAKTHROUGH_PLANETCOIN` — values below were independently recomputed via script during brainstorming (see brainstorm report), not hand-summed.
 caps: { robots: 12 }
 resources:
-  - { key: PrisonerArmorData, label: Prisoner Armor Data }
-  - { key: PowerModule, label: Power Module }
-  - { key: AdvancedPowerModule, label: Advanced Power Module }
-  - { key: DataDisk, label: Data Disk }
-  - { key: PlanetCoin, label: Planet Coin }
+  - { key: PrisonerArmorData, label: Prisoner Armor Data, icon: /assets/images/lands-of-jail/robots-satellites/prisoner-armor-data.png }
+  - { key: PowerModule, label: Power Module, icon: /assets/images/lands-of-jail/robots-satellites/power-module.png }
+  - { key: AdvancedPowerModule, label: Advanced Power Module, icon: /assets/images/lands-of-jail/robots-satellites/advanced-power-module.png }
+  - { key: DataDisk, label: Data Disk, icon: /assets/images/lands-of-jail/robots-satellites/data-disk.png }
+  - { key: PlanetCoin, label: Planet Coin, icon: /assets/images/lands-of-jail/robots-satellites/planet-coin.png }
 # 11 rows: index 0 = Level "1" (baseline, zero cost), indices 1-10 = ROBOT_COSTS[0..9] (levels 10-100).
 robotLevels:
   - { PrisonerArmorData: 0,     PowerModule: 0,   AdvancedPowerModule: 0 }
