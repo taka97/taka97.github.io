@@ -51,7 +51,7 @@ contents/                    Bilingual content (source path only; URLs come from
     lands-of-jail/
       index.md               Game landing (lang: en, ref: loj-home)
       planners/forticlad.md  Forticlad Core Planner (matched EN/VI page)
-      planners/tomes-collections.md  Tomes & Collections Planner (matched EN/VI page)
+      planners/collections-tomes.md  Collections & Tomes Planner (matched EN/VI page)
       planners/robots-satellites.md  Robots & Satellites Planner (matched EN/VI page)
       planners/hero-equipment.md  Hero Equipment Planner (matched EN/VI page)
       planners/hero-stars-exclusive-equipment.md  Hero Stars & Exclusive Equipment Planner (matched EN/VI page)

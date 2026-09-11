@@ -105,7 +105,7 @@ lets `research.js` react when a building change (e.g. FC Lab's level) affects re
 prerequisites. Settings owns profile creation, selection, deletion, and JSON
 backup/restore; player profile and inventory data stays in IndexedDB.
 
-## Tomes & Collections Planner client flow
+## Collections & Tomes Planner client flow
 
 `_data/lands_of_jail/tomes_collections.yml` holds two flat, prerequisite-free cost
 tables (13 Tome levels, 43 Collection levels across 11 tiers) plus add-instance caps
