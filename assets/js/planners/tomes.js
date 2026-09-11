@@ -98,7 +98,7 @@ async function initializeTomesPlanner(container) {
 
   if (profile) {
     elements.activeProfile.textContent = `${profile.server} — ${profile.name}`;
-    const toolData = getToolData(profile, 'tomes-collections');
+    const toolData = getToolData(profile, 'collections-tomes');
     stock = sanitizeStock(toolData.stock, planner);
     tomeInstances = sanitizeFixedInstances(toolData.tomes, planner.caps.tomes, planner.tomeLevels.length - 1);
     collectionInstances = sanitizeFixedInstances(toolData.collections, planner.caps.collections, planner.collectionLevels.length - 1);
@@ -218,8 +218,8 @@ async function initializeTomesPlanner(container) {
 
   async function persist(changes) {
     const latest = (await store.listProfiles()).find((item) => item.id === profile.id) ?? profile;
-    profile = await store.saveProfile(updateToolData(latest, 'tomes-collections', {
-      ...getToolData(latest, 'tomes-collections'),
+    profile = await store.saveProfile(updateToolData(latest, 'collections-tomes', {
+      ...getToolData(latest, 'collections-tomes'),
       ...changes,
     }));
   }
