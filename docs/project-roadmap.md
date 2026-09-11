@@ -99,15 +99,32 @@ tool's yml `resources` exactly (no leftover flat fields like Forticlad's old
 stable ids (`sat_r_laser`, `sat_ssr_domaine_omniscient`, ...), never by
 display name. No bug found; source-only conclusion holds against real data.
 
-Side note (not part of this audit, not actionable): these 4 tools' instance
-tracks (`tomes`, `collections`, `robots`, `heroStars`, `exclusiveEquipment`,
-`equipment`) persist plain numeric `{currentIndex, targetIndex}` positions
-into each yml's fixed-order arrays, rather than named ids. That's a different,
-narrower risk than Forticlad's issue — reordering (not renaming) a yml
-`levels`/`tomeSlots`/etc. array would silently corrupt saved indices — but
-since these arrays are fixed game data that's never reordered in practice, no
-migration is warranted now. Noted so it isn't mistaken for the same bug class
-Forticlad had.
+Side note (not part of this audit): these 4 tools' instance tracks (`tomes`,
+`collections`, `robots`, `heroStars`, `exclusiveEquipment`, `equipment`)
+persist plain numeric `{currentIndex, targetIndex}` positions into each yml's
+fixed-order arrays, rather than named ids. That's a different, narrower risk
+than Forticlad's issue — reordering (not renaming) a yml `levels`/`tomeSlots`/
+etc. array would silently corrupt saved indices. Noted so it isn't mistaken
+for the same bug class Forticlad had.
+
+This actually happened for Robots & Satellites (2026-09-11): splitting each
+satellite level into a raw step + a "maxed" breakthrough step doubled the
+`satelliteTiers[].levels` array length, which would have silently
+reinterpreted every saved `currentIndex`/`targetIndex` as the wrong level.
+Fixed by giving each level row a stable snake_case `id` (`level_10`,
+`level_10_maxed`, ...) and switching persisted state to
+`currentLevelId`/`targetLevelId` — array position is now only an internal
+lookup, resolved via `resolveLevelIndex()` in
+`assets/js/planners/robots-satellites-core.js`. Robot levels got the same
+id-based storage in the same pass, and turned out to need the same raw/maxed
+split too: each bracket is Prisoner Armor Data (raw level) then Power Module +
+Advanced Power Module together (that level's "maxed" step) — `level_1` (no
+split, baseline) through `level_100`/`level_100_maxed`, 21 rows total. The
+other 3 tools (Tomes/Collections, Hero Equipment, Hero Stars &
+Exclusive Equipment) were left on plain index storage — no concrete need to
+restructure them has come up, so converting them now would be pure
+speculative cost (YAGNI). Apply this same id-based pattern to any of them if
+and when they actually need a `levels`/`tomeSlots`-style array restructured.
 
 ### Badge-stack layout rollout — Done (2026-09-11)
 

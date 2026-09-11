@@ -5,9 +5,19 @@ export { formatNumber };
 const RESOURCE_KEYS = ['PrisonerArmorData', 'PowerModule', 'AdvancedPowerModule', 'DataDisk', 'PlanetCoin'];
 const ROBOT_RESOURCE_KEYS = ['PrisonerArmorData', 'PowerModule', 'AdvancedPowerModule'];
 const SATELLITE_RESOURCE_KEYS = ['DataDisk', 'PlanetCoin'];
-const ROBOT_LEVEL_COUNT = 11;
-const TIER_LEVEL_COUNTS = { R: 6, SR: 8, SSR: 10 };
+const ROBOT_LEVEL_COUNT = 21;
+const TIER_LEVEL_COUNTS = { R: 11, SR: 15, SSR: 19 };
 const SATELLITE_COUNT = 9;
+
+// The stored/persisted value for a robot's or satellite's level is its stable `id`
+// (see robots_satellites.yml), never its array position, so reordering/inserting
+// levels later can't reinterpret a saved profile. This resolves an id back to
+// the position the calc engine needs; unknown/missing ids fall back to index 0
+// (baseline) rather than throwing, since a profile might be stale.
+export function resolveLevelIndex(levels, id) {
+  const index = levels.findIndex((level) => level.id === id);
+  return index === -1 ? 0 : index;
+}
 
 export function createRobotsSatellitesPlanner(data) {
   if (!data || !Array.isArray(data.robotLevels) || !Array.isArray(data.satelliteTiers) || !Array.isArray(data.satellites) || !data.caps) {
@@ -15,7 +25,9 @@ export function createRobotsSatellitesPlanner(data) {
   }
   if (data.robotLevels.length !== ROBOT_LEVEL_COUNT) throw new TypeError(`Robots & Satellites data must contain exactly ${ROBOT_LEVEL_COUNT} robot levels.`);
 
-  const robotLevels = data.robotLevels.map((row, index) => normalizeCost(row, ROBOT_RESOURCE_KEYS, `robot level ${index}`));
+  const robotLevels = data.robotLevels.map((row, index) => normalizeCost(row, ROBOT_RESOURCE_KEYS, `robot level ${index}`, true));
+  const robotLevelIds = robotLevels.map((level) => level.id);
+  if (new Set(robotLevelIds).size !== robotLevelIds.length) throw new TypeError('Robots & Satellites data has duplicate robot level ids.');
 
   const satelliteTiers = {};
   for (const tierKey of Object.keys(TIER_LEVEL_COUNTS)) {
@@ -29,8 +41,10 @@ export function createRobotsSatellitesPlanner(data) {
       key: tier.key,
       label: tier.label,
       badge: tier.badge,
-      levels: tier.levels.map((row, index) => normalizeCost(row, SATELLITE_RESOURCE_KEYS, `${tierKey} tier level ${index}`)),
+      levels: tier.levels.map((row, index) => normalizeCost(row, SATELLITE_RESOURCE_KEYS, `${tierKey} tier level ${index}`, true)),
     };
+    const ids = satelliteTiers[tierKey].levels.map((level) => level.id);
+    if (new Set(ids).size !== ids.length) throw new TypeError(`Robots & Satellites data's ${tierKey} tier has duplicate level ids.`);
   }
 
   if (data.satellites.length !== SATELLITE_COUNT) throw new TypeError(`Robots & Satellites data must contain exactly ${SATELLITE_COUNT} satellites.`);
@@ -97,7 +111,7 @@ function sumCostRange(levelCosts, fromIndex, toIndex) {
   return { cost, estimated: [...estimatedKeys] };
 }
 
-function normalizeCost(row, resourceKeys, context) {
+function normalizeCost(row, resourceKeys, context, requireId = false) {
   const cost = {};
   for (const key of resourceKeys) {
     const value = row[key] ?? 0;
@@ -108,6 +122,10 @@ function normalizeCost(row, resourceKeys, context) {
     throw new TypeError(`Robots & Satellites data has an invalid estimated list for ${context}.`);
   }
   cost.estimated = row.estimated ?? [];
+  if (requireId) {
+    if (typeof row.id !== 'string' || !row.id) throw new TypeError(`Robots & Satellites data is missing a level id for ${context}.`);
+    cost.id = row.id;
+  }
   return cost;
 }
 

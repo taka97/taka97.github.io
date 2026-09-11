@@ -10,61 +10,101 @@ resources:
   - { key: AdvancedPowerModule, label: Advanced Power Module, icon: /assets/images/lands-of-jail/robots-satellites/advanced-power-module.png }
   - { key: DataDisk, label: Data Disk, icon: /assets/images/lands-of-jail/robots-satellites/data-disk.png }
   - { key: PlanetCoin, label: Planet Coin, icon: /assets/images/lands-of-jail/robots-satellites/planet-coin.png }
-# 11 rows: index 0 = Level "1" (baseline, zero cost), indices 1-10 = ROBOT_COSTS[0..9] (levels 10-100).
+# 21 rows: index 0 = Level "1" (baseline, zero cost). Each level bracket after that is
+# two consecutive steps, same reasoning as satelliteTiers[].levels below: the raw level
+# (Prisoner Armor Data only) then that level's "maxed" step (Power Module + Advanced
+# Power Module together). Each row's stable `id` (not its array position) is what gets
+# persisted per profile.
 robotLevels:
-  - { PrisonerArmorData: 0,     PowerModule: 0,   AdvancedPowerModule: 0 }
-  - { PrisonerArmorData: 1200,  PowerModule: 20,  AdvancedPowerModule: 0 }
-  - { PrisonerArmorData: 2310,  PowerModule: 30,  AdvancedPowerModule: 0 }
-  - { PrisonerArmorData: 3600,  PowerModule: 40,  AdvancedPowerModule: 10 }
-  - { PrisonerArmorData: 5320,  PowerModule: 60,  AdvancedPowerModule: 15 }
-  - { PrisonerArmorData: 7560,  PowerModule: 80,  AdvancedPowerModule: 20 }
-  - { PrisonerArmorData: 10260, PowerModule: 100, AdvancedPowerModule: 30 }
-  - { PrisonerArmorData: 19400, PowerModule: 130, AdvancedPowerModule: 140 }
-  - { PrisonerArmorData: 24800, PowerModule: 160, AdvancedPowerModule: 50 }
-  - { PrisonerArmorData: 30300, PowerModule: 190, AdvancedPowerModule: 70 }
-  - { PrisonerArmorData: 36300, PowerModule: 230, AdvancedPowerModule: 90 }
+  - { id: level_1,         PrisonerArmorData: 0,     PowerModule: 0,   AdvancedPowerModule: 0 }
+  - { id: level_10,        PrisonerArmorData: 1200,  PowerModule: 0,   AdvancedPowerModule: 0 }
+  - { id: level_10_maxed,  PrisonerArmorData: 0,     PowerModule: 20,  AdvancedPowerModule: 0 }
+  - { id: level_20,        PrisonerArmorData: 2310,  PowerModule: 0,   AdvancedPowerModule: 0 }
+  - { id: level_20_maxed,  PrisonerArmorData: 0,     PowerModule: 30,  AdvancedPowerModule: 0 }
+  - { id: level_30,        PrisonerArmorData: 3600,  PowerModule: 0,   AdvancedPowerModule: 0 }
+  - { id: level_30_maxed,  PrisonerArmorData: 0,     PowerModule: 40,  AdvancedPowerModule: 10 }
+  - { id: level_40,        PrisonerArmorData: 5320,  PowerModule: 0,   AdvancedPowerModule: 0 }
+  - { id: level_40_maxed,  PrisonerArmorData: 0,     PowerModule: 60,  AdvancedPowerModule: 15 }
+  - { id: level_50,        PrisonerArmorData: 7560,  PowerModule: 0,   AdvancedPowerModule: 0 }
+  - { id: level_50_maxed,  PrisonerArmorData: 0,     PowerModule: 80,  AdvancedPowerModule: 20 }
+  - { id: level_60,        PrisonerArmorData: 10260, PowerModule: 0,   AdvancedPowerModule: 0 }
+  - { id: level_60_maxed,  PrisonerArmorData: 0,     PowerModule: 100, AdvancedPowerModule: 30 }
+  - { id: level_70,        PrisonerArmorData: 19400, PowerModule: 0,   AdvancedPowerModule: 0 }
+  - { id: level_70_maxed,  PrisonerArmorData: 0,     PowerModule: 130, AdvancedPowerModule: 140 }
+  - { id: level_80,        PrisonerArmorData: 24800, PowerModule: 0,   AdvancedPowerModule: 0 }
+  - { id: level_80_maxed,  PrisonerArmorData: 0,     PowerModule: 160, AdvancedPowerModule: 50 }
+  - { id: level_90,        PrisonerArmorData: 30300, PowerModule: 0,   AdvancedPowerModule: 0 }
+  - { id: level_90_maxed,  PrisonerArmorData: 0,     PowerModule: 190, AdvancedPowerModule: 70 }
+  - { id: level_100,       PrisonerArmorData: 36300, PowerModule: 0,   AdvancedPowerModule: 0 }
+  - { id: level_100_maxed, PrisonerArmorData: 0,     PowerModule: 230, AdvancedPowerModule: 90 }
 # One entry per rarity tier. `levels` is the shared cost curve for every satellite in
-# that tier (index 0 = baseline, remaining indices = that tier's cost table in order).
-# `estimated` on a level row is a list of resource keys (not a bare boolean) so only
-# the specific unconfirmed resource is flagged, matching source's precision (only
-# R-level-50's Data Disk figure was flagged, not the whole row/level).
+# that tier. Each in-game level bracket (10, 20, ...) is two consecutive steps here,
+# not one merged row: the raw level (Data Disk only) then that same level's "maxed"
+# breakthrough (Planet Coin only) — reaching level N+10 without maxing N first still
+# needs N's Planet Coin eventually, so splitting them lets the engine's plain
+# sum-cost-range logic price both paths correctly. Each row's stable snake_case `id`
+# (not its array position) is what gets persisted per profile — so inserting or
+# reordering rows later can never reinterpret a saved satellite's level, unlike a
+# raw array index would. `estimated` is a list of resource keys, kept on whichever
+# split row actually carries that resource (only R-level-50's Data Disk was flagged).
 satelliteTiers:
   - key: R
     label: R
     badge: "#5b8cff"
     levels:
-      - { DataDisk: 0,     PlanetCoin: 0 }
-      - { DataDisk: 1565,  PlanetCoin: 10 }
-      - { DataDisk: 2840,  PlanetCoin: 20 }
-      - { DataDisk: 4730,  PlanetCoin: 40 }
-      - { DataDisk: 7480,  PlanetCoin: 60 }
-      - { DataDisk: 11230, PlanetCoin: 80, estimated: [DataDisk] }
+      - { id: not_started,      DataDisk: 0,     PlanetCoin: 0 }
+      - { id: level_10,         DataDisk: 1565,  PlanetCoin: 0 }
+      - { id: level_10_maxed,   DataDisk: 0,     PlanetCoin: 10 }
+      - { id: level_20,         DataDisk: 2840,  PlanetCoin: 0 }
+      - { id: level_20_maxed,   DataDisk: 0,     PlanetCoin: 20 }
+      - { id: level_30,         DataDisk: 4730,  PlanetCoin: 0 }
+      - { id: level_30_maxed,   DataDisk: 0,     PlanetCoin: 40 }
+      - { id: level_40,         DataDisk: 7480,  PlanetCoin: 0 }
+      - { id: level_40_maxed,   DataDisk: 0,     PlanetCoin: 60 }
+      - { id: level_50,         DataDisk: 11230, PlanetCoin: 0, estimated: [DataDisk] }
+      - { id: level_50_maxed,   DataDisk: 0,     PlanetCoin: 80 }
   - key: SR
     label: SR
     badge: "#9b6bff"
     levels:
-      - { DataDisk: 0,     PlanetCoin: 0 }
-      - { DataDisk: 1740,  PlanetCoin: 20 }
-      - { DataDisk: 3125,  PlanetCoin: 40 }
-      - { DataDisk: 5205,  PlanetCoin: 60 }
-      - { DataDisk: 8225,  PlanetCoin: 100 }
-      - { DataDisk: 12350, PlanetCoin: 150 }
-      - { DataDisk: 17565, PlanetCoin: 200 }
-      - { DataDisk: 23825, PlanetCoin: 260 }
+      - { id: not_started,      DataDisk: 0,     PlanetCoin: 0 }
+      - { id: level_10,         DataDisk: 1740,  PlanetCoin: 0 }
+      - { id: level_10_maxed,   DataDisk: 0,     PlanetCoin: 20 }
+      - { id: level_20,         DataDisk: 3125,  PlanetCoin: 0 }
+      - { id: level_20_maxed,   DataDisk: 0,     PlanetCoin: 40 }
+      - { id: level_30,         DataDisk: 5205,  PlanetCoin: 0 }
+      - { id: level_30_maxed,   DataDisk: 0,     PlanetCoin: 60 }
+      - { id: level_40,         DataDisk: 8225,  PlanetCoin: 0 }
+      - { id: level_40_maxed,   DataDisk: 0,     PlanetCoin: 100 }
+      - { id: level_50,         DataDisk: 12350, PlanetCoin: 0 }
+      - { id: level_50_maxed,   DataDisk: 0,     PlanetCoin: 150 }
+      - { id: level_60,         DataDisk: 17565, PlanetCoin: 0 }
+      - { id: level_60_maxed,   DataDisk: 0,     PlanetCoin: 200 }
+      - { id: level_70,         DataDisk: 23825, PlanetCoin: 0 }
+      - { id: level_70_maxed,   DataDisk: 0,     PlanetCoin: 260 }
   - key: SSR
     label: SSR
     badge: "#ffd60a"
     levels:
-      - { DataDisk: 0,     PlanetCoin: 0 }
-      - { DataDisk: 1785,  PlanetCoin: 30 }
-      - { DataDisk: 3180,  PlanetCoin: 60 }
-      - { DataDisk: 5310,  PlanetCoin: 100 }
-      - { DataDisk: 8380,  PlanetCoin: 150 }
-      - { DataDisk: 12555, PlanetCoin: 210 }
-      - { DataDisk: 17820, PlanetCoin: 280 }
-      - { DataDisk: 24130, PlanetCoin: 360 }
-      - { DataDisk: 29025, PlanetCoin: 450 }
-      - { DataDisk: 32855, PlanetCoin: 500 }
+      - { id: not_started,      DataDisk: 0,     PlanetCoin: 0 }
+      - { id: level_10,         DataDisk: 1785,  PlanetCoin: 0 }
+      - { id: level_10_maxed,   DataDisk: 0,     PlanetCoin: 30 }
+      - { id: level_20,         DataDisk: 3180,  PlanetCoin: 0 }
+      - { id: level_20_maxed,   DataDisk: 0,     PlanetCoin: 60 }
+      - { id: level_30,         DataDisk: 5310,  PlanetCoin: 0 }
+      - { id: level_30_maxed,   DataDisk: 0,     PlanetCoin: 100 }
+      - { id: level_40,         DataDisk: 8380,  PlanetCoin: 0 }
+      - { id: level_40_maxed,   DataDisk: 0,     PlanetCoin: 150 }
+      - { id: level_50,         DataDisk: 12555, PlanetCoin: 0 }
+      - { id: level_50_maxed,   DataDisk: 0,     PlanetCoin: 210 }
+      - { id: level_60,         DataDisk: 17820, PlanetCoin: 0 }
+      - { id: level_60_maxed,   DataDisk: 0,     PlanetCoin: 280 }
+      - { id: level_70,         DataDisk: 24130, PlanetCoin: 0 }
+      - { id: level_70_maxed,   DataDisk: 0,     PlanetCoin: 360 }
+      - { id: level_80,         DataDisk: 29025, PlanetCoin: 0 }
+      - { id: level_80_maxed,   DataDisk: 0,     PlanetCoin: 450 }
+      - { id: level_90,         DataDisk: 32855, PlanetCoin: 0 }
+      - { id: level_90_maxed,   DataDisk: 0,     PlanetCoin: 500 }
 # 9 fixed units — cost comes from satelliteTiers[tier].levels, not stored here.
 satellites:
   - { id: sat_r_laser, tier: R, labelKey: sat_r_laser }

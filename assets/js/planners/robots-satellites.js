@@ -1,4 +1,4 @@
-import { createRobotsSatellitesPlanner, calculateRobotsSatellitesRequirements, formatNumber } from './robots-satellites-core.js';
+import { createRobotsSatellitesPlanner, calculateRobotsSatellitesRequirements, formatNumber, resolveLevelIndex } from './robots-satellites-core.js';
 import { createProfileStore, getToolData, updateToolData } from './storage.js';
 import { createTable, clearElement, setStatus as setStatusElement, renderMissingCard, grandTotalFooter, updateStickyBar, renderInstanceBadge, renderEstimatedBadge, resourceIcon } from './table-helpers.js';
 
@@ -20,6 +20,7 @@ const MESSAGES = {
     notStarted: 'Not started',
     noTarget: 'No target',
     levelPrefix: 'Level',
+    maxedSuffix: ' (maxed)',
     currentLabel: 'Current level',
     targetLabel: 'Target level',
     resetLabel: 'Reset to default',
@@ -55,6 +56,7 @@ const MESSAGES = {
     notStarted: 'Chưa bắt đầu',
     noTarget: 'Chưa chọn',
     levelPrefix: 'Cấp',
+    maxedSuffix: ' (đã tối đa)',
     currentLabel: 'Cấp hiện tại',
     targetLabel: 'Cấp mục tiêu',
     resetLabel: 'Khôi phục mặc định',
@@ -184,7 +186,7 @@ async function initializeRobotsSatellitesPlanner(container) {
     commitStateFromDom();
     if (profile && store) {
       try {
-        await persist({ robots: robotInstances, satellites: satelliteState });
+        await persist({ robots: toRobotStorageState(robotInstances, planner), satellites: toSatelliteStorageState(satelliteState, planner) });
       } catch (error) {
         setStatus(elements, error.message || message.storage, true);
       }
@@ -211,7 +213,7 @@ async function initializeRobotsSatellitesPlanner(container) {
     renderRobotSection();
     updateAddButtonState();
     try {
-      await persist({ robots: robotInstances });
+      await persist({ robots: toRobotStorageState(robotInstances, planner) });
     } catch (error) {
       setStatus(elements, error.message || message.storage, true);
     }
@@ -226,7 +228,7 @@ async function initializeRobotsSatellitesPlanner(container) {
       currentIndex: instance.currentIndex,
       targetIndex: instance.targetIndex,
       maxIndex,
-      labelFn: (levelIndex) => robotLevelLabel(levelIndex, message),
+      labelFn: (levelIndex) => levelLabel(planner.robotLevels[levelIndex].id, message),
     }));
     renderInstanceCards(elements.robotsList, 'robot', cards, disabled, message);
   }
@@ -241,7 +243,7 @@ async function initializeRobotsSatellitesPlanner(container) {
         currentIndex: satelliteState[satellite.id].currentIndex,
         targetIndex: satelliteState[satellite.id].targetIndex,
         maxIndex,
-        labelFn: (levelIndex) => satelliteLevelLabel(levelIndex, message),
+        labelFn: (levelIndex) => levelLabel(planner.satelliteTiers[tierKey].levels[levelIndex].id, message),
       }));
     renderInstanceCards(elements.satelliteLists[tierKey], `sat-${tierKey}`, cards, disabled, message);
   }
@@ -285,7 +287,7 @@ async function initializeRobotsSatellitesPlanner(container) {
     SATELLITE_TIER_KEYS.forEach((tierKey) => renderSatelliteTierSection(tierKey));
     updateAddButtonState();
     try {
-      await persist({ stock, robots: robotInstances, satellites: satelliteState });
+      await persist({ stock, robots: toRobotStorageState(robotInstances, planner), satellites: toSatelliteStorageState(satelliteState, planner) });
     } catch (error) {
       setStatus(elements, error.message || message.storage, true);
       return;
@@ -365,30 +367,54 @@ function sanitizeStock(stock, planner) {
   return result;
 }
 
+// Robot level progress is persisted as a stable `currentLevelId`/`targetLevelId`
+// (see robots_satellites.yml), same reasoning and same round-trip as satellites.
 function sanitizeRobotInstances(list, planner) {
-  const maxIndex = planner.robotLevels.length - 1;
-  const source = Array.isArray(list) && list.length > 0 ? list.slice(0, planner.caps.robots) : [{ currentIndex: 0, targetIndex: 0 }];
+  const source = Array.isArray(list) && list.length > 0 ? list.slice(0, planner.caps.robots) : [{ currentLevelId: 'level_1', targetLevelId: null }];
   return source.map((instance) => ({
-    currentIndex: clampInstanceValue(instance?.currentIndex, maxIndex),
-    targetIndex: clampInstanceValue(instance?.targetIndex, maxIndex),
+    currentIndex: resolveLevelIndex(planner.robotLevels, instance?.currentLevelId),
+    targetIndex: instance?.targetLevelId ? resolveLevelIndex(planner.robotLevels, instance.targetLevelId) : 0,
   }));
 }
 
+// Reverse of sanitizeRobotInstances: converts in-memory index-based instances back
+// to stable ids right before persisting.
+function toRobotStorageState(robotInstances, planner) {
+  return robotInstances.map((instance) => ({
+    currentLevelId: planner.robotLevels[instance.currentIndex].id,
+    targetLevelId: instance.targetIndex ? planner.robotLevels[instance.targetIndex].id : null,
+  }));
+}
+
+// Satellite level progress is persisted as a stable `currentLevelId`/`targetLevelId`
+// (see robots_satellites.yml), not an array index — this resolves those ids back to
+// the positions the calc engine and rendering use internally for this session only.
 function sanitizeSatelliteState(stored, planner) {
   const result = {};
   planner.satellites.forEach((satellite) => {
-    const maxIndex = planner.satelliteTiers[satellite.tier].levels.length - 1;
+    const levels = planner.satelliteTiers[satellite.tier].levels;
     const entry = stored?.[satellite.id];
     result[satellite.id] = {
-      currentIndex: clampInstanceValue(entry?.currentIndex, maxIndex),
-      targetIndex: clampInstanceValue(entry?.targetIndex, maxIndex),
+      currentIndex: resolveLevelIndex(levels, entry?.currentLevelId),
+      targetIndex: entry?.targetLevelId ? resolveLevelIndex(levels, entry.targetLevelId) : 0,
     };
   });
   return result;
 }
 
-function clampInstanceValue(value, maxIndex) {
-  return Number.isInteger(value) && value >= 0 && value <= maxIndex ? value : 0;
+// Reverse of sanitizeSatelliteState: converts the in-memory index-based state back
+// to stable ids right before persisting, so nothing index-shaped ever reaches storage.
+function toSatelliteStorageState(satelliteState, planner) {
+  const result = {};
+  planner.satellites.forEach((satellite) => {
+    const levels = planner.satelliteTiers[satellite.tier].levels;
+    const state = satelliteState[satellite.id];
+    result[satellite.id] = {
+      currentLevelId: levels[state.currentIndex].id,
+      targetLevelId: state.targetIndex ? levels[state.targetIndex].id : null,
+    };
+  });
+  return result;
 }
 
 function inventoryValue(input) {
@@ -397,12 +423,13 @@ function inventoryValue(input) {
   return Number.isInteger(value) && value >= 0 ? value : undefined;
 }
 
-function robotLevelLabel(index, message) {
-  return index === 0 ? `${message.levelPrefix} 1` : `${message.levelPrefix} ${index * 10}`;
-}
-
-function satelliteLevelLabel(index, message) {
-  return index === 0 ? message.notStarted : `${message.levelPrefix} ${index * 10}`;
+// Shared by robots (baseline id "level_1") and satellites (baseline id "not_started") —
+// both now use the same "level_N" / "level_N_maxed" scheme for every other level.
+function levelLabel(id, message) {
+  if (id === 'not_started') return message.notStarted;
+  const isMaxed = id.endsWith('_maxed');
+  const levelNumber = id.slice('level_'.length, isMaxed ? -'_maxed'.length : undefined);
+  return `${message.levelPrefix} ${levelNumber}${isMaxed ? message.maxedSuffix : ''}`;
 }
 
 function buildLevelOptions(maxIndex, labelFn, zeroLabelOverride) {
@@ -539,14 +566,14 @@ function renderBreakdownTable(container, result, planner, language, message) {
   const rows = [
     ...result.robotBreakdown.map((entry) => [
       message.robotLabel.replace('{n}', String(entry.index + 1)),
-      robotLevelLabel(entry.currentIndex, message),
-      robotLevelLabel(entry.targetIndex, message),
+      levelLabel(planner.robotLevels[entry.currentIndex].id, message),
+      levelLabel(planner.robotLevels[entry.targetIndex].id, message),
       formatCostCell(entry, planner, message),
     ]),
     ...result.satelliteBreakdown.map((entry) => [
       satelliteRowLabel(entry.id, planner, message),
-      satelliteLevelLabel(entry.currentIndex, message),
-      satelliteLevelLabel(entry.targetIndex, message),
+      levelLabel(planner.satelliteTiers[entry.tier].levels[entry.currentIndex].id, message),
+      levelLabel(planner.satelliteTiers[entry.tier].levels[entry.targetIndex].id, message),
       formatCostCell(entry, planner, message),
     ]),
   ];
