@@ -78,8 +78,8 @@ async function initializePlanner(container) {
   if (profile) {
     elements.activeProfile.textContent = `${profile.server} — ${profile.name}`;
     const toolData = getToolData(profile, 'forticlad');
-    elements.fcOnHand.value = Number.isInteger(toolData.fcOnHand ?? toolData.coreOnHand) && (toolData.fcOnHand ?? toolData.coreOnHand) >= 0 ? (toolData.fcOnHand ?? toolData.coreOnHand) : '';
-    elements.afcOnHand.value = Number.isInteger(toolData.afcOnHand) && toolData.afcOnHand >= 0 ? toolData.afcOnHand : '';
+    elements.fcOnHand.value = Number.isInteger(toolData.stock?.fc) && toolData.stock.fc >= 0 ? toolData.stock.fc : '';
+    elements.afcOnHand.value = Number.isInteger(toolData.stock?.afc) && toolData.stock.afc >= 0 ? toolData.stock.afc : '';
   } else {
     elements.activeProfile.textContent = language === 'vi' ? 'Chưa chọn hồ sơ.' : 'No active profile selected.';
     elements.fcOnHand.disabled = true;
@@ -156,7 +156,8 @@ async function initializePlanner(container) {
       return;
     }
     try {
-      profile = await saveForticladData({ [input.dataset.role === 'fc-on-hand' ? 'fcOnHand' : 'afcOnHand']: value });
+      const stockKey = input.dataset.role === 'fc-on-hand' ? 'fc' : 'afc';
+      profile = await saveForticladData({ stock: { [stockKey]: value } });
       renderResult();
     } catch (error) {
       setStatus(elements, error.message || message.storage, true);
@@ -165,9 +166,11 @@ async function initializePlanner(container) {
 
   async function saveForticladData(changes) {
     const latest = (await store.listProfiles()).find((item) => item.id === profile.id) ?? profile;
+    const current = getToolData(latest, 'forticlad');
     const saved = await store.saveProfile(updateToolData(latest, 'forticlad', {
-      ...getToolData(latest, 'forticlad'),
+      ...current,
       ...changes,
+      ...(changes.stock ? { stock: { ...current.stock, ...changes.stock } } : {}),
     }));
     if ('buildingBases' in changes) document.dispatchEvent(new CustomEvent('forticlad:building-data-changed'));
     return saved;
@@ -187,7 +190,7 @@ async function initializePlanner(container) {
     try {
       const result = calculateBuildingRequirements(planner, selectedBuildingRanges(elements.buildingRanges));
       const toolData = getToolData(profile, 'forticlad');
-      const inventory = { fc: toolData.fcOnHand ?? toolData.coreOnHand, afc: toolData.afcOnHand };
+      const inventory = { fc: toolData.stock?.fc, afc: toolData.stock?.afc };
       renderSummary(elements, result, inventory, message);
       buildingSlice = { totals: result.resourceTotals, stock: inventory };
       updateCombinedStickyBar();
@@ -291,7 +294,7 @@ function rangeLabel(labelText, role, steps, value, disabled, emptyLabel) {
   const select = document.createElement('select');
   select.dataset.role = role;
   select.disabled = disabled;
-  const options = steps.map((step) => new Option(step.base, step.base));
+  const options = steps.map((step) => new Option(step.label, step.base));
   if (emptyLabel) options.unshift(new Option(emptyLabel, ''));
   select.replaceChildren(...options);
   select.value = value;
@@ -350,12 +353,16 @@ function renderTotals(container, result, planner, language) {
     const range = result.effectiveRanges[key];
     const isAuto = result.automaticBuildingKeys.includes(key);
     const target = targetCell(buildingName(key, planner, language), isAuto, autoLabel);
-    return [target, range.currentBase, range.targetBase, formatCost(result.totals[key].fc, result.totals[key].afc)];
+    return [target, stepLabel(planner, range.currentBase), stepLabel(planner, range.targetBase), formatCost(result.totals[key].fc, result.totals[key].afc)];
   });
   const table = createTable(labels, rows);
   table.className = 'loj-planner__breakdown-table';
   grandTotalFooter(table, language === 'vi' ? 'Tổng cộng' : 'Grand total', formatCost(result.resourceTotals.fc, result.resourceTotals.afc));
   container.replaceChildren(table);
+}
+
+function stepLabel(planner, base) {
+  return planner.steps.find((step) => step.base === base)?.label ?? base;
 }
 
 function formatCost(fc, afc) {

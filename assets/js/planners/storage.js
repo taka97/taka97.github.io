@@ -65,12 +65,23 @@ export function normalizeProfile(profile) {
 export function getToolData(profile, tool) {
   const data = profile?.tools?.[tool] ?? {};
   if (tool !== 'forticlad') return data;
+  const { fcOnHand, afcOnHand, hyperalloyOnHand, coreOnHand, stock, buildingBases, ...rest } = data;
   return {
-    ...data,
-    fcOnHand: Number.isInteger(data.fcOnHand) ? data.fcOnHand : data.coreOnHand,
-    afcOnHand: Number.isInteger(data.afcOnHand) ? data.afcOnHand : undefined,
-    ...(data.buildingBases ? { buildingBases: migrateBoomerBarrackKey(data.buildingBases) } : {}),
+    ...rest,
+    stock: normalizeForticladStock(data),
+    ...(buildingBases ? { buildingBases: migrateBoomerBarrackKey(buildingBases) } : {}),
   };
+}
+
+function normalizeForticladStock(data) {
+  const stock = { ...(data.stock ?? {}) };
+  if (!Number.isInteger(stock.fc)) {
+    const legacyFc = Number.isInteger(data.fcOnHand) ? data.fcOnHand : data.coreOnHand;
+    if (Number.isInteger(legacyFc)) stock.fc = legacyFc;
+  }
+  if (!Number.isInteger(stock.afc) && Number.isInteger(data.afcOnHand)) stock.afc = data.afcOnHand;
+  if (!Number.isInteger(stock.hyperalloy) && Number.isInteger(data.hyperalloyOnHand)) stock.hyperalloy = data.hyperalloyOnHand;
+  return stock;
 }
 
 function migrateBoomerBarrackKey(buildingBases) {

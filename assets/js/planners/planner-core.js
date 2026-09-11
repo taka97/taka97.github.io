@@ -7,14 +7,13 @@ export function createPlanner(data) {
   const steps = data.steps.map((step) => normalizeStep(step, buildingKeys, bases));
   if (steps.length < 2) throw new TypeError('Forticlad data must contain at least two base steps.');
   const baseIndexes = new Map(steps.map((step, index) => [step.base, index]));
-  const aliases = new Map([['Level 30 (start)', steps[0].base], ['FC1', 'Forticlad (1)'], ['FC2', 'Forticlad (2)'], ['FC3', 'Forticlad (3)'], ['FC4', 'Forticlad (4)'], ['FC5', 'Forticlad (5)']]);
   const maximumBases = Object.fromEntries(buildingKeys.map((key) => [key, data.buildings[key].max_base || steps[steps.length - 1].base]));
   for (const [key, building] of Object.entries(data.buildings)) {
     if (typeof building.label !== 'string' || !baseIndexes.has(maximumBases[key])) throw new TypeError(`Forticlad data has an invalid building definition for ${key}.`);
   }
-  const requirements = normalizeRequirements(data.requirements, buildingKeys, baseIndexes, maximumBases, aliases);
+  const requirements = normalizeRequirements(data.requirements, buildingKeys, baseIndexes, maximumBases);
   validateRequirementGraph(requirements, baseIndexes);
-  return { buildingKeys, buildings: structuredClone(data.buildings), steps, baseIndexes, aliases, maximumBases, requirements };
+  return { buildingKeys, buildings: structuredClone(data.buildings), steps, baseIndexes, maximumBases, requirements };
 }
 
 export function calculateRequirements(planner, currentBase, targetBase, buildingKey) {
@@ -45,6 +44,7 @@ export function formatNumber(value) { return new Intl.NumberFormat().format(valu
 
 function normalizeStep(step, buildingKeys, bases) {
   if (!step || typeof step.base !== 'string' || !step.base.trim() || bases.has(step.base)) throw new TypeError('Forticlad data contains an invalid or duplicate base.');
+  const label = typeof step.label === 'string' && step.label.trim() ? step.label : step.base;
   const sourceCosts = step.costs || Object.fromEntries(buildingKeys.map((key) => [key, { fc: step.cores?.[key], afc: 0 }]));
   const costs = {};
   for (const key of buildingKeys) {
@@ -53,16 +53,16 @@ function normalizeStep(step, buildingKeys, bases) {
     costs[key] = { fc: cost.fc, afc: cost.afc };
   }
   bases.add(step.base);
-  return { base: step.base, tier: step.tier || step.base, costs };
+  return { base: step.base, label, tier: step.tier || step.base, costs };
 }
 
-function normalizeRequirements(records, buildingKeys, baseIndexes, maximumBases, aliases) {
+function normalizeRequirements(records, buildingKeys, baseIndexes, maximumBases) {
   const requirements = new Map();
   for (const [targetKey, entries] of Object.entries(records)) {
     if (!buildingKeys.includes(targetKey) || !Array.isArray(entries)) throw new TypeError('Forticlad data contains an invalid prerequisite record.');
     for (const entry of entries) {
-      const minimumBase = baseIndexes.has(entry?.minimumBase) ? entry.minimumBase : aliases.get(entry?.minimumBase);
-      const targetBase = baseIndexes.has(entry?.targetBase) ? entry.targetBase : aliases.get(entry?.targetBase);
+      const minimumBase = entry?.minimumBase;
+      const targetBase = entry?.targetBase;
       if (!entry || !buildingKeys.includes(entry.building) || !baseIndexes.has(minimumBase) || !baseIndexes.has(targetBase) || baseIndexes.get(minimumBase) > baseIndexes.get(maximumBases[entry.building]) || baseIndexes.get(targetBase) > baseIndexes.get(maximumBases[targetKey])) throw new TypeError('Forticlad data contains an unreachable prerequisite.');
       const key = `${targetKey}:${targetBase}`;
       if (!requirements.has(key)) requirements.set(key, []);
@@ -75,8 +75,8 @@ function normalizeRequirements(records, buildingKeys, baseIndexes, maximumBases,
 function normalizeRanges(planner, ranges) {
   return Object.fromEntries(planner.buildingKeys.map((key) => {
     const range = ranges?.[key] || {};
-    const currentBase = resolveBase(planner, range.currentBase) || planner.steps[0].base;
-    const targetBase = resolveBase(planner, range.targetBase);
+    const currentBase = (planner.baseIndexes.has(range.currentBase) ? range.currentBase : undefined) || planner.steps[0].base;
+    const targetBase = planner.baseIndexes.has(range.targetBase) ? range.targetBase : undefined;
     if (targetBase) rangeIndexes(planner, currentBase, targetBase, key);
     return [key, { currentBase, targetBase: targetBase || '' }];
   }));
@@ -129,14 +129,12 @@ function resolveRequirements(planner, selectedRanges) {
 }
 
 function rangeIndexes(planner, currentBase, targetBase, buildingKey) {
-  const currentIndex = planner.baseIndexes.get(resolveBase(planner, currentBase));
-  const targetIndex = planner.baseIndexes.get(resolveBase(planner, targetBase));
+  const currentIndex = planner.baseIndexes.get(currentBase);
+  const targetIndex = planner.baseIndexes.get(targetBase);
   if (currentIndex === undefined || targetIndex === undefined || targetIndex < currentIndex) throw new RangeError('Choose a valid current and target base.');
   if (buildingKey && targetIndex > planner.baseIndexes.get(planner.maximumBases[buildingKey])) throw new RangeError(`Target base is unavailable for ${buildingKey}.`);
   return { currentIndex, targetIndex };
 }
-
-function resolveBase(planner, base) { return planner.baseIndexes.has(base) ? base : planner.aliases.get(base); }
 function hasUpgrade(planner, range) { return Boolean(range.targetBase) && planner.baseIndexes.get(range.targetBase) > planner.baseIndexes.get(range.currentBase); }
 function calculateSteps(planner, steps, buildingKey) {
   if (!buildingKey || !planner.buildingKeys.includes(buildingKey)) throw new RangeError('Choose a valid building.');

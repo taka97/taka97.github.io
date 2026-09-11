@@ -108,7 +108,7 @@ async function initializeResearchPlanner(container) {
 
   if (profile) {
     const toolData = getToolData(profile, 'forticlad');
-    if (elements.hyperalloyOnHand) elements.hyperalloyOnHand.value = Number.isInteger(toolData.hyperalloyOnHand) && toolData.hyperalloyOnHand >= 0 ? toolData.hyperalloyOnHand : '';
+    if (elements.hyperalloyOnHand) elements.hyperalloyOnHand.value = Number.isInteger(toolData.stock?.hyperalloy) && toolData.stock.hyperalloy >= 0 ? toolData.stock.hyperalloy : '';
   } else {
     if (elements.hyperalloyOnHand) elements.hyperalloyOnHand.disabled = true;
   }
@@ -144,7 +144,7 @@ async function initializeResearchPlanner(container) {
         return;
       }
       try {
-        profile = await saveResearchData({ hyperalloyOnHand: value });
+        profile = await saveResearchData({ stock: { hyperalloy: value } });
         renderResult();
       } catch (error) {
         setStatus(elements, localizedErrorMessage(error, message, message.storage), true);
@@ -160,9 +160,11 @@ async function initializeResearchPlanner(container) {
 
   async function saveResearchData(changes) {
     const latest = (await store.listProfiles()).find((item) => item.id === profile.id) ?? profile;
+    const current = getToolData(latest, 'forticlad');
     return store.saveProfile(updateToolData(latest, 'forticlad', {
-      ...getToolData(latest, 'forticlad'),
+      ...current,
       ...changes,
+      ...(changes.stock ? { stock: { ...current.stock, ...changes.stock } } : {}),
     }));
   }
 
@@ -184,7 +186,7 @@ async function initializeResearchPlanner(container) {
     try {
       const result = calculateResearchRequirements(planner, selectedTrackRanges(elements.researchTracks), currentFcLabLevel());
       const toolData = getToolData(profile, 'forticlad');
-      const inventory = toolData.hyperalloyOnHand;
+      const inventory = toolData.stock?.hyperalloy;
       renderSummary(elements, result, inventory, message);
       dispatchResearchTotals({ hyperalloy: result.grandTotal }, { hyperalloy: inventory });
       if (result.selectedTrackKeys.length === 0) {
@@ -232,11 +234,10 @@ function fcLabCheckpoints(buildingsPlanner) {
   const checkpoints = [buildingsPlanner.steps[0].base];
   const maxIndex = buildingsPlanner.baseIndexes.get(buildingsPlanner.maximumBases['fc-lab']);
   for (let level = 1; ; level += 1) {
-    const label = `FC${level}`;
-    const resolved = buildingsPlanner.baseIndexes.has(label) ? label : buildingsPlanner.aliases.get(label);
-    if (resolved === undefined) break;
-    checkpoints.push(resolved);
-    if (buildingsPlanner.baseIndexes.get(resolved) >= maxIndex) break;
+    const base = `fc${level}`;
+    if (!buildingsPlanner.baseIndexes.has(base)) break;
+    checkpoints.push(base);
+    if (buildingsPlanner.baseIndexes.get(base) >= maxIndex) break;
   }
   return checkpoints;
 }
