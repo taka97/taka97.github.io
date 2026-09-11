@@ -26,7 +26,8 @@ contents/
       satellite.md                      Game-level guide
       events/
         migration-operation.md          Event guide
-      planners/forticlad.md             Browser-local Forticlad Core planner
+      planners/                         5 browser-local planner tools (forticlad, tomes-collections,
+                                         robots-satellites, hero-equipment, hero-stars-exclusive-equipment)
       tools/settings.md                 Browser-local player profile settings
       season-1/
         index.md                        Season
