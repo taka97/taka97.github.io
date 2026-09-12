@@ -12,9 +12,9 @@ source:
 troops: [shieldbearer, bomber, shooter]
 slots: [gloves, helmet, chest, boots]
 resources:
-  - { key: EquipmentParts, label: Equipment EXP }
-  - { key: PrecisionEquipment, label: Precision Equipment }
-  - { key: Magnet, label: Magnet }
+  - { key: EquipmentParts, label: Equipment EXP, icon: /assets/images/lands-of-jail/hero-equipment/equipment-exp.png }
+  - { key: PrecisionEquipment, label: Precision Gear, icon: /assets/images/lands-of-jail/hero-equipment/precision-gear.png }
+  - { key: Magnet, label: Magnet, icon: /assets/images/lands-of-jail/hero-equipment/magnet.png }
   - { key: PotentialCoil, label: Potential Coil }
 # 21 entries: 11 tiers, each (except exotic_t3) paired with a "_s1" "levels
 # maxed" checkpoint. Target selects only the 11 non-"_s1" ids; Current may

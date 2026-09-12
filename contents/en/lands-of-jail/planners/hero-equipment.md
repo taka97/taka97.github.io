@@ -11,7 +11,7 @@ aside:
 
 # Hero Equipment Planner
 
-Calculate the Equipment EXP, Precision Equipment, Magnet, and Potential Coil needed to level up your heroes' Equipment. Each of the 3 troops (Shieldbearer, Bomber, Shooter) has 4 fixed equipment slots (Gloves, Helm, Outerwear, Boots), each with its own Rarity track and Mastery track. Set a current and target level for both tracks on any slot; past Legendary, a Rarity level needs that same slot's Mastery track at a matching level — if your Mastery target isn't high enough, it's automatically bumped and tagged "(auto-added — prerequisite)" in the breakdown below. See the combined total across all 12 slots at once. One cost figure — the Common → Uncommon "levels maxed" checkpoint's Equipment EXP cost, shared by all 12 slots — is marked with a "≈" badge because it wasn't fully confirmed from source; click or focus it to read the note.
+Calculate the Equipment EXP, Precision Gear, Magnet, and Potential Coil needed to level up your heroes' Equipment. Each of the 3 troops (Shieldbearer, Bomber, Shooter) has 4 fixed equipment slots (Gloves, Helm, Outerwear, Boots), each with its own Rarity track and Mastery track. Set a current and target level for both tracks on any slot; past Legendary, a Rarity level needs that same slot's Mastery track at a matching level — if your Mastery target isn't high enough, it's automatically bumped and tagged "(auto-added — prerequisite)" in the breakdown below. See the combined total across all 12 slots at once. One cost figure — the Common → Uncommon "levels maxed" checkpoint's Equipment EXP cost, shared by all 12 slots — is marked with a "≈" badge because it wasn't fully confirmed from source; click or focus it to read the note.
 
 <section class="loj-planner" data-hero-equipment-planner data-lang="en" aria-labelledby="he-planner-heading">
   <h2 id="he-planner-heading">Plan your upgrade</h2>
@@ -24,13 +24,16 @@ Calculate the Equipment EXP, Precision Equipment, Magnet, and Potential Coil nee
 
   <section class="loj-planner__inventory" aria-labelledby="he-inventory-heading">
     <h3 id="he-inventory-heading">Current Stock</h3>
-    <label for="he-stock-equipment-parts">Equipment EXP
+    <label for="he-stock-equipment-parts">
+      <span class="loj-planner__stock-label"><img class="loj-planner__stock-icon" src="/assets/images/lands-of-jail/hero-equipment/equipment-exp.png" alt="" width="24" height="24">Equipment EXP</span>
       <input id="he-stock-equipment-parts" data-role="stock-input" data-resource-key="EquipmentParts" type="text" pattern="[0-9,]*" inputmode="numeric" autocomplete="off">
     </label>
-    <label for="he-stock-precision-equipment">Precision Equipment
+    <label for="he-stock-precision-equipment">
+      <span class="loj-planner__stock-label"><img class="loj-planner__stock-icon" src="/assets/images/lands-of-jail/hero-equipment/precision-gear.png" alt="" width="24" height="24">Precision Gear</span>
       <input id="he-stock-precision-equipment" data-role="stock-input" data-resource-key="PrecisionEquipment" type="text" pattern="[0-9,]*" inputmode="numeric" autocomplete="off">
     </label>
-    <label for="he-stock-magnet">Magnet
+    <label for="he-stock-magnet">
+      <span class="loj-planner__stock-label"><img class="loj-planner__stock-icon" src="/assets/images/lands-of-jail/hero-equipment/magnet.png" alt="" width="24" height="24">Magnet</span>
       <input id="he-stock-magnet" data-role="stock-input" data-resource-key="Magnet" type="text" pattern="[0-9,]*" inputmode="numeric" autocomplete="off">
     </label>
     <label for="he-stock-potential-coil">Potential Coil
