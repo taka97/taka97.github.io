@@ -12,8 +12,8 @@ source:
     Equipment's Rarity→Mastery pairing, this tool needs no cascade
     resolution.
 resources:
-  - { key: HeroFragment, label: Redeem }
-  - { key: ExclusiveEquipPart, label: Exclusive Weapon Parts }
+  - { key: HeroFragment, label: Redeem}
+  - { key: ExclusiveEquipPart, label: Exclusive Weapon Parts}
 caps: { heroStars: 6, exclusiveEquipment: 6 }
 # 32 entries. id suffix _s1.._s5 = stage sub-level within a star tier
 # ("K stars · stage N" in source UI); plain starK id = the tier's "whole"

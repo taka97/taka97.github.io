@@ -1,4 +1,5 @@
 import { createHeroEquipmentPlanner, calculateHeroEquipment, formatNumber } from './hero-equipment-core.js';
+import { localizeResources } from './localized-label.js';
 import { createProfileStore, getToolData, updateToolData } from './storage.js';
 import { createTable, clearElement, setStatus as setStatusElement, renderMissingCard, targetCell, grandTotalFooter, updateStickyBar, renderInstanceBadge, renderEstimatedBadge, resourceIcon, formatStockInputValue, parseStockInputValue, wireStockInputFormatting } from './table-helpers.js';
 
@@ -96,6 +97,7 @@ async function initializeHeroEquipmentPlanner(container) {
 
   try {
     planner = createHeroEquipmentPlanner(JSON.parse(document.querySelector('#hero-equipment-data').textContent));
+    planner.resources = localizeResources(planner.resources, language);
   } catch (error) {
     setStatus(elements, error.message, true);
     return;

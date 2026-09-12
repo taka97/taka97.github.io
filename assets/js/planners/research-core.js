@@ -1,4 +1,5 @@
 import { formatNumber } from './planner-core.js';
+import { hasLocalizedLabel } from './localized-label.js';
 
 export { formatNumber };
 
@@ -6,7 +7,7 @@ export function createResearchPlanner(data, troops) {
   if (!data || typeof data.tracks !== 'object' || !Array.isArray(troops) || troops.length === 0) throw new TypeError('Forticlad research data is unavailable.');
   const trackIds = Object.keys(data.tracks);
   for (const [id, track] of Object.entries(data.tracks)) {
-    if (typeof track.label !== 'string' || !Array.isArray(track.levels) || track.levels.length === 0 || track.levels.some((cost) => !Number.isInteger(cost) || cost < 0)) {
+    if (!hasLocalizedLabel(track.label) || !Array.isArray(track.levels) || track.levels.length === 0 || track.levels.some((cost) => !Number.isInteger(cost) || cost < 0)) {
       throw new TypeError(`Forticlad research data has an invalid track definition for ${id}.`);
     }
   }

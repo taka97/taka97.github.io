@@ -1,3 +1,5 @@
+import { hasLocalizedLabel } from './localized-label.js';
+
 const RESOURCES = ['fc', 'afc'];
 
 export function createPlanner(data) {
@@ -9,7 +11,7 @@ export function createPlanner(data) {
   const baseIndexes = new Map(steps.map((step, index) => [step.base, index]));
   const maximumBases = Object.fromEntries(buildingKeys.map((key) => [key, data.buildings[key].max_base || steps[steps.length - 1].base]));
   for (const [key, building] of Object.entries(data.buildings)) {
-    if (typeof building.label !== 'string' || !baseIndexes.has(maximumBases[key])) throw new TypeError(`Forticlad data has an invalid building definition for ${key}.`);
+    if (!hasLocalizedLabel(building.label) || !baseIndexes.has(maximumBases[key])) throw new TypeError(`Forticlad data has an invalid building definition for ${key}.`);
   }
   const requirements = normalizeRequirements(data.requirements, buildingKeys, baseIndexes, maximumBases);
   validateRequirementGraph(requirements, baseIndexes);
@@ -44,7 +46,8 @@ export function formatNumber(value) { return new Intl.NumberFormat().format(valu
 
 function normalizeStep(step, buildingKeys, bases) {
   if (!step || typeof step.base !== 'string' || !step.base.trim() || bases.has(step.base)) throw new TypeError('Forticlad data contains an invalid or duplicate base.');
-  const label = typeof step.label === 'string' && step.label.trim() ? step.label : step.base;
+  if (!hasLocalizedLabel(step.label)) throw new TypeError(`Forticlad data has an invalid label for ${step.base}.`);
+  const label = step.label;
   const sourceCosts = step.costs || Object.fromEntries(buildingKeys.map((key) => [key, { fc: step.cores?.[key], afc: 0 }]));
   const costs = {};
   for (const key of buildingKeys) {

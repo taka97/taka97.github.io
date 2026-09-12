@@ -29,12 +29,12 @@ tomeSlots:
 # The 6 Collection slots are fixed in-game items, not a free-form add-up-to-6 list:
 # 2 per troop (Shieldbearer, Bomber, Shooter). Order here is the fixed slot order.
 collectionSlots:
-  - { troop: shieldbearer, label: Knuckles }
-  - { troop: shieldbearer, label: Helmet }
-  - { troop: bomber, label: Frag Grenade }
-  - { troop: bomber, label: High-Explosive Grenade }
-  - { troop: shooter, label: Short Gun }
-  - { troop: shooter, label: Long Gun }
+  - { troop: shieldbearer, label: Knuckles}
+  - { troop: shieldbearer, label: Helmet}
+  - { troop: bomber, label: Frag Grenade}
+  - { troop: bomber, label: High-Explosive Grenade}
+  - { troop: shooter, label: Short Gun}
+  - { troop: shooter, label: Long Gun}
 resources:
   - { key: SealOfWisdom, label: Seal of Wisdom, icon: /assets/images/lands-of-jail/collections-tomes/seal-of-wisdom.png }
   - { key: SealOfKnowledge, label: Seal of Knowledge, icon: /assets/images/lands-of-jail/collections-tomes/seal-of-knowledge.png }
@@ -42,7 +42,7 @@ resources:
   - { key: RareCoin, label: Rare Trove Coin, icon: /assets/images/lands-of-jail/collections-tomes/rare-trove-coin.png }
   - { key: PreciousCoin, label: Precious Trove Coin, icon: /assets/images/lands-of-jail/collections-tomes/precious-trove-coin.png }
   # No icon asset exists yet for Legendary Trove Coin (also icon-less in the Current Stock section).
-  - { key: LegendaryCoin, label: Legendary Trove Coin }
+  - { key: LegendaryCoin, label: Legendary Trove Coin}
 # 13 rows: index 0 = Level 0 (free start), index 1-12 = Level I..XII (TOME_COSTS[0..11]).
 tomeLevels:
   - { SealOfWisdom: 0, SealOfKnowledge: 0 }

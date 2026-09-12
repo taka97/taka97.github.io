@@ -120,12 +120,12 @@ satelliteTiers:
       - { id: level_90_maxed,   DataDisk: 0,     PlanetCoin: 500 }
 # 9 fixed units — cost comes from satelliteTiers[tier].levels, not stored here.
 satellites:
-  - { id: sat_r_laser, tier: R, labelKey: sat_r_laser }
-  - { id: sat_r_observateur, tier: R, labelKey: sat_r_observateur }
-  - { id: sat_r_radiance, tier: R, labelKey: sat_r_radiance }
-  - { id: sat_sr_arbitre, tier: SR, labelKey: sat_sr_arbitre }
-  - { id: sat_sr_sentinelle, tier: SR, labelKey: sat_sr_sentinelle }
-  - { id: sat_ssr_domaine_omniscient, tier: SSR, labelKey: sat_ssr_domaine_omniscient }
-  - { id: sat_ssr_nexus_celeste, tier: SSR, labelKey: sat_ssr_nexus_celeste }
-  - { id: sat_ssr_argus, tier: SSR, labelKey: sat_ssr_argus }
-  - { id: sat_ssr_polaris, tier: SSR, labelKey: sat_ssr_polaris }
+  - { id: sat_r_laser, tier: R, label: Laser}
+  - { id: sat_r_observateur, tier: R, label: Watcher}
+  - { id: sat_r_radiance, tier: R, label: Radiance}
+  - { id: sat_sr_arbitre, tier: SR, label: Arbitrator}
+  - { id: sat_sr_sentinelle, tier: SR, label: Sentinel}
+  - { id: sat_ssr_domaine_omniscient, tier: SSR, label: Omniscient Domain}
+  - { id: sat_ssr_nexus_celeste, tier: SSR, label: Sky Nexus}
+  - { id: sat_ssr_argus, tier: SSR, label: Argus}
+  - { id: sat_ssr_polaris, tier: SSR, label: Polaris}

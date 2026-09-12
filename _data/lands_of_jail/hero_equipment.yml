@@ -15,7 +15,7 @@ resources:
   - { key: EquipmentParts, label: Equipment EXP, icon: /assets/images/lands-of-jail/hero-equipment/equipment-exp.png }
   - { key: PrecisionEquipment, label: Precision Gear, icon: /assets/images/lands-of-jail/hero-equipment/precision-gear.png }
   - { key: Magnet, label: Magnet, icon: /assets/images/lands-of-jail/hero-equipment/magnet.png }
-  - { key: PotentialCoil, label: Potential Coil }
+  - { key: PotentialCoil, label: Potential Coil}
 # 21 entries: 11 tiers, each (except exotic_t3) paired with a "_s1" "levels
 # maxed" checkpoint. Target selects only the 11 non-"_s1" ids; Current may
 # select any of the 21. requiresMastery: level id (string, matches

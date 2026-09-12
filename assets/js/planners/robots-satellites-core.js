@@ -1,4 +1,5 @@
 import { formatNumber } from './planner-core.js';
+import { hasLocalizedLabel } from './localized-label.js';
 
 export { formatNumber };
 
@@ -36,7 +37,7 @@ export function createRobotsSatellitesPlanner(data) {
     if (!Array.isArray(tier.levels) || tier.levels.length !== TIER_LEVEL_COUNTS[tierKey]) {
       throw new TypeError(`Robots & Satellites data's ${tierKey} tier must contain exactly ${TIER_LEVEL_COUNTS[tierKey]} levels.`);
     }
-    if (typeof tier.label !== 'string' || typeof tier.badge !== 'string') throw new TypeError(`Robots & Satellites data has an invalid ${tierKey} tier definition.`);
+    if (!hasLocalizedLabel(tier.label) || typeof tier.badge !== 'string') throw new TypeError(`Robots & Satellites data has an invalid ${tierKey} tier definition.`);
     satelliteTiers[tierKey] = {
       key: tier.key,
       label: tier.label,
@@ -51,8 +52,8 @@ export function createRobotsSatellitesPlanner(data) {
   const satellites = data.satellites.map((satellite) => {
     if (typeof satellite.id !== 'string' || !satellite.id) throw new TypeError('Robots & Satellites data has a satellite with a missing id.');
     if (!TIER_LEVEL_COUNTS[satellite.tier]) throw new TypeError(`Robots & Satellites data has a satellite with an invalid tier for ${satellite.id}.`);
-    if (typeof satellite.labelKey !== 'string' || !satellite.labelKey) throw new TypeError(`Robots & Satellites data has a satellite with a missing labelKey for ${satellite.id}.`);
-    return { id: satellite.id, tier: satellite.tier, labelKey: satellite.labelKey };
+    if (!hasLocalizedLabel(satellite.label)) throw new TypeError(`Robots & Satellites data has a satellite with a missing label for ${satellite.id}.`);
+    return { id: satellite.id, tier: satellite.tier, label: satellite.label };
   });
 
   const resources = Array.isArray(data.resources) ? data.resources.map(normalizeResource) : [];
@@ -150,7 +151,7 @@ function normalizeCost(row, resourceKeys, context, requireId = false) {
 }
 
 function normalizeResource(resource) {
-  if (!resource || typeof resource.key !== 'string' || typeof resource.label !== 'string' || !RESOURCE_KEYS.includes(resource.key)) {
+  if (!resource || typeof resource.key !== 'string' || !hasLocalizedLabel(resource.label) || !RESOURCE_KEYS.includes(resource.key)) {
     throw new TypeError('Robots & Satellites data has an invalid resource definition.');
   }
   return { key: resource.key, label: resource.label, ...(typeof resource.icon === 'string' ? { icon: resource.icon } : {}) };

@@ -1,4 +1,5 @@
 import { createTomesPlanner, calculateTomesRequirements, formatNumber } from './tomes-core.js';
+import { localizeResources, resolveLocalizedLabel } from './localized-label.js';
 import { createProfileStore, getToolData, updateToolData } from './storage.js';
 import { createTable, clearElement, setStatus as setStatusElement, renderMissingCard, grandTotalFooter, toRoman, updateStickyBar, renderInstanceBadge, resourceIcon, formatStockInputValue, parseStockInputValue, wireStockInputFormatting } from './table-helpers.js';
 
@@ -77,6 +78,7 @@ async function initializeTomesPlanner(container) {
 
   try {
     planner = createTomesPlanner(JSON.parse(document.querySelector('#collections-tomes-data').textContent));
+    planner.resources = localizeResources(planner.resources, language);
   } catch (error) {
     setStatus(elements, error.message, true);
     return;
@@ -179,7 +181,7 @@ async function initializeTomesPlanner(container) {
     if (category === 'tomes') {
       renderTomeGroups(elements.tomesList, tomeInstances, planner, language, (index) => tomeLevelLabel(index, message), message, disabled);
     } else {
-      renderCollectionGroups(elements.collectionsList, collectionInstances, planner, language, (index) => collectionLevelLabel(index, planner, message), message, disabled);
+      renderCollectionGroups(elements.collectionsList, collectionInstances, planner, language, (index) => collectionLevelLabel(index, planner, message, language), message, disabled);
     }
   }
 
@@ -308,11 +310,11 @@ function tomeLevelLabel(index, message) {
   return index === 0 ? message.notStarted : `${message.levelPrefix} ${toRoman(index)}`;
 }
 
-function collectionLevelLabel(index, planner, message) {
+function collectionLevelLabel(index, planner, message, language) {
   const row = planner.collectionLevels[index];
   if (row.tier === 'start') return message.notStarted;
   const tier = planner.tiers.find((entry) => entry.key === row.tier);
-  const label = tier ? tier.label : row.tier;
+  const label = resolveLocalizedLabel(tier?.label, language, row.tier);
   return row.star > 0 ? `${label} · ${message.starWord} ${row.star}` : label;
 }
 
@@ -362,7 +364,7 @@ function renderCollectionGroups(container, instances, planner, language, labelFn
     planner.collectionSlots.forEach((slot, index) => {
       if (slot.troop !== troop) return;
       const instance = instances[index] ?? { currentIndex: 0, targetIndex: 0 };
-      group.append(buildInstanceCard('collections', index, instance, planner.collectionLevels.length - 1, labelFn, message, disabled, slot.label));
+      group.append(buildInstanceCard('collections', index, instance, planner.collectionLevels.length - 1, labelFn, message, disabled, resolveLocalizedLabel(slot.label, language, slot.troop)));
     });
     fragment.append(group);
   });
@@ -509,9 +511,9 @@ function renderBreakdownTable(container, result, planner, language, message) {
       formatCost(entry.cost, planner),
     ]),
     ...result.collectionBreakdown.map((entry) => [
-      planner.collectionSlots[entry.index].label,
-      collectionLevelLabel(entry.currentIndex, planner, message),
-      collectionLevelLabel(entry.targetIndex, planner, message),
+      resolveLocalizedLabel(planner.collectionSlots[entry.index].label, language, String(entry.index)),
+      collectionLevelLabel(entry.currentIndex, planner, message, language),
+      collectionLevelLabel(entry.targetIndex, planner, message, language),
       formatCost(entry.cost, planner),
     ]),
   ];

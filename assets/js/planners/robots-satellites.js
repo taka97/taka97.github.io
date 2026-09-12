@@ -1,4 +1,5 @@
 import { createRobotsSatellitesPlanner, calculateRobotsSatellitesRequirements, formatNumber, resolveLevelIndex } from './robots-satellites-core.js';
+import { localizeResources, resolveLocalizedLabel } from './localized-label.js';
 import { createProfileStore, getToolData, updateToolData } from './storage.js';
 import { createTable, clearElement, setStatus as setStatusElement, renderMissingCard, grandTotalFooter, updateStickyBar, renderInstanceBadge, renderEstimatedBadge, resourceIcon, formatStockInputValue, parseStockInputValue, wireStockInputFormatting } from './table-helpers.js';
 
@@ -29,17 +30,6 @@ const MESSAGES = {
     targetSetLabel: 'Target set',
     estimatedLabel: 'Estimated cost',
     estimatedNote: 'This step includes at least one unconfirmed source figure.',
-    satelliteLabels: {
-      sat_r_laser: 'Laser',
-      sat_r_observateur: 'Watcher',
-      sat_r_radiance: 'Radiance',
-      sat_sr_arbitre: 'Arbitrator',
-      sat_sr_sentinelle: 'Sentinel',
-      sat_ssr_domaine_omniscient: 'Omniscient Domain',
-      sat_ssr_nexus_celeste: 'Sky Nexus',
-      sat_ssr_argus: 'Argus',
-      sat_ssr_polaris: 'Polaris',
-    },
   },
   vi: {
     noProfile: 'Hãy tạo hoặc chọn hồ sơ đang dùng trong Cài đặt trước khi lập kế hoạch.',
@@ -65,17 +55,6 @@ const MESSAGES = {
     targetSetLabel: 'Đã đặt mục tiêu',
     estimatedLabel: 'Chi phí ước tính',
     estimatedNote: 'Bước này có ít nhất một số liệu nguồn chưa được xác nhận.',
-    satelliteLabels: {
-      sat_r_laser: 'Laser',
-      sat_r_observateur: 'Watcher',
-      sat_r_radiance: 'Radiance',
-      sat_sr_arbitre: 'Arbitrator',
-      sat_sr_sentinelle: 'Sentinel',
-      sat_ssr_domaine_omniscient: 'Omniscient Domain',
-      sat_ssr_nexus_celeste: 'Sky Nexus',
-      sat_ssr_argus: 'Argus',
-      sat_ssr_polaris: 'Polaris',
-    },
   },
 };
 
@@ -94,6 +73,7 @@ async function initializeRobotsSatellitesPlanner(container) {
 
   try {
     planner = createRobotsSatellitesPlanner(JSON.parse(document.querySelector('#robots-satellites-data').textContent));
+    planner.resources = localizeResources(planner.resources, language);
   } catch (error) {
     setStatus(elements, error.message, true);
     return;
@@ -242,7 +222,7 @@ async function initializeRobotsSatellitesPlanner(container) {
       .filter((satellite) => satellite.tier === tierKey)
       .map((satellite) => ({
         key: satellite.id,
-        headingText: message.satelliteLabels[satellite.labelKey] ?? satellite.labelKey,
+        headingText: resolveLocalizedLabel(satellite.label, language, satellite.id),
         currentIndex: satelliteState[satellite.id].currentIndex,
         targetIndex: satelliteState[satellite.id].targetIndex,
         maxIndex,
@@ -601,7 +581,7 @@ function renderBreakdownTable(container, result, planner, language, message) {
       formatCostCell(entry, planner, message),
     ]),
     ...result.satelliteBreakdown.map((entry) => [
-      satelliteRowLabel(entry.id, planner, message),
+      satelliteRowLabel(entry.id, planner, language),
       levelLabel(planner.satelliteTiers[entry.tier].levels[entry.currentIndex].id, message),
       levelLabel(planner.satelliteTiers[entry.tier].levels[entry.targetIndex].id, message),
       formatCostCell(entry, planner, message),
@@ -613,9 +593,9 @@ function renderBreakdownTable(container, result, planner, language, message) {
   container.replaceChildren(table);
 }
 
-function satelliteRowLabel(id, planner, message) {
+function satelliteRowLabel(id, planner, language) {
   const satellite = planner.satellites.find((entry) => entry.id === id);
-  return satellite ? message.satelliteLabels[satellite.labelKey] ?? satellite.labelKey : id;
+  return resolveLocalizedLabel(satellite?.label, language, id);
 }
 
 function formatCostCell(entry, planner, message) {

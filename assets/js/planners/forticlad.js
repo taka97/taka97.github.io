@@ -1,17 +1,7 @@
 import { calculateBuildingRequirements, createPlanner, formatNumber } from './planner-core.js';
+import { resolveLocalizedLabel } from './localized-label.js';
 import { createProfileStore, getToolData, updateToolData } from './storage.js';
 import { createTable, clearElement, setSummaryValue, setStatus as setStatusElement, renderMissingCard, targetCell, grandTotalFooter, updateStickyBar, renderInstanceBadge, resourceIcon, formatStockInputValue, parseStockInputValue, wireStockInputFormatting } from './table-helpers.js';
-
-const BUILDING_TRANSLATIONS = {
-  'warden-office': 'Văn phòng Giám ngục',
-  'shieldbearer-barrack': 'Doanh trại Khiên binh',
-  'bomber-barrack': 'Doanh trại Bomber',
-  'shooter-barrack': 'Doanh trại Xạ thủ',
-  'communication-center': 'Trung tâm Liên lạc',
-  'command-center': 'Trung tâm Chỉ huy',
-  'medical-station': 'Trạm Y tế',
-  'fc-lab': 'Phòng Lab FC',
-};
 
 const MESSAGES = {
   en: {
@@ -283,8 +273,8 @@ function renderBuildingRanges(container, planner, ranges, language, disabled) {
     error.hidden = true;
     error.setAttribute('role', 'alert');
     const availableSteps = planner.steps.slice(0, planner.baseIndexes.get(planner.maximumBases[key]) + 1);
-    const current = rangeLabel(currentLabel, 'current-base', availableSteps, ranges[key].currentBase, disabled);
-    const target = rangeLabel(targetLabel, 'target-base', planner.steps.slice(0, planner.baseIndexes.get(planner.maximumBases[key]) + 1), ranges[key].targetBase, disabled);
+    const current = rangeLabel(currentLabel, 'current-base', availableSteps, ranges[key].currentBase, disabled, undefined, language);
+    const target = rangeLabel(targetLabel, 'target-base', planner.steps.slice(0, planner.baseIndexes.get(planner.maximumBases[key]) + 1), ranges[key].targetBase, disabled, undefined, language);
     target.querySelector('select').setAttribute('aria-describedby', error.id);
     row.append(headingRow, current, target, error);
     fragment.append(row);
@@ -293,13 +283,13 @@ function renderBuildingRanges(container, planner, ranges, language, disabled) {
   container.replaceChildren(fragment);
 }
 
-function rangeLabel(labelText, role, steps, value, disabled, emptyLabel) {
+function rangeLabel(labelText, role, steps, value, disabled, emptyLabel, language) {
   const label = document.createElement('label');
   label.textContent = labelText;
   const select = document.createElement('select');
   select.dataset.role = role;
   select.disabled = disabled;
-  const options = steps.map((step) => new Option(step.label, step.base));
+  const options = steps.map((step) => new Option(resolveLocalizedLabel(step.label, language, step.base), step.base));
   if (emptyLabel) options.unshift(new Option(emptyLabel, ''));
   select.replaceChildren(...options);
   select.value = value;
@@ -358,7 +348,7 @@ function renderTotals(container, result, planner, language) {
     const range = result.effectiveRanges[key];
     const isAuto = result.automaticBuildingKeys.includes(key);
     const target = targetCell(buildingName(key, planner, language), isAuto, autoLabel);
-    return [target, stepLabel(planner, range.currentBase), stepLabel(planner, range.targetBase), formatCost(result.totals[key].fc, result.totals[key].afc)];
+    return [target, stepLabel(planner, range.currentBase, language), stepLabel(planner, range.targetBase, language), formatCost(result.totals[key].fc, result.totals[key].afc)];
   });
   const table = createTable(labels, rows);
   table.className = 'loj-planner__breakdown-table';
@@ -366,8 +356,9 @@ function renderTotals(container, result, planner, language) {
   container.replaceChildren(table);
 }
 
-function stepLabel(planner, base) {
-  return planner.steps.find((step) => step.base === base)?.label ?? base;
+function stepLabel(planner, base, language) {
+  const step = planner.steps.find((entry) => entry.base === base);
+  return resolveLocalizedLabel(step?.label, language, base);
 }
 
 function formatCost(fc, afc) {
@@ -396,7 +387,7 @@ function clearSummary(elements) {
 }
 
 function buildingName(key, planner, language) {
-  return language === 'vi' ? BUILDING_TRANSLATIONS[key] : planner.buildings[key].label;
+  return resolveLocalizedLabel(planner.buildings[key]?.label, language, key);
 }
 
 function setStatus(elements, value, isError = false) {

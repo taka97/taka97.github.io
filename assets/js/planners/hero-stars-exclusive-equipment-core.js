@@ -1,4 +1,5 @@
 import { formatNumber } from './planner-core.js';
+import { hasLocalizedLabel } from './localized-label.js';
 
 export { formatNumber };
 
@@ -75,7 +76,7 @@ function normalizeCost(cost, context) {
 }
 
 function normalizeResource(resource) {
-  if (!resource || typeof resource.key !== 'string' || typeof resource.label !== 'string' || !RESOURCE_KEYS.includes(resource.key)) {
+  if (!resource || typeof resource.key !== 'string' || !hasLocalizedLabel(resource.label) || !RESOURCE_KEYS.includes(resource.key)) {
     throw new TypeError('Hero Stars & Exclusive Equipment data has an invalid resource definition.');
   }
   return { key: resource.key, label: resource.label };

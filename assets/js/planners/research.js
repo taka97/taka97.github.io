@@ -1,4 +1,5 @@
 import { createPlanner } from './planner-core.js';
+import { resolveLocalizedLabel } from './localized-label.js';
 import { createProfileStore, getToolData, updateToolData } from './storage.js';
 import { createTable, clearElement, setSummaryValue, setStatus as setStatusElement, renderMissingCard, targetCell, grandTotalFooter, renderInstanceBadge, formatStockInputValue, parseStockInputValue, wireStockInputFormatting } from './table-helpers.js';
 import { createResearchPlanner, calculateResearchRequirements, formatNumber } from './research-core.js';
@@ -7,18 +8,6 @@ const TROOP_TRANSLATIONS = {
   shieldbearer: 'Khiên binh',
   bomber: 'Bomber',
   shooter: 'Xạ thủ',
-};
-
-const TRACK_TRANSLATIONS = {
-  expedition: 'Sức chứa Quân viễn chinh',
-  lethality: 'Tăng Sát thương',
-  atk: 'Tăng Công',
-  def: 'Tăng Thủ',
-  hp: 'Tăng Máu',
-  rally: 'Tăng Sức chứa Quân tập hợp',
-  bastion: 'Mở khóa Quân Lv.11',
-  'heal-lethality': 'Giảm tài nguyên hồi quân và tăng sát thương',
-  'train-hp': 'Giảm tài nguyên huấn luyện và tăng Máu',
 };
 
 const MESSAGES = {
@@ -398,7 +387,7 @@ function troopName(troop, language) {
 }
 
 function trackName(track, language) {
-  return language === 'vi' ? TRACK_TRANSLATIONS[track.id] : track.label;
+  return resolveLocalizedLabel(track.label, language, track.id);
 }
 
 function setStatus(elements, value, isError = false) {

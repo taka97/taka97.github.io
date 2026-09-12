@@ -87,6 +87,11 @@ index shipped with the theme).
 
 ## Forticlad Planner client flow
 
+Planner display labels in release-controlled game data may be non-empty scalar strings or
+`{en, vi}` maps. Scalars remain unchanged in every locale; maps resolve the requested locale
+and then English. [`localized-label.js`](../assets/js/planners/localized-label.js) is the
+executable owner of that shared data-label contract.
+
 `_data/lands_of_jail/forticlad.yml` (8 buildings incl. FC Lab) and
 `_data/lands_of_jail/forticlad_research.yml` (T11 Research: 3 troop lines x 9 tracks,
 Hyperalloy-only) are release-controlled game data with declarative prerequisite graphs.

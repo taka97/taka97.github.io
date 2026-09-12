@@ -1,4 +1,5 @@
 import { formatNumber } from './planner-core.js';
+import { hasLocalizedLabel } from './localized-label.js';
 
 export { formatNumber };
 
@@ -97,21 +98,21 @@ function withLocalPosition(slots) {
 }
 
 function normalizeCollectionSlot(slot) {
-  if (!slot || typeof slot.troop !== 'string' || !slot.troop || typeof slot.label !== 'string' || !slot.label) {
+  if (!slot || typeof slot.troop !== 'string' || !slot.troop || !hasLocalizedLabel(slot.label)) {
     throw new TypeError('Tomes & Collections data has an invalid collection slot definition.');
   }
   return { troop: slot.troop, label: slot.label };
 }
 
 function normalizeTier(tier) {
-  if (!tier || typeof tier.key !== 'string' || typeof tier.label !== 'string' || !Number.isInteger(tier.rows) || tier.rows <= 0) {
+  if (!tier || typeof tier.key !== 'string' || !hasLocalizedLabel(tier.label) || !Number.isInteger(tier.rows) || tier.rows <= 0) {
     throw new TypeError('Tomes & Collections data has an invalid collection tier definition.');
   }
   return { key: tier.key, label: tier.label, rows: tier.rows };
 }
 
 function normalizeResource(resource) {
-  if (!resource || typeof resource.key !== 'string' || typeof resource.label !== 'string' || !RESOURCE_KEYS.includes(resource.key)) {
+  if (!resource || typeof resource.key !== 'string' || !hasLocalizedLabel(resource.label) || !RESOURCE_KEYS.includes(resource.key)) {
     throw new TypeError('Tomes & Collections data has an invalid resource definition.');
   }
   return { key: resource.key, label: resource.label, ...(typeof resource.icon === 'string' ? { icon: resource.icon } : {}) };
