@@ -1,6 +1,6 @@
 import { calculateBuildingRequirements, createPlanner, formatNumber } from './planner-core.js';
 import { createProfileStore, getToolData, updateToolData } from './storage.js';
-import { createTable, clearElement, setSummaryValue, setStatus as setStatusElement, renderMissingCard, targetCell, grandTotalFooter, updateStickyBar, renderInstanceBadge, formatStockInputValue, parseStockInputValue, wireStockInputFormatting } from './table-helpers.js';
+import { createTable, clearElement, setSummaryValue, setStatus as setStatusElement, renderMissingCard, targetCell, grandTotalFooter, updateStickyBar, renderInstanceBadge, resourceIcon, formatStockInputValue, parseStockInputValue, wireStockInputFormatting } from './table-helpers.js';
 
 const BUILDING_TRANSLATIONS = {
   'warden-office': 'Văn phòng Giám ngục',
@@ -259,6 +259,8 @@ function renderBuildingRanges(container, planner, ranges, language, disabled) {
     row.dataset.buildingKey = key;
     const headingRow = document.createElement('div');
     headingRow.className = 'loj-planner__instance-heading';
+    const icon = resourceIcon(planner.buildings[key], 'loj-planner__instance-icon');
+    if (icon) headingRow.classList.add('has-icon');
     const heading = document.createElement('h3');
     heading.className = 'loj-planner__instance-label';
     heading.textContent = buildingName(key, planner, language);
@@ -269,7 +271,11 @@ function renderBuildingRanges(container, planner, ranges, language, disabled) {
     badge.className = 'loj-planner__instance-badge';
     badge.dataset.role = 'instance-badge';
     renderInstanceBadge(badge, ranges[key].currentBase !== ranges[key].targetBase, message.targetSetLabel, message.noTargetLabel);
-    headingRow.append(heading, badge);
+    const headingText = document.createElement('div');
+    headingText.className = 'loj-planner__instance-heading-text';
+    headingText.append(heading, badge);
+    if (icon) headingRow.append(icon);
+    headingRow.append(headingText);
     const error = document.createElement('p');
     error.className = 'loj-planner__range-error';
     error.id = `forticlad-range-error-${key}`;

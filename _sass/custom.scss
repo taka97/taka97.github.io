@@ -177,6 +177,30 @@
       .loj-planner__instance-badge {
         margin-left: 0;
       }
+
+      // Only used when a card heading carries an icon (e.g. Forticlad buildings):
+      // icon sits beside the name+badge column instead of stacking above it,
+      // sized to roughly match that column's combined height.
+      &.has-icon {
+        flex-direction: row;
+        align-items: center;
+        gap: 0.6rem;
+
+        .loj-planner__instance-icon {
+          width: 3.3rem;
+          height: 3.3rem;
+          flex: 0 0 auto;
+          border-radius: 0.3rem;
+          object-fit: contain;
+        }
+
+        .loj-planner__instance-heading-text {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.35rem;
+        }
+      }
     }
 
     &.is-invalid {
