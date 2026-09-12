@@ -4,6 +4,14 @@ source:
   retrieved: 2026-09-10
   note: Robots & Satellites tool. No cross-track prerequisites — every level's `requires` in the source is a literal `[]`. Robot is the only add-instance category (cap 12). Satellites are 9 fixed named units across 3 rarity tiers (R/SR/SSR), not addable — their cost curve is shared per tier, not per satellite (source's `makeSatelliteTrack(id, category, nameKey, costs)` passes the same `costs` array to every satellite call-site within a tier). Resource keys match the source's RESOURCES array exactly. SSR tier's cost table is derived from source's per-level `SSR_LEVEL_DATADISK` (90 entries) summed into 9 brackets of 10 plus `SSR_BREAKTHROUGH_PLANETCOIN` — values below were independently recomputed via script during brainstorming (see brainstorm report), not hand-summed.
 caps: { robots: 12 }
+# Per-slot level cap override, 1-based slot number matching the "Robot N" label.
+# `maxLevel` is the plain in-game level number; the engine always resolves it to
+# that level's "_maxed" step (a cap always includes fully maxing its level), so
+# add future overrides here as just the number. Robot 1 (the starter unit) tops
+# out at level 60 in-game; every other slot uses the full robotLevels range up
+# to level 100 maxed.
+robotSlotCaps:
+  - { slot: 1, maxLevel: 60 }
 resources:
   - { key: PrisonerArmorData, label: Prisoner Armor Data, icon: /assets/images/lands-of-jail/robots-satellites/prisoner-armor-data.png }
   - { key: PowerModule, label: Power Module, icon: /assets/images/lands-of-jail/robots-satellites/power-module.png }

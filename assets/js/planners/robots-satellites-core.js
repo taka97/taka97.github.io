@@ -58,12 +58,31 @@ export function createRobotsSatellitesPlanner(data) {
   const resources = Array.isArray(data.resources) ? data.resources.map(normalizeResource) : [];
   const caps = { robots: positiveInteger(data.caps.robots, 'caps.robots') };
 
-  return { robotLevels, satelliteTiers, satellites, resources, caps };
+  const defaultMaxIndex = robotLevels.length - 1;
+  const robotSlotMaxIndex = Array.from({ length: caps.robots }, () => defaultMaxIndex);
+  (Array.isArray(data.robotSlotCaps) ? data.robotSlotCaps : []).forEach((entry) => {
+    if (!Number.isInteger(entry?.slot) || entry.slot < 1 || entry.slot > caps.robots) {
+      throw new TypeError('Robots & Satellites data has an invalid robotSlotCaps slot.');
+    }
+    if (!Number.isInteger(entry?.maxLevel) || entry.maxLevel < 1) {
+      throw new TypeError(`Robots & Satellites data has an invalid maxLevel for robotSlotCaps slot ${entry.slot}.`);
+    }
+    // A level cap always includes maxing that level (see robots_satellites.yml comment),
+    // so resolve to its "_maxed" step and only fall back to the raw step if none exists
+    // (e.g. level 1, which has no maxed variant).
+    const maxedIndex = robotLevelIds.indexOf(`level_${entry.maxLevel}_maxed`);
+    const rawIndex = robotLevelIds.indexOf(`level_${entry.maxLevel}`);
+    const levelIndex = maxedIndex !== -1 ? maxedIndex : rawIndex;
+    if (levelIndex === -1) throw new TypeError(`Robots & Satellites data's robotSlotCaps references an unknown level ${entry.maxLevel} for slot ${entry.slot}.`);
+    robotSlotMaxIndex[entry.slot - 1] = levelIndex;
+  });
+
+  return { robotLevels, satelliteTiers, satellites, resources, caps, robotSlotMaxIndex };
 }
 
 export function calculateRobotsSatellitesRequirements(planner, robotInstances, satelliteState) {
   const totals = emptyResourceTotals();
-  const robotBreakdown = buildBreakdown(planner.robotLevels, robotInstances, totals);
+  const robotBreakdown = buildBreakdown(planner.robotLevels, robotInstances, totals, planner.robotSlotMaxIndex);
   const satelliteBreakdown = [];
   planner.satellites.forEach((satellite) => {
     const levels = planner.satelliteTiers[satellite.tier].levels;
@@ -80,10 +99,11 @@ export function calculateRobotsSatellitesRequirements(planner, robotInstances, s
   return { totals, robotBreakdown, satelliteBreakdown };
 }
 
-function buildBreakdown(levelCosts, instances, totals) {
-  const maxIndex = levelCosts.length - 1;
+function buildBreakdown(levelCosts, instances, totals, slotMaxIndex) {
+  const defaultMaxIndex = levelCosts.length - 1;
   const rows = [];
   instances.forEach((instance, index) => {
+    const maxIndex = slotMaxIndex?.[index] ?? defaultMaxIndex;
     const currentIndex = clampIndex(instance?.currentIndex, maxIndex, 0);
     const targetIndex = instance?.targetIndex ? clampIndex(instance.targetIndex, maxIndex, undefined) : 0;
     if (targetIndex && targetIndex < currentIndex) throw new RangeError('Choose a target level that is not lower than the current level.');
