@@ -224,13 +224,13 @@ async function initializeRobotsSatellitesPlanner(container) {
   }
 
   function renderRobotSection() {
-    const maxIndex = planner.robotLevels.length - 1;
+    const defaultMaxIndex = planner.robotLevels.length - 1;
     const cards = robotInstances.map((instance, index) => ({
       key: String(index),
       headingText: message.robotLabel.replace('{n}', String(index + 1)),
       currentIndex: instance.currentIndex,
       targetIndex: instance.targetIndex,
-      maxIndex,
+      maxIndex: planner.robotSlotMaxIndex[index] ?? defaultMaxIndex,
       labelFn: (levelIndex) => levelLabel(planner.robotLevels[levelIndex].id, message),
     }));
     renderInstanceCards(elements.robotsList, 'robot', cards, disabled, message);
@@ -370,23 +370,56 @@ function sanitizeStock(stock, planner) {
   return result;
 }
 
-// Robot level progress is persisted as a stable `currentLevelId`/`targetLevelId`
-// (see robots_satellites.yml), same reasoning and same round-trip as satellites.
-function sanitizeRobotInstances(list, planner) {
-  const source = Array.isArray(list) && list.length > 0 ? list.slice(0, planner.caps.robots) : [{ currentLevelId: 'level_1', targetLevelId: null }];
-  return source.map((instance) => ({
-    currentIndex: resolveLevelIndex(planner.robotLevels, instance?.currentLevelId),
-    targetIndex: instance?.targetLevelId ? resolveLevelIndex(planner.robotLevels, instance.targetLevelId) : 0,
-  }));
+const ROBOT_KEY_PREFIX = 'robot_';
+
+function robotKey(index) {
+  return `${ROBOT_KEY_PREFIX}${index + 1}`;
+}
+
+// Robot slots are persisted as an object keyed by stable "robot_N" ids (1-based,
+// matching the "Robot N" label and slot number used by robotSlotCaps) instead of
+// array position, so a slot can be linked to from outside the planner. Slots are
+// never removed once added, but gaps are still tolerated defensively: missing
+// slots up to the highest one present fall back to the baseline level. Profiles
+// saved before this refactor used a plain array; run the standalone
+// migrate-robot-storage-keys console script once against existing profiles to
+// convert those — this function only understands the keyed shape.
+function sanitizeRobotInstances(stored, planner) {
+  const entries = parseStoredRobots(stored, planner.caps.robots);
+  const source = entries.length > 0 ? entries : [{ currentLevelId: 'level_1', targetLevelId: null }];
+  const defaultMaxIndex = planner.robotLevels.length - 1;
+  return source.map((instance, index) => {
+    const maxIndex = planner.robotSlotMaxIndex[index] ?? defaultMaxIndex;
+    const currentIndex = Math.min(resolveLevelIndex(planner.robotLevels, instance?.currentLevelId), maxIndex);
+    const targetIndex = instance?.targetLevelId ? Math.min(resolveLevelIndex(planner.robotLevels, instance.targetLevelId), maxIndex) : 0;
+    return { currentIndex, targetIndex };
+  });
+}
+
+function parseStoredRobots(stored, capsRobots) {
+  if (!stored || typeof stored !== 'object') return [];
+  const bySlot = {};
+  let maxSlot = 0;
+  Object.keys(stored).forEach((key) => {
+    if (!key.startsWith(ROBOT_KEY_PREFIX)) return;
+    const slot = Number(key.slice(ROBOT_KEY_PREFIX.length));
+    if (!Number.isInteger(slot) || slot < 1 || slot > capsRobots) return;
+    bySlot[slot] = stored[key];
+    if (slot > maxSlot) maxSlot = slot;
+  });
+  return Array.from({ length: maxSlot }, (_, index) => bySlot[index + 1] ?? { currentLevelId: 'level_1', targetLevelId: null });
 }
 
 // Reverse of sanitizeRobotInstances: converts in-memory index-based instances back
-// to stable ids right before persisting.
+// to the "robot_N"-keyed, stable-id shape right before persisting.
 function toRobotStorageState(robotInstances, planner) {
-  return robotInstances.map((instance) => ({
-    currentLevelId: planner.robotLevels[instance.currentIndex].id,
-    targetLevelId: instance.targetIndex ? planner.robotLevels[instance.targetIndex].id : null,
-  }));
+  return Object.fromEntries(robotInstances.map((instance, index) => [
+    robotKey(index),
+    {
+      currentLevelId: planner.robotLevels[instance.currentIndex].id,
+      targetLevelId: instance.targetIndex ? planner.robotLevels[instance.targetIndex].id : null,
+    },
+  ]));
 }
 
 // Satellite level progress is persisted as a stable `currentLevelId`/`targetLevelId`
