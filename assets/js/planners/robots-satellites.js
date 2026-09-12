@@ -386,7 +386,7 @@ function robotKey(index) {
 // convert those — this function only understands the keyed shape.
 function sanitizeRobotInstances(stored, planner) {
   const entries = parseStoredRobots(stored, planner.caps.robots);
-  const source = entries.length > 0 ? entries : [{ currentLevelId: 'level_1', targetLevelId: null }];
+  const source = entries.length > 0 ? entries : [{ currentLevelId: 'not_started', targetLevelId: null }];
   const defaultMaxIndex = planner.robotLevels.length - 1;
   return source.map((instance, index) => {
     const maxIndex = planner.robotSlotMaxIndex[index] ?? defaultMaxIndex;
@@ -407,7 +407,7 @@ function parseStoredRobots(stored, capsRobots) {
     bySlot[slot] = stored[key];
     if (slot > maxSlot) maxSlot = slot;
   });
-  return Array.from({ length: maxSlot }, (_, index) => bySlot[index + 1] ?? { currentLevelId: 'level_1', targetLevelId: null });
+  return Array.from({ length: maxSlot }, (_, index) => bySlot[index + 1] ?? { currentLevelId: 'not_started', targetLevelId: null });
 }
 
 // Reverse of sanitizeRobotInstances: converts in-memory index-based instances back
@@ -453,8 +453,8 @@ function toSatelliteStorageState(satelliteState, planner) {
   return result;
 }
 
-// Shared by robots (baseline id "level_1") and satellites (baseline id "not_started") —
-// both now use the same "level_N" / "level_N_maxed" scheme for every other level.
+// Shared by robots and satellites — both use the same "not_started" baseline id
+// and the same "level_N" / "level_N_maxed" scheme for every other level.
 function levelLabel(id, message) {
   if (id === 'not_started') return message.notStarted;
   const isMaxed = id.endsWith('_maxed');

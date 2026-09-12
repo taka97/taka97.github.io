@@ -18,12 +18,17 @@ resources:
   - { key: AdvancedPowerModule, label: Advanced Power Module, icon: /assets/images/lands-of-jail/robots-satellites/advanced-power-module.png }
   - { key: DataDisk, label: Data Disk, icon: /assets/images/lands-of-jail/robots-satellites/data-disk.png }
   - { key: PlanetCoin, label: Planet Coin, icon: /assets/images/lands-of-jail/robots-satellites/planet-coin.png }
-# 21 rows: index 0 = Level "1" (baseline, zero cost). Each level bracket after that is
-# two consecutive steps, same reasoning as satelliteTiers[].levels below: the raw level
-# (Prisoner Armor Data only) then that level's "maxed" step (Power Module + Advanced
-# Power Module together). Each row's stable `id` (not its array position) is what gets
+# 22 rows: index 0 = "not_started" (true baseline, zero cost, same id/meaning as
+# satelliteTiers[].levels' not_started row below). Reaching Level 1 from there is
+# a real upgrade step like any other — cost currently unknown, placeholder 0 until
+# the real Prisoner Armor Data figure is available (see pending-robots-satellites
+# memory note). Each level bracket after that is two consecutive steps, same
+# reasoning as satelliteTiers[].levels below: the raw level (Prisoner Armor Data
+# only) then that level's "maxed" step (Power Module + Advanced Power Module
+# together). Each row's stable `id` (not its array position) is what gets
 # persisted per profile.
 robotLevels:
+  - { id: not_started,     PrisonerArmorData: 0,     PowerModule: 0,   AdvancedPowerModule: 0 }
   - { id: level_1,         PrisonerArmorData: 0,     PowerModule: 0,   AdvancedPowerModule: 0 }
   - { id: level_10,        PrisonerArmorData: 1200,  PowerModule: 0,   AdvancedPowerModule: 0 }
   - { id: level_10_maxed,  PrisonerArmorData: 0,     PowerModule: 20,  AdvancedPowerModule: 0 }

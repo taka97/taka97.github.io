@@ -5,7 +5,7 @@ export { formatNumber };
 const RESOURCE_KEYS = ['PrisonerArmorData', 'PowerModule', 'AdvancedPowerModule', 'DataDisk', 'PlanetCoin'];
 const ROBOT_RESOURCE_KEYS = ['PrisonerArmorData', 'PowerModule', 'AdvancedPowerModule'];
 const SATELLITE_RESOURCE_KEYS = ['DataDisk', 'PlanetCoin'];
-const ROBOT_LEVEL_COUNT = 21;
+const ROBOT_LEVEL_COUNT = 22;
 const TIER_LEVEL_COUNTS = { R: 11, SR: 15, SSR: 19 };
 const SATELLITE_COUNT = 9;
 
