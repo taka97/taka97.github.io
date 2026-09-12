@@ -90,7 +90,7 @@ async function initializePlanner(container) {
   }
 
   const stickyResources = [
-    { key: 'fc', label: 'FC' },
+    { key: 'fc', label: 'FC', icon: '/assets/images/lands-of-jail/forticlad/forticlad-core.png' },
     { key: 'afc', label: 'AFC' },
     { key: 'hyperalloy', label: 'Hyperalloy' },
   ];

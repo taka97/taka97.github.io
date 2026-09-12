@@ -24,7 +24,8 @@ Calculate Forticlad Core (FC), Advanced Forticlad Core (AFC), and Hyperalloy for
 
   <section class="loj-planner__inventory" aria-labelledby="forticlad-inventory-heading">
     <h3 id="forticlad-inventory-heading">Current Stock</h3>
-    <label for="forticlad-fc-on-hand">FC current amount
+    <label for="forticlad-fc-on-hand">
+      <span class="loj-planner__stock-label"><img class="loj-planner__stock-icon" src="/assets/images/lands-of-jail/forticlad/forticlad-core.png" alt="" width="24" height="24">FC current amount</span>
       <input id="forticlad-fc-on-hand" data-role="fc-on-hand" data-resource-key="fc" type="text" pattern="[0-9,]*" inputmode="numeric" autocomplete="off">
     </label>
     <label for="forticlad-afc-on-hand">AFC current amount
@@ -40,7 +41,7 @@ Calculate Forticlad Core (FC), Advanced Forticlad Core (AFC), and Hyperalloy for
     <div class="loj-planner__missing-grid">
       <div class="loj-planner__missing-card">
         <div class="loj-planner__missing-card-header">
-          <svg class="loj-planner__missing-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 2 L20.6 7 L20.6 17 L12 22 L3.4 17 L3.4 7 Z"/><circle cx="12" cy="12" r="3"/></svg>
+          <img class="loj-planner__missing-card-icon" src="/assets/images/lands-of-jail/forticlad/forticlad-core.png" alt="">
           <span>FC</span>
         </div>
         <output class="loj-planner__missing-card-value" data-role="summary-fc-needed">—</output>
