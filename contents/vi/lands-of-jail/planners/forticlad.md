@@ -1,5 +1,5 @@
 ---
-title: Công cụ tính FC / AFC trọng giáp
+title: Tính FC / AFC trọng giáp
 lang: vi
 permalink: /vi/lands-of-jail/planners/forticlad/
 ref: loj-forticlad-planner
@@ -9,7 +9,7 @@ aside:
   toc: true
 ---
 
-# Công cụ tính FC / AFC trọng giáp
+# Tính FC / AFC trọng giáp
 
 Tính Lõi Trọng Giáp (FC), Lõi Trọng Giáp Cao Cấp (AFC) và Hyperalloy cho nghiên cứu T11, bao gồm cả điều kiện tiên quyết được tự động thêm. Cấp Văn phòng Giám ngục được mô phỏng từ Cấp 30 đến FC10. Không theo dõi Lương thực, Gỗ, Thép, Xăng và Thẻ Vàng — chỉ theo dõi FC, AFC và Hyperalloy.
 

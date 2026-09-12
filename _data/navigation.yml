@@ -76,15 +76,15 @@ loj-vi:
         url: /vi/lands-of-jail/season-2/robots/
   - title: Công cụ
     children:
-      - title: Công cụ tính Lõi trọng giáp
+      - title: Tính Lõi trọng giáp
         url: /vi/lands-of-jail/planners/forticlad/
-      - title: Công cụ tính Collections & Tomes
+      - title: Tính Collections & Tomes
         url: /vi/lands-of-jail/planners/collections-tomes/
-      - title: Công cụ tính Robots & Satellites
+      - title: Tính Robots & Satellites
         url: /vi/lands-of-jail/planners/robots-satellites/
-      - title: Công cụ tính Hero Equipment
+      - title: Tính Hero Equipment
         url: /vi/lands-of-jail/planners/hero-equipment/
-      - title: Công cụ tính Hero Stars & Exclusive Equipment
+      - title: Tính Hero Stars & Exclusive Equipment
         url: /vi/lands-of-jail/planners/hero-stars-exclusive-equipment/
       - title: Cài đặt
         url: /vi/lands-of-jail/tools/settings/

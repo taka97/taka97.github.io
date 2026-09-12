@@ -1,5 +1,5 @@
 ---
-title: Công cụ tính Hero Stars & Exclusive Equipment
+title: Tính Hero Stars & Exclusive Equipment
 lang: vi
 permalink: /vi/lands-of-jail/planners/hero-stars-exclusive-equipment/
 ref: loj-hero-stars-exclusive-equipment-planner
@@ -9,7 +9,7 @@ aside:
   toc: true
 ---
 
-# Công cụ tính Hero Stars & Exclusive Equipment
+# Tính Hero Stars & Exclusive Equipment
 
 Tính số Redeem (Chuộc) và Exclusive Weapon Parts cần để nâng cấp Star rank và Exclusive Equipment của tướng. Chi phí giống nhau cho mọi tướng, nên hãy thêm bao nhiêu Hero Stars và Exclusive Equipment tùy ý (tối đa 6 mỗi loại — hai nút "+ Add Hero" hoạt động độc lập), chọn cấp hiện tại và cấp mục tiêu cho từng cái. Danh sách mục tiêu của Hero Stars chỉ hiện Đã chiêu mộ và mỗi mốc sao trọn vẹn (1-5 sao) — các giai đoạn trung gian không phải mục tiêu hợp lệ, chỉ là điểm dừng trên đường đi. Xem tổng số cần cho tất cả cùng lúc.
 

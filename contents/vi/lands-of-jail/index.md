@@ -26,7 +26,7 @@ aside:
 ## Hướng dẫn
 
 - [{% include term.html key="satellite" %}](/vi/lands-of-jail/satellite/)
-- [Công cụ tính Lõi trọng giáp](/vi/lands-of-jail/planners/forticlad/)
+- [Tính Lõi trọng giáp](/vi/lands-of-jail/planners/forticlad/)
 
 ### Sự kiện
 

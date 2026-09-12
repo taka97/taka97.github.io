@@ -1,5 +1,5 @@
 ---
-title: Công cụ tính Robots & Satellites
+title: Tính Robots & Satellites
 lang: vi
 permalink: /vi/lands-of-jail/planners/robots-satellites/
 ref: loj-robots-satellites-planner
@@ -9,7 +9,7 @@ aside:
   toc: true
 ---
 
-# Công cụ tính Robots & Satellites
+# Tính Robots & Satellites
 
 Tính số Data Disk, Planet Coin và Power Module cần để nâng cấp Robot và cả 9 Satellite có tên riêng. Thêm bao nhiêu Robot tùy ý (tối đa 12), chọn cấp hiện tại và cấp mục tiêu cho từng cái, rồi chọn cấp hiện tại/mục tiêu cho các Satellite bậc R, SR, SSR bạn đang nâng cấp. Xem tổng số cần cho tất cả cùng lúc. Một số liệu — chi phí Data Disk ở cấp 50 của Satellite bậc R — được đánh dấu bằng huy hiệu "≈" vì chưa được xác nhận đầy đủ từ nguồn; bấm hoặc focus vào đó để đọc ghi chú. Tên tài nguyên và tên Satellite hiện đang hiển thị bằng tiếng Anh.
 

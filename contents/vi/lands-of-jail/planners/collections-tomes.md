@@ -1,5 +1,5 @@
 ---
-title: Công cụ tính Collections & Tomes
+title: Tính Collections & Tomes
 lang: vi
 permalink: /vi/lands-of-jail/planners/collections-tomes/
 ref: loj-tomes-collections-planner
@@ -9,7 +9,7 @@ aside:
   toc: true
 ---
 
-# Công cụ tính Collections & Tomes
+# Tính Collections & Tomes
 
 Tính số Seal và Trove Coin cần để nâng cấp Collections và Tomes. 6 Collection và 18 Tome (mỗi loại Khiên binh, Bomber, Xạ thủ có 2 Collection và 6 Tome — Tome chia thành 3 Tấn công và 3 Phòng thủ) luôn hiển thị sẵn. Chọn cấp hiện tại và cấp mục tiêu cho từng cái, rồi xem tổng số cần cho tất cả cùng lúc. Tên tài nguyên và tên bậc hiện đang hiển thị bằng tiếng Anh.
 

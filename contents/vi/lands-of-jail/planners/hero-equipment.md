@@ -1,5 +1,5 @@
 ---
-title: Công cụ tính Hero Equipment
+title: Tính Hero Equipment
 lang: vi
 permalink: /vi/lands-of-jail/planners/hero-equipment/
 ref: loj-hero-equipment-planner
@@ -9,7 +9,7 @@ aside:
   toc: true
 ---
 
-# Công cụ tính Hero Equipment
+# Tính Hero Equipment
 
 Tính số Equipment EXP, Precision Gear, Magnet và Potential Coil cần để nâng cấp Equipment của tướng. Mỗi troop trong số 3 troop (Shieldbearer, Bomber, Shooter) có 4 vị trí trang bị cố định (Găng tay, Mũ giáp, Áo giáp, Giày), mỗi vị trí có nhánh Độ hiếm và nhánh Tinh thông riêng. Chọn cấp hiện tại và cấp mục tiêu cho cả 2 nhánh ở bất kỳ vị trí nào; từ Legendary trở lên, một cấp Độ hiếm cần nhánh Tinh thông của chính vị trí đó đạt cấp tương ứng — nếu mục tiêu Tinh thông của bạn chưa đủ cao, nó sẽ tự động được nâng lên và đánh dấu "(tự động thêm — điều kiện tiên quyết)" trong bảng chi tiết bên dưới. Xem tổng số cần cho cả 12 vị trí cùng lúc. Một số liệu — chi phí Equipment EXP của mốc "đã tối đa cấp độ" Common → Uncommon, dùng chung cho cả 12 vị trí — được đánh dấu bằng huy hiệu "≈" vì chưa được xác nhận đầy đủ từ nguồn; bấm hoặc focus vào đó để đọc ghi chú.
 
