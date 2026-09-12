@@ -141,6 +141,13 @@
     gap: 1rem;
   }
 
+  /* "+ Add Robot" / "+ Add Hero" buttons that follow an instance-ranges list
+     (robots-satellites, hero-stars-exclusive-equipment) had no gap from the
+     last card's badge above them. */
+  [data-role^="add-"] {
+    margin-top: 1rem;
+  }
+
   .loj-planner__instance-range {
     display: grid;
     gap: 0.75rem;
