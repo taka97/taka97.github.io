@@ -5,11 +5,11 @@ source:
   note: Unofficial reference calculator transcription; Bomber Barracks was originally mistranscribed as boomer-barrack (now corrected to bomber-barrack); FC5-FC10 sub-palier rows backfilled (source expands every tier into 4 identical sub-palier rows plus 1 checkpoint row, previously only the checkpoint was kept for these tiers); FC Lab added as an 8th building; step ids normalized to stable snake_case codes with a separate label for display (previously the id itself was the display text, e.g. "Forticlad (1)").
 buildings:
   warden-office: { label: { en: "Warden Office", vi: "Văn phòng Giám ngục" }, max_base: fc10, icon: /assets/images/lands-of-jail/forticlad/warden-office.png }
-  shieldbearer-barrack: { label: { en: "Shieldbearer Barrack", vi: "Doanh trại Khiên binh" }, max_base: fc10, icon: /assets/images/lands-of-jail/forticlad/shieldbearer-barrack.png }
-  bomber-barrack: { label: { en: "Bomber Barrack", vi: "Doanh trại Bomber" }, max_base: fc10, icon: /assets/images/lands-of-jail/forticlad/bomber-barrack.png }
-  shooter-barrack: { label: { en: "Shooter Barrack", vi: "Doanh trại Xạ thủ" }, max_base: fc10, icon: /assets/images/lands-of-jail/forticlad/shooter-barrack.png }
+  shieldbearer-barrack: { label: { en: "Shieldbearer Barrack", vi: "Trại lính Khiên" }, max_base: fc10, icon: /assets/images/lands-of-jail/forticlad/shieldbearer-barrack.png }
+  bomber-barrack: { label: { en: "Bomber Barrack", vi: "Trại lính Ném bom" }, max_base: fc10, icon: /assets/images/lands-of-jail/forticlad/bomber-barrack.png }
+  shooter-barrack: { label: { en: "Shooter Barrack", vi: "Trại lính Súng" }, max_base: fc10, icon: /assets/images/lands-of-jail/forticlad/shooter-barrack.png }
   communication-center: { label: { en: "Communication Center", vi: "Trung tâm Liên lạc" }, max_base: fc10, icon: /assets/images/lands-of-jail/forticlad/communication-center.png }
-  command-center: { label: { en: "Command Center", vi: "Trung tâm Chỉ huy" }, max_base: fc10, icon: /assets/images/lands-of-jail/forticlad/command-center.png }
+  command-center: { label: { en: "Command Center", vi: "Sở chỉ huy" }, max_base: fc10, icon: /assets/images/lands-of-jail/forticlad/command-center.png }
   medical-station: { label: { en: "Medical Station", vi: "Trạm Y tế" }, max_base: fc8, icon: /assets/images/lands-of-jail/forticlad/medical-station.png }
   fc-lab: { label: { en: "FC Lab", vi: "Phòng Lab FC" }, max_base: fc6 }
 requirements:

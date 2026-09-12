@@ -114,7 +114,10 @@ backup/restore; player profile and inventory data stays in IndexedDB.
 
 `_data/lands_of_jail/tomes_collections.yml` holds two flat, prerequisite-free cost
 tables (13 Tome levels, 43 Collection levels across 11 tiers) plus add-instance caps
-(18 Tomes / 6 Collections) and resource labels. `tomes-core.js` is a minimal engine —
+(18 Tomes / 6 Collections), resource labels, level labels, and Collection star postfixes.
+These display fields accept either a language-neutral string or an `{ en, vi }` map and
+resolve through `localized-label.js`; changing their translation requires YAML only.
+`tomes-core.js` is a minimal engine —
 no cross-entity requirement graph, unlike `planner-core.js`/`research-core.js` — that
 sums per-instance cost ranges into combined totals, driven by `tomes.js`. Instances are
 repeatable (an arbitrary number of Tomes/Collections, each just `{currentIndex,

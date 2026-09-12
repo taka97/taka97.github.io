@@ -43,21 +43,24 @@ resources:
   - { key: PreciousCoin, label: Precious Trove Coin, icon: /assets/images/lands-of-jail/collections-tomes/precious-trove-coin.png }
   # No icon asset exists yet for Legendary Trove Coin (also icon-less in the Current Stock section).
   - { key: LegendaryCoin, label: Legendary Trove Coin}
+levelPostfixes:
+  collection:
+    star: { en: "star", vi: "sao" }
 # 13 rows: index 0 = Level 0 (free start), index 1-12 = Level I..XII (TOME_COSTS[0..11]).
 tomeLevels:
-  - { SealOfWisdom: 0, SealOfKnowledge: 0 }
-  - { SealOfWisdom: 10, SealOfKnowledge: 10 }
-  - { SealOfWisdom: 50, SealOfKnowledge: 60 }
-  - { SealOfWisdom: 90, SealOfKnowledge: 110 }
-  - { SealOfWisdom: 160, SealOfKnowledge: 200 }
-  - { SealOfWisdom: 270, SealOfKnowledge: 330 }
-  - { SealOfWisdom: 380, SealOfKnowledge: 460 }
-  - { SealOfWisdom: 480, SealOfKnowledge: 600 }
-  - { SealOfWisdom: 540, SealOfKnowledge: 660 }
-  - { SealOfWisdom: 620, SealOfKnowledge: 780 }
-  - { SealOfWisdom: 760, SealOfKnowledge: 920 }
-  - { SealOfWisdom: 920, SealOfKnowledge: 1040 }
-  - { SealOfWisdom: 1040, SealOfKnowledge: 1240 }
+  - { label: { en: "Not started", vi: "Chưa bắt đầu" }, SealOfWisdom: 0, SealOfKnowledge: 0 }
+  - { label: { en: "Level I", vi: "Cấp I" }, SealOfWisdom: 10, SealOfKnowledge: 10 }
+  - { label: { en: "Level II", vi: "Cấp II" }, SealOfWisdom: 50, SealOfKnowledge: 60 }
+  - { label: { en: "Level III", vi: "Cấp III" }, SealOfWisdom: 90, SealOfKnowledge: 110 }
+  - { label: { en: "Level IV", vi: "Cấp IV" }, SealOfWisdom: 160, SealOfKnowledge: 200 }
+  - { label: { en: "Level V", vi: "Cấp V" }, SealOfWisdom: 270, SealOfKnowledge: 330 }
+  - { label: { en: "Level VI", vi: "Cấp VI" }, SealOfWisdom: 380, SealOfKnowledge: 460 }
+  - { label: { en: "Level VII", vi: "Cấp VII" }, SealOfWisdom: 480, SealOfKnowledge: 600 }
+  - { label: { en: "Level VIII", vi: "Cấp VIII" }, SealOfWisdom: 540, SealOfKnowledge: 660 }
+  - { label: { en: "Level IX", vi: "Cấp IX" }, SealOfWisdom: 620, SealOfKnowledge: 780 }
+  - { label: { en: "Level X", vi: "Cấp X" }, SealOfWisdom: 760, SealOfKnowledge: 920 }
+  - { label: { en: "Level XI", vi: "Cấp XI" }, SealOfWisdom: 920, SealOfKnowledge: 1040 }
+  - { label: { en: "Level XII", vi: "Cấp XII" }, SealOfWisdom: 1040, SealOfKnowledge: 1240 }
 # 11 tiers; Uncommon has 2 rows (base + 1 star), every other tier has 4 rows (base + 3 stars).
 collectionTiers:
   - { key: uncommon, label: Uncommon, rows: 2 }
@@ -74,7 +77,7 @@ collectionTiers:
 # 43 rows: index 0 = "start" (free), then 42 tier rows in COLLECTION_TIERS order.
 # `star: 0` = the tier's base row, `star: N` = that tier's Nth star row.
 collectionLevels:
-  - { id: start, tier: start, star: 0, CommonCoin: 0, RareCoin: 0, PreciousCoin: 0, LegendaryCoin: 0 }
+  - { id: start, label: { en: "Not started", vi: "Chưa bắt đầu" }, tier: start, star: 0, CommonCoin: 0, RareCoin: 0, PreciousCoin: 0, LegendaryCoin: 0 }
   - { id: uncommon, tier: uncommon, star: 0, CommonCoin: 3000, RareCoin: 30, PreciousCoin: 0, LegendaryCoin: 0 }
   - { id: uncommon_s1, tier: uncommon, star: 1, CommonCoin: 7500, RareCoin: 75, PreciousCoin: 0, LegendaryCoin: 0 }
   - { id: rare, tier: rare, star: 0, CommonCoin: 13500, RareCoin: 135, PreciousCoin: 0, LegendaryCoin: 0 }

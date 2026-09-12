@@ -14,13 +14,18 @@ export function createTomesPlanner(data) {
   if (data.tomeLevels.length !== TOME_LEVEL_COUNT) throw new TypeError(`Tomes & Collections data must contain exactly ${TOME_LEVEL_COUNT} tome levels.`);
   if (data.collectionLevels.length !== COLLECTION_LEVEL_COUNT) throw new TypeError(`Tomes & Collections data must contain exactly ${COLLECTION_LEVEL_COUNT} collection levels.`);
 
-  const tomeLevels = data.tomeLevels.map((row, index) => normalizeCost(row, `tome level ${index}`));
+  const tomeLevels = data.tomeLevels.map((row, index) => {
+    if (!hasLocalizedLabel(row.label)) throw new TypeError(`Tomes & Collections data has an invalid label for tome level ${index}.`);
+    return { label: row.label, cost: normalizeCost(row, `tome level ${index}`) };
+  });
   const collectionLevels = data.collectionLevels.map((row) => {
     if (typeof row.id !== 'string' || !row.id) throw new TypeError('Tomes & Collections data has a collection level with a missing id.');
-    return { id: row.id, tier: row.tier, star: Number.isInteger(row.star) ? row.star : 0, cost: normalizeCost(row, `collection level ${row.id}`) };
+    if (row.tier === 'start' && !hasLocalizedLabel(row.label)) throw new TypeError('Tomes & Collections data has an invalid start collection level label.');
+    return { id: row.id, tier: row.tier, star: Number.isInteger(row.star) ? row.star : 0, ...(row.label !== undefined ? { label: row.label } : {}), cost: normalizeCost(row, `collection level ${row.id}`) };
   });
   const tiers = Array.isArray(data.collectionTiers) ? data.collectionTiers.map(normalizeTier) : [];
   const resources = Array.isArray(data.resources) ? data.resources.map(normalizeResource) : [];
+  const levelPostfixes = normalizeLevelPostfixes(data.levelPostfixes);
   const caps = { tomes: positiveInteger(data.caps.tomes, 'caps.tomes'), collections: positiveInteger(data.caps.collections, 'caps.collections') };
   if (!Array.isArray(data.tomeSlots) || data.tomeSlots.length !== caps.tomes) {
     throw new TypeError(`Tomes & Collections data must contain exactly ${caps.tomes} tome slots.`);
@@ -31,12 +36,13 @@ export function createTomesPlanner(data) {
   }
   const collectionSlots = data.collectionSlots.map(normalizeCollectionSlot);
 
-  return { tomeLevels, collectionLevels, tiers, resources, caps, tomeSlots, collectionSlots };
+  return { tomeLevels, collectionLevels, tiers, resources, levelPostfixes, caps, tomeSlots, collectionSlots };
 }
 
 export function calculateTomesRequirements(planner, tomeInstances, collectionInstances) {
   const totals = emptyResourceTotals();
-  const tomeBreakdown = buildBreakdown(planner.tomeLevels, tomeInstances, totals);
+  const tomeLevelCosts = planner.tomeLevels.map((level) => level.cost);
+  const tomeBreakdown = buildBreakdown(tomeLevelCosts, tomeInstances, totals);
   const collectionLevelCosts = planner.collectionLevels.map((level) => level.cost);
   const collectionBreakdown = buildBreakdown(collectionLevelCosts, collectionInstances, totals);
   return { totals, tomeBreakdown, collectionBreakdown };
@@ -116,6 +122,13 @@ function normalizeResource(resource) {
     throw new TypeError('Tomes & Collections data has an invalid resource definition.');
   }
   return { key: resource.key, label: resource.label, ...(typeof resource.icon === 'string' ? { icon: resource.icon } : {}) };
+}
+
+function normalizeLevelPostfixes(postfixes) {
+  if (!postfixes?.collection || !hasLocalizedLabel(postfixes.collection.star)) {
+    throw new TypeError('Tomes & Collections data has an invalid collection star postfix.');
+  }
+  return { collection: { star: postfixes.collection.star } };
 }
 
 function positiveInteger(value, context) {

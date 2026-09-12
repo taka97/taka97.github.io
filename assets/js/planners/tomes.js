@@ -1,7 +1,7 @@
 import { createTomesPlanner, calculateTomesRequirements, formatNumber } from './tomes-core.js';
 import { localizeResources, resolveLocalizedLabel } from './localized-label.js';
 import { createProfileStore, getToolData, updateToolData } from './storage.js';
-import { createTable, clearElement, setStatus as setStatusElement, renderMissingCard, grandTotalFooter, toRoman, updateStickyBar, renderInstanceBadge, resourceIcon, formatStockInputValue, parseStockInputValue, wireStockInputFormatting } from './table-helpers.js';
+import { createTable, clearElement, setStatus as setStatusElement, renderMissingCard, grandTotalFooter, updateStickyBar, renderInstanceBadge, resourceIcon, formatStockInputValue, parseStockInputValue, wireStockInputFormatting } from './table-helpers.js';
 
 const TROOP_TRANSLATIONS = {
   shieldbearer: 'Khiên binh',
@@ -27,10 +27,7 @@ const MESSAGES = {
     missing: 'Missing {amount}',
     surplus: 'Surplus {amount}',
     tomeLabel: 'Tome {n}',
-    notStarted: 'Not started',
     noTarget: 'No target',
-    levelPrefix: 'Level',
-    starWord: 'star',
     currentLabel: 'Current level',
     targetLabel: 'Target level',
     resetLabel: 'Reset to default',
@@ -50,10 +47,7 @@ const MESSAGES = {
     missing: 'Còn thiếu {amount}',
     surplus: 'Dư {amount}',
     tomeLabel: 'Tome {n}',
-    notStarted: 'Chưa bắt đầu',
     noTarget: 'Chưa chọn',
-    levelPrefix: 'Cấp',
-    starWord: 'sao',
     currentLabel: 'Cấp hiện tại',
     targetLabel: 'Cấp mục tiêu',
     resetLabel: 'Khôi phục mặc định',
@@ -179,9 +173,9 @@ async function initializeTomesPlanner(container) {
 
   function renderInstanceListFor(category) {
     if (category === 'tomes') {
-      renderTomeGroups(elements.tomesList, tomeInstances, planner, language, (index) => tomeLevelLabel(index, message), message, disabled);
+      renderTomeGroups(elements.tomesList, tomeInstances, planner, language, (index) => tomeLevelLabel(index, planner, language), message, disabled);
     } else {
-      renderCollectionGroups(elements.collectionsList, collectionInstances, planner, language, (index) => collectionLevelLabel(index, planner, message, language), message, disabled);
+      renderCollectionGroups(elements.collectionsList, collectionInstances, planner, language, (index) => collectionLevelLabel(index, planner, language), message, disabled);
     }
   }
 
@@ -306,16 +300,17 @@ function clampInstanceValue(value, maxIndex) {
   return Number.isInteger(value) && value >= 0 && value <= maxIndex ? value : 0;
 }
 
-function tomeLevelLabel(index, message) {
-  return index === 0 ? message.notStarted : `${message.levelPrefix} ${toRoman(index)}`;
+function tomeLevelLabel(index, planner, language) {
+  return resolveLocalizedLabel(planner.tomeLevels[index]?.label, language, String(index));
 }
 
-function collectionLevelLabel(index, planner, message, language) {
+function collectionLevelLabel(index, planner, language) {
   const row = planner.collectionLevels[index];
-  if (row.tier === 'start') return message.notStarted;
+  if (row.tier === 'start') return resolveLocalizedLabel(row.label, language, row.id);
   const tier = planner.tiers.find((entry) => entry.key === row.tier);
   const label = resolveLocalizedLabel(tier?.label, language, row.tier);
-  return row.star > 0 ? `${label} · ${message.starWord} ${row.star}` : label;
+  const starPostfix = resolveLocalizedLabel(planner.levelPostfixes.collection.star, language, 'star');
+  return row.star > 0 ? `${label} · ${starPostfix} ${row.star}` : label;
 }
 
 function buildLevelOptions(maxIndex, labelFn, zeroLabelOverride) {
@@ -506,14 +501,14 @@ function renderBreakdownTable(container, result, planner, language, message) {
   const rows = [
     ...result.tomeBreakdown.map((entry) => [
       tomeSlotLabel(planner, entry.index, language),
-      tomeLevelLabel(entry.currentIndex, message),
-      tomeLevelLabel(entry.targetIndex, message),
+      tomeLevelLabel(entry.currentIndex, planner, language),
+      tomeLevelLabel(entry.targetIndex, planner, language),
       formatCost(entry.cost, planner),
     ]),
     ...result.collectionBreakdown.map((entry) => [
       resolveLocalizedLabel(planner.collectionSlots[entry.index].label, language, String(entry.index)),
-      collectionLevelLabel(entry.currentIndex, planner, message, language),
-      collectionLevelLabel(entry.targetIndex, planner, message, language),
+      collectionLevelLabel(entry.currentIndex, planner, language),
+      collectionLevelLabel(entry.targetIndex, planner, language),
       formatCost(entry.cost, planner),
     ]),
   ];
