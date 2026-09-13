@@ -1,6 +1,8 @@
 import { formatNumber } from './planner-core.js';
 import { hasLocalizedLabel } from './localized-label.js';
 
+const RARITY_TIER_KEYS = ['common', 'uncommon', 'rare', 'epic', 'legendary', 'legendary_t1', 'legendary_t2', 'exotic', 'exotic_t1', 'exotic_t2', 'exotic_t3'];
+
 export { formatNumber };
 
 const RESOURCE_KEYS = ['EquipmentParts', 'Magnet', 'PrecisionEquipment', 'PotentialCoil'];
@@ -10,7 +12,7 @@ const RARITY_LEVEL_COUNT = 21;
 const MASTERY_LEVEL_COUNT = 21;
 
 export function createHeroEquipmentPlanner(data) {
-  if (!data || !Array.isArray(data.troops) || !Array.isArray(data.slots) || !Array.isArray(data.resources) || !data.rarity || !Array.isArray(data.rarity.levels) || !data.mastery || !Array.isArray(data.mastery.levels)) {
+  if (!data || !Array.isArray(data.troops) || !Array.isArray(data.slots) || !Array.isArray(data.resources) || !Array.isArray(data.rarityTiers) || !data.rarity || !Array.isArray(data.rarity.levels) || !data.mastery || !Array.isArray(data.mastery.levels)) {
     throw new TypeError('Hero Equipment data is unavailable.');
   }
   if (data.troops.length !== TROOP_COUNT) throw new TypeError(`Hero Equipment data must contain exactly ${TROOP_COUNT} troops.`);
@@ -18,6 +20,10 @@ export function createHeroEquipmentPlanner(data) {
   if (data.rarity.levels.length !== RARITY_LEVEL_COUNT) throw new TypeError(`Hero Equipment data must contain exactly ${RARITY_LEVEL_COUNT} rarity levels.`);
   if (data.mastery.levels.length !== MASTERY_LEVEL_COUNT) throw new TypeError(`Hero Equipment data must contain exactly ${MASTERY_LEVEL_COUNT} mastery levels.`);
 
+  const rarityTiers = data.rarityTiers.map(normalizeRarityTier);
+  if (rarityTiers.length !== RARITY_TIER_KEYS.length || RARITY_TIER_KEYS.some((key) => !rarityTiers.some((tier) => tier.key === key))) {
+    throw new TypeError(`Hero Equipment data must define labels for exactly these rarity tiers: ${RARITY_TIER_KEYS.join(', ')}.`);
+  }
   const masteryLevels = data.mastery.levels.map((row, index) => normalizeLevel(row, `mastery level ${index}`));
   const masteryIndexById = new Map(masteryLevels.map((level, index) => [level.id, index]));
   const rarityLevels = data.rarity.levels.map((row, index) => normalizeRarityLevel(row, `rarity level ${index}`, masteryIndexById));
@@ -28,7 +34,7 @@ export function createHeroEquipmentPlanner(data) {
     for (const slot of data.slots) cellKeys.push(`${troop}-${slot}`);
   }
 
-  return { troops: [...data.troops], slots: [...data.slots], resources, rarityLevels, masteryLevels, masteryIndexById, cellKeys };
+  return { troops: [...data.troops], slots: [...data.slots], resources, rarityTiers, rarityLevels, masteryLevels, masteryIndexById, cellKeys };
 }
 
 export function calculateHeroEquipment(planner, selections) {
@@ -123,6 +129,13 @@ function normalizeCost(cost, context) {
     result[key] = value;
   }
   return result;
+}
+
+function normalizeRarityTier(tier) {
+  if (!tier || typeof tier.key !== 'string' || !hasLocalizedLabel(tier.label)) {
+    throw new TypeError('Hero Equipment data has an invalid rarity tier definition.');
+  }
+  return { key: tier.key, label: tier.label };
 }
 
 function normalizeResource(resource) {

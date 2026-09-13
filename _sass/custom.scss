@@ -7,6 +7,9 @@
 /* Rarity tier colors, shared across game-guide content (Epic/Legendary/Exotic
    text, badges, etc.) so any future usage stays consistent with these. */
 :root {
+  --rarity-common: rgb(151, 151, 151);
+  --rarity-uncommon: rgb(74, 181, 46);
+  --rarity-rare: rgb(0, 173, 247);
   --rarity-epic: rgb(233, 88, 171);
   --rarity-legendary: rgb(243, 171, 8);
   --rarity-exotic: rgb(205, 47, 48);
@@ -17,6 +20,18 @@
 .rarity-exotic {
   font-weight: 700;
   font-style: italic;
+}
+
+.rarity-common {
+  color: var(--rarity-common);
+}
+
+.rarity-uncommon {
+  color: var(--rarity-uncommon);
+}
+
+.rarity-rare {
+  color: var(--rarity-rare);
 }
 
 .rarity-epic {

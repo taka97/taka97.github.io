@@ -16,6 +16,18 @@ resources:
   - { key: Magnet, label: { en: "Magnet", vi: "Nam châm" }, icon: /assets/images/lands-of-jail/hero-equipment/magnet.png }
   - { key: PrecisionEquipment, label: { en: "Precision Gear", vi: "Bánh răng Chính xác" }, icon: /assets/images/lands-of-jail/hero-equipment/precision-gear.png }
   - { key: PotentialCoil, label: Potential Coil}
+rarityTiers:
+  - { key: common,       label: { en: "Common",       vi: "Thường" } }
+  - { key: uncommon,     label: { en: "Uncommon",     vi: "Tốt" } }
+  - { key: rare,         label: { en: "Rare",         vi: "Hiếm" } }
+  - { key: epic,         label: { en: "Epic",         vi: "Sử thi" } }
+  - { key: legendary,    label: { en: "Legendary",    vi: "Huyền thoại" } }
+  - { key: legendary_t1, label: { en: "Legendary T1", vi: "Huyền thoại T1" } }
+  - { key: legendary_t2, label: { en: "Legendary T2", vi: "Huyền thoại T2" } }
+  - { key: exotic,       label: { en: "Exotic",       vi: "Đỉnh cao" } }
+  - { key: exotic_t1,    label: { en: "Exotic T1",    vi: "Đỉnh cao T1" } }
+  - { key: exotic_t2,    label: { en: "Exotic T2",    vi: "Đỉnh cao T2" } }
+  - { key: exotic_t3,    label: { en: "Exotic T3",    vi: "Đỉnh cao T3" } }
 # 21 entries: 11 tiers, each (except exotic_t3) paired with a "_s1" "levels
 # maxed" checkpoint. Target selects only the 11 non-"_s1" ids; Current may
 # select any of the 21. requiresMastery: level id (string, matches

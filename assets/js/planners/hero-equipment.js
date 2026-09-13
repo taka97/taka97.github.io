@@ -1,22 +1,8 @@
 import { createHeroEquipmentPlanner, calculateHeroEquipment, formatNumber } from './hero-equipment-core.js';
-import { localizeResources } from './localized-label.js';
+import { localizeResources, resolveLocalizedLabel } from './localized-label.js';
 import { troopName } from './troop-name.js';
 import { createProfileStore, getToolData, updateToolData } from './storage.js';
 import { createTable, clearElement, setStatus as setStatusElement, renderMissingCard, targetCell, grandTotalFooter, updateStickyBar, renderInstanceBadge, renderEstimatedBadge, resourceIcon, formatStockInputValue, parseStockInputValue, wireStockInputFormatting } from './table-helpers.js';
-
-const RARITY_TIER_LABELS = {
-  common: 'Common',
-  uncommon: 'Uncommon',
-  rare: 'Rare',
-  epic: 'Epic',
-  legendary: 'Legendary',
-  legendary_t1: 'Legendary T1',
-  legendary_t2: 'Legendary T2',
-  exotic: 'Exotic',
-  exotic_t1: 'Exotic T1',
-  exotic_t2: 'Exotic T2',
-  exotic_t3: 'Exotic T3',
-};
 
 const MESSAGES = {
   en: {
@@ -338,18 +324,29 @@ function rarityTierKey(id) {
   return id.endsWith('_s1') ? id.slice(0, -3) : id;
 }
 
-function rarityLevelLabel(index, planner, message) {
+function rarityLevelLabel(index, planner, language, message) {
   const id = planner.rarityLevels[index].id;
-  const label = RARITY_TIER_LABELS[rarityTierKey(id)] ?? rarityTierKey(id);
+  const tierKey = rarityTierKey(id);
+  const tier = planner.rarityTiers.find((entry) => entry.key === tierKey);
+  const label = resolveLocalizedLabel(tier?.label, language, tierKey);
   return id.endsWith('_s1') ? `${label}${message.maxedSuffix}` : label;
+}
+
+function rarityLevelColor(index, planner) {
+  return `var(--rarity-${rarityTierKey(planner.rarityLevels[index].id).replace(/_t\d+$/, '')})`;
 }
 
 function masteryLevelLabel(index, message) {
   return index === 0 ? message.notStarted : `${message.levelPrefix} ${index}`;
 }
 
-function buildOptionsForIndices(indices, labelFn, zeroLabelOverride) {
-  return indices.map((index) => new Option(index === 0 && zeroLabelOverride !== undefined ? zeroLabelOverride : labelFn(index), String(index)));
+function buildOptionsForIndices(indices, labelFn, zeroLabelOverride, colorFn) {
+  return indices.map((index) => {
+    const option = new Option(index === 0 && zeroLabelOverride !== undefined ? zeroLabelOverride : labelFn(index), String(index));
+    const color = colorFn?.(index);
+    if (color) option.style.color = color;
+    return option;
+  });
 }
 
 function renderTroopGroups(container, planner, equipmentState, rarityTargetIndices, language, message, disabled) {
@@ -375,7 +372,8 @@ function renderTroopGroups(container, planner, equipmentState, rarityTargetIndic
         heading: message.rarityTrackLabel,
         currentIndices: rarityAllIndices,
         targetIndices: rarityTargetIndices,
-        labelFn: (index) => rarityLevelLabel(index, planner, message),
+        labelFn: (index) => rarityLevelLabel(index, planner, language, message),
+        colorFn: (index) => rarityLevelColor(index, planner),
         currentIndex: equipmentState[troop][slot].rarity.currentIndex,
         targetIndex: equipmentState[troop][slot].rarity.targetIndex,
       }, message, disabled));
@@ -429,7 +427,7 @@ function renderTrackRow(cellKey, track, options, message, disabled) {
   const currentSelect = document.createElement('select');
   currentSelect.dataset.role = 'current-level';
   currentSelect.disabled = disabled;
-  currentSelect.replaceChildren(...buildOptionsForIndices(options.currentIndices, options.labelFn));
+  currentSelect.replaceChildren(...buildOptionsForIndices(options.currentIndices, options.labelFn, undefined, options.colorFn));
   currentSelect.value = String(options.currentIndex);
   currentLabel.append(currentSelect);
 
@@ -438,7 +436,7 @@ function renderTrackRow(cellKey, track, options, message, disabled) {
   const targetSelect = document.createElement('select');
   targetSelect.dataset.role = 'target-level';
   targetSelect.disabled = disabled;
-  targetSelect.replaceChildren(...buildOptionsForIndices(options.targetIndices, options.labelFn, message.noTarget));
+  targetSelect.replaceChildren(...buildOptionsForIndices(options.targetIndices, options.labelFn, message.noTarget, options.colorFn));
   targetSelect.value = String(options.targetIndex);
   targetSelect.setAttribute('aria-describedby', errorId);
   targetLabel.append(targetSelect);
@@ -541,7 +539,7 @@ function renderBreakdownTable(container, result, planner, rarityIndexById, langu
   const rows = result.breakdown.map((entry) => {
     const target = targetCell(rowLabel(entry, planner, language, message), entry.automatic, message.autoLabel);
     const levelLabel = entry.track === 'rarity'
-      ? (id) => rarityLevelLabel(rarityIndexById.get(id), planner, message)
+      ? (id) => rarityLevelLabel(rarityIndexById.get(id), planner, language, message)
       : (id) => masteryLevelLabel(planner.masteryIndexById.get(id), message);
     return [target, levelLabel(entry.fromLevelId), levelLabel(entry.toLevelId), formatCostCell(entry, planner, message)];
   });
