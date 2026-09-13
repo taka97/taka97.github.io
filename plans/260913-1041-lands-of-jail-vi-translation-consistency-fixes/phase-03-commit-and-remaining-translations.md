@@ -1,7 +1,7 @@
 ---
 phase: 3
 title: "Commit outstanding changes & remaining translations"
-status: pending
+status: completed
 priority: P1
 effort: "30m commit + variable for remaining translations"
 dependencies: [2]
@@ -23,11 +23,12 @@ N/A — git operations + data-only follow-ups, no new architecture.
 
 ## Related Code Files
 - Commit (working tree, listed in Phase 2): 4 `.js` files, 8 `.md` files, 1 new `.js` file, 1 more `.yml` file.
-- Future, not in this phase's scope — fill in when ready:
-  - `_data/lands_of_jail/tomes_collections.yml` — `collectionTiers`: `exotic`, `exotic_t1`, `exotic_t2`, `exotic_t3` still plain-string (no `vi`).
-  - `_data/lands_of_jail/robots_satellites.yml` — `satellites`: `sat_ssr_domaine_omniscient`, `sat_ssr_nexus_celeste`, `sat_ssr_argus`, `sat_ssr_polaris` still plain-string.
-  - `_data/lands_of_jail/hero_equipment.yml` — `resources`: `PotentialCoil` still plain-string.
-  - `contents/vi/lands-of-jail/planners/collections-tomes.md` and `robots-satellites.md` — stale intro-paragraph disclaimer sentences ("Tên tài nguyên và tên bậc/Satellite hiện đang hiển thị bằng tiếng Anh") — now partially inaccurate since most names are translated; user has not yet decided whether to update now or wait until the above translations are complete.
+- Genuinely blocked, not just deferred — see memory `pending-vi-translations-in-game-data`:
+  <!-- Updated: Session 2 (post-merge) - confirmed with user this is an indefinite block, not a queued task -->
+  - `_data/lands_of_jail/tomes_collections.yml` — `collectionTiers`: `exotic`, `exotic_t1`, `exotic_t2`, `exotic_t3` still plain-string (no `vi`). User confirmed (2026-09-13): blocked on not having real in-game VI text.
+  - `_data/lands_of_jail/robots_satellites.yml` — `satellites`: `sat_ssr_domaine_omniscient`, `sat_ssr_nexus_celeste`, `sat_ssr_argus`, `sat_ssr_polaris` still plain-string. Same block.
+  - `_data/lands_of_jail/hero_equipment.yml` — `resources`: `PotentialCoil` still plain-string. Reason unconfirmed — don't assume the same in-game-data block without asking.
+  - `contents/vi/lands-of-jail/planners/collections-tomes.md` and `robots-satellites.md` — intro-paragraph disclaimer sentences were narrowed in Phase 4 (resource-name clause dropped since resources are fully translated; tier/satellite-name clause kept since that part is still accurate). This is now the stable wording, not an interim one — see plan.md Validation Log's "Superseded" note.
   - `assets/js/planners/hero-equipment.js` `RARITY_TIER_LABELS` — hardcoded EN-only, not yml-driven; tracked in memory `pending-hero-equipment-rarity-labels`, user said review later.
 
 ## Implementation Steps
@@ -53,12 +54,27 @@ N/A — git operations + data-only follow-ups, no new architecture.
    `robots-satellites.md` only after their respective remaining translations
    (exotic tiers / SSR satellites, step 7) are filled in — not before.
 
+## Outcome
+<!-- Updated: Session 2 (post-merge) - phase executed, recording actual result -->
+Executed as 2 commits instead of the single commit originally planned — a
+code-reviewer subagent gate (mandatory in the `/ak:cook` flow this ran under)
+found the working tree also contained the new plan directory, which doesn't
+belong in a code commit:
+- `95836b7` — `refactor(lands-of-jail): consolidate resource labels, dedup troop names, standardize wording` (14 files: the 13 planned + `troop-name.js`)
+- `2005d8a` — `docs(plans): add VI translation consistency plan` (this plan's own files)
+
+Both merged into `main` via `ab911fc` (branch `feat/loj-vi-label-translations`
+deleted after). The code-reviewer pass also caught 2 real bugs this phase's
+own earlier edits had introduced (stale quoted wording + stale resource order
+in `hero-equipment.md`'s intro, from the Phase 2 `maxedSuffix`/reorder work) —
+fixed before committing. See `git log --oneline -6` on `main` for the full sequence.
+
 ## Success Criteria
-- [ ] `git log --oneline -3` shows the new commit(s) with correct messages/attribution.
-- [ ] `git status --porcelain=v1` is clean (or only shows files the user explicitly wants left uncommitted).
-- [ ] `node --test tests/*.test.mjs` passes post-commit.
-- [ ] Remaining translation items and stale-copy items are still tracked (this
-      file + existing memory notes) — not silently forgotten once the commit lands.
+- [x] `git log --oneline -6` shows the new commits with correct messages/attribution (`95836b7`, `2005d8a`, then merge `ab911fc`).
+- [x] `git status --porcelain=v1` was clean immediately after this phase (Phase 4's changes came later, on `main`).
+- [x] `node --test tests/*.test.mjs` passed post-commit (10/10).
+- [x] Remaining translation items and stale-copy items are still tracked (this
+      file + memory `pending-vi-translations-in-game-data`, `pending-hero-equipment-rarity-labels`) — not silently forgotten once the commit landed.
 
 ## Risk Assessment
 Low. The only real risk is scope creep — sweeping in unrelated changes with
