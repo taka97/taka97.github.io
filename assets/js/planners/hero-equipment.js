@@ -85,7 +85,7 @@ async function initializeHeroEquipmentPlanner(container) {
   }
 
   const rarityIndexById = new Map(planner.rarityLevels.map((level, index) => [level.id, index]));
-  const rarityTargetIndices = planner.rarityLevels.map((level, index) => index).filter((index) => !planner.rarityLevels[index].id.endsWith('_s1'));
+  const rarityTargetIndices = planner.rarityLevels.map((level, index) => index);
 
   try {
     store = await createProfileStore();
