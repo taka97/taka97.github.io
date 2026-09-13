@@ -36,7 +36,7 @@ const MESSAGES = {
     storage: 'Không thể dùng bộ nhớ trình duyệt. Bạn vẫn có thể tính toán.',
     range: 'Chọn cấp mục tiêu không thấp hơn cấp hiện tại.',
     inventory: 'Hãy nhập số nguyên lớn hơn hoặc bằng 0.',
-    noTargets: 'Chưa chọn mục tiêu. Hãy chọn cấp mục tiêu cho một Hero Stars hoặc Exclusive Equipment để xem bạn còn thiếu gì.',
+    noTargets: 'Chưa chọn mục tiêu. Hãy chọn cấp mục tiêu cho một Sao Anh hùng hoặc Trang bị độc quyền để xem bạn còn thiếu gì.',
     notSet: 'Chưa nhập',
     covered: 'Đã đủ',
     needed: 'Cần {amount}',
@@ -55,8 +55,8 @@ const MESSAGES = {
     starLabel: '{n} sao',
     stageLabel: '{n} sao · giai đoạn {s}',
     levelPrefix: 'Cấp',
-    heroStarsTrackLabel: 'Hero Stars',
-    exclusiveEquipmentTrackLabel: 'Exclusive Equipment',
+    heroStarsTrackLabel: 'Sao Anh hùng',
+    exclusiveEquipmentTrackLabel: 'Trang bị độc quyền',
   },
 };
 

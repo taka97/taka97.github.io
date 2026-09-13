@@ -1,5 +1,5 @@
 ---
-title: Tính Hero Stars & Exclusive Equipment
+title: Tính Mảnh Anh hùng và Trang bị độc quyền
 lang: vi
 permalink: /vi/lands-of-jail/planners/hero-stars-exclusive-equipment/
 ref: loj-hero-stars-exclusive-equipment-planner
@@ -9,9 +9,9 @@ aside:
   toc: true
 ---
 
-# Tính Hero Stars & Exclusive Equipment
+# Tính Mảnh Anh hùng và Trang bị độc quyền
 
-Tính số Redeem (Chuộc) và Exclusive Weapon Parts cần để nâng cấp Star rank và Exclusive Equipment của tướng. Chi phí giống nhau cho mọi tướng, nên hãy thêm bao nhiêu Hero Stars và Exclusive Equipment tùy ý (tối đa 6 mỗi loại — hai nút "+ Add Hero" hoạt động độc lập), chọn cấp hiện tại và cấp mục tiêu cho từng cái. Danh sách mục tiêu của Hero Stars chỉ hiện Đã chiêu mộ và mỗi mốc sao trọn vẹn (1-5 sao) — các giai đoạn trung gian không phải mục tiêu hợp lệ, chỉ là điểm dừng trên đường đi. Xem tổng số cần cho tất cả cùng lúc.
+Tính số Mảnh anh hùng (Redeem) và Mảnh trang bị độc quyền (Exclusive Weapon Parts) cần để nâng cấp Sao Anh hùng và Trang bị độc quyền của tướng. Chi phí giống nhau cho mọi tướng, nên hãy thêm bao nhiêu Sao Anh hùng và Trang bị độc quyền tùy ý (tối đa 6 mỗi loại — hai nút "+ Thêm Hero" hoạt động độc lập), chọn cấp hiện tại và cấp mục tiêu cho từng cái. Danh sách mục tiêu của Sao Anh hùng chỉ hiện Đã chiêu mộ và mỗi mốc sao trọn vẹn (1-5 sao) — các giai đoạn trung gian không phải mục tiêu hợp lệ, chỉ là điểm dừng trên đường đi. Xem tổng số cần cho tất cả cùng lúc.
 
 <section class="loj-planner" data-hero-stars-exclusive-equipment-planner data-lang="vi" aria-labelledby="hsee-planner-heading">
   <h2 id="hsee-planner-heading">Lập kế hoạch nâng cấp</h2>
@@ -38,19 +38,19 @@ Tính số Redeem (Chuộc) và Exclusive Weapon Parts cần để nâng cấp S
     <section class="loj-planner__results" data-role="results" aria-labelledby="hsee-totals-heading">
       <h3 id="hsee-totals-heading">Yêu cầu nâng cấp</h3>
       <div data-role="totals" class="loj-planner__table-wrap" tabindex="0" role="region" aria-labelledby="hsee-totals-heading">
-        <p>Tổng sẽ hiện sau khi bạn chọn cấp mục tiêu cho một Hero Stars hoặc Exclusive Equipment.</p>
+        <p>Tổng sẽ hiện sau khi bạn chọn cấp mục tiêu cho một Sao Anh hùng hoặc Trang bị độc quyền.</p>
       </div>
     </section>
   </section>
 
   <section aria-labelledby="hsee-hero-stars-heading">
-    <h2 id="hsee-hero-stars-heading">Hero Stars</h2>
+    <h2 id="hsee-hero-stars-heading">Sao Anh hùng</h2>
     <div data-role="hero-stars-list" class="loj-planner__instance-ranges"></div>
     <button type="button" data-role="add-hero-stars">+ Thêm Hero</button>
   </section>
 
   <section aria-labelledby="hsee-exclusive-equipment-heading">
-    <h2 id="hsee-exclusive-equipment-heading">Exclusive Equipment</h2>
+    <h2 id="hsee-exclusive-equipment-heading">Trang bị độc quyền</h2>
     <div data-role="exclusive-equipment-list" class="loj-planner__instance-ranges"></div>
     <button type="button" data-role="add-exclusive-equipment">+ Thêm Hero</button>
   </section>

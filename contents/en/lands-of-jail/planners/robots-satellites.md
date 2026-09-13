@@ -11,7 +11,7 @@ aside:
 
 # Robots & Satellites Planner
 
-Calculate the Data Disks, Planet Coins, and Power Modules needed to level up your Robot and all 9 named Satellites. Add as many Robot instances as you're working on (up to 12), set a current and target level for each, and set current/target levels for the R, SR, and SSR Satellites you're leveling. See the combined total across everything at once. One cost figure — the R-tier Satellites' level 50 Data Disk cost — is marked with a "≈" badge because it wasn't fully confirmed from source; click or focus it to read the note. Resource and Satellite names are shown in English for now.
+Calculate the Data Disks, Planet Coins, and Power Modules needed to level up your Robot and all 9 named Satellites. Add as many Robot instances as you're working on (up to 12), set a current and target level for each, and set current/target levels for the R, SR, and SSR Satellites you're leveling. See the combined total across everything at once. One cost figure — the R-tier Satellites' level 50 Data Disk cost — is marked with a "≈" badge because it wasn't fully confirmed from source; click or focus it to read the note.
 
 <section class="loj-planner" data-robots-satellites-planner data-lang="en" aria-labelledby="rs-planner-heading">
   <h2 id="rs-planner-heading">Plan your upgrade</h2>

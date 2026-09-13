@@ -14,7 +14,7 @@ robotSlotCaps:
   - { slot: 1, maxLevel: 60 }
 resources:
   - { key: PrisonerArmorData, label: { en: "Prisoner Armor Data", vi: "Dữ liệu Giáp Kẻ xấu" }, icon: /assets/images/lands-of-jail/robots-satellites/prisoner-armor-data.png }
-  - { key: PowerModule, label: { en: "Power Module", vi: "Mô-đun Cấp điện Thông thường" }, icon: /assets/images/lands-of-jail/robots-satellites/power-module.png }
+  - { key: PowerModule, label: { en: "Power Module", vi: "Mô-đun Cấp điện Thường" }, icon: /assets/images/lands-of-jail/robots-satellites/power-module.png }
   - { key: AdvancedPowerModule, label: { en: "Advanced Power Module", vi: "Mô-đun Cấp điện Nâng cao" }, icon: /assets/images/lands-of-jail/robots-satellites/advanced-power-module.png }
   - { key: DataDisk, label: { en: "Data Disk", vi: "Đĩa dữ liệu" }, icon: /assets/images/lands-of-jail/robots-satellites/data-disk.png }
   - { key: PlanetCoin, label: { en: "Planet Coin", vi: "Tiền tệ Hành tinh" }, icon: /assets/images/lands-of-jail/robots-satellites/planet-coin.png }
