@@ -13,6 +13,5 @@ aside:
 
 Guides for Season 2.
 
-- [{% include term.html key="satellite" %} release update](/en/lands-of-jail/satellite/#season-2-release-update)
 - [Heroes](/en/lands-of-jail/season-2/heroes/)
 - [Robots](/en/lands-of-jail/season-2/robots/)

@@ -64,7 +64,7 @@ robotLevels:
 satelliteTiers:
   - key: R
     label: R
-    badge: "#5b8cff"
+    badge: "var(--tier-r)"
     levels:
       - { id: not_started,      DataDisk: 0,     PlanetCoin: 0 }
       - { id: level_10,         DataDisk: 1565,  PlanetCoin: 0 }
@@ -79,7 +79,7 @@ satelliteTiers:
       - { id: level_50_maxed,   DataDisk: 0,     PlanetCoin: 80 }
   - key: SR
     label: SR
-    badge: "#9b6bff"
+    badge: "var(--tier-sr)"
     levels:
       - { id: not_started,      DataDisk: 0,     PlanetCoin: 0 }
       - { id: level_10,         DataDisk: 1740,  PlanetCoin: 0 }
@@ -98,7 +98,7 @@ satelliteTiers:
       - { id: level_70_maxed,   DataDisk: 0,     PlanetCoin: 260 }
   - key: SSR
     label: SSR
-    badge: "#ffd60a"
+    badge: "var(--tier-ssr)"
     levels:
       - { id: not_started,      DataDisk: 0,     PlanetCoin: 0 }
       - { id: level_10,         DataDisk: 1785,  PlanetCoin: 0 }

@@ -7,7 +7,7 @@
 /* Rarity tier colors, shared across game-guide content (Epic/Legendary/Exotic
    text, badges, etc.) so any future usage stays consistent with these. */
 :root {
-  --rarity-epic: rgb(218, 82, 160);
+  --rarity-epic: rgb(233, 88, 171);
   --rarity-legendary: rgb(243, 171, 8);
   --rarity-exotic: rgb(205, 47, 48);
 }
@@ -16,6 +16,7 @@
 .rarity-legendary,
 .rarity-exotic {
   font-weight: 700;
+  font-style: italic;
 }
 
 .rarity-epic {
@@ -28,6 +29,29 @@
 
 .rarity-exotic {
   color: var(--rarity-exotic);
+}
+
+/* Robots & Satellites unit tier colors — moved here from the planner tool's
+   per-instance inline colors (`_data/lands_of_jail/robots_satellites.yml`'s
+   `satelliteTiers[].badge`, applied via `--badge-color` in
+   assets/js/planners/robots-satellites.js) so both the planner and game-guide
+   content (e.g. satellite.md) share one source of truth. */
+:root {
+  --tier-r: #5b8cff;
+  --tier-sr: #9b6bff;
+  --tier-ssr: #ffd60a;
+}
+
+.tier-r {
+  color: var(--tier-r);
+}
+
+.tier-sr {
+  color: var(--tier-sr);
+}
+
+.tier-ssr {
+  color: var(--tier-ssr);
 }
 
 /* Softer body line-height for long guide pages. */

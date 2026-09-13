@@ -11,26 +11,17 @@ aside:
 
 # {% include term.html key="lands_of_jail" %} - {% include term.html key="satellite" %}
 
-## Cập nhật Mùa 2 {#cap-nhat-mua-2}
-
-Mùa 2 mở khóa hai vệ tinh mới:
-
-- **{% include loj-satellite-name.html id="sat_sr_sentinelle" %}:** Vệ tinh tăng viện, tập trung vào huấn luyện lính tức thì.
-- **{% include loj-satellite-name.html id="sat_sr_arbitre" %}:** Vệ tinh chiến đấu, tập trung vào sát thương thêm trong sự kiện Cage.
-
-Chỉ số nâng cấp chi tiết và các mốc sức mạnh cuối vẫn cần kiểm chứng thêm trong game.
-
 ## Tổng quan
 
-### {% include term.html key="satellite" %} {% include loj-satellite-name.html id="sat_r_laser" %}: Ưu tiên hàng đầu 🔵 {#sat-laser}
+### {% include term.html key="satellite" %} {% include loj-satellite-name.html id="sat_r_laser" %}: <span class="tier-r">R</span> 🔵 {#sat-laser}
 
 **Vai trò:** Động cơ cho sự phát triển của bạn — vệ tinh duy nhất tự động tạo ra tài nguyên cần thiết để nâng cấp các vệ tinh khác.
 
-**Kỹ năng:** 6 rương/ngày (mỗi lần thu thập tài nguyên 1 giờ được 1 rương), chứa Space Parts và EXP Disks.
+**Kỹ năng:** 6 rương/ngày (mỗi lần thu thập tài nguyên 1 giờ được 1 rương), chứa Tiền tệ Hành tinh và Đĩa dữ liệu.
 
-**Hiệu ứng Overclock:**
+**Hiệu ứng Siêu tần:**
 
-| Cấp Overclock | Máu Bom Địch |
+| Cấp Siêu tần | HP Lính ném bom Địch |
 | --- | --- |
 | 6 Stats <span class="rarity-epic">Epic</span> | -6% |
 | 2 Stats <span class="rarity-legendary">Legendary</span> | -9% |
@@ -43,41 +34,93 @@ Chỉ số nâng cấp chi tiết và các mốc sức mạnh cuối vẫn cần
 
 **Kết luận:** Max cái này đầu tiên để tạo "hiệu ứng quả cầu tuyết" cho nền kinh tế vũ trụ của bạn.
 
-### {% include term.html key="satellite" %} {% include loj-satellite-name.html id="sat_sr_sentinelle" %}: Mùa 2 🟣 {#sat-sentinel}
+### {% include term.html key="satellite" %} {% include loj-satellite-name.html id="sat_r_observateur" %}: <span class="tier-r">R</span> 🔵 {#sat-watcher}
 
-**Vai trò:** Vệ tinh tăng viện.
+**Vai trò:** Tài nguyên Bắt giữ.
 
-**Hiệu ứng:** Huấn luyện lính tức thì.
+**Kỹ năng:** Nhận ngay thu nhập bắt giữ của 6 giờ mỗi ngày.
 
-**Kết luận:** Rất hữu ích khi cần hồi phục hoặc chuẩn bị lính nhanh. Ưu tiên sau {% include loj-satellite-name.html id="sat_r_laser" %} nếu tốc độ hồi quân đang giới hạn tiến độ của bạn.
+**Hiệu ứng Siêu tần:**
 
-### {% include term.html key="satellite" %} {% include loj-satellite-name.html id="sat_sr_arbitre" %}: Mùa 2 🟣 {#sat-arbitrator}
-
-**Vai trò:** Vệ tinh chiến đấu cho sát thương sự kiện.
-
-**Hiệu ứng:** Gây thêm sát thương trong sự kiện Cage.
-
-**Kết luận:** Nên đầu tư khi bạn cần tối ưu thành tích Cage hơn là tiến độ PvE thông thường.
-
-### {% include term.html key="satellite" %} {% include loj-satellite-name.html id="sat_r_radiance" %}: Tối ưu PvE 🔵 {#sat-radiance}
-
-**Vai trò:** Chuyên gia thực chiến cho PvE.
-
-**Hiệu ứng:** +11% Tấn công & Phòng thủ khi bắt giữ tù nhân.
-
-**Kết luận:** Cần thiết để vượt các màn PvE khó và nhiệm vụ hằng ngày; vô dụng trong PvP. Chỉ tập trung khi {% include term.html key="satellite" %} {% include loj-satellite-name.html id="sat_r_laser" %} đã ổn định.
-
-### {% include term.html key="satellite" %} {% include loj-satellite-name.html id="sat_r_observateur" %}: Hỗ trợ phụ 🔵 {#sat-watcher}
-
-**Vai trò:** Phần thưởng tiện ích.
-
-**Hiệu ứng:** Giảm HP của deflector + rương tài nguyên hằng ngày.
+| Cấp Siêu tần | HP Lính khiên Địch |
+| --- | --- |
+| 6 Stats <span class="rarity-epic">Epic</span> | -6% |
+| 2 Stats <span class="rarity-legendary">Legendary</span> | -9% |
+| 4 Stats <span class="rarity-legendary">Legendary</span> | -12% |
+| 6 Stats <span class="rarity-legendary">Legendary</span> | -15% |
+| 2 Stats <span class="rarity-exotic">Exotic</span> | -19% |
+| 4 Stats <span class="rarity-exotic">Exotic</span> | -23% |
+| 6 Stats <span class="rarity-exotic">Exotic</span> | -27% |
+{: .overclock-table}
 
 **Kết luận:** Để cái này sau cùng. Lợi ích tốt nhưng ít tác động hơn {% include loj-satellite-name.html id="sat_r_laser" %} hay {% include loj-satellite-name.html id="sat_r_radiance" %}.
 
+### {% include term.html key="satellite" %} {% include loj-satellite-name.html id="sat_r_radiance" %}: <span class="tier-r">R</span> 🔵 {#sat-radiance}
+
+**Vai trò:** Chuyên gia thực chiến cho PvE.
+
+**Kỹ năng:** +6% Tấn công & Phòng thủ khi bắt giữ tù nhân.
+
+**Hiệu ứng Siêu tần:**
+
+| Cấp Siêu tần | Tấn công Lính súng Địch |
+| --- | --- |
+| 6 Stats <span class="rarity-epic">Epic</span> | -6% |
+| 2 Stats <span class="rarity-legendary">Legendary</span> | -9% |
+| 4 Stats <span class="rarity-legendary">Legendary</span> | -12% |
+| 6 Stats <span class="rarity-legendary">Legendary</span> | -15% |
+| 2 Stats <span class="rarity-exotic">Exotic</span> | -19% |
+| 4 Stats <span class="rarity-exotic">Exotic</span> | -23% |
+| 6 Stats <span class="rarity-exotic">Exotic</span> | -27% |
+{: .overclock-table}
+
+**Kết luận:** Cần thiết để vượt các màn PvE khó và nhiệm vụ hằng ngày; vô dụng trong PvP. Chỉ tập trung khi {% include term.html key="satellite" %} {% include loj-satellite-name.html id="sat_r_laser" %} đã ổn định.
+
+### {% include term.html key="satellite" %} {% include loj-satellite-name.html id="sat_sr_arbitre" %}: <span class="tier-sr">SR</span> 🟣 {#sat-arbitrator}
+
+**Vai trò:** Thưởng Sát thương Cage.
+
+**Kỹ năng:** Tăng 24% sát thương gây ra cho Cage.
+
+**Hiệu ứng Siêu tần:**
+
+| Cấp Siêu tần | Tấn công Lính ném bom Địch |
+| --- | --- |
+| 6 Stats <span class="rarity-epic">Epic</span> | -11% |
+| 2 Stats <span class="rarity-legendary">Legendary</span> | -16% |
+| 4 Stats <span class="rarity-legendary">Legendary</span> | -21% |
+| 6 Stats <span class="rarity-legendary">Legendary</span> | -26% |
+| 2 Stats <span class="rarity-exotic">Exotic</span> | -33% |
+| 4 Stats <span class="rarity-exotic">Exotic</span> | -40% |
+| 6 Stats <span class="rarity-exotic">Exotic</span> | -48% |
+{: .overclock-table}
+
+**Kết luận:** Nên đầu tư khi bạn cần tối ưu thành tích Cage hơn là tiến độ PvE thông thường.
+
+### {% include term.html key="satellite" %} {% include loj-satellite-name.html id="sat_sr_sentinelle" %}: <span class="tier-sr">SR</span> 🟣 {#sat-sentinel}
+
+**Vai trò:** Lính Tăng viện.
+
+**Kỹ năng:** Nhận ngay lính huấn luyện 8 giờ mỗi ngày.
+
+**Hiệu ứng Siêu tần:**
+
+| Cấp Siêu tần | Sát thương Lính súng Địch |
+| --- | --- |
+| 6 Stats <span class="rarity-epic">Epic</span> | -11% |
+| 2 Stats <span class="rarity-legendary">Legendary</span> | -16% |
+| 4 Stats <span class="rarity-legendary">Legendary</span> | -21% |
+| 6 Stats <span class="rarity-legendary">Legendary</span> | -26% |
+| 2 Stats <span class="rarity-exotic">Exotic</span> | -33% |
+| 4 Stats <span class="rarity-exotic">Exotic</span> | -40% |
+| 6 Stats <span class="rarity-exotic">Exotic</span> | -48% |
+{: .overclock-table}
+
+**Kết luận:** Rất hữu ích khi cần hồi phục hoặc chuẩn bị lính nhanh. Ưu tiên sau {% include loj-satellite-name.html id="sat_r_laser" %} nếu tốc độ hồi quân đang giới hạn tiến độ của bạn.
+
 ## Thứ tự ưu tiên
 
-🔵 Mùa 1 · 🟣 Mùa 2 · 🟡 sẽ ra mắt ở các mùa sau
+🔵 <span class="tier-r">R</span> · 🟣 <span class="tier-sr">SR</span> · 🟡 <span class="tier-ssr">SSR</span> _(chưa ra mắt)_
 
 1. **{% include loj-satellite-name.html id="sat_r_laser" %} 🔵 (Kinh tế):** Tài nguyên vệ tinh
 2. **{% include loj-satellite-name.html id="sat_sr_sentinelle" %} 🟣 (Tăng viện):** Huấn luyện lính tức thì
@@ -85,4 +128,4 @@ Chỉ số nâng cấp chi tiết và các mốc sức mạnh cuối vẫn cần
 4. **{% include loj-satellite-name.html id="sat_sr_arbitre" %} 🟣 (Chiến đấu):** Sát thương thêm trong sự kiện Cage
 5. **POLARIS 🟡 (Mục tiêu):** Thưởng tấn công Gorilla _(chưa ra mắt)_
 6. **{% include loj-satellite-name.html id="sat_r_radiance" %} 🔵 (Sức mạnh PvE):** Thưởng tấn công khi bắt giữ PvE
-7. **{% include loj-satellite-name.html id="sat_r_observateur" %} 🔵 (Hỗ trợ):** Rương tài nguyên hằng ngày và thưởng hỗ trợ
+7. **{% include loj-satellite-name.html id="sat_r_observateur" %} 🔵 (Hỗ trợ):** Nhận ngay thu nhập bắt giữ 6 giờ

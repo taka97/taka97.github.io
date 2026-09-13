@@ -32,13 +32,8 @@ aside:
 
 - [Di cư Giám ngục](/vi/lands-of-jail/events/migration-operation/)
 
-### Season 1
-
-Nội dung {% include term.html key="satellite" %} của Season 1 hiện nằm trong hướng dẫn [{% include term.html key="satellite" %}](/vi/lands-of-jail/satellite/) chính.
-
 ### Season 2
 
-- [Cập nhật {% include term.html key="satellite" %}](/vi/lands-of-jail/satellite/#cap-nhat-season-2)
 - [Heroes](/vi/lands-of-jail/season-2/heroes/)
 - [Robots](/vi/lands-of-jail/season-2/robots/)
 
