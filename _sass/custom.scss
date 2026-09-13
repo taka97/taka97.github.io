@@ -178,6 +178,11 @@
         margin-left: 0;
       }
 
+      .loj-planner__instance-details-link {
+        font-size: 0.8rem;
+        color: #5d5d67;
+      }
+
       // Only used when a card heading carries an icon (e.g. Forticlad buildings):
       // icon sits beside the name+badge column instead of stacking above it,
       // sized to roughly match that column's combined height.

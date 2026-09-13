@@ -21,6 +21,10 @@ Conventions for content and the small amount of theme/config code.
 - Store repeated game/UI terms in `_data/terms.yml` with `en` and `vi` values.
 - Render those terms with `{% include term.html key="<term_key>" %}` so the output follows
   the current page's `lang`.
+- Exception: names of objects a planner tool already owns (e.g. satellites in
+  `_data/lands_of_jail/robots_satellites.yml`) are sourced from that tool's yml, not
+  duplicated into `terms.yml` — render them with that tool's own name include (e.g.
+  `loj-satellite-name.html`) instead of `term.html`.
 - Keep `_data/locale.yml` for TeXt/theme UI strings only (`SEARCH`, `NEXT`, `PREVIOUS`, etc.).
 - Prefer hard-coded prose for normal sentences; use term keys for repeated labels,
   table values, and terms that are easy to mistranslate.

@@ -1,0 +1,7 @@
+{%- assign lang = page.lang | default: site.lang | default: "en" -%}
+{%- assign sat = site.data.lands_of_jail.robots_satellites.satellites | where: "id", include.id | first -%}
+{%- if sat -%}
+  {{- sat.label[lang] | default: sat.label.en | default: sat.label -}}
+{%- else -%}
+  {{- include.id -}}
+{%- endif -%}
