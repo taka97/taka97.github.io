@@ -5,16 +5,16 @@ source:
   note: >
     Rarity and Mastery cost curves are identical across all 3 troops and all
     4 equipment slots (verified via live localStorage state dump,
-    resource-calc-heroequipment-state-v1, schemaVersion 5) — one shared
+    resource-calc-hero-equipment-state-v1, schemaVersion 5) — one shared
     rarity table and one shared mastery table apply to all 12 (troop, slot)
     pairs. Past Legendary, a slot's Rarity level requires that same slot's
     own Mastery track at the paired level (never cross-slot/cross-troop).
 troops: [shieldbearer, bomber, shooter]
 slots: [gloves, helmet, chest, boots]
 resources:
-  - { key: EquipmentParts, label: Equipment EXP, icon: /assets/images/lands-of-jail/hero-equipment/equipment-exp.png }
-  - { key: PrecisionEquipment, label: Precision Gear, icon: /assets/images/lands-of-jail/hero-equipment/precision-gear.png }
-  - { key: Magnet, label: Magnet, icon: /assets/images/lands-of-jail/hero-equipment/magnet.png }
+  - { key: EquipmentParts, label: { en: "Equipment EXP", vi: "Kinh nghiệm Trang bị" }, icon: /assets/images/lands-of-jail/hero-equipment/equipment-exp.png }
+  - { key: PrecisionEquipment, label: { en: "Precision Gear", vi: "Bánh răng Chính xác" }, icon: /assets/images/lands-of-jail/hero-equipment/precision-gear.png }
+  - { key: Magnet, label: { en: "Magnet", vi: "Nam châm" }, icon: /assets/images/lands-of-jail/hero-equipment/magnet.png }
   - { key: PotentialCoil, label: Potential Coil}
 # 21 entries: 11 tiers, each (except exotic_t3) paired with a "_s1" "levels
 # maxed" checkpoint. Target selects only the 11 non-"_s1" ids; Current may
