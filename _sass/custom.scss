@@ -12,6 +12,12 @@
   --rarity-exotic: rgb(205, 47, 48);
 }
 
+.rarity-epic,
+.rarity-legendary,
+.rarity-exotic {
+  font-weight: 700;
+}
+
 .rarity-epic {
   color: var(--rarity-epic);
 }
