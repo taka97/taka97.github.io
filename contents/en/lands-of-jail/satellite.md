@@ -26,7 +26,20 @@ Detailed upgrade values and final stat breakpoints still need confirmation in-ga
 
 **Role:** The engine of your progression — the only satellite that passively generates the resources needed to upgrade the others.
 
-**Effect:** 6 chests/day (one per 1-hour resource gathering), containing Space Parts and EXP Disks.
+**Skills:** 6 chests/day (one per 1-hour resource gathering), containing Space Parts and EXP Disks.
+
+**Overclock Effect:**
+
+| Overclock Tier | Enemy Bomb HP |
+| --- | --- |
+| 6 Stats Epic | -6% |
+| 2 Stats Legendary | -9% |
+| 4 Stats Legendary | -12% |
+| 6 Stats Legendary | -15% |
+| 2 Stats Exotic | -19% |
+| 4 Stats Exotic | -23% |
+| 6 Stats Exotic | -27% |
+{: .overclock-table}
 
 **Verdict:** Max this one first to create a "snowball effect" on your space economy.
 

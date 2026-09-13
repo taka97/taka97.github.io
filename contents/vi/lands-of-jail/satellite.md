@@ -26,7 +26,20 @@ Chỉ số nâng cấp chi tiết và các mốc sức mạnh cuối vẫn cần
 
 **Vai trò:** Động cơ cho sự phát triển của bạn — vệ tinh duy nhất tự động tạo ra tài nguyên cần thiết để nâng cấp các vệ tinh khác.
 
-**Hiệu ứng:** 6 rương/ngày (mỗi lần thu thập tài nguyên 1 giờ được 1 rương), chứa Space Parts và EXP Disks.
+**Kỹ năng:** 6 rương/ngày (mỗi lần thu thập tài nguyên 1 giờ được 1 rương), chứa Space Parts và EXP Disks.
+
+**Hiệu ứng Overclock:**
+
+| Cấp Overclock | Máu Bom Địch |
+| --- | --- |
+| 6 Stats Epic | -6% |
+| 2 Stats Legendary | -9% |
+| 4 Stats Legendary | -12% |
+| 6 Stats Legendary | -15% |
+| 2 Stats Exotic | -19% |
+| 4 Stats Exotic | -23% |
+| 6 Stats Exotic | -27% |
+{: .overclock-table}
 
 **Kết luận:** Max cái này đầu tiên để tạo "hiệu ứng quả cầu tuyết" cho nền kinh tế vũ trụ của bạn.
 
