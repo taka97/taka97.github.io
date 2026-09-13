@@ -78,13 +78,13 @@ loj-vi:
     children:
       - title: Tính Lõi trọng giáp
         url: /vi/lands-of-jail/planners/forticlad/
-      - title: Tính Collections & Tomes
+      - title: Tính Kho báu & Sách cổ
         url: /vi/lands-of-jail/planners/collections-tomes/
-      - title: Tính Robots & Satellites
+      - title: Tính Robots & Vệ tinh
         url: /vi/lands-of-jail/planners/robots-satellites/
-      - title: Tính Hero Equipment
+      - title: Tính Trang bị Anh hùng
         url: /vi/lands-of-jail/planners/hero-equipment/
-      - title: Tính Hero Stars & Exclusive Equipment
+      - title: Tính Mảnh Anh hùng và Trang bị độc quyền
         url: /vi/lands-of-jail/planners/hero-stars-exclusive-equipment/
       - title: Cài đặt
         url: /vi/lands-of-jail/tools/settings/

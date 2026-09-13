@@ -1,5 +1,5 @@
 ---
-title: Tính Collections & Tomes
+title: Tính Kho báu & Sách cổ
 lang: vi
 permalink: /vi/lands-of-jail/planners/collections-tomes/
 ref: loj-tomes-collections-planner
@@ -9,9 +9,9 @@ aside:
   toc: true
 ---
 
-# Tính Collections & Tomes
+# Tính Kho báu & Sách cổ
 
-Tính số Seal và Trove Coin cần để nâng cấp Collections và Tomes. 6 Collection và 18 Tome (mỗi loại Khiên binh, Bomber, Xạ thủ có 2 Collection và 6 Tome — Tome chia thành 3 Tấn công và 3 Phòng thủ) luôn hiển thị sẵn. Chọn cấp hiện tại và cấp mục tiêu cho từng cái, rồi xem tổng số cần cho tất cả cùng lúc. Tên tài nguyên và tên bậc hiện đang hiển thị bằng tiếng Anh.
+Tính số Bảo điển (Seal) và Xu kỷ niệm (Trove Coin) cần để nâng cấp Kho báu và Sách cổ. 6 Kho báu và 18 Sách cổ (mỗi loại Lính khiên, Lính ném bom, Lính súng có 2 Kho báu và 6 Sách cổ — Sách cổ chia thành 3 Tấn công và 3 Phòng thủ) luôn hiển thị sẵn. Chọn cấp hiện tại và cấp mục tiêu cho từng cái, rồi xem tổng số cần cho tất cả cùng lúc. Tên bậc hiện đang hiển thị bằng tiếng Anh.
 
 <section class="loj-planner" data-tomes-planner data-lang="vi" aria-labelledby="collections-tomes-planner-heading">
   <h2 id="collections-tomes-planner-heading">Lập kế hoạch nâng cấp</h2>
@@ -47,12 +47,12 @@ Tính số Seal và Trove Coin cần để nâng cấp Collections và Tomes. 6 
   </section>
 
   <section aria-labelledby="collections-heading">
-    <h2 id="collections-heading">Collections</h2>
+    <h2 id="collections-heading">Kho báu</h2>
     <div data-role="collections-list" class="loj-planner__instance-ranges"></div>
   </section>
 
   <section aria-labelledby="tomes-heading">
-    <h2 id="tomes-heading">Tomes</h2>
+    <h2 id="tomes-heading">Sách cổ</h2>
     <div data-role="tomes-list" class="loj-planner__instance-ranges"></div>
   </section>
 

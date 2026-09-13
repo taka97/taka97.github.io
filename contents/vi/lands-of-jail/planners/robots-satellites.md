@@ -1,5 +1,5 @@
 ---
-title: Tính Robots & Satellites
+title: Tính Robots & Vệ tinh
 lang: vi
 permalink: /vi/lands-of-jail/planners/robots-satellites/
 ref: loj-robots-satellites-planner
@@ -9,9 +9,9 @@ aside:
   toc: true
 ---
 
-# Tính Robots & Satellites
+# Tính Robots & Vệ tinh
 
-Tính số Data Disk, Planet Coin và Power Module cần để nâng cấp Robot và cả 9 Satellite có tên riêng. Thêm bao nhiêu Robot tùy ý (tối đa 12), chọn cấp hiện tại và cấp mục tiêu cho từng cái, rồi chọn cấp hiện tại/mục tiêu cho các Satellite bậc R, SR, SSR bạn đang nâng cấp. Xem tổng số cần cho tất cả cùng lúc. Một số liệu — chi phí Data Disk ở cấp 50 của Satellite bậc R — được đánh dấu bằng huy hiệu "≈" vì chưa được xác nhận đầy đủ từ nguồn; bấm hoặc focus vào đó để đọc ghi chú. Tên tài nguyên và tên Satellite hiện đang hiển thị bằng tiếng Anh.
+Tính số Đĩa dữ liệu (Data Disk), Tiền tệ Hành tinh (Planet Coin) và Mô-đun Cấp điện Thường (Power Module) cần để nâng cấp Robot và cả 9 Vệ tinh có tên riêng. Thêm bao nhiêu Robot tùy ý (tối đa 12), chọn cấp hiện tại và cấp mục tiêu cho từng cái, rồi chọn cấp hiện tại/mục tiêu cho các Vệ tinh bậc R, SR, SSR bạn đang nâng cấp. Xem tổng số cần cho tất cả cùng lúc. Một số liệu — chi phí Đĩa dữ liệu ở cấp 50 của Vệ tinh bậc R — được đánh dấu bằng huy hiệu "≈" vì chưa được xác nhận đầy đủ từ nguồn; bấm hoặc focus vào đó để đọc ghi chú. Tên Vệ tinh hiện đang hiển thị bằng tiếng Anh.
 
 <section class="loj-planner" data-robots-satellites-planner data-lang="vi" aria-labelledby="rs-planner-heading">
   <h2 id="rs-planner-heading">Lập kế hoạch nâng cấp</h2>
@@ -39,7 +39,7 @@ Tính số Data Disk, Planet Coin và Power Module cần để nâng cấp Robot
     <section class="loj-planner__results" data-role="results" aria-labelledby="rs-totals-heading">
       <h3 id="rs-totals-heading">Yêu cầu nâng cấp</h3>
       <div data-role="totals" class="loj-planner__table-wrap" tabindex="0" role="region" aria-labelledby="rs-totals-heading">
-        <p>Tổng sẽ hiện sau khi bạn chọn cấp mục tiêu cho một Robot hoặc Satellite.</p>
+        <p>Tổng sẽ hiện sau khi bạn chọn cấp mục tiêu cho một Robot hoặc Vệ tinh.</p>
       </div>
     </section>
   </section>
@@ -51,17 +51,17 @@ Tính số Data Disk, Planet Coin và Power Module cần để nâng cấp Robot
   </section>
 
   <section aria-labelledby="rs-satellites-r-heading">
-    <h2 id="rs-satellites-r-heading">Satellites — <span class="loj-planner__rarity-badge" data-role="tier-badge-r">R</span></h2>
+    <h2 id="rs-satellites-r-heading">Vệ tinh — <span class="loj-planner__rarity-badge" data-role="tier-badge-r">R</span></h2>
     <div data-role="satellites-r-list" class="loj-planner__instance-ranges"></div>
   </section>
 
   <section aria-labelledby="rs-satellites-sr-heading">
-    <h2 id="rs-satellites-sr-heading">Satellites — <span class="loj-planner__rarity-badge" data-role="tier-badge-sr">SR</span></h2>
+    <h2 id="rs-satellites-sr-heading">Vệ tinh — <span class="loj-planner__rarity-badge" data-role="tier-badge-sr">SR</span></h2>
     <div data-role="satellites-sr-list" class="loj-planner__instance-ranges"></div>
   </section>
 
   <section aria-labelledby="rs-satellites-ssr-heading">
-    <h2 id="rs-satellites-ssr-heading">Satellites — <span class="loj-planner__rarity-badge" data-role="tier-badge-ssr">SSR</span></h2>
+    <h2 id="rs-satellites-ssr-heading">Vệ tinh — <span class="loj-planner__rarity-badge" data-role="tier-badge-ssr">SSR</span></h2>
     <div data-role="satellites-ssr-list" class="loj-planner__instance-ranges"></div>
   </section>
 

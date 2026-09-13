@@ -11,7 +11,7 @@ aside:
 
 # Collections & Tomes Planner
 
-Calculate the Seals and Trove Coins needed to level up your Collections and Tomes. Your 6 Collections and 18 Tomes (2 and 6 each for Shieldbearer, Bomber, and Shooter — Tomes split into 3 Attack and 3 Defense) are always shown. Set a current and target level for each, and see the combined total across everything at once. Resource and tier names are shown in English for now.
+Calculate the Seals and Trove Coins needed to level up your Collections and Tomes. Your 6 Collections and 18 Tomes (2 and 6 each for Shieldbearer, Bomber, and Shooter — Tomes split into 3 Attack and 3 Defense) are always shown. Set a current and target level for each, and see the combined total across everything at once.
 
 <section class="loj-planner" data-tomes-planner data-lang="en" aria-labelledby="collections-tomes-planner-heading">
   <h2 id="collections-tomes-planner-heading">Plan your upgrade</h2>
