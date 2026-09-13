@@ -1,13 +1,8 @@
 import { createTomesPlanner, calculateTomesRequirements, formatNumber } from './tomes-core.js';
 import { localizeResources, resolveLocalizedLabel } from './localized-label.js';
+import { troopName } from './troop-name.js';
 import { createProfileStore, getToolData, updateToolData } from './storage.js';
 import { createTable, clearElement, setStatus as setStatusElement, renderMissingCard, grandTotalFooter, updateStickyBar, renderInstanceBadge, resourceIcon, formatStockInputValue, parseStockInputValue, wireStockInputFormatting } from './table-helpers.js';
-
-const TROOP_TRANSLATIONS = {
-  shieldbearer: 'Khiên binh',
-  bomber: 'Bomber',
-  shooter: 'Xạ thủ',
-};
 
 const TOME_TYPE_TRANSLATIONS = {
   attack: 'Tấn công',
@@ -415,10 +410,6 @@ function buildInstanceCard(category, index, instance, maxIndex, labelFn, message
 
   card.append(headingRow, currentLabel, targetLabel, error);
   return card;
-}
-
-function troopName(troop, language) {
-  return language === 'vi' ? TROOP_TRANSLATIONS[troop] : troop.charAt(0).toUpperCase() + troop.slice(1);
 }
 
 function tomeTypeName(type, language) {

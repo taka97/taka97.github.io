@@ -13,8 +13,8 @@ troops: [shieldbearer, bomber, shooter]
 slots: [gloves, helmet, chest, boots]
 resources:
   - { key: EquipmentParts, label: { en: "Equipment EXP", vi: "Kinh nghiệm Trang bị" }, icon: /assets/images/lands-of-jail/hero-equipment/equipment-exp.png }
-  - { key: PrecisionEquipment, label: { en: "Precision Gear", vi: "Bánh răng Chính xác" }, icon: /assets/images/lands-of-jail/hero-equipment/precision-gear.png }
   - { key: Magnet, label: { en: "Magnet", vi: "Nam châm" }, icon: /assets/images/lands-of-jail/hero-equipment/magnet.png }
+  - { key: PrecisionEquipment, label: { en: "Precision Gear", vi: "Bánh răng Chính xác" }, icon: /assets/images/lands-of-jail/hero-equipment/precision-gear.png }
   - { key: PotentialCoil, label: Potential Coil}
 # 21 entries: 11 tiers, each (except exotic_t3) paired with a "_s1" "levels
 # maxed" checkpoint. Target selects only the 11 non-"_s1" ids; Current may

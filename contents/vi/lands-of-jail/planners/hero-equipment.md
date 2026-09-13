@@ -11,7 +11,7 @@ aside:
 
 # Tính Hero Equipment
 
-Tính số Equipment EXP, Precision Gear, Magnet và Potential Coil cần để nâng cấp Equipment của tướng. Mỗi troop trong số 3 troop (Shieldbearer, Bomber, Shooter) có 4 vị trí trang bị cố định (Găng tay, Mũ giáp, Áo giáp, Giày), mỗi vị trí có nhánh Độ hiếm và nhánh Tinh thông riêng. Chọn cấp hiện tại và cấp mục tiêu cho cả 2 nhánh ở bất kỳ vị trí nào; từ Legendary trở lên, một cấp Độ hiếm cần nhánh Tinh thông của chính vị trí đó đạt cấp tương ứng — nếu mục tiêu Tinh thông của bạn chưa đủ cao, nó sẽ tự động được nâng lên và đánh dấu "(tự động thêm — điều kiện tiên quyết)" trong bảng chi tiết bên dưới. Xem tổng số cần cho cả 12 vị trí cùng lúc. Một số liệu — chi phí Equipment EXP của mốc "đã tối đa cấp độ" Common → Uncommon, dùng chung cho cả 12 vị trí — được đánh dấu bằng huy hiệu "≈" vì chưa được xác nhận đầy đủ từ nguồn; bấm hoặc focus vào đó để đọc ghi chú.
+Tính số Equipment EXP, Magnet, Precision Gear và Potential Coil cần để nâng cấp Equipment của tướng. Mỗi troop trong số 3 troop (Shieldbearer, Bomber, Shooter) có 4 vị trí trang bị cố định (Găng tay, Mũ giáp, Áo giáp, Giày), mỗi vị trí có nhánh Độ hiếm và nhánh Tinh thông riêng. Chọn cấp hiện tại và cấp mục tiêu cho cả 2 nhánh ở bất kỳ vị trí nào; từ Legendary trở lên, một cấp Độ hiếm cần nhánh Tinh thông của chính vị trí đó đạt cấp tương ứng — nếu mục tiêu Tinh thông của bạn chưa đủ cao, nó sẽ tự động được nâng lên và đánh dấu "(tự động thêm — điều kiện tiên quyết)" trong bảng chi tiết bên dưới. Xem tổng số cần cho cả 12 vị trí cùng lúc. Một số liệu — chi phí Equipment EXP của mốc "đã tối đa" Common → Uncommon, dùng chung cho cả 12 vị trí — được đánh dấu bằng huy hiệu "≈" vì chưa được xác nhận đầy đủ từ nguồn; bấm hoặc focus vào đó để đọc ghi chú.
 
 <section class="loj-planner" data-hero-equipment-planner data-lang="vi" aria-labelledby="he-planner-heading">
   <h2 id="he-planner-heading">Lập kế hoạch nâng cấp</h2>
@@ -24,21 +24,12 @@ Tính số Equipment EXP, Precision Gear, Magnet và Potential Coil cần để 
 
   <section class="loj-planner__inventory" aria-labelledby="he-inventory-heading">
     <h3 id="he-inventory-heading">Kho hiện tại</h3>
-    <label for="he-stock-equipment-parts">
-      <span class="loj-planner__stock-label"><img class="loj-planner__stock-icon" src="/assets/images/lands-of-jail/hero-equipment/equipment-exp.png" alt="" width="24" height="24">Equipment EXP</span>
-      <input id="he-stock-equipment-parts" data-role="stock-input" data-resource-key="EquipmentParts" type="text" pattern="[0-9,]*" inputmode="numeric" autocomplete="off">
+    {%- for resource in site.data.lands_of_jail.hero_equipment.resources -%}
+    <label for="he-stock-{{ resource.key }}">
+      <span class="loj-planner__stock-label">{% if resource.icon %}<img class="loj-planner__stock-icon" src="{{ resource.icon }}" alt="" width="24" height="24">{% endif %}{{ resource.label[page.lang] | default: resource.label.en | default: resource.label }}</span>
+      <input id="he-stock-{{ resource.key }}" data-role="stock-input" data-resource-key="{{ resource.key }}" type="text" pattern="[0-9,]*" inputmode="numeric" autocomplete="off">
     </label>
-    <label for="he-stock-precision-equipment">
-      <span class="loj-planner__stock-label"><img class="loj-planner__stock-icon" src="/assets/images/lands-of-jail/hero-equipment/precision-gear.png" alt="" width="24" height="24">Precision Gear</span>
-      <input id="he-stock-precision-equipment" data-role="stock-input" data-resource-key="PrecisionEquipment" type="text" pattern="[0-9,]*" inputmode="numeric" autocomplete="off">
-    </label>
-    <label for="he-stock-magnet">
-      <span class="loj-planner__stock-label"><img class="loj-planner__stock-icon" src="/assets/images/lands-of-jail/hero-equipment/magnet.png" alt="" width="24" height="24">Magnet</span>
-      <input id="he-stock-magnet" data-role="stock-input" data-resource-key="Magnet" type="text" pattern="[0-9,]*" inputmode="numeric" autocomplete="off">
-    </label>
-    <label for="he-stock-potential-coil">Potential Coil
-      <input id="he-stock-potential-coil" data-role="stock-input" data-resource-key="PotentialCoil" type="text" pattern="[0-9,]*" inputmode="numeric" autocomplete="off">
-    </label>
+    {%- endfor -%}
   </section>
 
   <section class="loj-planner__summary" aria-labelledby="he-summary-heading">

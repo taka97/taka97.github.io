@@ -1,13 +1,8 @@
 import { createHeroEquipmentPlanner, calculateHeroEquipment, formatNumber } from './hero-equipment-core.js';
 import { localizeResources } from './localized-label.js';
+import { troopName } from './troop-name.js';
 import { createProfileStore, getToolData, updateToolData } from './storage.js';
 import { createTable, clearElement, setStatus as setStatusElement, renderMissingCard, targetCell, grandTotalFooter, updateStickyBar, renderInstanceBadge, renderEstimatedBadge, resourceIcon, formatStockInputValue, parseStockInputValue, wireStockInputFormatting } from './table-helpers.js';
-
-const TROOP_TRANSLATIONS = {
-  shieldbearer: 'Khiên binh',
-  bomber: 'Bomber',
-  shooter: 'Xạ thủ',
-};
 
 const RARITY_TIER_LABELS = {
   common: 'Common',
@@ -41,7 +36,7 @@ const MESSAGES = {
     targetLabel: 'Target level',
     notStarted: 'Not started',
     levelPrefix: 'Level',
-    levelsMaxedSuffix: ' (levels maxed)',
+    maxedSuffix: ' (maxed)',
     resetLabel: 'Reset to default',
     resetConfirmLabel: 'Click again to confirm reset',
     stickyBarLabel: 'Missing:',
@@ -69,7 +64,7 @@ const MESSAGES = {
     targetLabel: 'Cấp mục tiêu',
     notStarted: 'Chưa bắt đầu',
     levelPrefix: 'Cấp',
-    levelsMaxedSuffix: ' (đã tối đa cấp độ)',
+    maxedSuffix: ' (đã tối đa)',
     resetLabel: 'Khôi phục mặc định',
     resetConfirmLabel: 'Bấm lần nữa để xác nhận',
     stickyBarLabel: 'Còn thiếu:',
@@ -346,7 +341,7 @@ function rarityTierKey(id) {
 function rarityLevelLabel(index, planner, message) {
   const id = planner.rarityLevels[index].id;
   const label = RARITY_TIER_LABELS[rarityTierKey(id)] ?? rarityTierKey(id);
-  return id.endsWith('_s1') ? `${label}${message.levelsMaxedSuffix}` : label;
+  return id.endsWith('_s1') ? `${label}${message.maxedSuffix}` : label;
 }
 
 function masteryLevelLabel(index, message) {
@@ -575,10 +570,6 @@ function formatCostCell(entry, planner, message) {
 function formatCost(cost, planner) {
   const parts = planner.resources.filter((resource) => cost[resource.key] > 0).map((resource) => `${formatNumber(cost[resource.key])} ${resource.label}`);
   return parts.length ? parts.join(', ') : '—';
-}
-
-function troopName(troop, language) {
-  return language === 'vi' ? TROOP_TRANSLATIONS[troop] : troop.charAt(0).toUpperCase() + troop.slice(1);
 }
 
 function setStatus(elements, value, isError = false) {
