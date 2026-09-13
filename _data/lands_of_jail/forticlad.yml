@@ -103,155 +103,155 @@ requirements:
     - { targetBase: fc6, building: warden-office, minimumBase: fc6 }
 steps:
   - base: level_30_start
-    label: Level 30 (start)
+    label: { en: "Level 30 (start)", vi: "Cấp 30 (bắt đầu)" }
     cores: { warden-office: 0, shieldbearer-barrack: 0, bomber-barrack: 0, shooter-barrack: 0, communication-center: 0, command-center: 0, medical-station: 0, fc-lab: 0 }
   - base: level_30_s1
-    label: 30-1
+    label: { en: "30-1", vi: "Cấp 30-1" }
     cores: { warden-office: 250, shieldbearer-barrack: 130, bomber-barrack: 130, shooter-barrack: 130, communication-center: 50, command-center: 50, medical-station: 50, fc-lab: 150 }
   - base: level_30_s2
-    label: 30-2
+    label: { en: "30-2", vi: "Cấp 30-2" }
     cores: { warden-office: 250, shieldbearer-barrack: 130, bomber-barrack: 130, shooter-barrack: 130, communication-center: 50, command-center: 50, medical-station: 50, fc-lab: 150 }
   - base: level_30_s3
-    label: 30-3
+    label: { en: "30-3", vi: "Cấp 30-3" }
     cores: { warden-office: 250, shieldbearer-barrack: 130, bomber-barrack: 130, shooter-barrack: 130, communication-center: 50, command-center: 50, medical-station: 50, fc-lab: 150 }
   - base: level_30_s4
-    label: 30-4
+    label: { en: "30-4", vi: "Cấp 30-4" }
     cores: { warden-office: 250, shieldbearer-barrack: 130, bomber-barrack: 130, shooter-barrack: 130, communication-center: 50, command-center: 50, medical-station: 50, fc-lab: 150 }
   - base: fc1
-    label: Forticlad (1)
+    label: { en: "Forticlad (1)", vi: "Trọng giáp 1" }
     cores: { warden-office: 250, shieldbearer-barrack: 130, bomber-barrack: 130, shooter-barrack: 130, communication-center: 50, command-center: 50, medical-station: 50, fc-lab: 150 }
   - base: fc1_s1
-    label: Forticlad (1)-1
+    label: { en: "Forticlad (1)-1", vi: "Trọng giáp 1-1" }
     cores: { warden-office: 320, shieldbearer-barrack: 150, bomber-barrack: 150, shooter-barrack: 150, communication-center: 60, command-center: 60, medical-station: 60, fc-lab: 200 }
   - base: fc1_s2
-    label: Forticlad (1)-2
+    label: { en: "Forticlad (1)-2", vi: "Trọng giáp 1-2" }
     cores: { warden-office: 320, shieldbearer-barrack: 150, bomber-barrack: 150, shooter-barrack: 150, communication-center: 60, command-center: 60, medical-station: 60, fc-lab: 200 }
   - base: fc1_s3
-    label: Forticlad (1)-3
+    label: { en: "Forticlad (1)-3", vi: "Trọng giáp 1-3" }
     cores: { warden-office: 320, shieldbearer-barrack: 150, bomber-barrack: 150, shooter-barrack: 150, communication-center: 60, command-center: 60, medical-station: 60, fc-lab: 200 }
   - base: fc1_s4
-    label: Forticlad (1)-4
+    label: { en: "Forticlad (1)-4", vi: "Trọng giáp 1-4" }
     cores: { warden-office: 320, shieldbearer-barrack: 150, bomber-barrack: 150, shooter-barrack: 150, communication-center: 60, command-center: 60, medical-station: 60, fc-lab: 200 }
   - base: fc2
-    label: Forticlad (2)
+    label: { en: "Forticlad (2)", vi: "Trọng giáp 2" }
     cores: { warden-office: 320, shieldbearer-barrack: 150, bomber-barrack: 150, shooter-barrack: 150, communication-center: 60, command-center: 60, medical-station: 60, fc-lab: 200 }
   - base: fc2_s1
-    label: Forticlad (2)-1
+    label: { en: "Forticlad (2)-1", vi: "Trọng giáp 2-1" }
     cores: { warden-office: 490, shieldbearer-barrack: 230, bomber-barrack: 230, shooter-barrack: 230, communication-center: 80, command-center: 80, medical-station: 80, fc-lab: 250 }
   - base: fc2_s2
-    label: Forticlad (2)-2
+    label: { en: "Forticlad (2)-2", vi: "Trọng giáp 2-2" }
     cores: { warden-office: 490, shieldbearer-barrack: 230, bomber-barrack: 230, shooter-barrack: 230, communication-center: 80, command-center: 80, medical-station: 80, fc-lab: 250 }
   - base: fc2_s3
-    label: Forticlad (2)-3
+    label: { en: "Forticlad (2)-3", vi: "Trọng giáp 2-3" }
     cores: { warden-office: 490, shieldbearer-barrack: 230, bomber-barrack: 230, shooter-barrack: 230, communication-center: 80, command-center: 80, medical-station: 80, fc-lab: 250 }
   - base: fc2_s4
-    label: Forticlad (2)-4
+    label: { en: "Forticlad (2)-4", vi: "Trọng giáp 2-4" }
     cores: { warden-office: 490, shieldbearer-barrack: 230, bomber-barrack: 230, shooter-barrack: 230, communication-center: 80, command-center: 80, medical-station: 80, fc-lab: 250 }
   - base: fc3
-    label: Forticlad (3)
+    label: { en: "Forticlad (3)", vi: "Trọng giáp 3" }
     cores: { warden-office: 490, shieldbearer-barrack: 230, bomber-barrack: 230, shooter-barrack: 230, communication-center: 80, command-center: 80, medical-station: 80, fc-lab: 250 }
   - base: fc3_s1
-    label: Forticlad (3)-1
+    label: { en: "Forticlad (3)-1", vi: "Trọng giáp 3-1" }
     cores: { warden-office: 600, shieldbearer-barrack: 250, bomber-barrack: 250, shooter-barrack: 250, communication-center: 110, command-center: 110, medical-station: 110, fc-lab: 300 }
   - base: fc3_s2
-    label: Forticlad (3)-2
+    label: { en: "Forticlad (3)-2", vi: "Trọng giáp 3-2" }
     cores: { warden-office: 600, shieldbearer-barrack: 250, bomber-barrack: 250, shooter-barrack: 250, communication-center: 110, command-center: 110, medical-station: 110, fc-lab: 300 }
   - base: fc3_s3
-    label: Forticlad (3)-3
+    label: { en: "Forticlad (3)-3", vi: "Trọng giáp 3-3" }
     cores: { warden-office: 600, shieldbearer-barrack: 250, bomber-barrack: 250, shooter-barrack: 250, communication-center: 110, command-center: 110, medical-station: 110, fc-lab: 300 }
   - base: fc3_s4
-    label: Forticlad (3)-4
+    label: { en: "Forticlad (3)-4", vi: "Trọng giáp 3-4" }
     cores: { warden-office: 600, shieldbearer-barrack: 250, bomber-barrack: 250, shooter-barrack: 250, communication-center: 110, command-center: 110, medical-station: 110, fc-lab: 300 }
   - base: fc4
-    label: Forticlad (4)
+    label: { en: "Forticlad (4)", vi: "Trọng giáp 4" }
     cores: { warden-office: 600, shieldbearer-barrack: 250, bomber-barrack: 250, shooter-barrack: 250, communication-center: 110, command-center: 110, medical-station: 110, fc-lab: 300 }
   - base: fc4_s1
-    label: Forticlad (4)-1
+    label: { en: "Forticlad (4)-1", vi: "Trọng giáp 4-1" }
     cores: { warden-office: 720, shieldbearer-barrack: 300, bomber-barrack: 300, shooter-barrack: 300, communication-center: 130, command-center: 130, medical-station: 130, fc-lab: 350 }
   - base: fc4_s2
-    label: Forticlad (4)-2
+    label: { en: "Forticlad (4)-2", vi: "Trọng giáp 4-2" }
     cores: { warden-office: 720, shieldbearer-barrack: 300, bomber-barrack: 300, shooter-barrack: 300, communication-center: 130, command-center: 130, medical-station: 130, fc-lab: 350 }
   - base: fc4_s3
-    label: Forticlad (4)-3
+    label: { en: "Forticlad (4)-3", vi: "Trọng giáp 4-3" }
     cores: { warden-office: 720, shieldbearer-barrack: 300, bomber-barrack: 300, shooter-barrack: 300, communication-center: 130, command-center: 130, medical-station: 130, fc-lab: 350 }
   - base: fc4_s4
-    label: Forticlad (4)-4
+    label: { en: "Forticlad (4)-4", vi: "Trọng giáp 4-4" }
     cores: { warden-office: 720, shieldbearer-barrack: 300, bomber-barrack: 300, shooter-barrack: 300, communication-center: 130, command-center: 130, medical-station: 130, fc-lab: 350 }
   - base: fc5
-    label: Forticlad (5)
+    label: { en: "Forticlad (5)", vi: "Trọng giáp 5" }
     cores: { warden-office: 720, shieldbearer-barrack: 300, bomber-barrack: 300, shooter-barrack: 300, communication-center: 130, command-center: 130, medical-station: 130, fc-lab: 350 }
   - base: fc5_s1
-    label: Forticlad (5)-1
+    label: { en: "Forticlad (5)-1", vi: "Trọng giáp 5-1" }
     costs: { warden-office: { fc: 360, afc: 24 }, shieldbearer-barrack: { fc: 160, afc: 10 }, bomber-barrack: { fc: 160, afc: 10 }, shooter-barrack: { fc: 160, afc: 10 }, communication-center: { fc: 90, afc: 5 }, command-center: { fc: 70, afc: 5 }, medical-station: { fc: 70, afc: 5 }, fc-lab: { fc: 160, afc: 10 } }
   - base: fc5_s2
-    label: Forticlad (5)-2
+    label: { en: "Forticlad (5)-2", vi: "Trọng giáp 5-2" }
     costs: { warden-office: { fc: 360, afc: 24 }, shieldbearer-barrack: { fc: 160, afc: 10 }, bomber-barrack: { fc: 160, afc: 10 }, shooter-barrack: { fc: 160, afc: 10 }, communication-center: { fc: 90, afc: 5 }, command-center: { fc: 70, afc: 5 }, medical-station: { fc: 70, afc: 5 }, fc-lab: { fc: 160, afc: 10 } }
   - base: fc5_s3
-    label: Forticlad (5)-3
+    label: { en: "Forticlad (5)-3", vi: "Trọng giáp 5-3" }
     costs: { warden-office: { fc: 360, afc: 24 }, shieldbearer-barrack: { fc: 160, afc: 10 }, bomber-barrack: { fc: 160, afc: 10 }, shooter-barrack: { fc: 160, afc: 10 }, communication-center: { fc: 90, afc: 5 }, command-center: { fc: 70, afc: 5 }, medical-station: { fc: 70, afc: 5 }, fc-lab: { fc: 160, afc: 10 } }
   - base: fc5_s4
-    label: Forticlad (5)-4
+    label: { en: "Forticlad (5)-4", vi: "Trọng giáp 5-4" }
     costs: { warden-office: { fc: 360, afc: 24 }, shieldbearer-barrack: { fc: 160, afc: 10 }, bomber-barrack: { fc: 160, afc: 10 }, shooter-barrack: { fc: 160, afc: 10 }, communication-center: { fc: 90, afc: 5 }, command-center: { fc: 70, afc: 5 }, medical-station: { fc: 70, afc: 5 }, fc-lab: { fc: 160, afc: 10 } }
   - base: fc6
-    label: Forticlad (6)
+    label: { en: "Forticlad (6)", vi: "Trọng giáp 6" }
     costs: { warden-office: { fc: 360, afc: 24 }, shieldbearer-barrack: { fc: 160, afc: 10 }, bomber-barrack: { fc: 160, afc: 10 }, shooter-barrack: { fc: 160, afc: 10 }, communication-center: { fc: 90, afc: 5 }, command-center: { fc: 70, afc: 5 }, medical-station: { fc: 70, afc: 5 }, fc-lab: { fc: 160, afc: 10 } }
   - base: fc6_s1
-    label: Forticlad (6)-1
+    label: { en: "Forticlad (6)-1", vi: "Trọng giáp 6-1" }
     costs: { warden-office: { fc: 400, afc: 36 }, shieldbearer-barrack: { fc: 180, afc: 15 }, bomber-barrack: { fc: 180, afc: 15 }, shooter-barrack: { fc: 180, afc: 15 }, communication-center: { fc: 100, afc: 8 }, command-center: { fc: 80, afc: 8 }, medical-station: { fc: 80, afc: 8 }, fc-lab: { fc: 0, afc: 0 } }
   - base: fc6_s2
-    label: Forticlad (6)-2
+    label: { en: "Forticlad (6)-2", vi: "Trọng giáp 6-2" }
     costs: { warden-office: { fc: 400, afc: 36 }, shieldbearer-barrack: { fc: 180, afc: 15 }, bomber-barrack: { fc: 180, afc: 15 }, shooter-barrack: { fc: 180, afc: 15 }, communication-center: { fc: 100, afc: 8 }, command-center: { fc: 80, afc: 8 }, medical-station: { fc: 80, afc: 8 }, fc-lab: { fc: 0, afc: 0 } }
   - base: fc6_s3
-    label: Forticlad (6)-3
+    label: { en: "Forticlad (6)-3", vi: "Trọng giáp 6-3" }
     costs: { warden-office: { fc: 400, afc: 36 }, shieldbearer-barrack: { fc: 180, afc: 15 }, bomber-barrack: { fc: 180, afc: 15 }, shooter-barrack: { fc: 180, afc: 15 }, communication-center: { fc: 100, afc: 8 }, command-center: { fc: 80, afc: 8 }, medical-station: { fc: 80, afc: 8 }, fc-lab: { fc: 0, afc: 0 } }
   - base: fc6_s4
-    label: Forticlad (6)-4
+    label: { en: "Forticlad (6)-4", vi: "Trọng giáp 6-4" }
     costs: { warden-office: { fc: 400, afc: 36 }, shieldbearer-barrack: { fc: 180, afc: 15 }, bomber-barrack: { fc: 180, afc: 15 }, shooter-barrack: { fc: 180, afc: 15 }, communication-center: { fc: 100, afc: 8 }, command-center: { fc: 80, afc: 8 }, medical-station: { fc: 80, afc: 8 }, fc-lab: { fc: 0, afc: 0 } }
   - base: fc7
-    label: Forticlad (7)
+    label: { en: "Forticlad (7)", vi: "Trọng giáp 7" }
     costs: { warden-office: { fc: 400, afc: 36 }, shieldbearer-barrack: { fc: 180, afc: 15 }, bomber-barrack: { fc: 180, afc: 15 }, shooter-barrack: { fc: 180, afc: 15 }, communication-center: { fc: 100, afc: 8 }, command-center: { fc: 80, afc: 8 }, medical-station: { fc: 80, afc: 8 }, fc-lab: { fc: 0, afc: 0 } }
   - base: fc7_s1
-    label: Forticlad (7)-1
+    label: { en: "Forticlad (7)-1", vi: "Trọng giáp 7-1" }
     costs: { warden-office: { fc: 460, afc: 48 }, shieldbearer-barrack: { fc: 210, afc: 22 }, bomber-barrack: { fc: 210, afc: 22 }, shooter-barrack: { fc: 210, afc: 22 }, communication-center: { fc: 110, afc: 12 }, command-center: { fc: 90, afc: 12 }, medical-station: { fc: 90, afc: 12 }, fc-lab: { fc: 0, afc: 0 } }
   - base: fc7_s2
-    label: Forticlad (7)-2
+    label: { en: "Forticlad (7)-2", vi: "Trọng giáp 7-2" }
     costs: { warden-office: { fc: 460, afc: 48 }, shieldbearer-barrack: { fc: 210, afc: 22 }, bomber-barrack: { fc: 210, afc: 22 }, shooter-barrack: { fc: 210, afc: 22 }, communication-center: { fc: 110, afc: 12 }, command-center: { fc: 90, afc: 12 }, medical-station: { fc: 90, afc: 12 }, fc-lab: { fc: 0, afc: 0 } }
   - base: fc7_s3
-    label: Forticlad (7)-3
+    label: { en: "Forticlad (7)-3", vi: "Trọng giáp 7-3" }
     costs: { warden-office: { fc: 460, afc: 48 }, shieldbearer-barrack: { fc: 210, afc: 22 }, bomber-barrack: { fc: 210, afc: 22 }, shooter-barrack: { fc: 210, afc: 22 }, communication-center: { fc: 110, afc: 12 }, command-center: { fc: 90, afc: 12 }, medical-station: { fc: 90, afc: 12 }, fc-lab: { fc: 0, afc: 0 } }
   - base: fc7_s4
-    label: Forticlad (7)-4
+    label: { en: "Forticlad (7)-4", vi: "Trọng giáp 7-4" }
     costs: { warden-office: { fc: 460, afc: 48 }, shieldbearer-barrack: { fc: 210, afc: 22 }, bomber-barrack: { fc: 210, afc: 22 }, shooter-barrack: { fc: 210, afc: 22 }, communication-center: { fc: 110, afc: 12 }, command-center: { fc: 90, afc: 12 }, medical-station: { fc: 90, afc: 12 }, fc-lab: { fc: 0, afc: 0 } }
   - base: fc8
-    label: Forticlad (8)
+    label: { en: "Forticlad (8)", vi: "Trọng giáp 8" }
     costs: { warden-office: { fc: 460, afc: 48 }, shieldbearer-barrack: { fc: 210, afc: 22 }, bomber-barrack: { fc: 210, afc: 22 }, shooter-barrack: { fc: 210, afc: 22 }, communication-center: { fc: 110, afc: 12 }, command-center: { fc: 90, afc: 12 }, medical-station: { fc: 90, afc: 12 }, fc-lab: { fc: 0, afc: 0 } }
   - base: fc8_s1
-    label: Forticlad (8)-1
+    label: { en: "Forticlad (8)-1", vi: "Trọng giáp 8-1" }
     costs: { warden-office: { fc: 510, afc: 72 }, shieldbearer-barrack: { fc: 230, afc: 32 }, bomber-barrack: { fc: 230, afc: 32 }, shooter-barrack: { fc: 230, afc: 32 }, communication-center: { fc: 130, afc: 17 }, command-center: { fc: 100, afc: 14 }, medical-station: { fc: 0, afc: 0 }, fc-lab: { fc: 0, afc: 0 } }
   - base: fc8_s2
-    label: Forticlad (8)-2
+    label: { en: "Forticlad (8)-2", vi: "Trọng giáp 8-2" }
     costs: { warden-office: { fc: 510, afc: 72 }, shieldbearer-barrack: { fc: 230, afc: 32 }, bomber-barrack: { fc: 230, afc: 32 }, shooter-barrack: { fc: 230, afc: 32 }, communication-center: { fc: 130, afc: 17 }, command-center: { fc: 100, afc: 14 }, medical-station: { fc: 0, afc: 0 }, fc-lab: { fc: 0, afc: 0 } }
   - base: fc8_s3
-    label: Forticlad (8)-3
+    label: { en: "Forticlad (8)-3", vi: "Trọng giáp 8-3" }
     costs: { warden-office: { fc: 510, afc: 72 }, shieldbearer-barrack: { fc: 230, afc: 32 }, bomber-barrack: { fc: 230, afc: 32 }, shooter-barrack: { fc: 230, afc: 32 }, communication-center: { fc: 130, afc: 17 }, command-center: { fc: 100, afc: 14 }, medical-station: { fc: 0, afc: 0 }, fc-lab: { fc: 0, afc: 0 } }
   - base: fc8_s4
-    label: Forticlad (8)-4
+    label: { en: "Forticlad (8)-4", vi: "Trọng giáp 8-4" }
     costs: { warden-office: { fc: 510, afc: 72 }, shieldbearer-barrack: { fc: 230, afc: 32 }, bomber-barrack: { fc: 230, afc: 32 }, shooter-barrack: { fc: 230, afc: 32 }, communication-center: { fc: 130, afc: 17 }, command-center: { fc: 100, afc: 14 }, medical-station: { fc: 0, afc: 0 }, fc-lab: { fc: 0, afc: 0 } }
   - base: fc9
-    label: Forticlad (9)
+    label: { en: "Forticlad (9)", vi: "Trọng giáp 9" }
     costs: { warden-office: { fc: 510, afc: 72 }, shieldbearer-barrack: { fc: 230, afc: 32 }, bomber-barrack: { fc: 230, afc: 32 }, shooter-barrack: { fc: 230, afc: 32 }, communication-center: { fc: 130, afc: 17 }, command-center: { fc: 100, afc: 14 }, medical-station: { fc: 0, afc: 0 }, fc-lab: { fc: 0, afc: 0 } }
   - base: fc9_s1
-    label: Forticlad (9)-1
+    label: { en: "Forticlad (9)-1", vi: "Trọng giáp 9-1" }
     costs: { warden-office: { fc: 630, afc: 168 }, shieldbearer-barrack: { fc: 290, afc: 75 }, bomber-barrack: { fc: 290, afc: 75 }, shooter-barrack: { fc: 290, afc: 75 }, communication-center: { fc: 160, afc: 41 }, command-center: { fc: 130, afc: 34 }, medical-station: { fc: 0, afc: 0 }, fc-lab: { fc: 0, afc: 0 } }
   - base: fc9_s2
-    label: Forticlad (9)-2
+    label: { en: "Forticlad (9)-2", vi: "Trọng giáp 9-2" }
     costs: { warden-office: { fc: 630, afc: 168 }, shieldbearer-barrack: { fc: 290, afc: 75 }, bomber-barrack: { fc: 290, afc: 75 }, shooter-barrack: { fc: 290, afc: 75 }, communication-center: { fc: 160, afc: 41 }, command-center: { fc: 130, afc: 34 }, medical-station: { fc: 0, afc: 0 }, fc-lab: { fc: 0, afc: 0 } }
   - base: fc9_s3
-    label: Forticlad (9)-3
+    label: { en: "Forticlad (9)-3", vi: "Trọng giáp 9-3" }
     costs: { warden-office: { fc: 630, afc: 168 }, shieldbearer-barrack: { fc: 290, afc: 75 }, bomber-barrack: { fc: 290, afc: 75 }, shooter-barrack: { fc: 290, afc: 75 }, communication-center: { fc: 160, afc: 41 }, command-center: { fc: 130, afc: 34 }, medical-station: { fc: 0, afc: 0 }, fc-lab: { fc: 0, afc: 0 } }
   - base: fc9_s4
-    label: Forticlad (9)-4
+    label: { en: "Forticlad (9)-4", vi: "Trọng giáp 9-4" }
     costs: { warden-office: { fc: 630, afc: 168 }, shieldbearer-barrack: { fc: 290, afc: 75 }, bomber-barrack: { fc: 290, afc: 75 }, shooter-barrack: { fc: 290, afc: 75 }, communication-center: { fc: 160, afc: 41 }, command-center: { fc: 130, afc: 34 }, medical-station: { fc: 0, afc: 0 }, fc-lab: { fc: 0, afc: 0 } }
   - base: fc10
-    label: Forticlad (10)
+    label: { en: "Forticlad (10)", vi: "Trọng giáp 10" }
     costs: { warden-office: { fc: 630, afc: 168 }, shieldbearer-barrack: { fc: 290, afc: 75 }, bomber-barrack: { fc: 290, afc: 75 }, shooter-barrack: { fc: 290, afc: 75 }, communication-center: { fc: 160, afc: 41 }, command-center: { fc: 130, afc: 34 }, medical-station: { fc: 0, afc: 0 }, fc-lab: { fc: 0, afc: 0 } }

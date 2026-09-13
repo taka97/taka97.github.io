@@ -7,9 +7,9 @@ const MESSAGES = {
   en: {
     noProfile: 'Create or select an active profile in Settings before planning.',
     storage: 'Browser storage is unavailable. Your calculations will still work.',
-    range: 'Choose a target Base that is not lower than the current Base.',
+    range: 'Choose a target level that is not lower than the current level.',
     inventory: 'Enter a whole number of FC or AFC that is zero or greater.',
-    noTargets: 'No target selected yet. Choose a target Base for a building to see the Core you need.',
+    noTargets: 'No target selected yet. Choose a target level for a building to see the Core you need.',
     notSet: 'Not set',
     covered: 'Covered',
     needed: '{amount} needed',
@@ -22,9 +22,9 @@ const MESSAGES = {
   vi: {
     noProfile: 'Hãy tạo hoặc chọn hồ sơ đang dùng trong Cài đặt trước khi lập kế hoạch.',
     storage: 'Không thể dùng bộ nhớ trình duyệt. Bạn vẫn có thể tính toán.',
-    range: 'Chọn Base mục tiêu không thấp hơn Base hiện tại.',
+    range: 'Chọn cấp mục tiêu không thấp hơn cấp hiện tại.',
     inventory: 'Hãy nhập số FC hoặc AFC nguyên lớn hơn hoặc bằng 0.',
-    noTargets: 'Chưa chọn Base mục tiêu. Hãy chọn Base mục tiêu cho một công trình để xem Lõi trọng giáp cần thiết.',
+    noTargets: 'Chưa chọn cấp mục tiêu. Hãy chọn cấp mục tiêu cho một công trình để xem Lõi trọng giáp cần thiết.',
     notSet: 'Chưa nhập',
     covered: 'Đã đủ',
     needed: 'Cần {amount}',
@@ -121,7 +121,7 @@ async function initializePlanner(container) {
   renderResult();
 
   elements.buildingRanges.addEventListener('change', async (event) => {
-    if (event.target.matches('[data-role="current-base"]')) {
+    if (event.target.matches('[data-role="current-level"]')) {
       keepTargetAtOrAboveCurrent(event.target.closest('[data-building-key]'), planner);
     }
     if (updateRangeWarnings(elements.buildingRanges, planner, language)) {
@@ -238,8 +238,8 @@ function validBase(planner, base) {
 }
 
 function renderBuildingRanges(container, planner, ranges, language, disabled) {
-  const currentLabel = language === 'vi' ? 'Base hiện tại' : 'Current Base';
-  const targetLabel = language === 'vi' ? 'Base mục tiêu' : 'Target Base';
+  const currentLabel = language === 'vi' ? 'Cấp hiện tại' : 'Current level';
+  const targetLabel = language === 'vi' ? 'Cấp mục tiêu' : 'Target level';
   const message = MESSAGES[language];
   const fragment = document.createDocumentFragment();
 
@@ -273,8 +273,8 @@ function renderBuildingRanges(container, planner, ranges, language, disabled) {
     error.hidden = true;
     error.setAttribute('role', 'alert');
     const availableSteps = planner.steps.slice(0, planner.baseIndexes.get(planner.maximumBases[key]) + 1);
-    const current = rangeLabel(currentLabel, 'current-base', availableSteps, ranges[key].currentBase, disabled, undefined, language);
-    const target = rangeLabel(targetLabel, 'target-base', planner.steps.slice(0, planner.baseIndexes.get(planner.maximumBases[key]) + 1), ranges[key].targetBase, disabled, undefined, language);
+    const current = rangeLabel(currentLabel, 'current-level', availableSteps, ranges[key].currentBase, disabled, undefined, language);
+    const target = rangeLabel(targetLabel, 'target-level', planner.steps.slice(0, planner.baseIndexes.get(planner.maximumBases[key]) + 1), ranges[key].targetBase, disabled, undefined, language);
     target.querySelector('select').setAttribute('aria-describedby', error.id);
     row.append(headingRow, current, target, error);
     fragment.append(row);
@@ -299,14 +299,14 @@ function rangeLabel(labelText, role, steps, value, disabled, emptyLabel, languag
 
 function selectedBuildingRanges(container) {
   return Object.fromEntries([...container.querySelectorAll('[data-building-key]')].map((row) => [row.dataset.buildingKey, {
-    currentBase: row.querySelector('[data-role="current-base"]').value,
-    targetBase: row.querySelector('[data-role="target-base"]').value,
+    currentBase: row.querySelector('[data-role="current-level"]').value,
+    targetBase: row.querySelector('[data-role="target-level"]').value,
   }]));
 }
 
 function keepTargetAtOrAboveCurrent(row, planner) {
-  const currentSelect = row.querySelector('[data-role="current-base"]');
-  const targetSelect = row.querySelector('[data-role="target-base"]');
+  const currentSelect = row.querySelector('[data-role="current-level"]');
+  const targetSelect = row.querySelector('[data-role="target-level"]');
   const currentIndex = planner.steps.findIndex((step) => step.base === currentSelect.value);
   const targetIndex = planner.steps.findIndex((step) => step.base === targetSelect.value);
 
@@ -315,14 +315,14 @@ function keepTargetAtOrAboveCurrent(row, planner) {
 
 function updateRangeWarnings(container, planner, language) {
   const warning = language === 'vi'
-    ? 'Base mục tiêu không được thấp hơn Base hiện tại.'
-    : 'Target Base cannot be lower than Current Base.';
+    ? 'Cấp mục tiêu không được thấp hơn cấp hiện tại.'
+    : 'Target level cannot be lower than current level.';
   const message = MESSAGES[language];
   let hasInvalidRange = false;
 
   container.querySelectorAll('[data-building-key]').forEach((row) => {
-    const currentSelect = row.querySelector('[data-role="current-base"]');
-    const targetSelect = row.querySelector('[data-role="target-base"]');
+    const currentSelect = row.querySelector('[data-role="current-level"]');
+    const targetSelect = row.querySelector('[data-role="target-level"]');
     const currentIndex = planner.steps.findIndex((step) => step.base === currentSelect.value);
     const targetIndex = planner.steps.findIndex((step) => step.base === targetSelect.value);
     const invalid = targetIndex !== -1 && targetIndex < currentIndex;

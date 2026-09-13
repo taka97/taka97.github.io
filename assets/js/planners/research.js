@@ -1,14 +1,9 @@
 import { createPlanner } from './planner-core.js';
 import { resolveLocalizedLabel } from './localized-label.js';
+import { troopName } from './troop-name.js';
 import { createProfileStore, getToolData, updateToolData } from './storage.js';
 import { createTable, clearElement, setSummaryValue, setStatus as setStatusElement, renderMissingCard, targetCell, grandTotalFooter, renderInstanceBadge, formatStockInputValue, parseStockInputValue, wireStockInputFormatting } from './table-helpers.js';
 import { createResearchPlanner, calculateResearchRequirements, formatNumber } from './research-core.js';
-
-const TROOP_TRANSLATIONS = {
-  shieldbearer: 'Khiên binh',
-  bomber: 'Bomber',
-  shooter: 'Xạ thủ',
-};
 
 const MESSAGES = {
   en: {
@@ -380,10 +375,6 @@ function clearResults(elements) {
   if (elements.summaryHyperalloyNeeded) setSummaryValue(elements.summaryHyperalloyNeeded, '—');
   if (elements.summaryHyperalloyMissing) setSummaryValue(elements.summaryHyperalloyMissing, '—');
   clearElement(elements.trackTotals);
-}
-
-function troopName(troop, language) {
-  return language === 'vi' ? TROOP_TRANSLATIONS[troop] : troop.charAt(0).toUpperCase() + troop.slice(1);
 }
 
 function trackName(track, language) {

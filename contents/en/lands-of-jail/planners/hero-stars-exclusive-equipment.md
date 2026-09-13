@@ -24,12 +24,11 @@ Calculate the Redeem and Exclusive Weapon Parts needed to level up your heroes' 
 
   <section class="loj-planner__inventory" aria-labelledby="hsee-inventory-heading">
     <h3 id="hsee-inventory-heading">Current Stock</h3>
-    <label for="hsee-stock-hero-fragment">Redeem
-      <input id="hsee-stock-hero-fragment" data-role="stock-input" data-resource-key="HeroFragment" type="text" pattern="[0-9,]*" inputmode="numeric" autocomplete="off">
+    {%- for resource in site.data.lands_of_jail.hero_stars_exclusive_equipment.resources -%}
+    <label for="hsee-stock-{{ resource.key }}">{{ resource.label[page.lang] | default: resource.label.en | default: resource.label }}
+      <input id="hsee-stock-{{ resource.key }}" data-role="stock-input" data-resource-key="{{ resource.key }}" type="text" pattern="[0-9,]*" inputmode="numeric" autocomplete="off">
     </label>
-    <label for="hsee-stock-exclusive-equip-part">Exclusive Weapon Parts
-      <input id="hsee-stock-exclusive-equip-part" data-role="stock-input" data-resource-key="ExclusiveEquipPart" type="text" pattern="[0-9,]*" inputmode="numeric" autocomplete="off">
-    </label>
+    {%- endfor -%}
   </section>
 
   <section class="loj-planner__summary" aria-labelledby="hsee-summary-heading">

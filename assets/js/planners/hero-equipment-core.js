@@ -3,7 +3,7 @@ import { hasLocalizedLabel } from './localized-label.js';
 
 export { formatNumber };
 
-const RESOURCE_KEYS = ['EquipmentParts', 'PrecisionEquipment', 'Magnet', 'PotentialCoil'];
+const RESOURCE_KEYS = ['EquipmentParts', 'Magnet', 'PrecisionEquipment', 'PotentialCoil'];
 const TROOP_COUNT = 3;
 const SLOT_COUNT = 4;
 const RARITY_LEVEL_COUNT = 21;

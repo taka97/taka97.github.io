@@ -13,11 +13,11 @@ caps: { robots: 12 }
 robotSlotCaps:
   - { slot: 1, maxLevel: 60 }
 resources:
-  - { key: PrisonerArmorData, label: Prisoner Armor Data, icon: /assets/images/lands-of-jail/robots-satellites/prisoner-armor-data.png }
-  - { key: PowerModule, label: Power Module, icon: /assets/images/lands-of-jail/robots-satellites/power-module.png }
-  - { key: AdvancedPowerModule, label: Advanced Power Module, icon: /assets/images/lands-of-jail/robots-satellites/advanced-power-module.png }
-  - { key: DataDisk, label: Data Disk, icon: /assets/images/lands-of-jail/robots-satellites/data-disk.png }
-  - { key: PlanetCoin, label: Planet Coin, icon: /assets/images/lands-of-jail/robots-satellites/planet-coin.png }
+  - { key: PrisonerArmorData, label: { en: "Prisoner Armor Data", vi: "Dữ liệu Giáp Kẻ xấu" }, icon: /assets/images/lands-of-jail/robots-satellites/prisoner-armor-data.png }
+  - { key: PowerModule, label: { en: "Power Module", vi: "Mô-đun Cấp điện Thông thường" }, icon: /assets/images/lands-of-jail/robots-satellites/power-module.png }
+  - { key: AdvancedPowerModule, label: { en: "Advanced Power Module", vi: "Mô-đun Cấp điện Nâng cao" }, icon: /assets/images/lands-of-jail/robots-satellites/advanced-power-module.png }
+  - { key: DataDisk, label: { en: "Data Disk", vi: "Đĩa dữ liệu" }, icon: /assets/images/lands-of-jail/robots-satellites/data-disk.png }
+  - { key: PlanetCoin, label: { en: "Planet Coin", vi: "Tiền tệ Hành tinh" }, icon: /assets/images/lands-of-jail/robots-satellites/planet-coin.png }
 # 22 rows: index 0 = "not_started" (true baseline, zero cost, same id/meaning as
 # satelliteTiers[].levels' not_started row below). Reaching Level 1 from there is
 # a real upgrade step like any other — cost currently unknown, placeholder 0 until
@@ -120,11 +120,11 @@ satelliteTiers:
       - { id: level_90_maxed,   DataDisk: 0,     PlanetCoin: 500 }
 # 9 fixed units — cost comes from satelliteTiers[tier].levels, not stored here.
 satellites:
-  - { id: sat_r_laser, tier: R, label: Laser}
-  - { id: sat_r_observateur, tier: R, label: Watcher}
-  - { id: sat_r_radiance, tier: R, label: Radiance}
-  - { id: sat_sr_arbitre, tier: SR, label: Arbitrator}
-  - { id: sat_sr_sentinelle, tier: SR, label: Sentinel}
+  - { id: sat_r_laser, tier: R, label: { en: "Laser", vi: "Tia laser" } }
+  - { id: sat_r_observateur, tier: R, label: { en: "Watcher", vi: "Nhà thám hiểm" } }
+  - { id: sat_r_radiance, tier: R, label: { en: "Radiance", vi: "Bắn tỏa" } }
+  - { id: sat_sr_arbitre, tier: SR, label: { en: "Arbitrator", vi: "Trọng tài giả" } }
+  - { id: sat_sr_sentinelle, tier: SR, label: { en: "Sentinel", vi: "Cảnh giới giả" } }
   - { id: sat_ssr_domaine_omniscient, tier: SSR, label: Omniscient Domain}
   - { id: sat_ssr_nexus_celeste, tier: SSR, label: Sky Nexus}
   - { id: sat_ssr_argus, tier: SSR, label: Argus}
