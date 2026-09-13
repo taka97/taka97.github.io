@@ -17,10 +17,10 @@ resources:
 caps: { heroStars: 6, exclusiveEquipment: 6 }
 # 32 entries. id suffix _s1.._s5 = stage sub-level within a star tier
 # ("K stars · stage N" in source UI); plain starK id = the tier's "whole"
-# checkpoint. Current select offers all 32; Target select must exclude
-# `start` and every _s\d+ stage id (UI-layer filter, Phase 3) — leaves
-# exactly 6 Target options: recruited, star1, star2, star3, star4, star5,
-# matching the live page's Target dropdown exactly. All costs are
+# checkpoint. Current and Target selects both offer all 32 — a stage
+# sub-level is a valid stopping point on its own, not just a mid-route
+# waypoint (diverges from the live page's Target dropdown, which only
+# offers start/recruited/star1..star5). All costs are
 # HeroFragment only (ExclusiveEquipPart is 0 on every entry) — normalized
 # to 0 in the engine like every other planner's normalizeCost.
 heroStars:

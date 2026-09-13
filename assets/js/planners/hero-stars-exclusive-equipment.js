@@ -81,9 +81,7 @@ async function initializeHeroStarsEquipmentPlanner(container) {
     return;
   }
 
-  const heroStarsTargetIndices = [0, ...planner.heroStarsLevels
-    .map((level, index) => index)
-    .filter((index) => index !== 0 && !/_s\d+$/.test(planner.heroStarsLevels[index].id))];
+  const heroStarsTargetIndices = planner.heroStarsLevels.map((level, index) => index);
   const exclusiveEquipmentTargetIndices = planner.exclusiveEquipmentLevels.map((level, index) => index);
 
   try {
