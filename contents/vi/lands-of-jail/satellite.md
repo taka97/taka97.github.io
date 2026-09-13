@@ -32,13 +32,13 @@ Chỉ số nâng cấp chi tiết và các mốc sức mạnh cuối vẫn cần
 
 | Cấp Overclock | Máu Bom Địch |
 | --- | --- |
-| 6 Stats Epic | -6% |
-| 2 Stats Legendary | -9% |
-| 4 Stats Legendary | -12% |
-| 6 Stats Legendary | -15% |
-| 2 Stats Exotic | -19% |
-| 4 Stats Exotic | -23% |
-| 6 Stats Exotic | -27% |
+| 6 Stats <span class="rarity-epic">Epic</span> | -6% |
+| 2 Stats <span class="rarity-legendary">Legendary</span> | -9% |
+| 4 Stats <span class="rarity-legendary">Legendary</span> | -12% |
+| 6 Stats <span class="rarity-legendary">Legendary</span> | -15% |
+| 2 Stats <span class="rarity-exotic">Exotic</span> | -19% |
+| 4 Stats <span class="rarity-exotic">Exotic</span> | -23% |
+| 6 Stats <span class="rarity-exotic">Exotic</span> | -27% |
 {: .overclock-table}
 
 **Kết luận:** Max cái này đầu tiên để tạo "hiệu ứng quả cầu tuyết" cho nền kinh tế vũ trụ của bạn.

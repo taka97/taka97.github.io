@@ -4,6 +4,26 @@
    assets/css/main.scss, so these rules win). Only theme-agnostic readability
    tweaks carried over from the old Just-the-Docs styling. */
 
+/* Rarity tier colors, shared across game-guide content (Epic/Legendary/Exotic
+   text, badges, etc.) so any future usage stays consistent with these. */
+:root {
+  --rarity-epic: rgb(218, 82, 160);
+  --rarity-legendary: rgb(243, 171, 8);
+  --rarity-exotic: rgb(205, 47, 48);
+}
+
+.rarity-epic {
+  color: var(--rarity-epic);
+}
+
+.rarity-legendary {
+  color: var(--rarity-legendary);
+}
+
+.rarity-exotic {
+  color: var(--rarity-exotic);
+}
+
 /* Softer body line-height for long guide pages. */
 .js-article-content {
   p,

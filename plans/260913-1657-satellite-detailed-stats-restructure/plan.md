@@ -63,6 +63,14 @@ Agreed with user via iterative refinement:
 - Rarity tier names (`Epic`/`Legendary`/`Exotic`) stay in English in both EN
   and VI content, matching this repo's existing convention (see
   `assets/js/planners/hero-equipment.js`'s `RARITY_TIER_LABELS`, EN-only).
+- Every occurrence of a rarity tier name inside an Overclock Effect table gets
+  wrapped in `<span class="rarity-epic">Epic</span>` /
+  `<span class="rarity-legendary">Legendary</span>` /
+  `<span class="rarity-exotic">Exotic</span>`. Colors come from `:root`
+  custom properties in `_sass/custom.scss` (`--rarity-epic: rgb(218, 82,
+  160)`, `--rarity-legendary: rgb(243, 171, 8)`, `--rarity-exotic: rgb(205,
+  47, 48)`), reusable for any future rarity text on the site, not just this
+  table.
 - Negative stat values get a `-` sign (e.g. `-6%`), no "Reduce" wording in
   the label — the table column header carries the stat name instead.
 
@@ -87,6 +95,7 @@ Agreed with user via iterative refinement:
   | 4 Stats Exotic | -23% |
   | 6 Stats Exotic | -27% |
 
+  (rarity tier names color-coded per the convention above)
 - **Verdict:** unchanged from before.
 - Applied to both `contents/en/lands-of-jail/satellite.md` and
   `contents/vi/lands-of-jail/satellite.md` (VI: Role/Skills/Verdict prose
