@@ -44,6 +44,7 @@ guides, with a small browser-local tools track for Lands of Jail.
 | Teal/amber accents in palette | Reserved for future callouts/badges | Low |
 | Badge-stack layout rollout (see below) | Applied to all 5 planners — plan: `plans/260911-2022-badge-stack-layout-rollout/` | Done |
 | Step-id/display-text decoupling audit (see below) | Done — Forticlad fixed, other 4 tools verified against real IndexedDB data | Done |
+| Object knowledge cross-linking rollout (see below) | Satellites done; Robots and any future planner with a dedicated knowledge page still need it | In progress |
 
 ### Step-id/display-text decoupling audit
 
@@ -159,6 +160,29 @@ need and is not implied for the other planners unless separately requested.
 Reference implementation: `assets/js/planners/tomes.js`'s `buildInstanceCard`
 (the `.loj-planner__instance-heading`/`.loj-planner__instance-label` CSS is in
 `_sass/custom.scss`). Full history: commit `341282e`.
+
+### Object knowledge cross-linking rollout — In progress (2026-09-13)
+
+Game-knowledge write-ups (role/effect/verdict per named object, e.g.
+`satellite.md`, `season-2/robots.md`) used to live fully separate from the
+planner tool that manages the same objects, with no link between them and, for
+Satellites, a duplicated name list (`_data/terms.yml` vs
+`_data/lands_of_jail/robots_satellites.yml`). Fix: keep narrative in the
+markdown knowledge page as the single source of prose, give each covered
+object's heading a stable `{#anchor}` id, and have the tool's yml carry an
+optional `knowledgeAnchor` per object so the planner can render a "Details ↗"
+link straight to that section. Brainstorm:
+[`plans/reports/brainstorm-260913-1531-satellite-knowledge-tool-link.md`](../plans/reports/brainstorm-260913-1531-satellite-knowledge-tool-link.md).
+
+| Object | Knowledge page | Tool | Status |
+| --- | --- | --- | --- |
+| Satellites | `satellite.md` | Robots & Satellites planner | **Done** (5 released satellites linked; 4 unreleased SSR satellites have no write-up yet, so no link) |
+| Robots | `season-2/robots.md` | Robots & Satellites planner | Not started — deferred by user; robot slots already use stable `robot_N` storage keys to prep for this (see memory `pending-robot-external-link`) |
+| Heroes / Hero Equipment / Collections & Tomes / Forticlad | none yet | respective planners | N/A — no dedicated narrative knowledge page exists for these yet; apply the same pattern if one is written later |
+
+Scope note: this round is tool → knowledge links only (no reverse link from
+the knowledge page back into the planner), and no stub write-ups were added
+just to give every object a link target.
 
 ## Content backlog
 

@@ -32,13 +32,8 @@ aside:
 
 - [Migration Operation](/en/lands-of-jail/events/migration-operation/)
 
-### Season 1
-
-Season 1 satellite content is now covered in the main [{% include term.html key="satellite" %}](/en/lands-of-jail/satellite/) guide.
-
 ### Season 2
 
-- [{% include term.html key="satellite" %} release update](/en/lands-of-jail/satellite/#season-2-release-update)
 - [Heroes](/en/lands-of-jail/season-2/heroes/)
 - [Robots](/en/lands-of-jail/season-2/robots/)
 

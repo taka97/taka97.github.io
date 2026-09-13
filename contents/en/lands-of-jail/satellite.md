@@ -11,65 +11,121 @@ aside:
 
 # {% include term.html key="lands_of_jail" %} - {% include term.html key="satellite" %}
 
-## Season 2 Release Update {#season-2-release-update}
-
-Season 2 adds two released satellites:
-
-- **{% include term.html key="sentinel" %}:** Reinforcement satellite focused on instant troop training.
-- **{% include term.html key="arbitrator" %}:** Combat satellite focused on extra damage during the Cage event.
-
-Detailed upgrade values and final stat breakpoints still need confirmation in-game.
-
 ## Overview
 
-### {% include term.html key="laser" %} {% include term.html key="satellite" %}: Top Priority 🔵
+### {% include loj-satellite-name.html id="sat_r_laser" %} {% include term.html key="satellite" %}: <span class="tier-r">R</span> 🔵 {#sat-laser}
 
 **Role:** The engine of your progression — the only satellite that passively generates the resources needed to upgrade the others.
 
-**Effect:** 6 chests/day (one per 1-hour resource gathering), containing Space Parts and EXP Disks.
+**Skills:** 6 chests/day (one per 1-hour resource gathering), containing Planet Coin and Data Disks.
+
+**Overclock Effect:**
+
+| Overclock Tier | Enemy Bomber HP |
+| --- | --- |
+| 6 Stats <span class="rarity-epic">Epic</span> | -6% |
+| 2 Stats <span class="rarity-legendary">Legendary</span> | -9% |
+| 4 Stats <span class="rarity-legendary">Legendary</span> | -12% |
+| 6 Stats <span class="rarity-legendary">Legendary</span> | -15% |
+| 2 Stats <span class="rarity-exotic">Exotic</span> | -19% |
+| 4 Stats <span class="rarity-exotic">Exotic</span> | -23% |
+| 6 Stats <span class="rarity-exotic">Exotic</span> | -27% |
+{: .overclock-table}
 
 **Verdict:** Max this one first to create a "snowball effect" on your space economy.
 
-### {% include term.html key="sentinel" %} {% include term.html key="satellite" %}: Season 2 🟣
+### {% include loj-satellite-name.html id="sat_r_observateur" %} {% include term.html key="satellite" %}: <span class="tier-r">R</span> 🔵 {#sat-watcher}
 
-**Role:** Reinforcement satellite.
+**Role:** Arrest Resource.
 
-**Effect:** Instant troop training.
+**Skills:** Get 6-hours Capture Earnings immediately per day.
 
-**Verdict:** Strong utility when you need to rebuild or prepare troops quickly. Prioritize after {% include term.html key="laser" %} if troop recovery speed is limiting your progress.
+**Overclock Effect:**
 
-### {% include term.html key="arbitrator" %} {% include term.html key="satellite" %}: Season 2 🟣
+| Overclock Tier | Enemy Shieldbearer HP |
+| --- | --- |
+| 6 Stats <span class="rarity-epic">Epic</span> | -6% |
+| 2 Stats <span class="rarity-legendary">Legendary</span> | -9% |
+| 4 Stats <span class="rarity-legendary">Legendary</span> | -12% |
+| 6 Stats <span class="rarity-legendary">Legendary</span> | -15% |
+| 2 Stats <span class="rarity-exotic">Exotic</span> | -19% |
+| 4 Stats <span class="rarity-exotic">Exotic</span> | -23% |
+| 6 Stats <span class="rarity-exotic">Exotic</span> | -27% |
+{: .overclock-table}
 
-**Role:** Combat satellite for event damage.
+**Verdict:** Leave this one for last. The bonuses are nice but have less impact than the {% include loj-satellite-name.html id="sat_r_laser" %} or {% include loj-satellite-name.html id="sat_r_radiance" %} combat boost.
 
-**Effect:** Extra damage during the Cage event.
-
-**Verdict:** Worth investing in when Cage event performance matters more than general PvE progress.
-
-### {% include term.html key="radiance" %} {% include term.html key="satellite" %}: PvE Optimization 🔵
+### {% include loj-satellite-name.html id="sat_r_radiance" %} {% include term.html key="satellite" %}: <span class="tier-r">R</span> 🔵 {#sat-radiance}
 
 **Role:** The field specialist for PvE arrests.
 
-**Effect:** +11% Attack & Defense during prisoner arrests.
+**Skills:** +6% Attack & Defense during prisoner arrests.
 
-**Verdict:** Essential for clearing difficult PvE stages and daily missions; useless in PvP. Focus on it once your {% include term.html key="laser" %} {% include term.html key="satellite" %} is stable.
+**Overclock Effect:**
 
-### {% include term.html key="watcher" %} {% include term.html key="satellite" %}: Secondary Support 🔵
+| Overclock Tier | Enemy Shooter ATK |
+| --- | --- |
+| 6 Stats <span class="rarity-epic">Epic</span> | -6% |
+| 2 Stats <span class="rarity-legendary">Legendary</span> | -9% |
+| 4 Stats <span class="rarity-legendary">Legendary</span> | -12% |
+| 6 Stats <span class="rarity-legendary">Legendary</span> | -15% |
+| 2 Stats <span class="rarity-exotic">Exotic</span> | -19% |
+| 4 Stats <span class="rarity-exotic">Exotic</span> | -23% |
+| 6 Stats <span class="rarity-exotic">Exotic</span> | -27% |
+{: .overclock-table}
 
-**Role:** The comfort bonus.
+**Verdict:** Essential for clearing difficult PvE stages and daily missions; useless in PvP. Focus on it once your {% include loj-satellite-name.html id="sat_r_laser" %} {% include term.html key="satellite" %} is stable.
 
-**Effect:** Reduced HP for deflectors + daily resource chest.
+### {% include loj-satellite-name.html id="sat_sr_arbitre" %} {% include term.html key="satellite" %}: <span class="tier-sr">SR</span> 🟣 {#sat-arbitrator}
 
-**Verdict:** Leave this one for last. The bonuses are nice but have less impact than the {% include term.html key="laser" %} or {% include term.html key="radiance" %} combat boost.
+**Role:** Bonus for Cage Dmg.
+
+**Skills:** Increase dmg deal to Cage by 24%.
+
+**Overclock Effect:**
+
+| Overclock Tier | Enemy Bomber ATK |
+| --- | --- |
+| 6 Stats <span class="rarity-epic">Epic</span> | -11% |
+| 2 Stats <span class="rarity-legendary">Legendary</span> | -16% |
+| 4 Stats <span class="rarity-legendary">Legendary</span> | -21% |
+| 6 Stats <span class="rarity-legendary">Legendary</span> | -26% |
+| 2 Stats <span class="rarity-exotic">Exotic</span> | -33% |
+| 4 Stats <span class="rarity-exotic">Exotic</span> | -40% |
+| 6 Stats <span class="rarity-exotic">Exotic</span> | -48% |
+{: .overclock-table}
+
+**Verdict:** Worth investing in when Cage event performance matters more than general PvE progress.
+
+### {% include loj-satellite-name.html id="sat_sr_sentinelle" %} {% include term.html key="satellite" %}: <span class="tier-sr">SR</span> 🟣 {#sat-sentinel}
+
+**Role:** Reinforcement Soldiers.
+
+**Skills:** Get 8-hour soldiers immediately per day.
+
+**Overclock Effect:**
+
+| Overclock Tier | Enemy Shooter Lethality |
+| --- | --- |
+| 6 Stats <span class="rarity-epic">Epic</span> | -11% |
+| 2 Stats <span class="rarity-legendary">Legendary</span> | -16% |
+| 4 Stats <span class="rarity-legendary">Legendary</span> | -21% |
+| 6 Stats <span class="rarity-legendary">Legendary</span> | -26% |
+| 2 Stats <span class="rarity-exotic">Exotic</span> | -33% |
+| 4 Stats <span class="rarity-exotic">Exotic</span> | -40% |
+| 6 Stats <span class="rarity-exotic">Exotic</span> | -48% |
+{: .overclock-table}
+
+**Verdict:** Strong utility when you need to rebuild or prepare troops quickly. Prioritize after {% include loj-satellite-name.html id="sat_r_laser" %} if troop recovery speed is limiting your progress.
 
 ## Priority Order
 
-🔵 Season 1 · 🟣 Season 2 · 🟡 releasing in later seasons
+🔵 <span class="tier-r">R</span> · 🟣 <span class="tier-sr">SR</span> · 🟡 <span class="tier-ssr">SSR</span> _(unreleased)_
 
-1. **{% include term.html key="laser" %} 🔵 (Economy):** Satellite resources
-2. **{% include term.html key="sentinel" %} 🟣 (Reinforcement):** Instant troop training
+1. **{% include loj-satellite-name.html id="sat_r_laser" %} 🔵 (Economy):** Satellite resources
+2. **{% include loj-satellite-name.html id="sat_sr_sentinelle" %} 🟣 (Reinforcement):** Instant troop training
 3. **ARGUS 🟡 (Growth):** Increases expedition capacity _(unreleased)_
-4. **{% include term.html key="arbitrator" %} 🟣 (Combat):** Extra damage during the Cage event
+4. **{% include loj-satellite-name.html id="sat_sr_arbitre" %} 🟣 (Combat):** Extra damage during the Cage event
 5. **POLARIS 🟡 (Target):** Gorilla attack bonus _(unreleased)_
-6. **{% include term.html key="radiance" %} 🔵 (PvE Strength):** Attack bonus for PvE arrests
-7. **{% include term.html key="watcher" %} 🔵 (Support):** Daily resource chest and support bonus
+6. **{% include loj-satellite-name.html id="sat_r_radiance" %} 🔵 (PvE Strength):** Attack bonus for PvE arrests
+7. **{% include loj-satellite-name.html id="sat_r_observateur" %} 🔵 (Support):** Instant 6-hour Capture Earnings

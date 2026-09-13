@@ -12,5 +12,3 @@ aside:
 # Season 1
 
 Hướng dẫn cho Season 1.
-
-- [{% include term.html key="satellite" %}](/vi/lands-of-jail/satellite/)

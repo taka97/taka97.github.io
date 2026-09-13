@@ -30,6 +30,7 @@ const MESSAGES = {
     targetSetLabel: 'Target set',
     estimatedLabel: 'Estimated cost',
     estimatedNote: 'This step includes at least one unconfirmed source figure.',
+    detailsLabel: 'Details ↗',
   },
   vi: {
     noProfile: 'Hãy tạo hoặc chọn hồ sơ đang dùng trong Cài đặt trước khi lập kế hoạch.',
@@ -55,6 +56,7 @@ const MESSAGES = {
     targetSetLabel: 'Đã đặt mục tiêu',
     estimatedLabel: 'Chi phí ước tính',
     estimatedNote: 'Bước này có ít nhất một số liệu nguồn chưa được xác nhận.',
+    detailsLabel: 'Chi tiết ↗',
   },
 };
 
@@ -227,6 +229,7 @@ async function initializeRobotsSatellitesPlanner(container) {
         targetIndex: satelliteState[satellite.id].targetIndex,
         maxIndex,
         labelFn: (levelIndex) => levelLabel(planner.satelliteTiers[tierKey].levels[levelIndex].id, message),
+        knowledgeHref: satellite.knowledgeAnchor && planner.knowledgeBase ? `/${language}${planner.knowledgeBase}#${satellite.knowledgeAnchor}` : undefined,
       }));
     renderInstanceCards(elements.satelliteLists[tierKey], `sat-${tierKey}`, cards, disabled, message);
   }
@@ -470,6 +473,17 @@ function renderInstanceCards(container, keyPrefix, cards, disabled, message) {
     badge.dataset.role = 'instance-badge';
     renderInstanceBadge(badge, entry.targetIndex !== 0, message.targetSetLabel, message.noTarget);
     headingRow.append(heading, badge);
+
+    if (entry.knowledgeHref) {
+      const detailsLink = document.createElement('a');
+      detailsLink.className = 'loj-planner__instance-details-link';
+      detailsLink.href = entry.knowledgeHref;
+      detailsLink.target = '_blank';
+      detailsLink.rel = 'noopener';
+      detailsLink.textContent = message.detailsLabel;
+      detailsLink.setAttribute('aria-describedby', heading.id);
+      headingRow.append(detailsLink);
+    }
 
     const errorId = `${keyPrefix}-range-error-${entry.key}`;
     const error = document.createElement('p');

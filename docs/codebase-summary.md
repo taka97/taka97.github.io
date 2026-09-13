@@ -35,6 +35,7 @@ _includes/
     custom.html              hreflang alternates + language pair linking
   header.html                Language switcher (EN · VI in main header)
   term.html                  Renders shared terms from `_data/terms.yml`
+  loj-satellite-name.html    Renders satellite names from `robots_satellites.yml` (not terms.yml)
   footer.html                Copyright + year
 
 _sass/

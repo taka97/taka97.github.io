@@ -4,6 +4,56 @@
    assets/css/main.scss, so these rules win). Only theme-agnostic readability
    tweaks carried over from the old Just-the-Docs styling. */
 
+/* Rarity tier colors, shared across game-guide content (Epic/Legendary/Exotic
+   text, badges, etc.) so any future usage stays consistent with these. */
+:root {
+  --rarity-epic: rgb(233, 88, 171);
+  --rarity-legendary: rgb(243, 171, 8);
+  --rarity-exotic: rgb(205, 47, 48);
+}
+
+.rarity-epic,
+.rarity-legendary,
+.rarity-exotic {
+  font-weight: 700;
+  font-style: italic;
+}
+
+.rarity-epic {
+  color: var(--rarity-epic);
+}
+
+.rarity-legendary {
+  color: var(--rarity-legendary);
+}
+
+.rarity-exotic {
+  color: var(--rarity-exotic);
+}
+
+/* Robots & Satellites unit tier colors — moved here from the planner tool's
+   per-instance inline colors (`_data/lands_of_jail/robots_satellites.yml`'s
+   `satelliteTiers[].badge`, applied via `--badge-color` in
+   assets/js/planners/robots-satellites.js) so both the planner and game-guide
+   content (e.g. satellite.md) share one source of truth. */
+:root {
+  --tier-r: #5b8cff;
+  --tier-sr: #9b6bff;
+  --tier-ssr: #ffd60a;
+}
+
+.tier-r {
+  color: var(--tier-r);
+}
+
+.tier-sr {
+  color: var(--tier-sr);
+}
+
+.tier-ssr {
+  color: var(--tier-ssr);
+}
+
 /* Softer body line-height for long guide pages. */
 .js-article-content {
   p,
@@ -14,6 +64,14 @@
   /* Header tint for the stat/loot tables common in game guides. */
   table th {
     background-color: #f0f1f8;
+  }
+
+  /* Indents the Overclock Effect table under its "Overclock Effect:" label
+     (Lands of Jail satellite/robot writeups), setting it apart from the
+     Role/Skills/Verdict lines around it. */
+  table.overclock-table {
+    width: auto;
+    margin-left: 1.5rem;
   }
 }
 
@@ -176,6 +234,11 @@
 
       .loj-planner__instance-badge {
         margin-left: 0;
+      }
+
+      .loj-planner__instance-details-link {
+        font-size: 0.8rem;
+        color: #5d5d67;
       }
 
       // Only used when a card heading carries an icon (e.g. Forticlad buildings):

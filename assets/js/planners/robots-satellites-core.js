@@ -53,7 +53,12 @@ export function createRobotsSatellitesPlanner(data) {
     if (typeof satellite.id !== 'string' || !satellite.id) throw new TypeError('Robots & Satellites data has a satellite with a missing id.');
     if (!TIER_LEVEL_COUNTS[satellite.tier]) throw new TypeError(`Robots & Satellites data has a satellite with an invalid tier for ${satellite.id}.`);
     if (!hasLocalizedLabel(satellite.label)) throw new TypeError(`Robots & Satellites data has a satellite with a missing label for ${satellite.id}.`);
-    return { id: satellite.id, tier: satellite.tier, label: satellite.label };
+    return {
+      id: satellite.id,
+      tier: satellite.tier,
+      label: satellite.label,
+      ...(typeof satellite.knowledgeAnchor === 'string' ? { knowledgeAnchor: satellite.knowledgeAnchor } : {}),
+    };
   });
 
   const resources = Array.isArray(data.resources) ? data.resources.map(normalizeResource) : [];
@@ -78,7 +83,9 @@ export function createRobotsSatellitesPlanner(data) {
     robotSlotMaxIndex[entry.slot - 1] = levelIndex;
   });
 
-  return { robotLevels, satelliteTiers, satellites, resources, caps, robotSlotMaxIndex };
+  const knowledgeBase = typeof data.knowledgeBase === 'string' ? data.knowledgeBase : undefined;
+
+  return { robotLevels, satelliteTiers, satellites, resources, caps, robotSlotMaxIndex, knowledgeBase };
 }
 
 export function calculateRobotsSatellitesRequirements(planner, robotInstances, satelliteState) {
