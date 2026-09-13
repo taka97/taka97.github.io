@@ -11,7 +11,7 @@ aside:
 
 # Tính Kho báu & Sách cổ
 
-Tính số Bảo điển (Seal) và Xu kỷ niệm (Trove Coin) cần để nâng cấp Kho báu và Sách cổ. 6 Kho báu và 18 Sách cổ (mỗi loại Lính khiên, Lính ném bom, Lính súng có 2 Kho báu và 6 Sách cổ — Sách cổ chia thành 3 Tấn công và 3 Phòng thủ) luôn hiển thị sẵn. Chọn cấp hiện tại và cấp mục tiêu cho từng cái, rồi xem tổng số cần cho tất cả cùng lúc. Tên bậc hiện đang hiển thị bằng tiếng Anh.
+Tính số Bảo điển (Seal) và Xu kỷ niệm (Trove Coin) cần để nâng cấp Kho báu và Sách cổ. 6 Kho báu và 18 Sách cổ (mỗi loại Lính khiên, Lính ném bom, Lính súng có 2 Kho báu và 6 Sách cổ — Sách cổ chia thành 3 Tấn công và 3 Phòng thủ) luôn hiển thị sẵn. Chọn cấp hiện tại và cấp mục tiêu cho từng cái, rồi xem tổng số cần cho tất cả cùng lúc.
 
 <section class="loj-planner" data-tomes-planner data-lang="vi" aria-labelledby="collections-tomes-planner-heading">
   <h2 id="collections-tomes-planner-heading">Lập kế hoạch nâng cấp</h2>

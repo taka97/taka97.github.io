@@ -70,10 +70,10 @@ collectionTiers:
   - { key: legendary, label: { en: "Legendary", vi: "Huyền thoại" }, rows: 4 }
   - { key: legendary_t1, label: { en: "Legendary T1", vi: "Huyền thoại T1" }, rows: 4 }
   - { key: legendary_t2, label: { en: "Legendary T2", vi: "Huyền thoại T2" }, rows: 4 }
-  - { key: exotic, label: Exotic, rows: 4 }
-  - { key: exotic_t1, label: Exotic T1, rows: 4 }
-  - { key: exotic_t2, label: Exotic T2, rows: 4 }
-  - { key: exotic_t3, label: Exotic T3, rows: 4 }
+  - { key: exotic, label: { en: "Exotic", vi: "Đỉnh cao" }, rows: 4 }
+  - { key: exotic_t1, label: { en: "Exotic T1", vi: "Đỉnh cao T1" }, rows: 4 }
+  - { key: exotic_t2, label: { en: "Exotic T2", vi: "Đỉnh cao T2" }, rows: 4 }
+  - { key: exotic_t3, label: { en: "Exotic T3", vi: "Đỉnh cao T3" }, rows: 4 }
 # 43 rows: index 0 = "start" (free), then 42 tier rows in COLLECTION_TIERS order.
 # `star: 0` = the tier's base row, `star: N` = that tier's Nth star row.
 collectionLevels:

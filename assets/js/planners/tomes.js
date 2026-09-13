@@ -308,10 +308,19 @@ function collectionLevelLabel(index, planner, language) {
   return row.star > 0 ? `${label} · ${starPostfix} ${row.star}` : label;
 }
 
-function buildLevelOptions(maxIndex, labelFn, zeroLabelOverride) {
+function collectionLevelColor(index, planner) {
+  const tier = planner.collectionLevels[index].tier;
+  if (tier === 'start') return null;
+  return `var(--rarity-${tier.replace(/_t\d+$/, '')})`;
+}
+
+function buildLevelOptions(maxIndex, labelFn, zeroLabelOverride, colorFn) {
   const options = [];
   for (let index = 0; index <= maxIndex; index += 1) {
-    options.push(new Option(index === 0 && zeroLabelOverride !== undefined ? zeroLabelOverride : labelFn(index), String(index)));
+    const option = new Option(index === 0 && zeroLabelOverride !== undefined ? zeroLabelOverride : labelFn(index), String(index));
+    const color = colorFn?.(index);
+    if (color) option.style.color = color;
+    options.push(option);
   }
   return options;
 }
@@ -344,6 +353,7 @@ function renderTomeGroups(container, instances, planner, language, labelFn, mess
 function renderCollectionGroups(container, instances, planner, language, labelFn, message, disabled) {
   const fragment = document.createDocumentFragment();
   const troops = [...new Set(planner.collectionSlots.map((slot) => slot.troop))];
+  const colorFn = (index) => collectionLevelColor(index, planner);
   troops.forEach((troop) => {
     const group = document.createElement('details');
     group.className = 'loj-planner__group';
@@ -354,14 +364,14 @@ function renderCollectionGroups(container, instances, planner, language, labelFn
     planner.collectionSlots.forEach((slot, index) => {
       if (slot.troop !== troop) return;
       const instance = instances[index] ?? { currentIndex: 0, targetIndex: 0 };
-      group.append(buildInstanceCard('collections', index, instance, planner.collectionLevels.length - 1, labelFn, message, disabled, resolveLocalizedLabel(slot.label, language, slot.troop)));
+      group.append(buildInstanceCard('collections', index, instance, planner.collectionLevels.length - 1, labelFn, message, disabled, resolveLocalizedLabel(slot.label, language, slot.troop), 'h3', colorFn));
     });
     fragment.append(group);
   });
   container.replaceChildren(fragment);
 }
 
-function buildInstanceCard(category, index, instance, maxIndex, labelFn, message, disabled, headingText, headingTag = 'h3') {
+function buildInstanceCard(category, index, instance, maxIndex, labelFn, message, disabled, headingText, headingTag = 'h3', colorFn) {
   const card = document.createElement('div');
   card.className = 'loj-planner__instance-range';
   card.dataset.category = category;
@@ -394,7 +404,7 @@ function buildInstanceCard(category, index, instance, maxIndex, labelFn, message
   const currentSelect = document.createElement('select');
   currentSelect.dataset.role = 'current-level';
   currentSelect.disabled = disabled;
-  currentSelect.replaceChildren(...buildLevelOptions(maxIndex, labelFn));
+  currentSelect.replaceChildren(...buildLevelOptions(maxIndex, labelFn, undefined, colorFn));
   currentSelect.value = String(instance.currentIndex);
   currentLabel.append(currentSelect);
 
@@ -403,7 +413,7 @@ function buildInstanceCard(category, index, instance, maxIndex, labelFn, message
   const targetSelect = document.createElement('select');
   targetSelect.dataset.role = 'target-level';
   targetSelect.disabled = disabled;
-  targetSelect.replaceChildren(...buildLevelOptions(maxIndex, labelFn, message.noTarget));
+  targetSelect.replaceChildren(...buildLevelOptions(maxIndex, labelFn, message.noTarget, colorFn));
   targetSelect.value = String(instance.targetIndex);
   targetSelect.setAttribute('aria-describedby', errorId);
   targetLabel.append(targetSelect);
