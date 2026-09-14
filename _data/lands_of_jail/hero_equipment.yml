@@ -12,10 +12,10 @@ source:
 troops: [shieldbearer, bomber, shooter]
 slots: [gloves, helmet, chest, boots]
 resources:
-  - { key: EquipmentParts, label: { en: "Equipment EXP", vi: "Kinh nghiệm Trang bị" }, icon: /assets/images/lands-of-jail/hero-equipment/equipment-exp.png }
-  - { key: Magnet, label: { en: "Magnet", vi: "Nam châm" }, icon: /assets/images/lands-of-jail/hero-equipment/magnet.png }
-  - { key: PrecisionEquipment, label: { en: "Precision Gear", vi: "Bánh răng Chính xác" }, icon: /assets/images/lands-of-jail/hero-equipment/precision-gear.png }
-  - { key: PotentialCoil, label: Potential Coil}
+  - { key: EquipmentParts,     label: { en: "Equipment EXP",  vi: "Kinh nghiệm Trang bị" }, icon: /assets/images/lands-of-jail/hero-equipment/equipment-exp.png }
+  - { key: Magnet,             label: { en: "Magnet",         vi: "Nam châm" },             icon: /assets/images/lands-of-jail/hero-equipment/magnet.png }
+  - { key: PrecisionEquipment, label: { en: "Precision Gear", vi: "Bánh răng Chính xác" },  icon: /assets/images/lands-of-jail/hero-equipment/precision-gear.png }
+  - { key: PotentialCoil,      label: { en: "Potential Coil", vi: "Vòng Tiềm năng" },       icon: /assets/images/lands-of-jail/hero-equipment/potential-coil.png }
 rarityTiers:
   - { key: common,       label: { en: "Common",       vi: "Thường" } }
   - { key: uncommon,     label: { en: "Uncommon",     vi: "Tốt" } }
@@ -38,10 +38,10 @@ rarityTiers:
 # array) because only one resource is ever nonzero per row here.
 rarity:
   levels:
-    - { id: common,             cost: { EquipmentParts: 0,      PrecisionEquipment: 0, Magnet: 0,    PotentialCoil: 0 } }
-    - { id: common_s1,          cost: { EquipmentParts: 2620,   PrecisionEquipment: 0, Magnet: 0,    PotentialCoil: 0 }, estimated: true }
-    - { id: uncommon,           cost: { EquipmentParts: 0,      PrecisionEquipment: 0, Magnet: 20,   PotentialCoil: 0 } }
-    - { id: uncommon_s1,        cost: { EquipmentParts: 6980,   PrecisionEquipment: 0, Magnet: 0,    PotentialCoil: 0 } }
+    - { id: common,              cost: { EquipmentParts: 0,      PrecisionEquipment: 0, Magnet: 0,    PotentialCoil: 0 } }
+    - { id: common_s1,           cost: { EquipmentParts: 2620,   PrecisionEquipment: 0, Magnet: 0,    PotentialCoil: 0 }, estimated: true }
+    - { id: uncommon,            cost: { EquipmentParts: 0,      PrecisionEquipment: 0, Magnet: 20,   PotentialCoil: 0 } }
+    - { id: uncommon_s1,         cost: { EquipmentParts: 6980,   PrecisionEquipment: 0, Magnet: 0,    PotentialCoil: 0 } }
     - { id: rare,                cost: { EquipmentParts: 0,      PrecisionEquipment: 0, Magnet: 40,   PotentialCoil: 0 } }
     - { id: rare_s1,             cost: { EquipmentParts: 19220,  PrecisionEquipment: 0, Magnet: 0,    PotentialCoil: 0 } }
     - { id: epic,                cost: { EquipmentParts: 0,      PrecisionEquipment: 0, Magnet: 120,  PotentialCoil: 0 } }
