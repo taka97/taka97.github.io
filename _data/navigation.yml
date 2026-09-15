@@ -24,6 +24,8 @@ loj-en:
     children:
       - title: Migration Operation
         url: /en/lands-of-jail/events/migration-operation/
+      - title: SvS Event
+        url: /en/lands-of-jail/events/svs/
   - title: Season 1
     children:
       - title: Overview
@@ -62,6 +64,8 @@ loj-vi:
     children:
       - title: Di cư Giám ngục
         url: /vi/lands-of-jail/events/migration-operation/
+      - title: Sự kiện SvS
+        url: /vi/lands-of-jail/events/svs/
   - title: Season 1
     children:
       - title: Tổng quan
