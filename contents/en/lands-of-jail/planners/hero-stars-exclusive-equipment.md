@@ -11,7 +11,7 @@ aside:
 
 # Hero Stars & Exclusive Equipment Planner
 
-Calculate the Redeem and Exclusive Weapon Parts needed to level up your heroes' Star rank and Exclusive Equipment. Cost is identical across all heroes, so add as many Hero Stars instances and Exclusive Equipment instances as you're working on (up to 6 each — the two "+ Add Hero" buttons are independent), set a current and target level for each. Hero Stars' Target list only offers Recruited and each whole star tier (1-5 stars) — the in-between stage checkpoints aren't valid targets, only stopping points along the way. See the combined total across everything at once.
+Calculate the Redeem and Exclusive Weapon Parts needed to level up your heroes' Star rank and Exclusive Equipment. Cost is identical across all heroes, so add as many Hero Stars instances and Exclusive Equipment instances as you're working on (up to 6 each — the two "+ Add Hero" buttons are independent), set a current and target level for each. Every Hero Stars level is a valid target — including in-between stage checkpoints and the trailing Max level past 5 stars · tier 5 — so pick any stopping point to see just that step's cost. See the combined total across everything at once.
 
 <section class="loj-planner" data-hero-stars-exclusive-equipment-planner data-lang="en" aria-labelledby="hsee-planner-heading">
   <h2 id="hsee-planner-heading">Plan your upgrade</h2>

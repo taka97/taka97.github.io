@@ -4,7 +4,7 @@ import { hasLocalizedLabel } from './localized-label.js';
 export { formatNumber };
 
 const RESOURCE_KEYS = ['HeroFragment', 'ExclusiveEquipPart'];
-const HERO_STARS_LEVEL_COUNT = 32;
+const HERO_STARS_LEVEL_COUNT = 33;
 const EXCLUSIVE_EQUIPMENT_LEVEL_COUNT = 11;
 
 export function createHeroStarsEquipmentPlanner(data) {

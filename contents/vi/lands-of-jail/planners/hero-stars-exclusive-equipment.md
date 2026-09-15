@@ -11,7 +11,7 @@ aside:
 
 # Tính Mảnh Anh hùng và Trang bị độc quyền
 
-Tính số Mảnh anh hùng (Redeem) và Mảnh trang bị độc quyền (Exclusive Weapon Parts) cần để nâng cấp Sao Anh hùng và Trang bị độc quyền của tướng. Chi phí giống nhau cho mọi tướng, nên hãy thêm bao nhiêu Sao Anh hùng và Trang bị độc quyền tùy ý (tối đa 6 mỗi loại — hai nút "+ Thêm Hero" hoạt động độc lập), chọn cấp hiện tại và cấp mục tiêu cho từng cái. Danh sách mục tiêu của Sao Anh hùng chỉ hiện Đã chiêu mộ và mỗi mốc sao trọn vẹn (1-5 sao) — các giai đoạn trung gian không phải mục tiêu hợp lệ, chỉ là điểm dừng trên đường đi. Xem tổng số cần cho tất cả cùng lúc.
+Tính số Mảnh anh hùng (Redeem) và Mảnh trang bị độc quyền (Exclusive Weapon Parts) cần để nâng cấp Sao Anh hùng và Trang bị độc quyền của tướng. Chi phí giống nhau cho mọi tướng, nên hãy thêm bao nhiêu Sao Anh hùng và Trang bị độc quyền tùy ý (tối đa 6 mỗi loại — hai nút "+ Thêm Hero" hoạt động độc lập), chọn cấp hiện tại và cấp mục tiêu cho từng cái. Mọi cấp Sao Anh hùng đều là mục tiêu hợp lệ — kể cả các giai đoạn trung gian và Cấp tối đa sau 5 sao · bậc 5 — nên bạn có thể chọn bất kỳ điểm dừng nào để xem chi phí riêng của bước đó. Xem tổng số cần cho tất cả cùng lúc.
 
 <section class="loj-planner" data-hero-stars-exclusive-equipment-planner data-lang="vi" aria-labelledby="hsee-planner-heading">
   <h2 id="hsee-planner-heading">Lập kế hoạch nâng cấp</h2>

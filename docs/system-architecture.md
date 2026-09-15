@@ -188,9 +188,10 @@ saved with the same read-latest-then-merge-then-write pattern as every prior pla
 ## Hero Stars & Exclusive Equipment Planner client flow
 
 `_data/lands_of_jail/hero_stars_exclusive_equipment.yml` holds 2 resources, a
-32-entry Hero Stars level table (keyed by id: a `start` baseline, `recruited`, and 5
+33-entry Hero Stars level table (keyed by id: a `start` baseline, `recruited`, 5
 star tiers each with a `starK_s1`..`starK_s5` stage-checkpoint run plus a plain `starK`
-"whole tier" id), and an 11-entry Exclusive Equipment level table (numeric `0`..`10`
+"whole tier" id, and a trailing `max_level` sink level reached only from `star5_s5`),
+and an 11-entry Exclusive Equipment level table (numeric `0`..`10`
 ids, no stage sub-levels). `hero-stars-exclusive-equipment-core.js` is the simplest
 engine of the 5 — cost is identical across all heroes (confirmed live), every level's
 `requires` is empty on both tracks, so there's no cascade/prerequisite resolution at

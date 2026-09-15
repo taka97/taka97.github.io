@@ -374,7 +374,7 @@ function heroStarsLevelLabel(index, planner, message) {
   const id = planner.heroStarsLevels[index].id;
   if (id === 'start') return message.notRecruited;
   if (id === 'recruited') return message.recruitedLabel;
-  if (id === 'star5_s5') return message.maxLevelLabel;
+  if (id === 'max_level') return message.maxLevelLabel;
   const stageMatch = id.match(/^star(\d)_s(\d)$/);
   if (stageMatch) return message.stageLabel.replace('{n}', stageMatch[1]).replace('{s}', stageMatch[2]);
   const tierMatch = id.match(/^star(\d)$/);
