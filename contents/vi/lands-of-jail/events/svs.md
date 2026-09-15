@@ -36,3 +36,21 @@ Chỉ dùng các vật phẩm sau:
 ### Tỷ lệ Gorilla
 
 0 / 10 / 90
+
+## Ngày 2: Thứ Ba
+
+### Vật phẩm ưu tiên
+
+Chỉ dùng các vật phẩm sau:
+
+- Forticlad Cores
+- Blue Shards
+- Purple Shards
+- Yellow Shards
+- Reins Spin cho Panda (Xuanming)
+- Thu thập tài nguyên (đặt thu thập tối nay để về sau khi reset ngày mai)
+- Tăng tốc Nghiên cứu
+
+### Lưu ý
+
+- Giữ lại Tăng tốc Huấn luyện quân và Tăng tốc Vạn năng.

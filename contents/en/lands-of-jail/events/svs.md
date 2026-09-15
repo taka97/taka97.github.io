@@ -36,3 +36,21 @@ Use these items only:
 ### Gorilla Ratio
 
 0 / 10 / 90
+
+## Day 2: Tuesday
+
+### Priority Items
+
+Use these items only:
+
+- Forticlad Cores
+- Blue Shards
+- Purple Shards
+- Yellow Shards
+- Reins Spin for Panda (Xuanming)
+- RSS Gathering (set gathering tonight so it arrives after reset tomorrow)
+- Research Speed Ups
+
+### Notes
+
+- Save your Troop Training Speed Ups and Universal Speed Ups.
