@@ -17,46 +17,49 @@ resources:
 caps: { heroStars: 6, exclusiveEquipment: 6 }
 # 32 entries. id suffix _s1.._s5 = stage sub-level within a star tier
 # ("K stars · stage N" in source UI); plain starK id = the tier's "whole"
-# checkpoint. Current and Target selects both offer all 32 — a stage
-# sub-level is a valid stopping point on its own, not just a mid-route
-# waypoint (diverges from the live page's Target dropdown, which only
-# offers start/recruited/star1..star5). All costs are
-# HeroFragment only (ExclusiveEquipPart is 0 on every entry) — normalized
-# to 0 in the engine like every other planner's normalizeCost.
+# checkpoint. Order is checkpoint-then-its-own-5-stages, confirmed in-game
+# (2026-09-15): reaching "K stars" comes first, and stage 1-5 is the grind
+# that follows within that tier (toward K+1 stars, or post-cap refinement
+# for tier 5, the max). Current and Target selects both offer all 32 — a
+# stage sub-level is a valid stopping point on its own, not just a
+# mid-route waypoint (diverges from the live page's Target dropdown, which
+# only offers start/recruited/star1..star5). All costs are HeroFragment
+# only (ExclusiveEquipPart is 0 on every entry) — normalized to 0 in the
+# engine like every other planner's normalizeCost.
 heroStars:
   levels:
     - { id: start,       cost: { HeroFragment: 0 } }
     - { id: recruited,   cost: { HeroFragment: 10 } }
+    - { id: star1,       cost: { HeroFragment: 2 } }
     - { id: star1_s1,    cost: { HeroFragment: 1 } }
     - { id: star1_s2,    cost: { HeroFragment: 1 } }
     - { id: star1_s3,    cost: { HeroFragment: 2 } }
     - { id: star1_s4,    cost: { HeroFragment: 2 } }
     - { id: star1_s5,    cost: { HeroFragment: 2 } }
-    - { id: star1,       cost: { HeroFragment: 2 } }
+    - { id: star2,       cost: { HeroFragment: 15 } }
     - { id: star2_s1,    cost: { HeroFragment: 5 } }
     - { id: star2_s2,    cost: { HeroFragment: 5 } }
     - { id: star2_s3,    cost: { HeroFragment: 5 } }
     - { id: star2_s4,    cost: { HeroFragment: 5 } }
     - { id: star2_s5,    cost: { HeroFragment: 5 } }
-    - { id: star2,       cost: { HeroFragment: 15 } }
+    - { id: star3,       cost: { HeroFragment: 40 } }
     - { id: star3_s1,    cost: { HeroFragment: 15 } }
     - { id: star3_s2,    cost: { HeroFragment: 15 } }
     - { id: star3_s3,    cost: { HeroFragment: 15 } }
     - { id: star3_s4,    cost: { HeroFragment: 15 } }
     - { id: star3_s5,    cost: { HeroFragment: 15 } }
-    - { id: star3,       cost: { HeroFragment: 40 } }
+    - { id: star4,       cost: { HeroFragment: 100 } }
     - { id: star4_s1,    cost: { HeroFragment: 40 } }
     - { id: star4_s2,    cost: { HeroFragment: 40 } }
     - { id: star4_s3,    cost: { HeroFragment: 40 } }
     - { id: star4_s4,    cost: { HeroFragment: 40 } }
     - { id: star4_s5,    cost: { HeroFragment: 40 } }
-    - { id: star4,       cost: { HeroFragment: 100 } }
+    - { id: star5,       cost: { HeroFragment: 100 } }
     - { id: star5_s1,    cost: { HeroFragment: 100 } }
     - { id: star5_s2,    cost: { HeroFragment: 100 } }
     - { id: star5_s3,    cost: { HeroFragment: 100 } }
     - { id: star5_s4,    cost: { HeroFragment: 100 } }
     - { id: star5_s5,    cost: { HeroFragment: 100 } }
-    - { id: star5,       cost: { HeroFragment: 100 } }
 # 11 entries, Level 0-10 (id = numeric level as a string). All costs are
 # ExclusiveEquipPart only (HeroFragment is 0 on every entry). Current and
 # Target selects both offer all 11 — no checkpoint filtering needed on
